@@ -16,7 +16,7 @@
 	<ThemeToggle />
 	<a
 		href="https://github.com/AntonioVentilii?tab=repositories"
-		class="rounded-full border border-border bg-popover px-3 py-1.5 text-xs text-fg-muted transition hover:border-accent hover:text-fg"
+		class="inline-flex min-h-9 items-center justify-center rounded-full border border-border bg-popover px-3 text-xs text-fg-muted transition hover:border-accent hover:text-fg"
 		target="_blank"
 		rel="noopener noreferrer"
 	>

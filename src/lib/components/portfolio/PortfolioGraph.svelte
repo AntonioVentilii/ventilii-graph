@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { portfolioData } from '$lib/data/portfolio.data';
 	import type { Locale } from '$lib/portfolio/types';
 	import { pickLocale } from '$lib/portfolio/locale';
@@ -31,6 +32,21 @@
 
 	let wrapEl: HTMLDivElement | undefined = $state();
 	let size = $state(480);
+	/** Enables left/top transitions only after first paint (see portfolio-graph.css). */
+	let layoutReady = $state(false);
+
+	onMount(() => {
+		const enable = () => {
+			layoutReady = true;
+		};
+		if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			enable();
+			return;
+		}
+		requestAnimationFrame(() => {
+			requestAnimationFrame(enable);
+		});
+	});
 
 	$effect(() => {
 		if (!wrapEl) return;
@@ -56,7 +72,9 @@
 
 <div
 	bind:this={wrapEl}
-	class="relative aspect-square w-full max-w-[min(96vw,720px)] shrink-0"
+	class="relative aspect-square w-full max-w-[min(96vw,720px)] shrink-0 {layoutReady
+		? 'graph-layout-ready'
+		: ''}"
 	aria-label="Portfolio graph"
 >
 	<GraphEdgesLive

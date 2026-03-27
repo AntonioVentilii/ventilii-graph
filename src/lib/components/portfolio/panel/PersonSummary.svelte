@@ -18,17 +18,17 @@
 	<p class="text-sm text-accent">{pickLocale(data.person.title, locale)}</p>
 	<p class="text-sm leading-relaxed text-fg-muted">{pickLocale(data.person.tagline, locale)}</p>
 	<p class="text-xs text-fg-subtle">{pickLocale(data.person.location, locale)}</p>
-	<div class="flex flex-wrap gap-2 pt-2">
+	<div class="flex flex-wrap items-center gap-2 pt-2">
 		<a
 			href={'mailto:' + data.person.email}
-			class="rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-fg transition hover:bg-accent-hover"
+			class="inline-flex items-center justify-center rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-fg transition hover:bg-accent-hover"
 		>
 			Email
 		</a>
 		{#each data.person.links as link}
 			<a
 				href={link.href}
-				class="rounded-full border border-border bg-popover px-3 py-1.5 text-xs text-fg transition hover:border-accent"
+				class="inline-flex items-center justify-center rounded-full border border-border bg-popover px-3 py-1.5 text-xs text-fg transition hover:border-accent"
 				target="_blank"
 				rel="noopener noreferrer"
 			>

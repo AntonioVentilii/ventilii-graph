@@ -10,7 +10,7 @@
 
 <button
 	type="button"
-	class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-popover text-fg-muted transition hover:border-accent hover:text-fg"
+	class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-popover text-fg-muted transition hover:border-accent hover:text-fg"
 	onclick={() => toggleTheme()}
 	aria-label={label}
 	title={label}

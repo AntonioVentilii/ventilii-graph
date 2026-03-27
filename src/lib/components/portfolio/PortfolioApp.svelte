@@ -92,12 +92,10 @@
 	<main class="flex w-full min-h-0 flex-1 flex-col">
 		<div
 			class="mx-auto grid w-full max-w-7xl flex-1 grid-cols-1 content-start gap-8 px-4 py-8 md:grid-cols-[minmax(0,1.2fr)_minmax(0,min(100%,420px))] md:items-start md:gap-10 md:px-8 lg:grid-cols-[minmax(0,1.25fr)_400px]"
+			in:fade={{ duration: 680 }}
+			out:fade={{ duration: 420 }}
 		>
-			<div
-				class="order-1 flex w-full min-w-0 flex-col items-center gap-6 md:order-none"
-				in:fade={{ duration: 400 }}
-				out:fade={{ duration: 280 }}
-			>
+			<div class="order-1 flex w-full min-w-0 flex-col items-center gap-6 md:order-none">
 				<PortfolioGraph
 					{locale}
 					{categoryId}
@@ -109,11 +107,7 @@
 				/>
 			</div>
 
-			<div
-				class="order-2 w-full min-w-0 md:order-none"
-				in:fade={{ duration: 400 }}
-				out:fade={{ duration: 280 }}
-			>
+			<div class="order-2 w-full min-w-0 md:order-none">
 				<DetailPanel
 					{locale}
 					{categoryId}

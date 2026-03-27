@@ -12,7 +12,7 @@
 
 <a
 	{href}
-	class="rounded-full border border-border bg-card-solid px-3 py-1 text-xs text-fg transition hover:border-accent {className}"
+	class="inline-flex items-center justify-center rounded-full border border-border bg-card-solid px-3 py-1 text-xs text-fg transition hover:border-accent {className}"
 	target="_blank"
 	rel="noopener noreferrer"
 >

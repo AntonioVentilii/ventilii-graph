@@ -31,7 +31,7 @@
 	<p class="text-sm leading-relaxed text-fg-muted">{pickLocale(experience.summary, locale)}</p>
 	<BulletList items={bullets} />
 	{#if experience.links?.length}
-		<div class="flex flex-wrap gap-2 pt-2">
+		<div class="flex flex-wrap items-center gap-2 pt-2">
 			{#each experience.links as link}
 				<a
 					href={link.href}
