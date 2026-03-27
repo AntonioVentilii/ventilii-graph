@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 	import { portfolioData } from '$lib/data/portfolio.data';
 	import type { Locale } from '$lib/portfolio/types';
 	import { pickLocale } from '$lib/portfolio/locale';
@@ -70,6 +70,46 @@
 	const layout = $derived(computeGraphLayout({ size, categoryId, itemId }));
 	const frozen = $derived(!!itemId);
 
+	/** After hub/category/center-leaf spine motion (CSS), show the detail card below (re-keyed on `itemId` only) */
+	let leafCardRevealReady = $state(false);
+	/** Match `.graph-layout-ready .graph-node-shift` left/top ~340ms + small buffer */
+	const LEAF_CARD_DELAY_MS = 400;
+
+	$effect(() => {
+		const id = itemId;
+		let t: ReturnType<typeof setTimeout> | undefined;
+
+		if (!id) {
+			leafCardRevealReady = false;
+			return;
+		}
+
+		const view = untrack(() => layout.view);
+
+		if (view !== 'leaf') {
+			leafCardRevealReady = true;
+			return;
+		}
+
+		const reduceMotion =
+			typeof window !== 'undefined' &&
+			window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+		if (reduceMotion) {
+			leafCardRevealReady = true;
+			return;
+		}
+
+		leafCardRevealReady = false;
+		t = setTimeout(() => {
+			leafCardRevealReady = true;
+		}, LEAF_CARD_DELAY_MS);
+
+		return () => {
+			if (t) clearTimeout(t);
+		};
+	});
+
 	/** Anchor the in-graph detail card below the focused leaf, clamped inside the square */
 	const leafCardAnchor = $derived.by(() => {
 		if (!itemId || layout.view !== 'leaf') return null;
@@ -101,14 +141,7 @@
 		: ''} {frozen ? 'graph-frozen' : ''}"
 	aria-label="Portfolio graph"
 >
-	<GraphEdgesLive
-		container={wrapEl}
-		{size}
-		{layout}
-		{categoryId}
-		{itemId}
-		{frozen}
-	/>
+	<GraphEdgesLive container={wrapEl} {size} {layout} {categoryId} {itemId} {frozen} />
 
 	{#each portfolioData.categories as cat, i}
 		{@const c = layout.categories[i]}
@@ -157,12 +190,12 @@
 		onclick={onResetHome}
 	/>
 
-	{#if itemId && leafCardAnchor}
+	{#if itemId && leafCardAnchor && leafCardRevealReady}
 		{@const a = leafCardAnchor}
 		{@const cardMaxH = Math.max(120, size - a.top - 12)}
 		<div class="pointer-events-none absolute inset-0 z-[35]">
 			<div
-				class="pointer-events-auto absolute flex max-h-[min(48vh,var(--card-mh))] min-h-0 -translate-x-1/2 flex-col"
+				class="graph-leaf-card-reveal pointer-events-auto absolute flex max-h-[min(48vh,var(--card-mh))] min-h-0 -translate-x-1/2 flex-col transition-[top,left] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none"
 				style="left: {a.left}px; top: {a.top}px; width: {a.cardMaxW}px; --card-mh: {cardMaxH}px;"
 			>
 				<div class="mb-1.5 flex shrink-0 flex-col items-center" aria-hidden="true">

@@ -13,6 +13,29 @@
 	animation: portfolio-fade 0.22s ease-out;
 }
 
+@keyframes graph-leaf-card-reveal-in {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.graph-leaf-card-reveal {
+	animation: graph-leaf-card-reveal-in 0.34s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.graph-leaf-card-reveal {
+		animation: none;
+		opacity: 1;
+		transform: none;
+	}
+}
+
 /*
  * Position/size transitions run only after .graph-layout-ready to avoid a
  * “slide in from the corner” on first paint (initial left/top were animating).
@@ -29,11 +52,7 @@
 		width 0.24s ease;
 }
 
-/* Leaf selected: static graph (no drift / position transitions) */
-.graph-frozen .graph-node-shift {
-	transition: none !important;
-}
-
+/* Leaf selected: stop orbit drift only; keep left/top transitions for a smooth spine */
 .graph-frozen .orbit-float {
 	animation: none !important;
 }

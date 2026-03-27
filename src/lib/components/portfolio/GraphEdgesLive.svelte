@@ -105,15 +105,40 @@
 			return next;
 		}
 
-		/* Hub, category, and leaf share one vertical axis in layout — one segment avoids a dogleg at the category rim. */
+		/* Vertical spine: two segments so the line meets hub, category, and leaf (not a single hub→leaf chord) */
 		if (view === 'leaf' && catId && itId) {
+			const catEl = cont.querySelector(`[data-graph-cat="${CSS.escape(catId)}"]`);
 			const leafEl = cont.querySelector(`[data-graph-leaf="${CSS.escape(itId)}"]`);
-			if (!(leafEl instanceof HTMLElement) || !(hubEl instanceof HTMLElement)) return next;
+			if (
+				!(hubEl instanceof HTMLElement) ||
+				!(catEl instanceof HTMLElement) ||
+				!(leafEl instanceof HTMLElement)
+			) {
+				return next;
+			}
+			const catC = centerOf(catEl, cr);
 			const leafC = centerOf(leafEl, cr);
-			if (!hub || !leafC) return next;
-			const hEnd = attachOnNodeToward(hubEl, cr, leafC.x, leafC.y) ?? hub;
-			const lEnd = attachOnNodeToward(leafEl, cr, hub.x, hub.y) ?? leafC;
-			next.push({ x1: hEnd.x, y1: hEnd.y, x2: lEnd.x, y2: lEnd.y, opacity: 1 });
+			if (!hub || !catC || !leafC) return next;
+
+			const hubEnd = attachOnNodeToward(hubEl, cr, catC.x, catC.y) ?? hub;
+			const catTowardHub = attachOnNodeToward(catEl, cr, hub.x, hub.y) ?? catC;
+			next.push({
+				x1: hubEnd.x,
+				y1: hubEnd.y,
+				x2: catTowardHub.x,
+				y2: catTowardHub.y,
+				opacity: 1,
+			});
+
+			const catTowardLeaf = attachOnNodeToward(catEl, cr, leafC.x, leafC.y) ?? catC;
+			const leafTowardCat = attachOnNodeToward(leafEl, cr, catC.x, catC.y) ?? leafC;
+			next.push({
+				x1: catTowardLeaf.x,
+				y1: catTowardLeaf.y,
+				x2: leafTowardCat.x,
+				y2: leafTowardCat.y,
+				opacity: 1,
+			});
 		}
 
 		return next;
@@ -133,9 +158,39 @@
 		}
 
 		if (isFrozen) {
-			const cr = cont.getBoundingClientRect();
-			segments = buildSegments(cont, cr, lay, cId, iId);
-			return;
+			const reduceMotion =
+				typeof window !== 'undefined' &&
+				window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+			const run = () => {
+				const cr = cont.getBoundingClientRect();
+				segments = buildSegments(cont, cr, lay, cId, iId);
+			};
+
+			run();
+
+			if (reduceMotion) {
+				return;
+			}
+
+			/* Match graph-node-shift ~0.34s transition so edges track nodes into leaf view */
+			const t0 = performance.now();
+			const durationMs = 420;
+			let rafId = 0;
+
+			const step = () => {
+				if (!cont) return;
+				run();
+				if (performance.now() - t0 < durationMs) {
+					rafId = requestAnimationFrame(step);
+				}
+			};
+
+			rafId = requestAnimationFrame(step);
+
+			return () => {
+				cancelAnimationFrame(rafId);
+			};
 		}
 
 		let frameId = 0;
