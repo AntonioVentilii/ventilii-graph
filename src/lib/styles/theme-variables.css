@@ -1,6 +1,6 @@
 /*
   Semantic colors — light: airy blue-green surfaces; dark: current deep brand look.
-  Toggle `html.dark` (see +layout / ThemeToggle).
+  Toggle `html.dark` (see +layout.svelte and `layout/ThemeToggle.svelte`).
 */
 :root {
 	--page-bg: #f4fbfb;

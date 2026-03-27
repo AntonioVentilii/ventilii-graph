@@ -21,7 +21,3 @@ export function ringFloatStyle(seed: number): string {
 	const delay = -(seed % 7) * 0.85 - (seed % 3) * 0.4;
 	return `animation-duration:${dur}s;animation-delay:${delay}s`;
 }
-
-export function hubFloatStyle(): string {
-	return 'animation-duration:7.8s;animation-delay:-1.4s';
-}

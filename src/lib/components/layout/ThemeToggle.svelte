@@ -16,7 +16,6 @@
 	title={label}
 >
 	{#if theme.mode === 'dark'}
-		<!-- Sun -->
 		<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
 			<circle cx="12" cy="12" r="4" />
 			<path
@@ -25,7 +24,6 @@
 			/>
 		</svg>
 	{:else}
-		<!-- Moon -->
 		<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
 			<path
 				d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"

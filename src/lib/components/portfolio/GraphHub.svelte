@@ -1,25 +1,30 @@
 <script lang="ts">
-	import { hubFloatStyle } from '$lib/portfolio/graph-geometry';
-	import { pickLocale } from '$lib/portfolio/locale';
-	import type { Locale, Person } from '$lib/portfolio/types';
+	import type { Person } from '$lib/portfolio/types';
 
 	interface Props {
 		person: Person;
-		locale: Locale;
 		hubWidthPx: number;
+		/** Center of the hub in px (relative to graph container) */
+		centerX: number;
+		centerY: number;
+		compact?: boolean;
 		onclick: () => void;
 	}
 
-	let { person, locale, hubWidthPx, onclick }: Props = $props();
+	let { person, hubWidthPx, centerX, centerY, compact = false, onclick }: Props = $props();
+
+	const w = $derived(compact ? 112 : hubWidthPx);
 </script>
 
 <div
-	class="hub-float absolute left-1/2 top-1/2 z-20 flex justify-center"
-	style="width: {hubWidthPx}px; {hubFloatStyle()}"
+	class="graph-node-shift absolute z-20 flex justify-center"
+	style="left: {centerX}px; top: {centerY}px; width: {w}px; transform: translate(-50%, -50%);"
 >
 	<button
 		type="button"
-		class="shadow-hub flex w-full flex-col items-center gap-2 rounded-2xl border-2 border-border-strong bg-card-solid p-3 transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+		class="shadow-hub flex w-full flex-col items-center gap-2 rounded-2xl border-2 border-border-strong bg-card-solid p-3 transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent {compact
+			? 'gap-1.5 p-2'
+			: ''}"
 		{onclick}
 	>
 		<span
@@ -29,15 +34,14 @@
 				<img
 					src={person.avatarUrl}
 					alt={person.name}
-					class="h-16 w-16 rounded-full object-cover [object-position:center_42%]"
-					width="64"
-					height="64"
+					class="rounded-full object-cover [object-position:center_42%] {compact ? 'h-10 w-10' : 'h-16 w-16'}"
+					width={compact ? 40 : 64}
+					height={compact ? 40 : 64}
 				/>
 			</span>
 		</span>
-		<div class="text-center">
-			<p class="text-xs font-bold text-fg">{person.name}</p>
-			<p class="text-[10px] text-fg-subtle">{pickLocale(person.title, locale)}</p>
-		</div>
+		<p class="text-center text-xs font-bold text-fg {compact ? 'text-[10px] leading-tight' : ''}">
+			{person.name}
+		</p>
 	</button>
 </div>

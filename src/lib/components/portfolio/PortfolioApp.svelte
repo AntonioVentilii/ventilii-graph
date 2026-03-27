@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Locale } from '$lib/portfolio/types';
 	import { categoryForLeafKind, type Leaf } from '$lib/portfolio/leaf';
-	import PortfolioHeader from './PortfolioHeader.svelte';
-	import PortfolioFooter from './PortfolioFooter.svelte';
+	import Header from '$lib/components/layout/Header.svelte';
+	import Footer from '$lib/components/layout/Footer.svelte';
 	import PortfolioGraph from './PortfolioGraph.svelte';
 	import DetailPanel from './DetailPanel.svelte';
 
@@ -59,46 +59,62 @@
 	}
 
 	function selectLeaf(l: Leaf) {
+		const id = `${l.kind}:${l.id}`;
+		if (itemId === id) {
+			itemId = null;
+			return;
+		}
 		categoryId = categoryForLeafKind(l.kind);
-		itemId = `${l.kind}:${l.id}`;
+		itemId = id;
 	}
 
 	function resetHome() {
 		categoryId = null;
 		itemId = null;
 	}
+
+	function stepToCategoryView() {
+		itemId = null;
+	}
 </script>
 
-<div class="min-h-[100dvh] bg-page text-fg selection:bg-selection/40">
-	<PortfolioHeader
+<div
+	class="flex min-h-dvh flex-col bg-page text-fg selection:bg-selection/40"
+>
+	<Header
 		bind:locale
 		skipLabel={tr('skip')}
 		cvFallbackLabel={tr('cvFallback')}
 		langLabel={tr('langLabel')}
 	/>
 
-	<div
-		class="mx-auto grid max-w-6xl gap-8 px-4 py-8 md:grid-cols-[minmax(280px,1fr)_minmax(320px,420px)] md:items-start md:gap-12 md:px-8 lg:grid-cols-[1fr_400px]"
-	>
-		<div class="flex flex-col items-center gap-6">
-			<PortfolioGraph
-				{locale}
-				{categoryId}
-				{itemId}
-				onToggleCategory={toggleCategory}
-				onSelectLeaf={selectLeaf}
-				onResetHome={resetHome}
-			/>
+	<main class="flex w-full min-h-0 flex-1 flex-col">
+		<div
+			class="mx-auto grid w-full max-w-7xl flex-1 grid-cols-1 content-start gap-8 px-4 py-8 md:grid-cols-[minmax(0,1.2fr)_minmax(0,min(100%,420px))] md:items-start md:gap-10 md:px-8 lg:grid-cols-[minmax(0,1.25fr)_400px]"
+		>
+			<div class="order-1 flex w-full min-w-0 flex-col items-center gap-6 md:order-none">
+				<PortfolioGraph
+					{locale}
+					{categoryId}
+					{itemId}
+					onToggleCategory={toggleCategory}
+					onSelectLeaf={selectLeaf}
+					onResetHome={resetHome}
+					onStepToCategoryView={stepToCategoryView}
+				/>
+			</div>
+
+			<div class="order-2 w-full min-w-0 md:order-0">
+				<DetailPanel
+					{locale}
+					{categoryId}
+					{itemId}
+					labels={panelLabels}
+					onSelectLeaf={selectLeaf}
+				/>
+			</div>
 		</div>
+	</main>
 
-		<DetailPanel
-			{locale}
-			{categoryId}
-			{itemId}
-			labels={panelLabels}
-			onSelectLeaf={selectLeaf}
-		/>
-	</div>
-
-	<PortfolioFooter />
+	<Footer />
 </div>

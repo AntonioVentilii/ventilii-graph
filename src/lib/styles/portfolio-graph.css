@@ -13,6 +13,15 @@
 	animation: portfolio-fade 0.22s ease-out;
 }
 
+/* Smooth graph refocus when changing depth */
+.graph-node-shift {
+	transition:
+		left 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+		top 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+		opacity 0.28s ease,
+		width 0.24s ease;
+}
+
 .orbit-float {
 	animation-timing-function: ease-in-out;
 	animation-iteration-count: infinite;
@@ -79,32 +88,8 @@
 	}
 }
 
-.hub-float {
-	animation-name: hub-drift;
-	animation-timing-function: ease-in-out;
-	animation-iteration-count: infinite;
-	will-change: transform;
-}
-
-@keyframes hub-drift {
-	0%,
-	100% {
-		transform: translate(-50%, -50%) translate(0, 0);
-	}
-	28% {
-		transform: translate(-50%, -50%) translate(3px, -4px);
-	}
-	55% {
-		transform: translate(-50%, -50%) translate(-3px, 3px);
-	}
-	82% {
-		transform: translate(-50%, -50%) translate(2px, 4px);
-	}
-}
-
 @media (prefers-reduced-motion: reduce) {
-	.orbit-float,
-	.hub-float {
+	.orbit-float {
 		animation: none !important;
 	}
 }

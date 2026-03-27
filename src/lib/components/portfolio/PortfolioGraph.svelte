@@ -2,8 +2,8 @@
 	import { portfolioData } from '$lib/data/portfolio.data';
 	import type { Locale } from '$lib/portfolio/types';
 	import { pickLocale } from '$lib/portfolio/locale';
-	import { categoryAngle, childAngles } from '$lib/portfolio/graph-geometry';
-	import { leafLabel, leavesForCategory, type Leaf } from '$lib/portfolio/leaf';
+	import { computeGraphLayout } from '$lib/portfolio/graph-layout';
+	import { leafLabel, type Leaf } from '$lib/portfolio/leaf';
 	import GraphEdges from './GraphEdges.svelte';
 	import GraphHub from './GraphHub.svelte';
 	import OrbitNode from './OrbitNode.svelte';
@@ -15,12 +15,22 @@
 		onToggleCategory: (id: string) => void;
 		onSelectLeaf: (leaf: Leaf) => void;
 		onResetHome: () => void;
+		/** Clear leaf selection (stay on category); used for parent category in leaf view */
+		onStepToCategoryView: () => void;
 	}
 
-	let { locale, categoryId, itemId, onToggleCategory, onSelectLeaf, onResetHome }: Props = $props();
+	let {
+		locale,
+		categoryId,
+		itemId,
+		onToggleCategory,
+		onSelectLeaf,
+		onResetHome,
+		onStepToCategoryView,
+	}: Props = $props();
 
 	let wrapEl: HTMLDivElement | undefined = $state();
-	let size = $state(360);
+	let size = $state(480);
 
 	$effect(() => {
 		if (!wrapEl) return;
@@ -33,81 +43,66 @@
 		return () => ro.disconnect();
 	});
 
-	const R1 = $derived(size * 0.34);
-	const R2 = $derived(size * 0.5);
-	const cx = $derived(size / 2);
-	const cy = $derived(size / 2);
+	const layout = $derived(computeGraphLayout({ size, categoryId, itemId }));
 
-	const leaves = $derived(categoryId ? leavesForCategory(categoryId) : []);
-	const parentIndex = $derived(
-		categoryId ? portfolioData.categories.findIndex((c) => c.id === categoryId) : -1
-	);
-	const childAnglesList = $derived(
-		parentIndex >= 0 ? childAngles(parentIndex, leaves.length) : []
-	);
-
-	const hubWidthPx = $derived(Math.min(148, size * 0.42));
+	function handleCategoryClick(id: string) {
+		if (layout.view === 'leaf' && id === categoryId) {
+			onStepToCategoryView();
+			return;
+		}
+		onToggleCategory(id);
+	}
 </script>
 
 <div
 	bind:this={wrapEl}
-	class="relative aspect-square w-full max-w-[min(92vw,420px)] shrink-0"
+	class="relative aspect-square w-full max-w-[min(96vw,720px)] shrink-0"
 	aria-label="Portfolio graph"
 >
-	<GraphEdges
-		{size}
-		{cx}
-		{cy}
-		r1={R1}
-		r2={R2}
-		categoryCount={portfolioData.categories.length}
-		{parentIndex}
-		{childAnglesList}
-		{categoryAngle}
-		hasCategory={!!categoryId}
-	/>
+	<GraphEdges {size} edges={layout.edges} />
 
 	{#each portfolioData.categories as cat, i}
-		{@const a = categoryAngle(i)}
-		{@const x = cx + R1 * Math.cos(a) - 40}
-		{@const y = cy + R1 * Math.sin(a) - 20}
+		{@const c = layout.categories[i]}
 		<OrbitNode
-			left={x}
-			top={y}
+			left={c.left}
+			top={c.top}
 			floatVariant={(i % 3) as 0 | 1 | 2}
 			seed={i + 1}
 			variant="category"
 			selected={categoryId === cat.id}
-			ariaPressed={categoryId === cat.id}
-			onclick={() => onToggleCategory(cat.id)}
+			ariaPressed={layout.view === 'category' && c.isCenter}
+			opacity={c.opacity}
+			noFloat={c.isCenter || (layout.view === 'leaf' && cat.id === categoryId)}
+			emphasis="default"
+			onclick={() => handleCategoryClick(cat.id)}
 		>
 			{pickLocale(cat.label, locale)}
 		</OrbitNode>
 	{/each}
 
-	{#if categoryId && leaves.length > 0}
-		{#each leaves as leaf, ki}
-			{@const a = childAnglesList[ki] ?? categoryAngle(parentIndex)}
-			{@const x = cx + R2 * Math.cos(a) - 44}
-			{@const y = cy + R2 * Math.sin(a) - 16}
-			<OrbitNode
-				left={x}
-				top={y}
-				floatVariant={((ki + 2) % 3) as 0 | 1 | 2}
-				seed={ki + 11}
-				variant="leaf"
-				selected={itemId === `${leaf.kind}:${leaf.id}`}
-				onclick={() => onSelectLeaf(leaf)}
-			>
-				{leafLabel(leaf, locale)}
-			</OrbitNode>
-		{/each}
-	{/if}
+	{#each layout.leaves as L, ki}
+		<OrbitNode
+			left={L.left}
+			top={L.top}
+			floatVariant={((ki + 2) % 3) as 0 | 1 | 2}
+			seed={ki + 11}
+			variant="leaf"
+			selected={itemId === `${L.leaf.kind}:${L.leaf.id}`}
+			opacity={L.opacity}
+			noFloat={L.isCenter}
+			emphasis={L.isCenter ? 'center' : 'default'}
+			onclick={() => onSelectLeaf(L.leaf)}
+		>
+			{leafLabel(L.leaf, locale)}
+		</OrbitNode>
+	{/each}
 
 	<GraphHub
 		person={portfolioData.person}
-		{locale}
-		{hubWidthPx}
+		hubWidthPx={layout.hubWidthPx}
+		centerX={layout.hub.x}
+		centerY={layout.hub.y}
+		compact={layout.hub.compact}
 		onclick={onResetHome}
 	/>
 </div>

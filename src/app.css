@@ -64,4 +64,16 @@
 
 html {
 	font-family: var(--font-display);
+	min-height: 100dvh;
+}
+
+/* md and up: slightly larger type (matches Tailwind `md` = 768px) */
+@media (min-width: 768px) {
+	html {
+		font-size: 1.0625rem; /* ~17px when base is 16px */
+	}
+}
+
+body {
+	min-height: 100dvh;
 }
