@@ -8,9 +8,11 @@
 		layout: GraphLayoutResult;
 		categoryId: string | null;
 		itemId: string | null;
+		/** Leaf selected: no continuous rAF; edges are static */
+		frozen?: boolean;
 	}
 
-	let { container, size, layout, categoryId, itemId }: Props = $props();
+	let { container, size, layout, categoryId, itemId, frozen = false }: Props = $props();
 
 	type Seg = { x1: number; y1: number; x2: number; y2: number; opacity: number };
 	let segments = $state<Seg[]>([]);
@@ -86,9 +88,16 @@
 		const lay = layout;
 		const cId = categoryId;
 		const iId = itemId;
+		const isFrozen = frozen;
 
 		if (!cont || sz <= 0) {
 			segments = [];
+			return;
+		}
+
+		if (isFrozen) {
+			const cr = cont.getBoundingClientRect();
+			segments = buildSegments(cont, cr, lay, cId, iId);
 			return;
 		}
 

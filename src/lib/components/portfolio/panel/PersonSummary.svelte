@@ -13,7 +13,7 @@
 	let { data, locale, orgNoteLabel, panelHint }: Props = $props();
 </script>
 
-<div class="space-y-4 animate-fade">
+<div class="space-y-4">
 	<h2 class="text-lg font-bold text-fg">{data.person.name}</h2>
 	<p class="text-sm text-accent">{pickLocale(data.person.title, locale)}</p>
 	<p class="text-sm leading-relaxed text-fg-muted">{pickLocale(data.person.tagline, locale)}</p>

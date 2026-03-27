@@ -1,4 +1,8 @@
 @import 'tailwindcss';
+
+/* Manual theme toggle uses `html.dark` (ThemeToggle); default `dark:` follows OS only. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @import './lib/styles/theme-variables.css';
 @import './lib/styles/portfolio-graph.css';
 

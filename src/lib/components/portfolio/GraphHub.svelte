@@ -29,13 +29,13 @@
 		{onclick}
 	>
 		<span
-			class="inline-flex rounded-full bg-gradient-to-br from-[var(--grad-from)] via-[var(--grad-via)] to-[var(--grad-to)] p-[3px] shadow-[0_0_0_1px_var(--avatar-ring-outer),0_0_24px_var(--avatar-glow)]"
+			class="inline-flex rounded-full bg-linear-to-br from-(--grad-from) via-(--grad-via) to-(--grad-to) p-0.75 shadow-[0_0_0_1px_var(--avatar-ring-outer),0_0_24px_var(--avatar-glow)]"
 		>
-			<span class="overflow-hidden rounded-full p-[2px]" style="background: var(--avatar-inner)">
+			<span class="overflow-hidden rounded-full p-0.5" style="background: var(--avatar-inner)">
 				<img
 					src={person.avatarUrl}
 					alt={person.name}
-					class="rounded-full object-cover [object-position:center_42%] {compact ? 'h-10 w-10' : 'h-16 w-16'}"
+					class="rounded-full object-cover object-top {compact ? 'h-10 w-10' : 'h-16 w-16'}"
 					width={compact ? 40 : 64}
 					height={compact ? 40 : 64}
 				/>

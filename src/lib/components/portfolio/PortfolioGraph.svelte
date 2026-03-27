@@ -3,16 +3,24 @@
 	import { portfolioData } from '$lib/data/portfolio.data';
 	import type { Locale } from '$lib/portfolio/types';
 	import { pickLocale } from '$lib/portfolio/locale';
-	import { computeGraphLayout } from '$lib/portfolio/graph-layout';
+	import { computeGraphLayout, LEAF_CENTER_H } from '$lib/portfolio/graph-layout';
 	import { leafLabel, type Leaf } from '$lib/portfolio/leaf';
 	import GraphEdgesLive from './GraphEdgesLive.svelte';
 	import GraphHub from './GraphHub.svelte';
+	import LeafDetailCard from './LeafDetailCard.svelte';
 	import OrbitNode from './OrbitNode.svelte';
 
 	interface Props {
 		locale: Locale;
 		categoryId: string | null;
 		itemId: string | null;
+		leafDetailLabels: {
+			relatedProjects: string;
+			stack: string;
+			relatedTechProjects: string;
+			languageUiNote: string;
+			selectionLabel: string;
+		};
 		onToggleCategory: (id: string) => void;
 		onSelectLeaf: (leaf: Leaf) => void;
 		onResetHome: () => void;
@@ -24,6 +32,7 @@
 		locale,
 		categoryId,
 		itemId,
+		leafDetailLabels,
 		onToggleCategory,
 		onSelectLeaf,
 		onResetHome,
@@ -60,6 +69,22 @@
 	});
 
 	const layout = $derived(computeGraphLayout({ size, categoryId, itemId }));
+	const frozen = $derived(!!itemId);
+
+	/** Anchor the in-graph detail card below the focused leaf, clamped inside the square */
+	const leafCardAnchor = $derived.by(() => {
+		if (!itemId || layout.view !== 'leaf') return null;
+		const L = layout.leaves.find((l) => l.isCenter);
+		if (!L || size < 40) return null;
+		const gapBelowNode = 10;
+		const pad = 14;
+		const cardMaxW = Math.min(352, size - pad * 2);
+		const halfW = cardMaxW / 2;
+		const left = Math.round(Math.max(halfW + pad, Math.min(L.left, size - halfW - pad)));
+		/* L.left/top = ring center (OrbitNode translate); place card just under the pill */
+		const top = Math.round(L.top + LEAF_CENTER_H / 2 + gapBelowNode);
+		return { left, top, cardMaxW };
+	});
 
 	function handleCategoryClick(id: string) {
 		if (layout.view === 'leaf' && id === categoryId) {
@@ -72,9 +97,9 @@
 
 <div
 	bind:this={wrapEl}
-	class="relative aspect-square w-full max-w-[min(96vw,720px)] shrink-0 {layoutReady
+	class="relative aspect-square w-full max-w-[min(96vw,720px)] shrink-0 overflow-visible {layoutReady
 		? 'graph-layout-ready'
-		: ''}"
+		: ''} {frozen ? 'graph-frozen' : ''}"
 	aria-label="Portfolio graph"
 >
 	<GraphEdgesLive
@@ -83,6 +108,7 @@
 		{layout}
 		{categoryId}
 		{itemId}
+		{frozen}
 	/>
 
 	{#each portfolioData.categories as cat, i}
@@ -96,7 +122,7 @@
 			selected={categoryId === cat.id}
 			ariaPressed={layout.view === 'category' && c.isCenter}
 			opacity={c.opacity}
-			noFloat={c.isCenter || (layout.view === 'leaf' && cat.id === categoryId)}
+			noFloat={frozen || c.isCenter || (layout.view === 'leaf' && cat.id === categoryId)}
 			emphasis="default"
 			graphCatId={cat.id}
 			onclick={() => handleCategoryClick(cat.id)}
@@ -114,7 +140,7 @@
 			variant="leaf"
 			selected={itemId === `${L.leaf.kind}:${L.leaf.id}`}
 			opacity={L.opacity}
-			noFloat={L.isCenter}
+			noFloat={frozen || L.isCenter}
 			emphasis={L.isCenter ? 'center' : 'default'}
 			graphLeafKey={`${L.leaf.kind}:${L.leaf.id}`}
 			onclick={() => onSelectLeaf(L.leaf)}
@@ -131,4 +157,30 @@
 		compact={layout.hub.compact}
 		onclick={onResetHome}
 	/>
+
+	{#if itemId && leafCardAnchor}
+		{@const a = leafCardAnchor}
+		{@const cardMaxH = Math.max(120, size - a.top - 12)}
+		<div class="pointer-events-none absolute inset-0 z-[35]">
+			<div
+				class="pointer-events-auto absolute flex max-h-[min(48vh,var(--card-mh))] min-h-0 -translate-x-1/2 flex-col"
+				style="left: {a.left}px; top: {a.top}px; width: {a.cardMaxW}px; --card-mh: {cardMaxH}px;"
+			>
+				<div class="mb-1.5 flex shrink-0 flex-col items-center" aria-hidden="true">
+					<div class="h-4 w-px shrink-0 bg-accent/70"></div>
+					<div class="h-0 w-0 border-x-[5px] border-x-transparent border-b-[6px] border-b-accent/70"></div>
+				</div>
+				<div
+					class="min-h-0 flex-1 overflow-y-auto overflow-x-hidden rounded-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.28)] dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.55)]"
+				>
+					<LeafDetailCard
+						{locale}
+						{itemId}
+						labels={leafDetailLabels}
+						{onSelectLeaf}
+					/>
+				</div>
+			</div>
+		</div>
+	{/if}
 </div>

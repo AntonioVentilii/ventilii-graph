@@ -19,7 +19,6 @@ export const portfolioData: PortfolioData = {
 		links: [
 			{ label: L.en('GitHub', 'GitHub'), href: 'https://github.com/AntonioVentilii' },
 			{ label: L.en('LinkedIn', 'LinkedIn'), href: 'https://linkedin.com/in/AntonioVentilii' },
-			{ label: L.en('DFINITY', 'DFINITY'), href: 'https://dfinity.org' },
 		],
 	},
 	categories: [

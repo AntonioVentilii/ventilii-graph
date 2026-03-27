@@ -15,7 +15,11 @@
 		skip: { en: 'Skip to details', it: 'Salta ai dettagli' },
 		cvFallback: { en: 'Linear view (GitHub repos)', it: 'Vista lineare (repo GitHub)' },
 		langLabel: { en: 'Language', it: 'Lingua' },
-		panelHint: { en: 'Select a node to see details here.', it: 'Seleziona un nodo per i dettagli.' },
+		panelHint: {
+			en: 'Pick items on the graph; when you open a leaf, detail appears in a card linked to that node.',
+			it: 'Scegli sulla mappa; aprendo una foglia, i dettagli compaiono in una scheda collegata al nodo.',
+		},
+		selectionLabel: { en: 'Selection', it: 'Selezione' },
 		orgNote: { en: 'DFINITY on GitHub', it: 'DFINITY su GitHub' },
 		categoryIntroEyebrow: { en: 'Category', it: 'Categoria' },
 		hintPickOuter: {
@@ -47,6 +51,7 @@
 		stack: tr('stack'),
 		relatedTechProjects: tr('relatedTechProjects'),
 		languageUiNote: tr('languageUiNote'),
+		selectionLabel: tr('selectionLabel'),
 	});
 
 	function toggleCategory(id: string) {
@@ -100,6 +105,13 @@
 					{locale}
 					{categoryId}
 					{itemId}
+					leafDetailLabels={{
+						relatedProjects: panelLabels.relatedProjects,
+						stack: panelLabels.stack,
+						relatedTechProjects: panelLabels.relatedTechProjects,
+						languageUiNote: panelLabels.languageUiNote,
+						selectionLabel: panelLabels.selectionLabel,
+					}}
 					onToggleCategory={toggleCategory}
 					onSelectLeaf={selectLeaf}
 					onResetHome={resetHome}
@@ -108,13 +120,7 @@
 			</div>
 
 			<div class="order-2 w-full min-w-0 md:order-none">
-				<DetailPanel
-					{locale}
-					{categoryId}
-					{itemId}
-					labels={panelLabels}
-					onSelectLeaf={selectLeaf}
-				/>
+				<DetailPanel {locale} labels={panelLabels} />
 			</div>
 		</div>
 	</main>
