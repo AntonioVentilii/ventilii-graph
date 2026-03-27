@@ -22,7 +22,8 @@
 >
 	<button
 		type="button"
-		class="shadow-hub flex w-full flex-col items-center gap-2 rounded-2xl border-2 border-border-strong bg-card-solid p-3 transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent {compact
+		data-graph-hub
+		class="shadow-hub flex w-full cursor-pointer flex-col items-center gap-2 rounded-2xl border-2 border-border-strong bg-card-solid p-3 transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent {compact
 			? 'gap-1.5 p-2'
 			: ''}"
 		{onclick}

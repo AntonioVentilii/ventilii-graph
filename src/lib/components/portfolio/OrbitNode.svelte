@@ -6,18 +6,17 @@
 		left: number;
 		top: number;
 		floatVariant: 0 | 1 | 2;
-		/** Seed for staggered animation timing */
 		seed: number;
 		variant: 'category' | 'leaf';
 		selected: boolean;
 		onclick: () => void;
 		ariaPressed?: boolean;
-		/** 0 = hidden (no interaction); transitions with graph-node-shift */
 		opacity?: number;
-		/** Disable orbit drift (focused center nodes) */
 		noFloat?: boolean;
-		/** Larger label when node is the focus */
 		emphasis?: 'default' | 'center';
+		/** For live edge measurement */
+		graphCatId?: string;
+		graphLeafKey?: string;
 		children: Snippet;
 	}
 
@@ -33,11 +32,13 @@
 		opacity = 1,
 		noFloat = false,
 		emphasis = 'default',
+		graphCatId,
+		graphLeafKey,
 		children,
 	}: Props = $props();
 
 	const base =
-		'backdrop-blur-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent';
+		'cursor-pointer backdrop-blur-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent';
 
 	const sizeClass = $derived(
 		variant === 'category'
@@ -69,6 +70,8 @@
 		{onclick}
 		aria-pressed={ariaPressed}
 		tabindex={opacity < 0.01 ? -1 : undefined}
+		data-graph-cat={graphCatId}
+		data-graph-leaf={graphLeafKey}
 	>
 		{@render children()}
 	</button>

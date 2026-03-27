@@ -89,6 +89,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+	.graph-node-shift {
+		transition: none;
+	}
+
 	.orbit-float {
 		animation: none !important;
 	}

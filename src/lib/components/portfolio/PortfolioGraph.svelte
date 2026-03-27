@@ -4,7 +4,7 @@
 	import { pickLocale } from '$lib/portfolio/locale';
 	import { computeGraphLayout } from '$lib/portfolio/graph-layout';
 	import { leafLabel, type Leaf } from '$lib/portfolio/leaf';
-	import GraphEdges from './GraphEdges.svelte';
+	import GraphEdgesLive from './GraphEdgesLive.svelte';
 	import GraphHub from './GraphHub.svelte';
 	import OrbitNode from './OrbitNode.svelte';
 
@@ -59,7 +59,13 @@
 	class="relative aspect-square w-full max-w-[min(96vw,720px)] shrink-0"
 	aria-label="Portfolio graph"
 >
-	<GraphEdges {size} edges={layout.edges} />
+	<GraphEdgesLive
+		container={wrapEl}
+		{size}
+		{layout}
+		{categoryId}
+		{itemId}
+	/>
 
 	{#each portfolioData.categories as cat, i}
 		{@const c = layout.categories[i]}
@@ -74,6 +80,7 @@
 			opacity={c.opacity}
 			noFloat={c.isCenter || (layout.view === 'leaf' && cat.id === categoryId)}
 			emphasis="default"
+			graphCatId={cat.id}
 			onclick={() => handleCategoryClick(cat.id)}
 		>
 			{pickLocale(cat.label, locale)}
@@ -91,6 +98,7 @@
 			opacity={L.opacity}
 			noFloat={L.isCenter}
 			emphasis={L.isCenter ? 'center' : 'default'}
+			graphLeafKey={`${L.leaf.kind}:${L.leaf.id}`}
 			onclick={() => onSelectLeaf(L.leaf)}
 		>
 			{leafLabel(L.leaf, locale)}

@@ -15,7 +15,7 @@ export function childAngles(parentIndex: number, count: number): number[] {
 	return Array.from({ length: count }, (_, k) => tp - spread / 2 + k * step);
 }
 
-/** Staggered motion so each node feels independent */
+/** Staggered orbit drift timing (edges follow nodes via live DOM measurement) */
 export function ringFloatStyle(seed: number): string {
 	const dur = 5.5 + (seed % 5) * 0.65;
 	const delay = -(seed % 7) * 0.85 - (seed % 3) * 0.4;

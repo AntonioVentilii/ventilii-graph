@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { fade } from 'svelte/transition';
 	import type { Locale } from '$lib/portfolio/types';
 	import { categoryForLeafKind, type Leaf } from '$lib/portfolio/leaf';
 	import Header from '$lib/components/layout/Header.svelte';
@@ -92,7 +93,11 @@
 		<div
 			class="mx-auto grid w-full max-w-7xl flex-1 grid-cols-1 content-start gap-8 px-4 py-8 md:grid-cols-[minmax(0,1.2fr)_minmax(0,min(100%,420px))] md:items-start md:gap-10 md:px-8 lg:grid-cols-[minmax(0,1.25fr)_400px]"
 		>
-			<div class="order-1 flex w-full min-w-0 flex-col items-center gap-6 md:order-none">
+			<div
+				class="order-1 flex w-full min-w-0 flex-col items-center gap-6 md:order-none"
+				in:fade={{ duration: 400 }}
+				out:fade={{ duration: 280 }}
+			>
 				<PortfolioGraph
 					{locale}
 					{categoryId}
@@ -104,7 +109,11 @@
 				/>
 			</div>
 
-			<div class="order-2 w-full min-w-0 md:order-0">
+			<div
+				class="order-2 w-full min-w-0 md:order-none"
+				in:fade={{ duration: 400 }}
+				out:fade={{ duration: 280 }}
+			>
 				<DetailPanel
 					{locale}
 					{categoryId}
