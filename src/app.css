@@ -71,10 +71,16 @@ html {
 	min-height: 100dvh;
 }
 
-/* md and up: slightly larger type (matches Tailwind `md` = 768px) */
+/* md+: larger type — scales all rem-based `text-*` utilities (Tailwind v4) */
 @media (min-width: 768px) {
 	html {
-		font-size: 1.0625rem; /* ~17px when base is 16px */
+		font-size: 1.1875rem; /* 19px at 16px browser default */
+	}
+}
+
+@media (min-width: 1024px) {
+	html {
+		font-size: 1.25rem; /* 20px */
 	}
 }
 

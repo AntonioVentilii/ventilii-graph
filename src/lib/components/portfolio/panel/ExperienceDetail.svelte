@@ -11,7 +11,7 @@
 	interface Props {
 		experience: Experience;
 		locale: Locale;
-		sectionEyebrow: string;
+		sectionEyebrow?: string;
 		relatedProjectsLabel: string;
 		onSelectLeaf: (leaf: Leaf) => void;
 	}
@@ -22,7 +22,9 @@
 </script>
 
 <div class="space-y-3 animate-fade">
-	<PanelEyebrow text={sectionEyebrow} />
+	{#if sectionEyebrow}
+		<PanelEyebrow text={sectionEyebrow} />
+	{/if}
 	<h2 class="text-xl font-bold text-fg">{pickLocale(experience.company, locale)}</h2>
 	<p class="text-sm text-fg-muted">{pickLocale(experience.role, locale)}</p>
 	<p class="text-xs text-fg-subtle">

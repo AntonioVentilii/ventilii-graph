@@ -19,7 +19,6 @@
 			en: 'Pick items on the graph; when you open a leaf, detail appears in a card linked to that node.',
 			it: 'Scegli sulla mappa; aprendo una foglia, i dettagli compaiono in una scheda collegata al nodo.',
 		},
-		selectionLabel: { en: 'Selection', it: 'Selezione' },
 		orgNote: { en: 'DFINITY on GitHub', it: 'DFINITY su GitHub' },
 		categoryIntroEyebrow: { en: 'Category', it: 'Categoria' },
 		hintPickOuter: {
@@ -51,7 +50,6 @@
 		stack: tr('stack'),
 		relatedTechProjects: tr('relatedTechProjects'),
 		languageUiNote: tr('languageUiNote'),
-		selectionLabel: tr('selectionLabel'),
 	});
 
 	function toggleCategory(id: string) {
@@ -110,7 +108,6 @@
 						stack: panelLabels.stack,
 						relatedTechProjects: panelLabels.relatedTechProjects,
 						languageUiNote: panelLabels.languageUiNote,
-						selectionLabel: panelLabels.selectionLabel,
 					}}
 					onToggleCategory={toggleCategory}
 					onSelectLeaf={selectLeaf}

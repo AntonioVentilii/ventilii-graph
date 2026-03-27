@@ -10,7 +10,7 @@
 	interface Props {
 		technology: Technology;
 		locale: Locale;
-		sectionEyebrow: string;
+		sectionEyebrow?: string;
 		relatedHeading: string;
 		onSelectLeaf: (leaf: Leaf) => void;
 	}
@@ -21,7 +21,9 @@
 </script>
 
 <div class="space-y-3 animate-fade">
-	<PanelEyebrow text={sectionEyebrow} />
+	{#if sectionEyebrow}
+		<PanelEyebrow text={sectionEyebrow} />
+	{/if}
 	<h2 class="text-xl font-bold text-fg">{pickLocale(technology.label, locale)}</h2>
 	<p class="text-sm leading-relaxed text-fg-muted">{pickLocale(technology.blurb, locale)}</p>
 	{#if technology.yearsHint}

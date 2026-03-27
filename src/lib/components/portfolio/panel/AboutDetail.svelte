@@ -7,14 +7,16 @@
 	interface Props {
 		block: AboutBlock;
 		locale: Locale;
-		sectionEyebrow: string;
+		sectionEyebrow?: string;
 	}
 
 	let { block, locale, sectionEyebrow }: Props = $props();
 </script>
 
 <div class="space-y-3 animate-fade">
-	<PanelEyebrow text={sectionEyebrow} />
+	{#if sectionEyebrow}
+		<PanelEyebrow text={sectionEyebrow} />
+	{/if}
 	<h2 class="text-xl font-bold text-fg">{pickLocale(block.title, locale)}</h2>
 	<p class="text-sm leading-relaxed text-fg-muted">{pickLocale(block.body, locale)}</p>
 </div>

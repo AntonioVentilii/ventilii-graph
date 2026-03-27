@@ -14,7 +14,6 @@
 			stack: string;
 			relatedTechProjects: string;
 			languageUiNote: string;
-			selectionLabel: string;
 		};
 	}
 

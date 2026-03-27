@@ -41,7 +41,7 @@
 				/>
 			</span>
 		</span>
-		<p class="text-center text-xs font-bold text-fg {compact ? 'text-[10px] leading-tight' : ''}">
+		<p class="text-center text-xs font-bold text-fg {compact ? 'text-[0.625rem] leading-tight' : ''}">
 			{person.name}
 		</p>
 	</button>

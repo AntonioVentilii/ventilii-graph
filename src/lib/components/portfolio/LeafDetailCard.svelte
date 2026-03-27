@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { portfolioData } from '$lib/data/portfolio.data';
-	import { pickLocale } from '$lib/portfolio/locale';
 	import type { Locale } from '$lib/portfolio/types';
-	import { parseLeaf, type Leaf } from '$lib/portfolio/leaf';
+	import { leafLabel, parseLeaf, type Leaf } from '$lib/portfolio/leaf';
 	import ExperienceDetail from './panel/ExperienceDetail.svelte';
 	import ProjectDetail from './panel/ProjectDetail.svelte';
 	import TechnologyDetail from './panel/TechnologyDetail.svelte';
@@ -18,7 +17,6 @@
 			stack: string;
 			relatedTechProjects: string;
 			languageUiNote: string;
-			selectionLabel: string;
 		};
 		onSelectLeaf: (leaf: Leaf) => void;
 	}
@@ -32,19 +30,14 @@
 	id="leaf-detail-panel"
 	tabindex="-1"
 	class="leaf-detail-card scroll-mt-24 rounded-xl border border-border border-l-[3px] border-l-accent bg-card p-4 text-sm shadow-[var(--shadow-panel-inset)] [&_.space-y-3]:space-y-2 [&_h2]:text-lg"
-	aria-label="Selection detail"
+	aria-label={leaf ? leafLabel(leaf, locale) : 'Detail'}
 >
-	<p class="mb-4 border-b border-border pb-2 text-[10px] font-semibold uppercase tracking-wide text-accent">
-		{labels.selectionLabel}
-	</p>
-
 	{#if leaf?.kind === 'experience'}
 		{@const e = portfolioData.experiences.find((x) => x.id === leaf.id)}
 		{#if e}
 			<ExperienceDetail
 				experience={e}
 				{locale}
-				sectionEyebrow={pickLocale(portfolioData.categories[0].label, locale)}
 				relatedProjectsLabel={labels.relatedProjects}
 				{onSelectLeaf}
 			/>
@@ -55,7 +48,6 @@
 			<ProjectDetail
 				project={p}
 				{locale}
-				sectionEyebrow={pickLocale(portfolioData.categories[1].label, locale)}
 				stackLabel={labels.stack}
 				{onSelectLeaf}
 			/>
@@ -66,7 +58,6 @@
 			<TechnologyDetail
 				technology={s}
 				{locale}
-				sectionEyebrow={pickLocale(portfolioData.categories[2].label, locale)}
 				relatedHeading={labels.relatedTechProjects}
 				{onSelectLeaf}
 			/>
@@ -74,30 +65,17 @@
 	{:else if leaf?.kind === 'education'}
 		{@const ed = portfolioData.education.find((x) => x.id === leaf.id)}
 		{#if ed}
-			<EducationDetail
-				entry={ed}
-				{locale}
-				sectionEyebrow={pickLocale(portfolioData.categories[3].label, locale)}
-			/>
+			<EducationDetail entry={ed} {locale} />
 		{/if}
 	{:else if leaf?.kind === 'language'}
 		{@const l = portfolioData.languages.find((x) => x.id === leaf.id)}
 		{#if l}
-			<LanguageDetail
-				entry={l}
-				{locale}
-				sectionEyebrow={pickLocale(portfolioData.categories[4].label, locale)}
-				uiCopyNote={labels.languageUiNote}
-			/>
+			<LanguageDetail entry={l} {locale} uiCopyNote={labels.languageUiNote} />
 		{/if}
 	{:else if leaf?.kind === 'about'}
 		{@const a = portfolioData.about.find((x) => x.id === leaf.id)}
 		{#if a}
-			<AboutDetail
-				block={a}
-				{locale}
-				sectionEyebrow={pickLocale(portfolioData.categories[5].label, locale)}
-			/>
+			<AboutDetail block={a} {locale} />
 		{/if}
 	{/if}
 </aside>

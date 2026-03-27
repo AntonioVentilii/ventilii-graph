@@ -19,7 +19,6 @@
 			stack: string;
 			relatedTechProjects: string;
 			languageUiNote: string;
-			selectionLabel: string;
 		};
 		onToggleCategory: (id: string) => void;
 		onSelectLeaf: (leaf: Leaf) => void;

@@ -7,7 +7,7 @@
 	interface Props {
 		entry: LanguageEntry;
 		locale: Locale;
-		sectionEyebrow: string;
+		sectionEyebrow?: string;
 		uiCopyNote: string;
 	}
 
@@ -15,7 +15,9 @@
 </script>
 
 <div class="space-y-2 animate-fade">
-	<PanelEyebrow text={sectionEyebrow} />
+	{#if sectionEyebrow}
+		<PanelEyebrow text={sectionEyebrow} />
+	{/if}
 	<h2 class="text-xl font-bold text-fg">{pickLocale(entry.label, locale)}</h2>
 	<p class="text-sm text-fg-muted">{pickLocale(entry.level, locale)}</p>
 	<p class="text-xs text-fg-subtle">{uiCopyNote}</p>

@@ -4,7 +4,7 @@ import { categoryAngle, leafAnglesOpenRing } from '$lib/portfolio/graph-geometry
 
 export type GraphView = 'root' | 'category' | 'leaf';
 
-/** Top-left of category node (w-20 h-10) */
+/** Category pill size; layout stores ring **center** (OrbitNode centers with translate) */
 export const CAT_W = 80;
 export const CAT_H = 40;
 /** Used for vertical stack geometry in leaf-focused view */
@@ -82,8 +82,8 @@ export function computeGraphLayout(params: {
 		const cc = catCenter(i, cx, cy, r1);
 		return {
 			id: cat.id,
-			left: cc.x - CAT_W / 2,
-			top: cc.y - CAT_H / 2,
+			left: cc.x,
+			top: cc.y,
 			opacity: 1,
 			isCenter: false,
 		};
@@ -120,8 +120,8 @@ export function computeGraphLayout(params: {
 		const hx = cx;
 
 		const sel = categories.find((c) => c.id === categoryId)!;
-		sel.left = cx - CAT_W / 2;
-		sel.top = cy - CAT_H / 2;
+		sel.left = cx;
+		sel.top = cy;
 		sel.opacity = 1;
 		sel.isCenter = true;
 
@@ -168,27 +168,38 @@ export function computeGraphLayout(params: {
 		};
 	}
 
-	// leaf view
+	// leaf view — vertical hub → category → leaf; leaf anchored at center, parents stacked above
 	if (view === 'leaf' && categoryId && itemId && parentIndex >= 0) {
 		const currentLeaf = leaves.find((l) => `${l.kind}:${l.id}` === itemId);
 		if (!currentLeaf) {
 			return computeGraphLayout({ size, categoryId, itemId: null });
 		}
 
-		const { w: hw, h: hh } = hubSize(size, true);
-		const gap = size * 0.038;
+		const { h: hh } = hubSize(size, true);
+		const vGap = Math.max(18, size * 0.055);
+		const leafHalfLayout = Math.max(LEAF_CENTER_H / 2, 30);
 
-		const leafHalfH = LEAF_CENTER_H / 2;
-		const cy_cat = cy - leafHalfH - gap - CAT_H / 2;
-		const cy_hub = cy_cat - CAT_H / 2 - gap - hh / 2;
+		let leafCenterY = cy;
+		let cy_cat = leafCenterY - leafHalfLayout - vGap - CAT_H / 2;
+		let hy = cy_cat - CAT_H / 2 - vGap - hh / 2;
+
+		const minHubTop = 12;
+		let shift = Math.max(0, minHubTop - (hy - hh / 2));
+		const maxLeafCenterY = size - Math.min(100, size * 0.28);
+		shift = Math.min(shift, Math.max(0, maxLeafCenterY - leafCenterY));
+		if (shift > 0) {
+			hy += shift;
+			cy_cat += shift;
+			leafCenterY += shift;
+		}
+
 		const hx = cx;
-		const hy = cy_hub;
 
 		for (const c of categories) {
 			if (c.id !== categoryId) c.opacity = 0;
 			else {
-				c.left = cx - CAT_W / 2;
-				c.top = cy_cat - CAT_H / 2;
+				c.left = cx;
+				c.top = cy_cat;
 				c.opacity = 1;
 				c.isCenter = false;
 			}
@@ -200,7 +211,7 @@ export function computeGraphLayout(params: {
 				return {
 					leaf,
 					left: cx,
-					top: cy,
+					top: leafCenterY,
 					opacity: 1,
 					isCenter: true,
 				};

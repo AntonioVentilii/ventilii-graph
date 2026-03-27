@@ -26,6 +26,27 @@
 		};
 	}
 
+	/** Move from node center toward `toward` so the segment meets the pill rim (not an empty center gap). */
+	function attachOnNodeToward(
+		el: HTMLElement,
+		cr: DOMRect,
+		towardX: number,
+		towardY: number,
+		rimRatio = 0.46
+	): { x: number; y: number } | null {
+		const r = el.getBoundingClientRect();
+		const cx = r.left + r.width / 2 - cr.left;
+		const cy = r.top + r.height / 2 - cr.top;
+		const dx = towardX - cx;
+		const dy = towardY - cy;
+		const len = Math.hypot(dx, dy);
+		if (len < 0.5) return { x: cx, y: cy };
+		const nx = dx / len;
+		const ny = dy / len;
+		const rim = Math.min(r.width, r.height) * rimRatio;
+		return { x: cx + nx * rim, y: cy + ny * rim };
+	}
+
 	function buildSegments(
 		cont: HTMLElement,
 		cr: DOMRect,
@@ -47,8 +68,15 @@
 				const cl = categories[i];
 				if (!cl || cl.opacity < 0.01) continue;
 				const el = cont.querySelector(`[data-graph-cat="${CSS.escape(cat.id)}"]`);
+				if (!(el instanceof HTMLElement)) continue;
 				const t = centerOf(el, cr);
-				if (t) next.push({ x1: hub.x, y1: hub.y, x2: t.x, y2: t.y, opacity: 1 });
+				if (!t) continue;
+				const hubEnd =
+					hubEl instanceof HTMLElement ? attachOnNodeToward(hubEl, cr, t.x, t.y) : hub;
+				const catEnd = attachOnNodeToward(el, cr, hub.x, hub.y) ?? t;
+				const x1 = hubEnd?.x ?? hub.x;
+				const y1 = hubEnd?.y ?? hub.y;
+				next.push({ x1, y1, x2: catEnd.x, y2: catEnd.y, opacity: 1 });
 			}
 			return next;
 		}
@@ -56,27 +84,36 @@
 		if (view === 'category' && catId) {
 			const catEl = cont.querySelector(`[data-graph-cat="${CSS.escape(catId)}"]`);
 			const catC = centerOf(catEl, cr);
-			if (!catC) return next;
-			next.push({ x1: hub.x, y1: hub.y, x2: catC.x, y2: catC.y, opacity: 1 });
+			if (!catC || !(catEl instanceof HTMLElement)) return next;
+			const hubEnd =
+				hubEl instanceof HTMLElement ? attachOnNodeToward(hubEl, cr, catC.x, catC.y) : hub;
+			const catHubEnd = attachOnNodeToward(catEl, cr, hub.x, hub.y) ?? catC;
+			const hx1 = hubEnd?.x ?? hub.x;
+			const hy1 = hubEnd?.y ?? hub.y;
+			next.push({ x1: hx1, y1: hy1, x2: catHubEnd.x, y2: catHubEnd.y, opacity: 1 });
 			for (const L of leaves) {
 				if (L.opacity < 0.01) continue;
 				const key = `${L.leaf.kind}:${L.leaf.id}`;
 				const le = cont.querySelector(`[data-graph-leaf="${CSS.escape(key)}"]`);
-				const t = centerOf(le, cr);
-				if (t) next.push({ x1: catC.x, y1: catC.y, x2: t.x, y2: t.y, opacity: 1 });
+				if (!(le instanceof HTMLElement)) continue;
+				const leafC = centerOf(le, cr);
+				if (!leafC) continue;
+				const catOut = attachOnNodeToward(catEl, cr, leafC.x, leafC.y) ?? catC;
+				const leafIn = attachOnNodeToward(le, cr, catC.x, catC.y) ?? leafC;
+				next.push({ x1: catOut.x, y1: catOut.y, x2: leafIn.x, y2: leafIn.y, opacity: 1 });
 			}
 			return next;
 		}
 
+		/* Hub, category, and leaf share one vertical axis in layout — one segment avoids a dogleg at the category rim. */
 		if (view === 'leaf' && catId && itId) {
-			const catEl = cont.querySelector(`[data-graph-cat="${CSS.escape(catId)}"]`);
 			const leafEl = cont.querySelector(`[data-graph-leaf="${CSS.escape(itId)}"]`);
-			const catC = centerOf(catEl, cr);
+			if (!(leafEl instanceof HTMLElement) || !(hubEl instanceof HTMLElement)) return next;
 			const leafC = centerOf(leafEl, cr);
-			if (catC && leafC) {
-				next.push({ x1: hub.x, y1: hub.y, x2: catC.x, y2: catC.y, opacity: 1 });
-				next.push({ x1: catC.x, y1: catC.y, x2: leafC.x, y2: leafC.y, opacity: 1 });
-			}
+			if (!hub || !leafC) return next;
+			const hEnd = attachOnNodeToward(hubEl, cr, leafC.x, leafC.y) ?? hub;
+			const lEnd = attachOnNodeToward(leafEl, cr, hub.x, hub.y) ?? leafC;
+			next.push({ x1: hEnd.x, y1: hEnd.y, x2: lEnd.x, y2: lEnd.y, opacity: 1 });
 		}
 
 		return next;

@@ -41,10 +41,10 @@
 
 	const sizeClass = $derived(
 		variant === 'category'
-			? 'flex h-10 w-20 items-center justify-center rounded-full border-2 text-[10px] font-semibold leading-tight shadow-orbit'
+			? 'flex h-10 w-20 items-center justify-center rounded-full border-2 text-[0.625rem] font-semibold leading-tight shadow-orbit'
 			: emphasis === 'center'
 				? 'inline-flex w-max max-w-[min(96vw,40rem)] items-center justify-center whitespace-nowrap rounded-2xl border-2 px-4 py-3 text-center text-xs font-medium leading-none shadow-leaf'
-				: 'inline-flex w-max max-w-[min(96vw,40rem)] items-center justify-center whitespace-nowrap rounded-2xl border-2 px-3 py-2 text-center text-[10px] font-medium leading-none shadow-leaf sm:text-xs'
+				: 'inline-flex w-max max-w-[min(96vw,40rem)] items-center justify-center whitespace-nowrap rounded-2xl border-2 px-3 py-2 text-center text-[0.625rem] font-medium leading-none shadow-leaf sm:text-xs'
 	);
 
 	const stateClass = $derived(
@@ -64,42 +64,42 @@
 </script>
 
 {#if variant === 'leaf'}
-	<!-- left/top = ring center; ~75% arc leaves parent corridor at top -->
+	<!-- left/top = ring center; centering on this node avoids anchor/box drift vs edges -->
 	<div
-		class="graph-node-shift absolute z-10"
+		class="graph-node-shift absolute z-10 -translate-x-1/2 -translate-y-1/2"
 		style="left: {left}px; top: {top}px; opacity: {opacity}; pointer-events: {opacity < 0.01 ? 'none' : 'auto'};"
 		aria-hidden={opacity < 0.01}
 	>
-		<div class="-translate-x-1/2 -translate-y-1/2">
-			<div class="{orbitInner} relative" style={driftStyle}>
-				<button
-					type="button"
-					class="{sizeClass} {base} {stateClass}"
-					{onclick}
-					aria-pressed={ariaPressed}
-					tabindex={opacity < 0.01 ? -1 : undefined}
-					data-graph-leaf={graphLeafKey}
-				>
-					{@render children()}
-				</button>
-			</div>
+		<div class="{orbitInner} relative inline-block" style={driftStyle}>
+			<button
+				type="button"
+				class="{sizeClass} {base} {stateClass}"
+				{onclick}
+				aria-pressed={ariaPressed}
+				tabindex={opacity < 0.01 ? -1 : undefined}
+				data-graph-leaf={graphLeafKey}
+			>
+				{@render children()}
+			</button>
 		</div>
 	</div>
 {:else}
 	<div
-		class="{orbitInner} graph-node-shift absolute z-10"
-		style="left: {left}px; top: {top}px; opacity: {opacity}; pointer-events: {opacity < 0.01 ? 'none' : 'auto'}; {driftStyle}"
+		class="graph-node-shift absolute z-10 -translate-x-1/2 -translate-y-1/2"
+		style="left: {left}px; top: {top}px; opacity: {opacity}; pointer-events: {opacity < 0.01 ? 'none' : 'auto'};"
 		aria-hidden={opacity < 0.01}
 	>
-		<button
-			type="button"
-			class="{sizeClass} {base} {stateClass}"
-			{onclick}
-			aria-pressed={ariaPressed}
-			tabindex={opacity < 0.01 ? -1 : undefined}
-			data-graph-cat={graphCatId}
-		>
-			{@render children()}
-		</button>
+		<div class="{orbitInner} relative inline-block" style={driftStyle}>
+			<button
+				type="button"
+				class="{sizeClass} {base} {stateClass}"
+				{onclick}
+				aria-pressed={ariaPressed}
+				tabindex={opacity < 0.01 ? -1 : undefined}
+				data-graph-cat={graphCatId}
+			>
+				{@render children()}
+			</button>
+		</div>
 	</div>
 {/if}
