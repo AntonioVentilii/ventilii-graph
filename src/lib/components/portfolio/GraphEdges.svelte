@@ -30,7 +30,7 @@
 	<svg
 		width={size}
 		height={size}
-		class="pointer-events-none absolute left-0 top-0 z-0 text-brand-400/35"
+		class="pointer-events-none absolute left-0 top-0 z-0 text-graph"
 		aria-hidden="true"
 	>
 		{#each Array(categoryCount) as _, i}
@@ -62,7 +62,7 @@
 					stroke="currentColor"
 					stroke-width="1.75"
 					stroke-linecap="round"
-					class="text-brand-400/55"
+					class="text-graph-strong"
 				/>
 			{/each}
 		{/if}

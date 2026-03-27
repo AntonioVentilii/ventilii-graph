@@ -14,21 +14,21 @@
 </script>
 
 <div class="space-y-4 animate-fade">
-	<h2 class="text-lg font-bold text-white">{data.person.name}</h2>
-	<p class="text-sm text-brand-200">{pickLocale(data.person.title, locale)}</p>
-	<p class="text-sm leading-relaxed text-zinc-300">{pickLocale(data.person.tagline, locale)}</p>
-	<p class="text-xs text-zinc-500">{pickLocale(data.person.location, locale)}</p>
+	<h2 class="text-lg font-bold text-fg">{data.person.name}</h2>
+	<p class="text-sm text-accent">{pickLocale(data.person.title, locale)}</p>
+	<p class="text-sm leading-relaxed text-fg-muted">{pickLocale(data.person.tagline, locale)}</p>
+	<p class="text-xs text-fg-subtle">{pickLocale(data.person.location, locale)}</p>
 	<div class="flex flex-wrap gap-2 pt-2">
 		<a
 			href={'mailto:' + data.person.email}
-			class="rounded-full bg-brand-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-brand-500"
+			class="rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-fg transition hover:bg-accent-hover"
 		>
 			Email
 		</a>
 		{#each data.person.links as link}
 			<a
 				href={link.href}
-				class="rounded-full border border-zinc-600 px-3 py-1.5 text-xs text-zinc-200 hover:border-brand-500"
+				class="rounded-full border border-border bg-popover px-3 py-1.5 text-xs text-fg transition hover:border-accent"
 				target="_blank"
 				rel="noopener noreferrer"
 			>
@@ -36,23 +36,23 @@
 			</a>
 		{/each}
 	</div>
-	<div class="border-t border-zinc-800 pt-4">
-		<p class="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">{orgNoteLabel}</p>
+	<div class="border-t border-border pt-4">
+		<p class="mb-2 text-xs font-semibold uppercase tracking-wide text-fg-subtle">{orgNoteLabel}</p>
 		<ul class="space-y-2 text-sm">
 			{#each data.orgHighlights as org}
 				<li>
 					<a
 						href={org.url}
-						class="text-brand-300 hover:text-white"
+						class="text-link transition hover:text-link-hover"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						{org.name}
 					</a>
-					<span class="text-zinc-500"> — {pickLocale(org.note, locale)}</span>
+					<span class="text-fg-subtle"> — {pickLocale(org.note, locale)}</span>
 				</li>
 			{/each}
 		</ul>
 	</div>
-	<p class="pt-4 text-xs text-zinc-600">{panelHint}</p>
+	<p class="pt-4 text-xs text-fg-faint">{panelHint}</p>
 </div>

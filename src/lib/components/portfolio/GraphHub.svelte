@@ -19,13 +19,13 @@
 >
 	<button
 		type="button"
-		class="flex w-full flex-col items-center gap-2 rounded-2xl border-2 border-zinc-600 bg-zinc-900/95 p-3 shadow-[0_8px_40px_rgba(0,0,0,0.55)] transition hover:border-brand-500/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-400"
+		class="shadow-hub flex w-full flex-col items-center gap-2 rounded-2xl border-2 border-border-strong bg-card-solid p-3 transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
 		{onclick}
 	>
 		<span
-			class="inline-flex rounded-full bg-gradient-to-br from-brand-200 via-brand-500 to-brand-800 p-[3px] shadow-[0_0_0_1px_rgba(18,38,46,0.95),0_0_24px_rgba(61,143,163,0.4)]"
+			class="inline-flex rounded-full bg-gradient-to-br from-[var(--grad-from)] via-[var(--grad-via)] to-[var(--grad-to)] p-[3px] shadow-[0_0_0_1px_var(--avatar-ring-outer),0_0_24px_var(--avatar-glow)]"
 		>
-			<span class="overflow-hidden rounded-full bg-zinc-950 p-[2px]">
+			<span class="overflow-hidden rounded-full p-[2px]" style="background: var(--avatar-inner)">
 				<img
 					src={person.avatarUrl}
 					alt={person.name}
@@ -36,8 +36,8 @@
 			</span>
 		</span>
 		<div class="text-center">
-			<p class="text-xs font-bold text-white">{person.name}</p>
-			<p class="text-[10px] text-zinc-400">{pickLocale(person.title, locale)}</p>
+			<p class="text-xs font-bold text-fg">{person.name}</p>
+			<p class="text-[10px] text-fg-subtle">{pickLocale(person.title, locale)}</p>
 		</div>
 	</button>
 </div>

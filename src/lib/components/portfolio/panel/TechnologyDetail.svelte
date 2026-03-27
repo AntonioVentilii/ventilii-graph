@@ -22,14 +22,14 @@
 
 <div class="space-y-3 animate-fade">
 	<PanelEyebrow text={sectionEyebrow} />
-	<h2 class="text-xl font-bold text-white">{pickLocale(technology.label, locale)}</h2>
-	<p class="text-sm leading-relaxed text-zinc-300">{pickLocale(technology.blurb, locale)}</p>
+	<h2 class="text-xl font-bold text-fg">{pickLocale(technology.label, locale)}</h2>
+	<p class="text-sm leading-relaxed text-fg-muted">{pickLocale(technology.blurb, locale)}</p>
 	{#if technology.yearsHint}
-		<p class="text-xs text-zinc-500">{pickLocale(technology.yearsHint, locale)}</p>
+		<p class="text-xs text-fg-subtle">{pickLocale(technology.yearsHint, locale)}</p>
 	{/if}
 	{#if projects.length}
-		<div class="border-t border-zinc-800 pt-3">
-			<p class="text-sm text-zinc-500">{relatedHeading}</p>
+		<div class="border-t border-border pt-3">
+			<p class="text-sm text-fg-subtle">{relatedHeading}</p>
 			<ul class="mt-2 space-y-1 text-sm">
 				{#each projects as p}
 					<li>

@@ -15,10 +15,10 @@
 
 <div class="space-y-3 animate-fade">
 	<PanelEyebrow text={sectionEyebrow} />
-	<h2 class="text-xl font-bold text-white">{pickLocale(entry.institution, locale)}</h2>
-	<p class="text-sm text-zinc-300">{pickLocale(entry.degree, locale)}</p>
-	<p class="text-xs text-zinc-500">{pickLocale(entry.dates, locale)}</p>
+	<h2 class="text-xl font-bold text-fg">{pickLocale(entry.institution, locale)}</h2>
+	<p class="text-sm text-fg-muted">{pickLocale(entry.degree, locale)}</p>
+	<p class="text-xs text-fg-subtle">{pickLocale(entry.dates, locale)}</p>
 	{#if entry.note}
-		<p class="text-sm text-zinc-400">{pickLocale(entry.note, locale)}</p>
+		<p class="text-sm text-fg-muted">{pickLocale(entry.note, locale)}</p>
 	{/if}
 </div>

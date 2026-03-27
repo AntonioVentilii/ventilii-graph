@@ -35,7 +35,7 @@
 <aside
 	id="detail-panel"
 	tabindex="-1"
-	class="min-h-[280px] scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 shadow-inner shadow-black/20 md:sticky md:top-8"
+	class="min-h-[280px] scroll-mt-24 rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-panel-inset)] md:sticky md:top-8"
 >
 	{#if categoryId && !itemId}
 		{@const cat = portfolioData.categories.find((c) => c.id === categoryId)}

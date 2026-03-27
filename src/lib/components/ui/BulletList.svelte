@@ -7,7 +7,7 @@
 </script>
 
 {#if items.length}
-	<ul class="list-disc space-y-2 pl-5 text-sm text-zinc-300">
+	<ul class="list-disc space-y-2 pl-5 text-sm text-fg-muted">
 		{#each items as line}
 			<li>{line}</li>
 		{/each}

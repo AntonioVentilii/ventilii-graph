@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './lib/styles/theme-variables.css';
 @import './lib/styles/portfolio-graph.css';
 
 @font-face {
@@ -37,6 +38,28 @@
 	--color-brand-800: #265260;
 	--color-brand-900: #234553;
 	--color-brand-950: #12262e;
+
+	/* Semantic theme tokens (switch via html.dark — see theme-variables.css) */
+	--color-page: var(--page-bg);
+	--color-card: var(--card-bg);
+	--color-card-solid: var(--card-bg-solid);
+	--color-popover: var(--popover-bg);
+	--color-border: var(--border-default);
+	--color-border-muted: var(--border-muted);
+	--color-border-strong: var(--border-strong);
+	--color-fg: var(--fg);
+	--color-fg-muted: var(--fg-muted);
+	--color-fg-subtle: var(--fg-subtle);
+	--color-fg-faint: var(--fg-faint);
+	--color-accent: var(--accent);
+	--color-accent-hover: var(--accent-hover);
+	--color-accent-fg: var(--accent-fg);
+	--color-accent-soft: var(--accent-soft);
+	--color-link: var(--link);
+	--color-link-hover: var(--link-hover);
+	--color-graph: var(--graph);
+	--color-graph-strong: var(--graph-strong);
+	--color-selection: var(--selection);
 }
 
 html {

@@ -23,19 +23,19 @@
 
 <div class="space-y-3 animate-fade">
 	<PanelEyebrow text={sectionEyebrow} />
-	<h2 class="text-xl font-bold text-white">{pickLocale(experience.company, locale)}</h2>
-	<p class="text-sm text-zinc-400">{pickLocale(experience.role, locale)}</p>
-	<p class="text-xs text-zinc-500">
+	<h2 class="text-xl font-bold text-fg">{pickLocale(experience.company, locale)}</h2>
+	<p class="text-sm text-fg-muted">{pickLocale(experience.role, locale)}</p>
+	<p class="text-xs text-fg-subtle">
 		{pickLocale(experience.dates, locale)} · {pickLocale(experience.location, locale)}
 	</p>
-	<p class="text-sm leading-relaxed text-zinc-300">{pickLocale(experience.summary, locale)}</p>
+	<p class="text-sm leading-relaxed text-fg-muted">{pickLocale(experience.summary, locale)}</p>
 	<BulletList items={bullets} />
 	{#if experience.links?.length}
 		<div class="flex flex-wrap gap-2 pt-2">
 			{#each experience.links as link}
 				<a
 					href={link.href}
-					class="text-sm text-brand-300 hover:text-white"
+					class="text-sm text-link transition hover:text-link-hover"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
@@ -45,8 +45,8 @@
 		</div>
 	{/if}
 	{#if experience.projectIds?.length}
-		<div class="border-t border-zinc-800 pt-3 text-sm text-zinc-400">
-			<span class="text-zinc-500">{relatedProjectsLabel}</span>
+		<div class="border-t border-border pt-3 text-sm text-fg-muted">
+			<span class="text-fg-subtle">{relatedProjectsLabel}</span>
 			<ul class="mt-1 space-y-1">
 				{#each experience.projectIds as pid}
 					{@const p = portfolioData.projects.find((x) => x.id === pid)}

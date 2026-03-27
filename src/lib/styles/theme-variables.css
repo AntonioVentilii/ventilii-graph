@@ -1,0 +1,83 @@
+/*
+  Semantic colors — light: airy blue-green surfaces; dark: current deep brand look.
+  Toggle `html.dark` (see +layout / ThemeToggle).
+*/
+:root {
+	--page-bg: #f4fbfb;
+	--card-bg: rgba(255, 255, 255, 0.92);
+	--card-bg-solid: #ffffff;
+	--popover-bg: rgba(255, 255, 255, 0.96);
+	--border-default: #c5dce3;
+	--border-muted: #e2eef2;
+	--border-strong: #94b8c4;
+	--fg: #0f172a;
+	--fg-muted: #475569;
+	--fg-subtle: #64748b;
+	--fg-faint: #94a3b8;
+	--accent: #2a6d7f;
+	--accent-hover: #1f5563;
+	--accent-fg: #ffffff;
+	--accent-soft: #dff0f4;
+	--link: #1d5a6b;
+	--link-hover: #0f172a;
+	--graph: rgba(42, 109, 127, 0.32);
+	--graph-strong: rgba(42, 109, 127, 0.48);
+	--selection: rgba(42, 109, 127, 0.22);
+	--shadow-orbit: 0 4px 20px rgba(15, 23, 42, 0.08);
+	--shadow-leaf: 0 4px 16px rgba(15, 23, 42, 0.07);
+	--shadow-hub: 0 8px 40px rgba(15, 23, 42, 0.1);
+	--shadow-panel-inset: inset 0 2px 8px rgba(15, 23, 42, 0.04);
+	--avatar-ring-outer: rgba(15, 23, 42, 0.1);
+	--avatar-glow: rgba(42, 109, 127, 0.28);
+	--avatar-inner: #f1f9fb;
+	--node-selected-glow: rgba(42, 109, 127, 0.35);
+	--node-leaf-selected-glow: rgba(42, 109, 127, 0.28);
+	--grad-from: #dff0f4;
+	--grad-via: #3d8fa3;
+	--grad-to: #1a4c59;
+}
+
+.shadow-orbit {
+	box-shadow: var(--shadow-orbit);
+}
+.shadow-leaf {
+	box-shadow: var(--shadow-leaf);
+}
+.shadow-hub {
+	box-shadow: var(--shadow-hub);
+}
+
+html.dark {
+	--page-bg: #12262e;
+	--card-bg: rgba(24, 24, 27, 0.45);
+	--card-bg-solid: rgba(24, 24, 27, 0.92);
+	--popover-bg: rgba(24, 24, 27, 0.88);
+	--border-default: rgba(63, 63, 70, 0.75);
+	--border-muted: rgba(63, 63, 70, 0.45);
+	--border-strong: #52525b;
+	--fg: #f4f4f5;
+	--fg-muted: #d4d4d8;
+	--fg-subtle: #a1a1aa;
+	--fg-faint: #71717a;
+	--accent: #8fc9d6;
+	--accent-hover: #bce0e8;
+	--accent-fg: #12262e;
+	--accent-soft: rgba(143, 201, 214, 0.15);
+	--link: #a8dce8;
+	--link-hover: #ffffff;
+	--graph: rgba(143, 201, 214, 0.35);
+	--graph-strong: rgba(143, 201, 214, 0.55);
+	--selection: rgba(61, 143, 163, 0.35);
+	--shadow-orbit: 0 4px 20px rgba(0, 0, 0, 0.45);
+	--shadow-leaf: 0 4px 16px rgba(0, 0, 0, 0.4);
+	--shadow-hub: 0 8px 40px rgba(0, 0, 0, 0.55);
+	--shadow-panel-inset: inset 0 2px 12px rgba(0, 0, 0, 0.25);
+	--avatar-ring-outer: rgba(18, 38, 46, 0.95);
+	--avatar-glow: rgba(61, 143, 163, 0.4);
+	--avatar-inner: #09090b;
+	--node-selected-glow: rgba(61, 143, 163, 0.4);
+	--node-leaf-selected-glow: rgba(61, 143, 163, 0.35);
+	--grad-from: #bce0e8;
+	--grad-via: #5aaabe;
+	--grad-to: #1a4c59;
+}

@@ -1,9 +1,6 @@
 <script lang="ts">
 	import type { Locale } from '$lib/portfolio/types';
-	import {
-		categoryForLeafKind,
-		type Leaf,
-	} from '$lib/portfolio/leaf';
+	import { categoryForLeafKind, type Leaf } from '$lib/portfolio/leaf';
 	import PortfolioHeader from './PortfolioHeader.svelte';
 	import PortfolioFooter from './PortfolioFooter.svelte';
 	import PortfolioGraph from './PortfolioGraph.svelte';
@@ -72,7 +69,7 @@
 	}
 </script>
 
-<div class="min-h-[100dvh] bg-brand-950 text-zinc-100 selection:bg-brand-500/35">
+<div class="min-h-[100dvh] bg-page text-fg selection:bg-selection/40">
 	<PortfolioHeader
 		bind:locale
 		skipLabel={tr('skip')}

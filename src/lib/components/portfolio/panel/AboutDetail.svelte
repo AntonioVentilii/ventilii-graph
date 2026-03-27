@@ -15,6 +15,6 @@
 
 <div class="space-y-3 animate-fade">
 	<PanelEyebrow text={sectionEyebrow} />
-	<h2 class="text-xl font-bold text-white">{pickLocale(block.title, locale)}</h2>
-	<p class="text-sm leading-relaxed text-zinc-300">{pickLocale(block.body, locale)}</p>
+	<h2 class="text-xl font-bold text-fg">{pickLocale(block.title, locale)}</h2>
+	<p class="text-sm leading-relaxed text-fg-muted">{pickLocale(block.body, locale)}</p>
 </div>

@@ -12,7 +12,7 @@
 
 <button
 	type="button"
-	class="text-left text-brand-300 hover:text-white {className}"
+	class="text-left text-link transition hover:text-link-hover {className}"
 	{onclick}
 >
 	{@render children()}

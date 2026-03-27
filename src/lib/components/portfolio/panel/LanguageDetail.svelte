@@ -16,7 +16,7 @@
 
 <div class="space-y-2 animate-fade">
 	<PanelEyebrow text={sectionEyebrow} />
-	<h2 class="text-xl font-bold text-white">{pickLocale(entry.label, locale)}</h2>
-	<p class="text-sm text-zinc-300">{pickLocale(entry.level, locale)}</p>
-	<p class="text-xs text-zinc-500">{uiCopyNote}</p>
+	<h2 class="text-xl font-bold text-fg">{pickLocale(entry.label, locale)}</h2>
+	<p class="text-sm text-fg-muted">{pickLocale(entry.level, locale)}</p>
+	<p class="text-xs text-fg-subtle">{uiCopyNote}</p>
 </div>

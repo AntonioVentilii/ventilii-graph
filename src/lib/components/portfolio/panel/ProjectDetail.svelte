@@ -26,8 +26,8 @@
 
 <div class="space-y-3 animate-fade">
 	<PanelEyebrow text={sectionEyebrow} />
-	<h2 class="text-xl font-bold text-white">{pickLocale(project.title, locale)}</h2>
-	<p class="text-sm leading-relaxed text-zinc-300">{pickLocale(project.summary, locale)}</p>
+	<h2 class="text-xl font-bold text-fg">{pickLocale(project.title, locale)}</h2>
+	<p class="text-sm leading-relaxed text-fg-muted">{pickLocale(project.summary, locale)}</p>
 	<BulletList items={bullets} />
 	<div class="flex flex-wrap gap-2">
 		{#each project.links as link}
@@ -37,13 +37,13 @@
 		{/each}
 	</div>
 	{#if stacks.length}
-		<div class="border-t border-zinc-800 pt-3 text-sm">
-			<p class="text-zinc-500">{stackLabel}</p>
+		<div class="border-t border-border pt-3 text-sm">
+			<p class="text-fg-subtle">{stackLabel}</p>
 			<div class="mt-2 flex flex-wrap gap-1.5">
 				{#each stacks as s}
 					<button
 						type="button"
-						class="rounded-md border border-zinc-700 px-2 py-0.5 text-xs text-zinc-300 hover:border-brand-500"
+						class="rounded-md border border-border bg-card-solid px-2 py-0.5 text-xs text-fg-muted transition hover:border-accent"
 						onclick={() => onSelectLeaf({ kind: 'technology', id: s.id })}
 					>
 						{pickLocale(s.label, locale)}
