@@ -1,11 +1,13 @@
 import { portfolioData } from '$lib/data/portfolio.data';
 
-export function relatedProjectsForStack(stackId: string) {
-	return portfolioData.projects.filter((p) => p.stackIds?.includes(stackId));
-}
+export const relatedProjectsForStack = (stackId: string) =>
+	portfolioData.projects.filter((p) => p.stackIds?.includes(stackId));
 
-export function relatedStackForProject(projectId: string) {
+export const relatedStackForProject = (projectId: string) => {
 	const p = portfolioData.projects.find((x) => x.id === projectId);
-	if (!p?.stackIds) return [];
-	return portfolioData.technologies.filter((s) => p.stackIds!.includes(s.id));
-}
+	if (!p?.stackIds) {
+		return [];
+	}
+	const { stackIds } = p;
+	return portfolioData.technologies.filter((s) => stackIds.includes(s.id));
+};

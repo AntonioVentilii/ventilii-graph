@@ -1,9 +1,8 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-	import { onMount } from 'svelte';
-	import { initThemeFromStorage } from '$lib/theme.svelte';
-	import '../app.css';
 	import { initSatellite } from '@junobuild/core';
+	import { type Snippet, onMount } from 'svelte';
+	import { initThemeFromStorage } from '$lib/theme.svelte';
+	// eslint-disable-next-line import/no-relative-parent-imports
 	import '../app.css';
 
 	interface Props {
@@ -12,9 +11,8 @@
 
 	let { children }: Props = $props();
 
-		const init = async () => {
-		await initSatellite({
-		});
+	const init = async () => {
+		await initSatellite({});
 	};
 
 	$effect(() => {

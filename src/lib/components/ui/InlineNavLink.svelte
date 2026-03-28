@@ -11,9 +11,9 @@
 </script>
 
 <button
-	type="button"
-	class="text-left text-link transition hover:text-link-hover {className}"
+	class="text-link hover:text-link-hover text-left transition {className}"
 	{onclick}
+	type="button"
 >
 	{@render children()}
 </button>

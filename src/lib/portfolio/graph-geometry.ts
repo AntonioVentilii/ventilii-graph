@@ -2,18 +2,7 @@ import { portfolioData } from '$lib/data/portfolio.data';
 
 const n = () => portfolioData.categories.length;
 
-export function categoryAngle(index: number): number {
-	return (index / n()) * Math.PI * 2 - Math.PI / 2;
-}
-
-export function childAngles(parentIndex: number, count: number): number[] {
-	const tp = categoryAngle(parentIndex);
-	if (count <= 0) return [];
-	if (count === 1) return [tp];
-	const spread = Math.min(1.1, 0.28 * count);
-	const step = spread / (count - 1);
-	return Array.from({ length: count }, (_, k) => tp - spread / 2 + k * step);
-}
+export const categoryAngle = (index: number): number => (index / n()) * Math.PI * 2 - Math.PI / 2;
 
 /**
  * Around the **selected center node**, treat the circle as 360°:
@@ -24,8 +13,10 @@ export function childAngles(parentIndex: number, count: number): number[] {
  *
  * Convention: angle 0 = east (+x), π/2 = south (+y), -π/2 = north (−y, toward hub).
  */
-export function leafAnglesOpenRing(count: number): number[] {
-	if (count <= 0) return [];
+export const leafAnglesOpenRing = (count: number): number[] => {
+	if (count <= 0) {
+		return [];
+	}
 
 	const parentsPathDeg = 120;
 	const subNodesDeg = 360 - parentsPathDeg; // 240°
@@ -38,11 +29,11 @@ export function leafAnglesOpenRing(count: number): number[] {
 
 	const slot = arcLen / count;
 	return Array.from({ length: count }, (_, k) => arcStart + (k + 0.5) * slot);
-}
+};
 
 /** Staggered orbit drift timing (edges follow nodes via live DOM measurement) */
-export function ringFloatStyle(seed: number): string {
+export const ringFloatStyle = (seed: number): string => {
 	const dur = 5.5 + (seed % 5) * 0.65;
 	const delay = -(seed % 7) * 0.85 - (seed % 3) * 0.4;
 	return `animation-duration:${dur}s;animation-delay:${delay}s`;
-}
+};

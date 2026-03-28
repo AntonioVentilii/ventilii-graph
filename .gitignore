@@ -1,3 +1,6 @@
+.dfx/
+
+.eslintcache
 
 # Various IDEs and Editors
 .vscode/

@@ -1,7 +1,7 @@
 <script lang="ts">
+	import HeaderActions from '$lib/components/layout/HeaderActions.svelte';
+	import SkipToContent from '$lib/components/layout/SkipToContent.svelte';
 	import type { Locale } from '$lib/portfolio/types';
-	import SkipToContent from './SkipToContent.svelte';
-	import HeaderActions from './HeaderActions.svelte';
 
 	interface Props {
 		locale: Locale;
@@ -16,7 +16,7 @@
 <SkipToContent label={skipLabel} />
 
 <header
-	class="flex flex-wrap items-center justify-end gap-3 border-b border-border bg-page/80 px-4 py-4 backdrop-blur-md md:px-8"
+	class="border-border bg-page/80 flex flex-wrap items-center justify-end gap-3 border-b px-4 py-4 backdrop-blur-md lg:px-8"
 >
-	<HeaderActions bind:locale {cvFallbackLabel} {langLabel} />
+	<HeaderActions {cvFallbackLabel} {langLabel} bind:locale />
 </header>

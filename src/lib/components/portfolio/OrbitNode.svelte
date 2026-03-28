@@ -33,7 +33,7 @@
 		emphasis = 'default',
 		graphCatId,
 		graphLeafKey,
-		children,
+		children
 	}: Props = $props();
 
 	const base =
@@ -43,8 +43,8 @@
 		variant === 'category'
 			? 'flex h-10 w-20 items-center justify-center rounded-full border-2 text-[0.625rem] font-semibold leading-tight shadow-orbit'
 			: emphasis === 'center'
-				? 'inline-flex w-max max-w-[min(96vw,40rem)] items-center justify-center whitespace-nowrap rounded-2xl border-2 px-4 py-3 text-center text-xs font-medium leading-none shadow-leaf'
-				: 'inline-flex w-max max-w-[min(96vw,40rem)] items-center justify-center whitespace-nowrap rounded-2xl border-2 px-3 py-2 text-center text-[0.625rem] font-medium leading-none shadow-leaf sm:text-xs'
+				? 'inline-flex w-max max-w-[min(92vw,18rem)] items-center justify-center whitespace-normal rounded-2xl border-2 px-4 py-3 text-center text-xs font-medium leading-tight shadow-leaf lg:max-w-none lg:whitespace-nowrap lg:leading-none'
+				: 'inline-flex w-max max-w-[min(92vw,10rem)] items-center justify-center whitespace-normal rounded-2xl border-2 px-3 py-2 text-center text-[0.625rem] font-medium leading-tight shadow-leaf sm:text-xs lg:max-w-none lg:whitespace-nowrap lg:leading-none'
 	);
 
 	const stateClass = $derived(
@@ -57,27 +57,27 @@
 				: 'border-border-strong bg-card-solid text-fg-muted hover:border-border'
 	);
 
-	const orbitInner = $derived(
-		noFloat ? '' : `orbit-float orbit-float--${floatVariant}`
-	);
+	const orbitInner = $derived(noFloat ? '' : `orbit-float orbit-float--${floatVariant}`);
 	const driftStyle = $derived(noFloat ? '' : ringFloatStyle(seed));
 </script>
 
 {#if variant === 'leaf'}
 	<!-- left/top = ring center; centering on this node avoids anchor/box drift vs edges -->
 	<div
+		style="left: {left}px; top: {top}px; opacity: {opacity}; pointer-events: {opacity < 0.01
+			? 'none'
+			: 'auto'};"
 		class="graph-node-shift absolute z-10 -translate-x-1/2 -translate-y-1/2"
-		style="left: {left}px; top: {top}px; opacity: {opacity}; pointer-events: {opacity < 0.01 ? 'none' : 'auto'};"
 		aria-hidden={opacity < 0.01}
 	>
-		<div class="{orbitInner} relative inline-block" style={driftStyle}>
+		<div style={driftStyle} class="{orbitInner} relative inline-block">
 			<button
-				type="button"
 				class="{sizeClass} {base} {stateClass}"
-				{onclick}
 				aria-pressed={ariaPressed}
-				tabindex={opacity < 0.01 ? -1 : undefined}
 				data-graph-leaf={graphLeafKey}
+				{onclick}
+				tabindex={opacity < 0.01 ? -1 : undefined}
+				type="button"
 			>
 				{@render children()}
 			</button>
@@ -85,18 +85,20 @@
 	</div>
 {:else}
 	<div
+		style="left: {left}px; top: {top}px; opacity: {opacity}; pointer-events: {opacity < 0.01
+			? 'none'
+			: 'auto'};"
 		class="graph-node-shift absolute z-10 -translate-x-1/2 -translate-y-1/2"
-		style="left: {left}px; top: {top}px; opacity: {opacity}; pointer-events: {opacity < 0.01 ? 'none' : 'auto'};"
 		aria-hidden={opacity < 0.01}
 	>
-		<div class="{orbitInner} relative inline-block" style={driftStyle}>
+		<div style={driftStyle} class="{orbitInner} relative inline-block">
 			<button
-				type="button"
 				class="{sizeClass} {base} {stateClass}"
-				{onclick}
 				aria-pressed={ariaPressed}
-				tabindex={opacity < 0.01 ? -1 : undefined}
 				data-graph-cat={graphCatId}
+				{onclick}
+				tabindex={opacity < 0.01 ? -1 : undefined}
+				type="button"
 			>
 				{@render children()}
 			</button>

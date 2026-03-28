@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { onMount, untrack } from 'svelte';
+	import GraphEdgesLive from '$lib/components/portfolio/GraphEdgesLive.svelte';
+	import GraphHub from '$lib/components/portfolio/GraphHub.svelte';
+	import LeafDetailCard from '$lib/components/portfolio/LeafDetailCard.svelte';
+	import OrbitNode from '$lib/components/portfolio/OrbitNode.svelte';
 	import { portfolioData } from '$lib/data/portfolio.data';
-	import type { Locale } from '$lib/portfolio/types';
-	import { pickLocale } from '$lib/portfolio/locale';
 	import { computeGraphLayout, LEAF_CENTER_H } from '$lib/portfolio/graph-layout';
 	import { leafLabel, type Leaf } from '$lib/portfolio/leaf';
-	import GraphEdgesLive from './GraphEdgesLive.svelte';
-	import GraphHub from './GraphHub.svelte';
-	import LeafDetailCard from './LeafDetailCard.svelte';
-	import OrbitNode from './OrbitNode.svelte';
+	import { pickLocale } from '$lib/portfolio/locale';
+	import type { Locale } from '$lib/portfolio/types';
 
 	interface Props {
 		locale: Locale;
@@ -35,7 +35,7 @@
 		onToggleCategory,
 		onSelectLeaf,
 		onResetHome,
-		onStepToCategoryView,
+		onStepToCategoryView
 	}: Props = $props();
 
 	let wrapEl: HTMLDivElement | undefined = $state();
@@ -47,7 +47,10 @@
 		const enable = () => {
 			layoutReady = true;
 		};
-		if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		if (
+			typeof window !== 'undefined' &&
+			window.matchMedia('(prefers-reduced-motion: reduce)').matches
+		) {
 			enable();
 			return;
 		}
@@ -57,7 +60,9 @@
 	});
 
 	$effect(() => {
-		if (!wrapEl) return;
+		if (!wrapEl) {
+			return;
+		}
 		const el = wrapEl;
 		const ro = new ResizeObserver(() => {
 			size = el.clientWidth;
@@ -77,7 +82,6 @@
 
 	$effect(() => {
 		const id = itemId;
-		let t: ReturnType<typeof setTimeout> | undefined;
 
 		if (!id) {
 			leafCardRevealReady = false;
@@ -101,20 +105,24 @@
 		}
 
 		leafCardRevealReady = false;
-		t = setTimeout(() => {
+		const timer = setTimeout(() => {
 			leafCardRevealReady = true;
 		}, LEAF_CARD_DELAY_MS);
 
 		return () => {
-			if (t) clearTimeout(t);
+			clearTimeout(timer);
 		};
 	});
 
 	/** Anchor the in-graph detail card below the focused leaf, clamped inside the square */
 	const leafCardAnchor = $derived.by(() => {
-		if (!itemId || layout.view !== 'leaf') return null;
+		if (!itemId || layout.view !== 'leaf') {
+			return null;
+		}
 		const L = layout.leaves.find((l) => l.isCenter);
-		if (!L || size < 40) return null;
+		if (!L || size < 40) {
+			return null;
+		}
 		const gapBelowNode = 10;
 		const pad = 14;
 		const cardMaxW = Math.min(352, size - pad * 2);
@@ -125,13 +133,13 @@
 		return { left, top, cardMaxW };
 	});
 
-	function handleCategoryClick(id: string) {
+	const handleCategoryClick = (id: string) => {
 		if (layout.view === 'leaf' && id === categoryId) {
 			onStepToCategoryView();
 			return;
 		}
 		onToggleCategory(id);
-	}
+	};
 </script>
 
 <div
@@ -141,53 +149,53 @@
 		: ''} {frozen ? 'graph-frozen' : ''}"
 	aria-label="Portfolio graph"
 >
-	<GraphEdgesLive container={wrapEl} {size} {layout} {categoryId} {itemId} {frozen} />
+	<GraphEdgesLive {categoryId} container={wrapEl} {frozen} {itemId} {layout} {size} />
 
-	{#each portfolioData.categories as cat, i}
+	{#each portfolioData.categories as cat, i (cat.id)}
 		{@const c = layout.categories[i]}
 		<OrbitNode
-			left={c.left}
-			top={c.top}
-			floatVariant={(i % 3) as 0 | 1 | 2}
-			seed={i + 1}
-			variant="category"
-			selected={categoryId === cat.id}
 			ariaPressed={layout.view === 'category' && c.isCenter}
-			opacity={c.opacity}
-			noFloat={frozen || c.isCenter || (layout.view === 'leaf' && cat.id === categoryId)}
 			emphasis="default"
+			floatVariant={(i % 3) as 0 | 1 | 2}
 			graphCatId={cat.id}
+			left={c.left}
+			noFloat={frozen || c.isCenter || (layout.view === 'leaf' && cat.id === categoryId)}
 			onclick={() => handleCategoryClick(cat.id)}
+			opacity={c.opacity}
+			seed={i + 1}
+			selected={categoryId === cat.id}
+			top={c.top}
+			variant="category"
 		>
-			{pickLocale(cat.label, locale)}
+			{pickLocale({ text: cat.label, locale })}
 		</OrbitNode>
 	{/each}
 
-	{#each layout.leaves as L, ki}
+	{#each layout.leaves as L, ki (`${L.leaf.kind}:${L.leaf.id}`)}
 		<OrbitNode
-			left={L.left}
-			top={L.top}
-			floatVariant={((ki + 2) % 3) as 0 | 1 | 2}
-			seed={ki + 11}
-			variant="leaf"
-			selected={itemId === `${L.leaf.kind}:${L.leaf.id}`}
-			opacity={L.opacity}
-			noFloat={frozen || L.isCenter}
 			emphasis={L.isCenter ? 'center' : 'default'}
+			floatVariant={((ki + 2) % 3) as 0 | 1 | 2}
 			graphLeafKey={`${L.leaf.kind}:${L.leaf.id}`}
+			left={L.left}
+			noFloat={frozen || L.isCenter}
 			onclick={() => onSelectLeaf(L.leaf)}
+			opacity={L.opacity}
+			seed={ki + 11}
+			selected={itemId === `${L.leaf.kind}:${L.leaf.id}`}
+			top={L.top}
+			variant="leaf"
 		>
-			{leafLabel(L.leaf, locale)}
+			{leafLabel({ leaf: L.leaf, locale })}
 		</OrbitNode>
 	{/each}
 
 	<GraphHub
-		person={portfolioData.person}
-		hubWidthPx={layout.hubWidthPx}
 		centerX={layout.hub.x}
 		centerY={layout.hub.y}
 		compact={layout.hub.compact}
+		hubWidthPx={layout.hubWidthPx}
 		onclick={onResetHome}
+		person={portfolioData.person}
 	/>
 
 	{#if itemId && leafCardAnchor && leafCardRevealReady}
@@ -195,22 +203,19 @@
 		{@const cardMaxH = Math.max(120, size - a.top - 12)}
 		<div class="pointer-events-none absolute inset-0 z-[35]">
 			<div
-				class="graph-leaf-card-reveal pointer-events-auto absolute flex max-h-[min(48vh,var(--card-mh))] min-h-0 -translate-x-1/2 flex-col transition-[top,left] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none"
 				style="left: {a.left}px; top: {a.top}px; width: {a.cardMaxW}px; --card-mh: {cardMaxH}px;"
+				class="graph-leaf-card-reveal pointer-events-auto absolute flex max-h-[min(48vh,var(--card-mh))] min-h-0 -translate-x-1/2 flex-col transition-[top,left] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none"
 			>
 				<div class="mb-1.5 flex shrink-0 flex-col items-center" aria-hidden="true">
-					<div class="h-4 w-px shrink-0 bg-accent/70"></div>
-					<div class="h-0 w-0 border-x-[5px] border-x-transparent border-b-[6px] border-b-accent/70"></div>
+					<div class="bg-accent/70 h-4 w-px shrink-0"></div>
+					<div
+						class="border-b-accent/70 h-0 w-0 border-x-[5px] border-b-[6px] border-x-transparent"
+					></div>
 				</div>
 				<div
-					class="min-h-0 flex-1 overflow-y-auto overflow-x-hidden rounded-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.28)] dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.55)]"
+					class="min-h-0 flex-1 overflow-x-hidden overflow-y-auto rounded-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.28)] dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.55)]"
 				>
-					<LeafDetailCard
-						{locale}
-						{itemId}
-						labels={leafDetailLabels}
-						{onSelectLeaf}
-					/>
+					<LeafDetailCard {itemId} labels={leafDetailLabels} {locale} {onSelectLeaf} />
 				</div>
 			</div>
 		</div>

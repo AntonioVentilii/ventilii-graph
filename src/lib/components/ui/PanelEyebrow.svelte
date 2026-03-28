@@ -6,4 +6,4 @@
 	let { text }: Props = $props();
 </script>
 
-<p class="text-xs uppercase tracking-wide text-fg-subtle">{text}</p>
+<p class="text-fg-subtle text-xs tracking-wide uppercase">{text}</p>

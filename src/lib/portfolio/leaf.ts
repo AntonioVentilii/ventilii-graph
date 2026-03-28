@@ -1,6 +1,6 @@
 import { portfolioData } from '$lib/data/portfolio.data';
-import type { Locale } from '$lib/portfolio/types';
 import { pickLocale } from '$lib/portfolio/locale';
+import type { Locale } from '$lib/portfolio/types';
 
 export type Leaf =
 	| { kind: 'experience'; id: string }
@@ -10,7 +10,7 @@ export type Leaf =
 	| { kind: 'language'; id: string }
 	| { kind: 'about'; id: string };
 
-export function categoryForLeafKind(kind: Leaf['kind']): string {
+export const categoryForLeafKind = (kind: Leaf['kind']): string => {
 	switch (kind) {
 		case 'experience':
 			return 'experience';
@@ -25,9 +25,9 @@ export function categoryForLeafKind(kind: Leaf['kind']): string {
 		case 'about':
 			return 'about';
 	}
-}
+};
 
-export function leavesForCategory(cat: string): Leaf[] {
+export const leavesForCategory = (cat: string): Leaf[] => {
 	switch (cat) {
 		case 'experience':
 			return portfolioData.experiences.map((e) => ({ kind: 'experience', id: e.id }));
@@ -44,39 +44,41 @@ export function leavesForCategory(cat: string): Leaf[] {
 		default:
 			return [];
 	}
-}
+};
 
-export function leafLabel(leaf: Leaf, locale: Locale): string {
+export const leafLabel = ({ leaf, locale }: { leaf: Leaf; locale: Locale }): string => {
 	switch (leaf.kind) {
 		case 'experience': {
-			const e = portfolioData.experiences.find((x) => x.id === leaf.id)!;
-			return pickLocale(e.company, locale);
+			const e = portfolioData.experiences.find((x) => x.id === leaf.id);
+			return e ? pickLocale({ text: e.company, locale }) : '';
 		}
 		case 'project': {
-			const p = portfolioData.projects.find((x) => x.id === leaf.id)!;
-			return pickLocale(p.title, locale);
+			const p = portfolioData.projects.find((x) => x.id === leaf.id);
+			return p ? pickLocale({ text: p.title, locale }) : '';
 		}
 		case 'technology': {
-			const s = portfolioData.technologies.find((x) => x.id === leaf.id)!;
-			return pickLocale(s.label, locale);
+			const s = portfolioData.technologies.find((x) => x.id === leaf.id);
+			return s ? pickLocale({ text: s.label, locale }) : '';
 		}
 		case 'education': {
-			const ed = portfolioData.education.find((x) => x.id === leaf.id)!;
-			return pickLocale(ed.institution, locale);
+			const ed = portfolioData.education.find((x) => x.id === leaf.id);
+			return ed ? pickLocale({ text: ed.institution, locale }) : '';
 		}
 		case 'language': {
-			const l = portfolioData.languages.find((x) => x.id === leaf.id)!;
-			return pickLocale(l.label, locale);
+			const l = portfolioData.languages.find((x) => x.id === leaf.id);
+			return l ? pickLocale({ text: l.label, locale }) : '';
 		}
 		case 'about': {
-			const a = portfolioData.about.find((x) => x.id === leaf.id)!;
-			return pickLocale(a.title, locale);
+			const a = portfolioData.about.find((x) => x.id === leaf.id);
+			return a ? pickLocale({ text: a.title, locale }) : '';
 		}
 	}
-}
+};
 
-export function parseLeaf(itemId: string | null): Leaf | null {
-	if (!itemId) return null;
+export const parseLeaf = (itemId: string | null): Leaf | null => {
+	if (!itemId) {
+		return null;
+	}
 	const [kind, ...rest] = itemId.split(':');
 	const id = rest.join(':');
 	if (
@@ -90,4 +92,4 @@ export function parseLeaf(itemId: string | null): Leaf | null {
 		return { kind, id } as Leaf;
 	}
 	return null;
-}
+};

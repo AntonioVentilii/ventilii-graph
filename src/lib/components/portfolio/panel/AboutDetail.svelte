@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { pickLocale } from '$lib/portfolio/locale';
-	import type { Locale } from '$lib/portfolio/types';
-	import type { AboutBlock } from '$lib/portfolio/types';
 	import PanelEyebrow from '$lib/components/ui/PanelEyebrow.svelte';
+	import { pickLocale } from '$lib/portfolio/locale';
+	import type { Locale, AboutBlock } from '$lib/portfolio/types';
 
 	interface Props {
 		block: AboutBlock;
@@ -13,10 +12,10 @@
 	let { block, locale, sectionEyebrow }: Props = $props();
 </script>
 
-<div class="space-y-3 animate-fade">
+<div class="animate-fade space-y-3">
 	{#if sectionEyebrow}
 		<PanelEyebrow text={sectionEyebrow} />
 	{/if}
-	<h2 class="text-xl font-bold text-fg">{pickLocale(block.title, locale)}</h2>
-	<p class="text-sm leading-relaxed text-fg-muted">{pickLocale(block.body, locale)}</p>
+	<h2 class="text-fg text-xl font-bold">{pickLocale({ text: block.title, locale })}</h2>
+	<p class="text-fg-muted text-sm leading-relaxed">{pickLocale({ text: block.body, locale })}</p>
 </div>

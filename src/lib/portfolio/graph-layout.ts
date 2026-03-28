@@ -1,6 +1,6 @@
 import { portfolioData } from '$lib/data/portfolio.data';
-import { leavesForCategory, type Leaf } from '$lib/portfolio/leaf';
 import { categoryAngle, leafAnglesOpenRing } from '$lib/portfolio/graph-geometry';
+import { leavesForCategory, type Leaf } from '$lib/portfolio/leaf';
 
 export type GraphView = 'root' | 'category' | 'leaf';
 
@@ -10,33 +10,54 @@ export const CAT_H = 40;
 /** Used for vertical stack geometry in leaf-focused view */
 export const LEAF_CENTER_H = 44;
 
-export function graphView(categoryId: string | null, itemId: string | null): GraphView {
-	if (!categoryId) return 'root';
-	if (!itemId) return 'category';
+export const graphView = ({
+	categoryId,
+	itemId
+}: {
+	categoryId: string | null;
+	itemId: string | null;
+}): GraphView => {
+	if (!categoryId) {
+		return 'root';
+	}
+	if (!itemId) {
+		return 'category';
+	}
 	return 'leaf';
+};
+
+export interface HubLayout {
+	x: number;
+	y: number;
+	compact: boolean;
+	opacity: number;
 }
 
-export type HubLayout = { x: number; y: number; compact: boolean; opacity: number };
-
-export type CategoryNodeLayout = {
+export interface CategoryNodeLayout {
 	id: string;
 	left: number;
 	top: number;
 	opacity: number;
 	isCenter: boolean;
-};
+}
 
-export type LeafNodeLayout = {
+export interface LeafNodeLayout {
 	leaf: Leaf;
 	left: number;
 	top: number;
 	opacity: number;
 	isCenter: boolean;
-};
+}
 
-export type EdgeSegment = { x1: number; y1: number; x2: number; y2: number; opacity: number };
+export interface EdgeSegment {
+	x1: number;
+	y1: number;
+	x2: number;
+	y2: number;
+	opacity: number;
+}
 
-export type GraphLayoutResult = {
+export interface GraphLayoutResult {
 	view: GraphView;
 	cx: number;
 	cy: number;
@@ -45,30 +66,48 @@ export type GraphLayoutResult = {
 	leaves: LeafNodeLayout[];
 	edges: EdgeSegment[];
 	hubWidthPx: number;
+}
+
+const hubSize = ({
+	size,
+	compact
+}: {
+	size: number;
+	compact: boolean;
+}): { w: number; h: number } => {
+	if (compact) {
+		return { w: 112, h: 78 };
+	}
+	const w = size < 480 ? Math.min(112, size * 0.35) : Math.min(148, size * 0.42);
+	return { w, h: 108 };
 };
 
-function hubSize(size: number, compact: boolean): { w: number; h: number } {
-	if (compact) return { w: 112, h: 78 };
-	const w = Math.min(148, size * 0.42);
-	return { w, h: 108 };
-}
-
-function catCenter(i: number, cx: number, cy: number, r1: number): { x: number; y: number } {
+const catCenter = ({
+	i,
+	cx,
+	cy,
+	r1
+}: {
+	i: number;
+	cx: number;
+	cy: number;
+	r1: number;
+}): { x: number; y: number } => {
 	const a = categoryAngle(i);
 	return { x: cx + r1 * Math.cos(a), y: cy + r1 * Math.sin(a) };
-}
+};
 
-export function computeGraphLayout(params: {
+export const computeGraphLayout = (params: {
 	size: number;
 	categoryId: string | null;
 	itemId: string | null;
-}): GraphLayoutResult {
+}): GraphLayoutResult => {
 	const { size, categoryId, itemId } = params;
 	const cx = size / 2;
 	const cy = size / 2;
-	const r1 = size * 0.34;
-	const r2 = size * 0.54;
-	const view = graphView(categoryId, itemId);
+	const r1 = size * 0.28;
+	const r2 = size * 0.42;
+	const view = graphView({ categoryId, itemId });
 
 	const parentIndex = categoryId
 		? portfolioData.categories.findIndex((c) => c.id === categoryId)
@@ -76,16 +115,16 @@ export function computeGraphLayout(params: {
 	const leaves = categoryId ? leavesForCategory(categoryId) : [];
 	const childAnglesList = parentIndex >= 0 ? leafAnglesOpenRing(leaves.length) : [];
 
-	const hubWidthPx = hubSize(size, false).w;
+	const hubWidthPx = hubSize({ size, compact: false }).w;
 
 	const categories: CategoryNodeLayout[] = portfolioData.categories.map((cat, i) => {
-		const cc = catCenter(i, cx, cy, r1);
+		const cc = catCenter({ i, cx, cy, r1 });
 		return {
 			id: cat.id,
 			left: cc.x,
 			top: cc.y,
 			opacity: 1,
-			isCenter: false,
+			isCenter: false
 		};
 	});
 
@@ -93,13 +132,13 @@ export function computeGraphLayout(params: {
 
 	if (view === 'root') {
 		const edges: EdgeSegment[] = portfolioData.categories.map((_, i) => {
-			const cc = catCenter(i, cx, cy, r1);
+			const cc = catCenter({ i, cx, cy, r1 });
 			return {
 				x1: cx,
 				y1: cy,
 				x2: cc.x,
 				y2: cc.y,
-				opacity: 1,
+				opacity: 1
 			};
 		});
 		return {
@@ -110,7 +149,7 @@ export function computeGraphLayout(params: {
 			categories,
 			leaves: emptyLeaves,
 			edges,
-			hubWidthPx,
+			hubWidthPx
 		};
 	}
 
@@ -119,14 +158,18 @@ export function computeGraphLayout(params: {
 		const hy = cy - hubDist;
 		const hx = cx;
 
-		const sel = categories.find((c) => c.id === categoryId)!;
-		sel.left = cx;
-		sel.top = cy;
-		sel.opacity = 1;
-		sel.isCenter = true;
+		const sel = categories.find((c) => c.id === categoryId);
+		if (sel) {
+			sel.left = cx;
+			sel.top = cy;
+			sel.opacity = 1;
+			sel.isCenter = true;
+		}
 
 		for (const c of categories) {
-			if (c.id !== categoryId) c.opacity = 0;
+			if (c.id !== categoryId) {
+				c.opacity = 0;
+			}
 		}
 
 		const leafLayouts: LeafNodeLayout[] = leaves.map((leaf, ki) => {
@@ -138,22 +181,20 @@ export function computeGraphLayout(params: {
 				left: lx,
 				top: ly,
 				opacity: 1,
-				isCenter: false,
+				isCenter: false
 			};
 		});
 
 		const catCenterPt = { x: cx, y: cy };
 		const edges: EdgeSegment[] = [
 			{ x1: hx, y1: hy, x2: catCenterPt.x, y2: catCenterPt.y, opacity: 1 },
-			...leafLayouts.map((L) => {
-				return {
-					x1: catCenterPt.x,
-					y1: catCenterPt.y,
-					x2: L.left,
-					y2: L.top,
-					opacity: 1,
-				};
-			}),
+			...leafLayouts.map((L) => ({
+				x1: catCenterPt.x,
+				y1: catCenterPt.y,
+				x2: L.left,
+				y2: L.top,
+				opacity: 1
+			}))
 		];
 
 		return {
@@ -164,7 +205,7 @@ export function computeGraphLayout(params: {
 			categories,
 			leaves: leafLayouts,
 			edges,
-			hubWidthPx,
+			hubWidthPx
 		};
 	}
 
@@ -175,7 +216,7 @@ export function computeGraphLayout(params: {
 			return computeGraphLayout({ size, categoryId, itemId: null });
 		}
 
-		const { h: hh } = hubSize(size, true);
+		const { h: hh } = hubSize({ size, compact: true });
 		const vGap = Math.max(18, size * 0.055);
 		const leafHalfLayout = Math.max(LEAF_CENTER_H / 2, 30);
 
@@ -196,8 +237,9 @@ export function computeGraphLayout(params: {
 		const hx = cx;
 
 		for (const c of categories) {
-			if (c.id !== categoryId) c.opacity = 0;
-			else {
+			if (c.id !== categoryId) {
+				c.opacity = 0;
+			} else {
 				c.left = cx;
 				c.top = cy_cat;
 				c.opacity = 1;
@@ -213,7 +255,7 @@ export function computeGraphLayout(params: {
 					left: cx,
 					top: leafCenterY,
 					opacity: 1,
-					isCenter: true,
+					isCenter: true
 				};
 			}
 			const a = childAnglesList[ki] ?? 0;
@@ -224,19 +266,19 @@ export function computeGraphLayout(params: {
 				left: lx,
 				top: ly,
 				opacity: 0,
-				isCenter: false,
+				isCenter: false
 			};
 		});
 
 		const catCx = cx;
 		const catCy = cy_cat;
-		const leafSel = leafLayouts.find((l) => l.isCenter)!;
-		const lcx = leafSel.left;
-		const lcy = leafSel.top;
+		const leafSel = leafLayouts.find((l) => l.isCenter);
+		const lcx = leafSel?.left ?? cx;
+		const lcy = leafSel?.top ?? leafCenterY;
 
 		const edges: EdgeSegment[] = [
 			{ x1: hx, y1: hy, x2: catCx, y2: catCy, opacity: 1 },
-			{ x1: catCx, y1: catCy, x2: lcx, y2: lcy, opacity: 1 },
+			{ x1: catCx, y1: catCy, x2: lcx, y2: lcy, opacity: 1 }
 		];
 
 		return {
@@ -247,9 +289,9 @@ export function computeGraphLayout(params: {
 			categories,
 			leaves: leafLayouts,
 			edges,
-			hubWidthPx,
+			hubWidthPx
 		};
 	}
 
 	return computeGraphLayout({ size, categoryId: null, itemId: null });
-}
+};

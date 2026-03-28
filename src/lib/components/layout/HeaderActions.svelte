@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { Github } from 'lucide-svelte';
+	import LocaleSelect from '$lib/components/layout/LocaleSelect.svelte';
+	import ThemeToggle from '$lib/components/layout/ThemeToggle.svelte';
 	import type { Locale } from '$lib/portfolio/types';
-	import ThemeToggle from './ThemeToggle.svelte';
-	import LocaleSelect from './LocaleSelect.svelte';
 
 	interface Props {
 		locale: Locale;
@@ -15,12 +16,14 @@
 <div class="flex flex-wrap items-center gap-2">
 	<ThemeToggle />
 	<a
+		class="border-border bg-popover text-fg-muted hover:border-accent hover:text-fg inline-flex h-9 w-9 items-center justify-center rounded-full border transition"
+		aria-label={cvFallbackLabel}
 		href="https://github.com/AntonioVentilii?tab=repositories"
-		class="inline-flex min-h-9 items-center justify-center rounded-full border border-border bg-popover px-3 text-xs text-fg-muted transition hover:border-accent hover:text-fg"
-		target="_blank"
 		rel="noopener noreferrer"
+		target="_blank"
+		title={cvFallbackLabel}
 	>
-		{cvFallbackLabel}
+		<Github size={16} strokeWidth={2} />
 	</a>
-	<LocaleSelect bind:locale {langLabel} />
+	<LocaleSelect {langLabel} bind:locale />
 </div>
