@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { portfolioData } from '$lib/data/portfolio.data';
-	import type { GraphLayoutResult } from '$lib/portfolio/graph-layout';
+	import type { GraphLayoutResult } from '$lib/services/graph-layout.services';
+	import { portfolioData } from '$lib/services/portfolio.services';
 
 	interface Props {
 		container: HTMLElement | undefined;

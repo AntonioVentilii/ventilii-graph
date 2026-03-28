@@ -10,7 +10,8 @@ export interface Person {
 	location: Localised;
 	avatarUrl: string;
 	email: string;
-	links: { label: Localised; href: string }[];
+	links: { label: Localised; href: string; iconName?: string }[];
+	cvUrl?: string;
 }
 
 export interface Category {
@@ -27,7 +28,7 @@ export interface Experience {
 	dates: Localised;
 	summary: Localised;
 	highlights: Localised[]; // bullet strings
-	links?: { label: Localised; href: string }[];
+	links?: { label: Localised; href: string; iconName?: string }[];
 	stackIds?: string[];
 	projectIds?: string[];
 }
@@ -38,7 +39,7 @@ export interface Project {
 	kind: 'work' | 'personal' | 'org';
 	summary: Localised;
 	highlights?: Localised[];
-	links: { label: Localised; href: string }[]; // GitHub / live
+	links: { label: Localised; href: string; iconName?: string }[]; // GitHub / live
 	stackIds?: string[];
 	experienceId?: string;
 }

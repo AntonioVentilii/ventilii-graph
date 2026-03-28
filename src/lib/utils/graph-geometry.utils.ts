@@ -1,4 +1,4 @@
-import { portfolioData } from '$lib/data/portfolio.data';
+import { portfolioData } from '$lib/services/portfolio.services';
 
 const n = () => portfolioData.categories.length;
 

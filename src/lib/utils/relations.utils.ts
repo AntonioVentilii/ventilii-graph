@@ -1,4 +1,4 @@
-import { portfolioData } from '$lib/data/portfolio.data';
+import { portfolioData } from '$lib/services/portfolio.services';
 
 export const relatedProjectsForStack = (stackId: string) =>
 	portfolioData.projects.filter((p) => p.stackIds?.includes(stackId));

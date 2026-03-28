@@ -1,7 +1,8 @@
 <script lang="ts">
+	import EntryHeader from '$lib/components/ui/EntryHeader.svelte';
 	import PanelEyebrow from '$lib/components/ui/PanelEyebrow.svelte';
-	import { pickLocale } from '$lib/portfolio/locale';
-	import type { Locale, LanguageEntry } from '$lib/portfolio/types';
+	import type { Locale, LanguageEntry } from '$lib/types/portfolio.types';
+	import { pickLocale } from '$lib/utils/locale.utils';
 
 	interface Props {
 		entry: LanguageEntry;
@@ -17,7 +18,11 @@
 	{#if sectionEyebrow}
 		<PanelEyebrow text={sectionEyebrow} />
 	{/if}
-	<h2 class="text-fg text-xl font-bold">{pickLocale({ text: entry.label, locale })}</h2>
-	<p class="text-fg-muted text-sm">{pickLocale({ text: entry.level, locale })}</p>
+
+	<EntryHeader
+		subtitle={pickLocale({ text: entry.level, locale })}
+		title={pickLocale({ text: entry.label, locale })}
+	/>
+
 	<p class="text-fg-subtle text-xs">{uiCopyNote}</p>
 </div>

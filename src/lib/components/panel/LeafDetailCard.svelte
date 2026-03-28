@@ -1,13 +1,13 @@
 <script lang="ts">
-	import AboutDetail from '$lib/components/portfolio/panel/AboutDetail.svelte';
-	import EducationDetail from '$lib/components/portfolio/panel/EducationDetail.svelte';
-	import ExperienceDetail from '$lib/components/portfolio/panel/ExperienceDetail.svelte';
-	import LanguageDetail from '$lib/components/portfolio/panel/LanguageDetail.svelte';
-	import ProjectDetail from '$lib/components/portfolio/panel/ProjectDetail.svelte';
-	import TechnologyDetail from '$lib/components/portfolio/panel/TechnologyDetail.svelte';
-	import { portfolioData } from '$lib/data/portfolio.data';
-	import { leafLabel, parseLeaf, type Leaf } from '$lib/portfolio/leaf';
-	import type { Locale } from '$lib/portfolio/types';
+	import AboutDetail from '$lib/components/panel/AboutDetail.svelte';
+	import EducationDetail from '$lib/components/panel/EducationDetail.svelte';
+	import ExperienceDetail from '$lib/components/panel/ExperienceDetail.svelte';
+	import LanguageDetail from '$lib/components/panel/LanguageDetail.svelte';
+	import ProjectDetail from '$lib/components/panel/ProjectDetail.svelte';
+	import TechnologyDetail from '$lib/components/panel/TechnologyDetail.svelte';
+	import { portfolioData } from '$lib/services/portfolio.services';
+	import type { Locale } from '$lib/types/portfolio.types';
+	import { leafLabel, parseLeaf, type Leaf } from '$lib/utils/leaf.utils';
 
 	interface Props {
 		locale: Locale;
@@ -29,7 +29,7 @@
 <aside
 	id="leaf-detail-panel"
 	class="leaf-detail-card border-border border-l-accent bg-card scroll-mt-24 rounded-xl border border-l-[3px] p-4 text-sm shadow-[var(--shadow-panel-inset)] [&_.space-y-3]:space-y-2 [&_h2]:text-lg"
-	aria-label={leaf ? leafLabel(leaf, locale) : 'Detail'}
+	aria-label={leaf ? leafLabel({ leaf, locale }) : 'Detail'}
 	tabindex="-1"
 >
 	{#if leaf?.kind === 'experience'}

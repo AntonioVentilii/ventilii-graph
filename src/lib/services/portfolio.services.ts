@@ -1,4 +1,4 @@
-import type { PortfolioData } from '$lib/portfolio/types';
+import type { PortfolioData } from '$lib/types/portfolio.types';
 
 const L = {
 	// eslint-disable-next-line local-rules/prefer-object-params
@@ -11,16 +11,25 @@ export const portfolioData: PortfolioData = {
 		name: 'Antonio Ventilii',
 		title: L.en('Senior Software Engineer', 'Senior Software Engineer'),
 		tagline: L.en(
-			'Shipping production systems in TypeScript, Rust, and Python across Web3 and traditional finance — including a flagship wallet whose full codebase is public on GitHub.',
-			'Sistemi production-grade in TypeScript, Rust e Python tra Web3 e finance tradizionale — incluso un wallet flagship open source su GitHub.'
+			'Senior software engineer shipping production systems in TypeScript, Rust, and Python across Web3 and traditional finance, including a flagship wallet whose full codebase is public on GitHub. Works with modern tooling, including AI-assisted development. Emphasis on code review, maintainability, and idiomatic code.',
+			'Senior software engineer — sistemi production in TypeScript, Rust e Python tra Web3 e finance tradizionale, incluso un wallet flagship open source su GitHub. Focus su tooling moderno, sviluppo assistito da AI, code review e manutenibilità.'
 		),
 		location: L.en('Zurich, Switzerland', 'Zurigo, Svizzera'),
 		avatarUrl: '/images/antonio-ventilii.jpg',
 		email: 'antonioventilii@gmail.com',
 		links: [
-			{ label: L.en('GitHub', 'GitHub'), href: 'https://github.com/AntonioVentilii' },
-			{ label: L.en('LinkedIn', 'LinkedIn'), href: 'https://linkedin.com/in/AntonioVentilii' }
-		]
+			{
+				label: L.en('GitHub', 'GitHub'),
+				href: 'https://github.com/AntonioVentilii',
+				iconName: 'Github'
+			},
+			{
+				label: L.en('LinkedIn', 'LinkedIn'),
+				href: 'https://linkedin.com/in/AntonioVentilii',
+				iconName: 'Linkedin'
+			}
+		],
+		cvUrl: '/Antonio_Ventilii_CV.pdf'
 	},
 	categories: [
 		{
@@ -66,35 +75,35 @@ export const portfolioData: PortfolioData = {
 			company: L.en('DFINITY Foundation', 'DFINITY Foundation'),
 			location: L.en('Zurich, Switzerland', 'Zurigo, Svizzera'),
 			role: L.en('Senior Software Engineer', 'Senior Software Engineer'),
-			dates: L.en('May 2024 — Present', 'Mag 2024 — oggi'),
+			dates: L.en('2024 — Present', '2024 — oggi'),
 			summary: L.en(
-				'OISY Wallet (Apache-2.0): a browser wallet on the Internet Computer with TypeScript, Svelte, Rust canisters, and chain fusion. The entire product is open source — implementation, history, and review are public on GitHub.',
-				'OISY Wallet (Apache-2.0): browser wallet su Internet Computer con TypeScript, Svelte, canister Rust e chain fusion. Prodotto interamente open source su GitHub.'
+				'OISY Wallet (Apache-2.0): production, multi-chain browser wallet on the Internet Computer (TypeScript, Svelte, Rust canisters, chain fusion). Fully public development on GitHub; primary contributor by commit volume (AntonioVentilii). Also collaborates on other foundation initiatives and partner-facing engineering.',
+				'OISY Wallet (Apache-2.0): wallet browser multi-chain su Internet Computer (TS, Svelte, Rust, chain fusion). Sviluppo pubblico su GitHub; contributore principale per volume di commit.'
 			),
 			highlights: [
 				L.en(
-					'Solana (mainnet & devnet): native SOL and SPL end-to-end — balances, history, sends; Solana-specific semantics and chain-key signing paths distinct from Bitcoin and Ethereum.',
-					'Solana (mainnet & devnet): SOL e SPL end-to-end; semantica specifica e signing chain-key distinto da Bitcoin ed Ethereum.'
+					'Solana (mainnet & devnet): extended the product to SOL and SPL (send, receive, balances/history) with correct account and transaction semantics; integrated chain-key signing paths that differ materially from Bitcoin and Ethereum.',
+					'Solana (mainnet & devnet): esteso il prodotto a SOL e SPL (invio/ricezione/storico) con semantica corretta; integrazione signing chain-key differente da BTC/ETH.'
 				),
 				L.en(
-					'Extended EVM coverage: Base, Polygon, Arbitrum, BSC behind a repeatable pattern; documented steps to add more networks.',
-					'Copertura EVM estesa: Base, Polygon, Arbitrum, BSC con pattern ripetibile e note per nuove reti.'
+					'EVM scale-out: shipped Base, Polygon, Arbitrum, and BSC behind one extensible integration pattern and documented how to add further chains.',
+					'EVM scale-out: Base, Polygon, Arbitrum e BSC sotto un unico pattern estensibile; documentata l’aggiunta di nuove reti.'
 				),
 				L.en(
-					'Modular providers: swaps via NEAR Intents (Solana & EVMs); fiat on-ramp via Onramper behind a pluggable model.',
-					'Provider modulari: swap con NEAR Intents; on-ramp fiat con Onramper.'
+					'In-wallet services: swap flows via NEAR Intents (Solana and EVMs) through a pluggable provider model; fiat on-ramp via Onramper (buy crypto without leaving the wallet).',
+					'Servizi in-wallet: swap via NEAR Intents (Solana/EVM) con modello a provider; on-ramp fiat via Onramper.'
 				),
 				L.en(
-					'Backend-first workers: transaction loaders and FX jobs moved to canisters — pagination, cache, persistence, scheduled rates — restoring predictable UI performance.',
-					'Worker lato backend: loader transazioni e job FX su canister con cache e job schedulati.'
+					'Performance / architecture: moved transaction loading (pagination, caching, persistence) and exchange-rate refresh into canisters with scheduled jobs, reducing browser work and stabilizing UI under real usage.',
+					'Performance/architettura: spostato carico transazioni (paginazione, cache, persistenza) su canister con job schedulati.'
 				),
 				L.en(
-					'Backend hardening: rate limits; Internet Identity delegation-chain checks binding traffic to the real frontend.',
-					'Hardening: rate limit e verifiche sulla catena di delegazione Internet Identity.'
+					'Security / abuse: rate limits on sensitive endpoints; Internet Identity delegation-chain validation so backend requests align with the legitimate frontend.',
+					'Security: rate limit su endpoint sensibili; valida della catena di delegazione Internet Identity.'
 				),
 				L.en(
-					'Leadership & tooling: currency/language preferences, token-list performance; shared strict ESLint config reused across foundation repos; coding agents for implementation and review.',
-					'Leadership e tooling: preferenze UX, performance liste token; ESLint condiviso; agenti per implementazione e review.'
+					'Product, leadership, tooling: currency and language preferences and token-list performance work; before a team restructure, owned technical direction, planning, and mentoring; introduced a shared ESLint setup (strict + custom rules) reused across foundation repos; coding agents used heavily for implementation and review.',
+					'Leadership & tooling: preferenze UI, performance liste token; direzione tecnica e mentoring; setup ESLint condiviso; uso intensivo di coding agents.'
 				)
 			],
 			links: [
@@ -115,23 +124,31 @@ export const portfolioData: PortfolioData = {
 				'Desk Developer / Senior Multi-Asset Trader',
 				'Desk Developer / Senior Multi-Asset Trader'
 			),
-			dates: L.en('2020 — May 2024', '2020 — mag 2024'),
+			dates: L.en('2020 — 2024', '2020 — 2024'),
 			summary: L.en(
-				'Former UBS Swiss Financial Advisers AG. Built desk automation and controls while executing multi-asset trades for HNWI/UHNWI clients.',
-				'Ex UBS Swiss Financial Advisers. Automazione e controlli di desk mentre operavo mercati multi-asset per clienti HNWI/UHNWI.'
+				'Former UBS Swiss Financial Advisers AG. Built desk automation and controls while executing multi-asset trades for HNWI/UHNWI clients. Cut time on repetitive desk operations from about eight hours to about two hours per day.',
+				'Ex UBS Swiss Financial Advisers. Automazione desk operando mercati multi-asset per clienti HNWI/UHNWI. Operazioni ripetitive ridotte da 8 a 2 ore al giorno.'
 			),
 			highlights: [
 				L.en(
-					'Flask API + React app for rule-based asset analysis used across four teams.',
-					'API Flask + app React per analisi regole su quattro team.'
+					'Flask API and React web app for rule-based asset screening and analysis, used across four teams.',
+					'API Flask e app React per screening asset basato su regole, usato da quattro team.'
 				),
 				L.en(
-					'Forex book end-of-day hedge optimisation (linear programming) — ~40% reduction in related market fees.',
-					'Ottimizzazione hedge EOD FX (programmazione lineare) — ~40% fee in meno.'
+					'FX book end-of-day hedge optimisation (linear programming), cutting related market fees by about 40%.',
+					'Ottimizzazione hedge EOD FX (programmazione lineare), -40% in fee di mercato.'
 				),
 				L.en(
-					'Python automation for booking GUI; data distribution for Bloomberg and third-party feeds; internal/external API wrappers; desk-wide Git/DevOps adoption.',
-					'Automazione Python su GUI booking; distribuzione dati Bloomberg/API; wrapper; DevOps su tutto il desk.'
+					'Python package automating the booking GUI, eliminating manual steps across 7–8 recurring desk workflows; data pipeline for Bloomberg and third-party market data; internal/external API wrappers.',
+					'Package Python per automazione GUI booking su 7-8 workflow; pipeline dati Bloomberg.'
+				),
+				L.en(
+					'Git-based workflows, testing, and DevOps practices adopted desk-wide.',
+					'Workflow basati su Git, testing e pratiche DevOps adottate in tutto il desk.'
+				),
+				L.en(
+					'Executed trades on multi-asset markets (Fixed Income, FX, Equity, Structured Products, Derivatives) for HNWI and UHNWI clients.',
+					'Esecuzione trade multi-asset (FI, FX, Equity, Strutturati, Derivati).'
 				)
 			],
 			stackIds: ['python', 'react']
@@ -176,7 +193,10 @@ export const portfolioData: PortfolioData = {
 					'Market data: Bloomberg, Yahoo, APIs, scraping.',
 					'Market data: Bloomberg, Yahoo, API, scraping.'
 				),
-				L.en('Docker/venv, CI/CD with automated tests.', 'Docker/venv, CI/CD con test automatici.')
+				L.en(
+					'Agile (Scrum); Docker/venv and CI/CD with automated tests.',
+					'Agile (Scrum); Docker/venv e CI/CD con test automatizzati.'
+				)
 			],
 			stackIds: ['python', 'react']
 		},
@@ -184,7 +204,7 @@ export const portfolioData: PortfolioData = {
 			id: 'itau-br',
 			company: L.en('Itaú Unibanco S.A.', 'Itaú Unibanco S.A.'),
 			location: L.en('São Paulo, Brazil', 'San Paolo, Brasile'),
-			role: L.en('Trader, Volatility Trading Desk', 'Trader, Volatility Trading Desk'),
+			role: L.en('Trader at Volatility Trading Desk', 'Trader at Volatility Trading Desk'),
 			dates: L.en('2013 — 2016', '2013 — 2016'),
 			summary: L.en(
 				'Flow pricing, prop risk, internal clients; co-built desk controls and a central Volatility database (SQL, C#).',
@@ -248,12 +268,85 @@ export const portfolioData: PortfolioData = {
 			stackIds: ['react']
 		},
 		{
+			id: 'chaditt',
+			title: L.en('CHaDitt', 'CHaDitt'),
+			kind: 'personal',
+			summary: L.en(
+				'WhatsApp audio → transcription / translation via an AI model (Flask, webhooks).',
+				'Audio WhatsApp → trascrizione/traduzione via modello AI (Flask, webhook).'
+			),
+			links: [
+				{ label: L.en('GitHub', 'GitHub'), href: 'https://github.com/AntonioVentilii/CHaDitt' }
+			],
+			stackIds: ['python']
+		},
+		{
+			id: 'whatsapp-wrapper',
+			title: L.en('whatsapp-wrapper', 'whatsapp-wrapper'),
+			kind: 'personal',
+			summary: L.en(
+				'WhatsApp Cloud API wrapper with Firestore-backed message storage.',
+				'Wrapper WhatsApp Cloud API con persistenza su Firestore.'
+			),
+			links: [
+				{
+					label: L.en('GitHub', 'GitHub'),
+					href: 'https://github.com/AntonioVentilii/whatsapp-wrapper'
+				}
+			],
+			stackIds: ['python']
+		},
+		{
+			id: 'cryptovol',
+			title: L.en('CryptoVol Robot', 'CryptoVol Robot'),
+			kind: 'personal',
+			summary: L.en(
+				'Deribit + Telegram volatility bot for automated notifications.',
+				'Bot di volatilità Deribit + Telegram per notifiche automatizzate.'
+			),
+			links: [{ label: L.en('GitHub', 'GitHub'), href: 'https://github.com/AntonioVentilii' }],
+			stackIds: ['python']
+		},
+		{
+			id: 'arbitrage',
+			title: L.en('3-Way Arbitrage', '3-Way Arbitrage'),
+			kind: 'personal',
+			summary: L.en(
+				'Cross-venue arbitrage system (including Kraken integration).',
+				'Sistema di arbitraggio cross-venue (con integrazione Kraken).'
+			),
+			links: [{ label: L.en('GitHub', 'GitHub'), href: 'https://github.com/AntonioVentilii' }],
+			stackIds: ['python']
+		},
+		{
+			id: 'retropanda',
+			title: L.en('RetroPandaClub NFT', 'RetroPandaClub NFT'),
+			kind: 'personal',
+			summary: L.en(
+				'NFT smart contracts developed in Solidity and Rust.',
+				'Smart contract NFT sviluppati in Solidity e Rust.'
+			),
+			links: [{ label: L.en('GitHub', 'GitHub'), href: 'https://github.com/AntonioVentilii' }],
+			stackIds: ['rust', 'react']
+		},
+		{
+			id: 'treasure-hunt',
+			title: L.en('Treasure Hunt Bot', 'Treasure Hunt Bot'),
+			kind: 'personal',
+			summary: L.en(
+				'Telegram puzzle bot for interactive engagement.',
+				'Bot Telegram per puzzle e engagement interattivo.'
+			),
+			links: [{ label: L.en('GitHub', 'GitHub'), href: 'https://github.com/AntonioVentilii' }],
+			stackIds: ['python']
+		},
+		{
 			id: 'vici-app',
 			title: L.en('vici-app', 'vici-app'),
 			kind: 'personal',
 			summary: L.en(
-				'Svelte app — recently active on GitHub.',
-				'App Svelte — attività recente su GitHub.'
+				'Svelte app — active development in the ecosystem.',
+				'App Svelte — sviluppo attivo nell’ecosistema.'
 			),
 			links: [
 				{ label: L.en('GitHub', 'GitHub'), href: 'https://github.com/AntonioVentilii/vici-app' }
@@ -265,8 +358,8 @@ export const portfolioData: PortfolioData = {
 			title: L.en('vault-app / vault-core', 'vault-app / vault-core'),
 			kind: 'personal',
 			summary: L.en(
-				'Split Rust core and JavaScript app — custody/experiment surface (descriptions on GitHub).',
-				'Core Rust e app JS — esperimento/custodia (dettagli su GitHub).'
+				'Split Rust core and JavaScript app — custody/experiment surface.',
+				'Core Rust e app JS — superficie di esperimento per custodia.'
 			),
 			links: [
 				{
@@ -285,8 +378,8 @@ export const portfolioData: PortfolioData = {
 			title: L.en('icrc-factory', 'icrc-factory'),
 			kind: 'personal',
 			summary: L.en(
-				'Factory canister for deploying and managing ICRC-style tokens on the Internet Computer.',
-				'Canister factory per token in stile ICRC su Internet Computer.'
+				'Factory canister for deploying and managing ICRC tokens on IC.',
+				'Canister factory per token ICRC su Internet Computer.'
 			),
 			links: [
 				{ label: L.en('GitHub', 'GitHub'), href: 'https://github.com/AntonioVentilii/icrc-factory' }
@@ -299,7 +392,7 @@ export const portfolioData: PortfolioData = {
 			kind: 'personal',
 			summary: L.en(
 				'Python integration layer for Deribit’s trading API.',
-				'Wrapper Python per API trading Deribit.'
+				'Layer di integrazione Python per l’API di Deribit.'
 			),
 			links: [
 				{
@@ -330,8 +423,8 @@ export const portfolioData: PortfolioData = {
 			title: L.en('Juno ecosystem forks', 'Fork ecosistema Juno'),
 			kind: 'personal',
 			summary: L.en(
-				'Contributions and forks around Juno: juno, juno-js, plugins, icp-js-canisters — Web3 hosting toolkit experimentation.',
-				'Fork e contributi su Juno (juno, juno-js, plugins, icp-js-canisters).'
+				'Contributions to Juno, juno-js, plugins, and icp-js-canisters.',
+				'Contributi a Juno, juno-js, plugin e canister icp-js.'
 			),
 			links: [
 				{ label: L.en('juno', 'juno'), href: 'https://github.com/AntonioVentilii/juno' },
@@ -344,8 +437,8 @@ export const portfolioData: PortfolioData = {
 			title: L.en('All public repositories', 'Tutte le repo pubbliche'),
 			kind: 'personal',
 			summary: L.en(
-				'Full list on GitHub — eslint plugins, tooling repros, Tokenmania on ICP Ninja, and more.',
-				'Lista completa su GitHub — plugin eslint, repro tooling, Tokenmania, altro.'
+				'Full list on GitHub — including eslint plugins and other experiments.',
+				'Lista completa su GitHub — plugin eslint e altri esperimenti.'
 			),
 			links: [
 				{
@@ -358,67 +451,58 @@ export const portfolioData: PortfolioData = {
 	technologies: [
 		{
 			id: 'typescript',
-			label: L.en('TypeScript', 'TypeScript'),
+			label: L.en('TypeScript / JS', 'TypeScript / JS'),
 			blurb: L.en(
-				'Primary language for OISY frontend/tooling and many side projects.',
-				'Linguaggio principale per OISY e molti side project.'
+				'Primary language for OISY frontend/tooling. Emphasis on strict type safety and modern patterns.',
+				'Linguaggio principale per OISY frontend/tooling. Focus su type safety e pattern moderni.'
 			),
-			yearsHint: L.en('Production use since desk + Web3 era.', 'Uso production da desk a Web3.'),
+			yearsHint: L.en('Daily production use.', 'Uso quotidiano in produzione.'),
 			relatedProjectIds: ['oisy', 'vici-app', 'juno-ecosystem']
 		},
 		{
 			id: 'rust',
 			label: L.en('Rust', 'Rust'),
 			blurb: L.en(
-				'Canisters, icdc-core, vault-core, icrc-factory, performance-sensitive on-chain logic.',
-				'Canister Rust, icdc-core, vault-core, icrc-factory.'
+				'Backend canisters, icdc-core, vault-core, and systems programming.',
+				'Canister backend, icdc-core, vault-core e programmazione di sistema.'
 			),
-			relatedProjectIds: ['oisy', 'icdc-core', 'vault', 'icrc-factory']
+			relatedProjectIds: ['oisy', 'icdc-core', 'vault', 'icrc-factory', 'retropanda']
 		},
 		{
 			id: 'python',
 			label: L.en('Python', 'Python'),
 			blurb: L.en(
-				'Trading desks, APIs, optimisation (LP), data pipelines, wrappers (Deribit, WhatsApp, Firestore).',
-				'Desk trading, API, LP, pipeline dati, wrapper vari.'
+				'Trading automation, data pipelines, APIs (Flask), and optimisation logic.',
+				'Automazione trading, pipeline dati, API Flask e logica di ottimizzazione.'
 			),
-			relatedProjectIds: ['deribit-wrapper', 'bitcoin-utxo-lp']
+			relatedProjectIds: ['chaditt', 'deribit-wrapper', 'bitcoin-utxo-lp', 'whatsapp-wrapper']
 		},
 		{
 			id: 'svelte',
-			label: L.en('Svelte', 'Svelte'),
+			label: L.en('Svelte / React', 'Svelte / React'),
 			blurb: L.en(
-				'OISY UI, vici-app, this portfolio — lean reactivity and small bundles.',
-				'UI OISY, vici-app, questa portfolio.'
+				'Frontend development with Svelte, React, and React Native.',
+				'Sviluppo frontend con Svelte, React e React Native.'
 			),
-			relatedProjectIds: ['oisy', 'vici-app']
+			relatedProjectIds: ['oisy', 'vici-app', 'escrow', 'retropanda']
 		},
 		{
 			id: 'icp',
-			label: L.en('Internet Computer', 'Internet Computer'),
+			label: L.en('Internet Computer / Web3', 'Internet Computer / Web3'),
 			blurb: L.en(
-				'Canisters, Internet Identity, chain-key patterns, Internet Computer as host for OISY.',
-				'Canister, Internet Identity, chain-key; host di OISY.'
+				'ICP canisters, Internet Identity, and chain-key crypto patterns.',
+				'Canister ICP, Internet Identity e pattern chain-key crypto.'
 			),
 			relatedProjectIds: ['oisy', 'icdc-core', 'icrc-factory', 'juno-ecosystem']
 		},
 		{
 			id: 'evm-solana',
-			label: L.en('EVM & Solana', 'EVM e Solana'),
+			label: L.en('Multi-chain (EVM/SOL)', 'Multi-chain (EVM/SOL)'),
 			blurb: L.en(
-				'WalletConnect, multi-chain expansion in OISY: EVM family + Solana semantics.',
-				'WalletConnect, più chain in OISY: famiglia EVM + Solana.'
+				'Cross-chain integration: Ethereum family and Solana.',
+				'Integrazione cross-chain: famiglia Ethereum e Solana.'
 			),
 			relatedProjectIds: ['oisy']
-		},
-		{
-			id: 'react',
-			label: L.en('React', 'React'),
-			blurb: L.en(
-				'Desk-era internal apps and escrow front-end.',
-				'App interne da desk e frontend escrow.'
-			),
-			relatedProjectIds: ['escrow']
 		}
 	],
 	education: [
@@ -426,40 +510,46 @@ export const portfolioData: PortfolioData = {
 			id: 'usp',
 			institution: L.en('University of São Paulo', 'Università di San Paolo'),
 			degree: L.en(
-				"Master's in Aeronautics Engineering (exchange)",
-				'Magistrale in Ingegneria Aeronautica (exchange)'
+				"Master's Degree in Aeronautics Engineering",
+				'Magistrale in Ingegneria Aeronautica'
 			),
 			dates: L.en('2012 — 2013', '2012 — 2013'),
-			note: L.en('International exchange.', 'Scambio internazionale.')
+			note: L.en('International Exchange.', 'Scambio internazionale.')
 		},
 		{
 			id: 'polimi-m',
 			institution: L.en('Politecnico di Milano', 'Politecnico di Milano'),
-			degree: L.en("Master's in Aeronautics Engineering", 'Magistrale in Ingegneria Aeronautica'),
+			degree: L.en(
+				"Master's Degree in Aeronautics Engineering",
+				'Magistrale in Ingegneria Aeronautica'
+			),
 			dates: L.en('2011 — 2013', '2011 — 2013'),
-			note: L.en('Two-year merit-based scholarship.', 'Borsa di merito biennale.')
+			note: L.en('2-year merit-based scholarship.', 'Borsa di merito biennale.')
 		},
 		{
 			id: 'polimi-b',
 			institution: L.en('Politecnico di Milano', 'Politecnico di Milano'),
-			degree: L.en("Bachelor's in Aerospace Engineering", 'Triennale in Ingegneria Aerospaziale'),
+			degree: L.en(
+				"Bachelor's Degree in Aerospace Engineering",
+				'Triennale in Ingegneria Aerospaziale'
+			),
 			dates: L.en('2008 — 2011', '2008 — 2011'),
-			note: L.en('Three-year merit-based scholarship.', 'Borsa di merito triennale.')
+			note: L.en('3-year merit-based scholarship.', 'Borsa di merito triennale.')
 		}
 	],
 	languages: [
 		{ id: 'it', label: L.en('Italian', 'Italiano'), level: L.en('Native', 'Madrelingua') },
 		{ id: 'pt', label: L.en('Portuguese', 'Portoghese'), level: L.en('Fluent', 'Fluente') },
 		{ id: 'en', label: L.en('English', 'Inglese'), level: L.en('Fluent', 'Fluente') },
-		{ id: 'de', label: L.en('German', 'Tedesco'), level: L.en('Beginner', 'Base') }
+		{ id: 'de', label: L.en('German', 'Tedesco'), level: L.en('Elementary', 'Base') }
 	],
 	about: [
 		{
 			id: 'map',
 			title: L.en('How this portfolio works', 'Come funziona questa portfolio'),
 			body: L.en(
-				'This is a small graph: the centre is identity; the first ring is categories; the second ring lists items. Details stay in the panel so circles stay readable. Use Tab to move between nodes — there is always a boring GitHub list if you prefer linear browsing.',
-				'È un piccolo grafo: al centro l’identità; il primo anello le categorie; il secondo gli elementi. I dettagli stanno nel pannello. Usa Tab tra i nodi; c’è sempre GitHub per una vista lineare.'
+				'Identity at the center, categories in the first ring, items in the second. Details appear in the panel. Use Tab to navigate; a list view is available on GitHub.',
+				'Identità al centro, categorie nel primo anello, elementi nel secondo. I dettagli compaiono nel pannello. Naviga con Tab.'
 			)
 		}
 	],

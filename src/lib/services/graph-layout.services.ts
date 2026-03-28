@@ -1,6 +1,6 @@
-import { portfolioData } from '$lib/data/portfolio.data';
-import { categoryAngle, leafAnglesOpenRing } from '$lib/portfolio/graph-geometry';
-import { leavesForCategory, type Leaf } from '$lib/portfolio/leaf';
+import { portfolioData } from '$lib/services/portfolio.services';
+import { categoryAngle, leafAnglesOpenRing } from '$lib/utils/graph-geometry.utils';
+import { leavesForCategory, type Leaf } from '$lib/utils/leaf.utils';
 
 export type GraphView = 'root' | 'category' | 'leaf';
 

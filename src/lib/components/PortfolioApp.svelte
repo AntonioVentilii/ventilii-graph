@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
+	import PortfolioGraph from '$lib/components/graph/PortfolioGraph.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import Header from '$lib/components/layout/Header.svelte';
-	import DetailPanel from '$lib/components/portfolio/DetailPanel.svelte';
-	import PortfolioGraph from '$lib/components/portfolio/PortfolioGraph.svelte';
-	import { categoryForLeafKind, type Leaf } from '$lib/portfolio/leaf';
-	import type { Locale } from '$lib/portfolio/types';
+	import DetailPanel from '$lib/components/panel/DetailPanel.svelte';
+	import type { Locale } from '$lib/types/portfolio.types';
+	import { categoryForLeafKind, type Leaf } from '$lib/utils/leaf.utils';
 
 	let locale = $state<Locale>('en');
 	let categoryId = $state<string | null>(null);

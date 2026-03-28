@@ -1,7 +1,7 @@
 <script lang="ts">
 	import HeaderActions from '$lib/components/layout/HeaderActions.svelte';
 	import SkipToContent from '$lib/components/layout/SkipToContent.svelte';
-	import type { Locale } from '$lib/portfolio/types';
+	import type { Locale } from '$lib/types/portfolio.types';
 
 	interface Props {
 		locale: Locale;

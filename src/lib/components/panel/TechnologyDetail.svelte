@@ -1,10 +1,12 @@
 <script lang="ts">
+	import EntryHeader from '$lib/components/ui/EntryHeader.svelte';
 	import InlineNavLink from '$lib/components/ui/InlineNavLink.svelte';
 	import PanelEyebrow from '$lib/components/ui/PanelEyebrow.svelte';
-	import type { Leaf } from '$lib/portfolio/leaf';
-	import { pickLocale } from '$lib/portfolio/locale';
-	import { relatedProjectsForStack } from '$lib/portfolio/relations';
-	import type { Locale, Technology } from '$lib/portfolio/types';
+	import RelatedSection from '$lib/components/ui/RelatedSection.svelte';
+	import type { Locale, Technology } from '$lib/types/portfolio.types';
+	import type { Leaf } from '$lib/utils/leaf.utils';
+	import { pickLocale } from '$lib/utils/locale.utils';
+	import { relatedProjectsForStack } from '$lib/utils/relations.utils';
 
 	interface Props {
 		technology: Technology;
@@ -23,16 +25,18 @@
 	{#if sectionEyebrow}
 		<PanelEyebrow text={sectionEyebrow} />
 	{/if}
-	<h2 class="text-fg text-xl font-bold">{pickLocale({ text: technology.label, locale })}</h2>
+
+	<EntryHeader
+		meta={technology.yearsHint ? pickLocale({ text: technology.yearsHint, locale }) : undefined}
+		title={pickLocale({ text: technology.label, locale })}
+	/>
+
 	<p class="text-fg-muted text-sm leading-relaxed">
 		{pickLocale({ text: technology.blurb, locale })}
 	</p>
-	{#if technology.yearsHint}
-		<p class="text-fg-subtle text-xs">{pickLocale({ text: technology.yearsHint, locale })}</p>
-	{/if}
+
 	{#if projects.length}
-		<div class="border-border border-t pt-3">
-			<p class="text-fg-subtle text-sm">{relatedHeading}</p>
+		<RelatedSection label={relatedHeading}>
 			<ul class="mt-2 space-y-1 text-sm">
 				{#each projects as p (p.id)}
 					<li>
@@ -42,6 +46,6 @@
 					</li>
 				{/each}
 			</ul>
-		</div>
+		</RelatedSection>
 	{/if}
 </div>

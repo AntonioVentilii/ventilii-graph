@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Sun, Moon } from 'lucide-svelte';
-	import { theme, toggleTheme } from '$lib/theme.svelte';
+	import { theme, toggleTheme } from '$lib/stores/theme.store';
 
-	const label = $derived(theme.mode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+	const label = $derived($theme.mode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
 </script>
 
 <button
@@ -12,7 +12,7 @@
 	title={label}
 	type="button"
 >
-	{#if theme.mode === 'dark'}
+	{#if $theme.mode === 'dark'}
 		<Sun aria-hidden="true" size={16} strokeWidth={2} />
 	{:else}
 		<Moon aria-hidden="true" size={16} strokeWidth={2} />

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import PersonSummary from '$lib/components/portfolio/panel/PersonSummary.svelte';
-	import { portfolioData } from '$lib/data/portfolio.data';
-	import type { Locale } from '$lib/portfolio/types';
+	import PersonSummary from '$lib/components/panel/PersonSummary.svelte';
+	import { portfolioData } from '$lib/services/portfolio.services';
+	import type { Locale } from '$lib/types/portfolio.types';
 
 	interface Props {
 		locale: Locale;

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import PortfolioApp from '$lib/components/portfolio/PortfolioApp.svelte';
+	import PortfolioApp from '$lib/components/PortfolioApp.svelte';
 </script>
 
 <svelte:head>

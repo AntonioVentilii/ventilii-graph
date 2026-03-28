@@ -2,7 +2,7 @@
 	import { Github } from 'lucide-svelte';
 	import LocaleSelect from '$lib/components/layout/LocaleSelect.svelte';
 	import ThemeToggle from '$lib/components/layout/ThemeToggle.svelte';
-	import type { Locale } from '$lib/portfolio/types';
+	import type { Locale } from '$lib/types/portfolio.types';
 
 	interface Props {
 		locale: Locale;

@@ -1,4 +1,4 @@
-import type { Locale, Localised } from '$lib/portfolio/types';
+import type { Locale, Localised } from '$lib/types/portfolio.types';
 
 export const pickLocale = ({ text, locale }: { text: Localised; locale: Locale }): string => {
 	if ('en' in text && 'it' in text) {
