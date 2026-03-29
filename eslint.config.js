@@ -1,11 +1,8 @@
 import { default as svelteConfig } from '@dfinity/eslint-config-oisy-wallet/svelte';
 import { default as vitestConfig } from '@dfinity/eslint-config-oisy-wallet/vitest';
-import localRules from 'eslint-plugin-local-rules';
-import tailwind from 'eslint-plugin-tailwindcss';
 import ts from 'typescript-eslint';
 
 export default ts.config(
-	...tailwind.configs['flat/recommended'],
 	...vitestConfig,
 	...svelteConfig,
 
@@ -35,21 +32,6 @@ export default ts.config(
 					message: 'Use the shared constant `ZERO` instead of `0n`.'
 				}
 			]
-		}
-	},
-
-	{
-		plugins: {
-			tailwind,
-			'local-rules': localRules
-		},
-		settings: {
-			tailwindcss: {
-				css: 'src/app.css'
-			}
-		},
-		rules: {
-			'tailwindcss/no-arbitrary-value': 'error'
 		}
 	}
 );
