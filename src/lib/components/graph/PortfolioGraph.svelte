@@ -18,7 +18,6 @@
 			relatedProjects: string;
 			stack: string;
 			relatedTechProjects: string;
-			languageUiNote: string;
 		};
 		onToggleCategory: (id: string) => void;
 		onSelectLeaf: (leaf: Leaf) => void;
@@ -201,7 +200,7 @@
 	{#if itemId && leafCardAnchor && leafCardRevealReady}
 		{@const a = leafCardAnchor}
 		{@const cardMaxH = Math.max(120, size - a.top - 12)}
-		<div class="pointer-events-none absolute inset-0 z-[35]">
+		<div class="pointer-events-none absolute inset-0 z-35">
 			<div
 				style="left: {a.left}px; top: {a.top}px; width: {a.cardMaxW}px; --card-mh: {cardMaxH}px;"
 				class="graph-leaf-card-reveal pointer-events-auto absolute flex max-h-[min(48vh,var(--card-mh))] min-h-0 -translate-x-1/2 flex-col transition-[top,left] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none"

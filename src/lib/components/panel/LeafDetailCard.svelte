@@ -16,7 +16,6 @@
 			relatedProjects: string;
 			stack: string;
 			relatedTechProjects: string;
-			languageUiNote: string;
 		};
 		onSelectLeaf: (leaf: Leaf) => void;
 	}
@@ -65,7 +64,7 @@
 	{:else if leaf?.kind === 'language'}
 		{@const l = portfolioData.languages.find((x) => x.id === leaf.id)}
 		{#if l}
-			<LanguageDetail entry={l} {locale} uiCopyNote={labels.languageUiNote} />
+			<LanguageDetail entry={l} {locale} />
 		{/if}
 	{:else if leaf?.kind === 'about'}
 		{@const a = portfolioData.about.find((x) => x.id === leaf.id)}

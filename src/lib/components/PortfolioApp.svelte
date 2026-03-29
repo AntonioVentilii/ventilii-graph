@@ -48,10 +48,6 @@
 			en: 'Projects using this:',
 			it: 'Progetti con questo elemento:'
 		},
-		languageUiNote: {
-			en: 'Interface copy follows the EN/IT toggle above.',
-			it: 'Il testo dell’interfaccia segue il selettore EN/IT in alto.'
-		},
 		searchPlaceholder: { en: 'Search portfolio...', it: 'Cerca nel portfolio...' },
 		searchShortcut: { en: 'Search (⌘K)', it: 'Cerca (⌘K)' },
 		searchLabel: { en: 'Search', it: 'Cerca' }
@@ -67,7 +63,6 @@
 		relatedProjects: tr('relatedProjects'),
 		stack: tr('stack'),
 		relatedTechProjects: tr('relatedTechProjects'),
-		languageUiNote: tr('languageUiNote'),
 		searchPlaceholder: tr('searchPlaceholder'),
 		searchShortcut: tr('searchShortcut'),
 		searchLabel: tr('searchLabel')
@@ -129,8 +124,7 @@
 					leafDetailLabels={{
 						relatedProjects: panelLabels.relatedProjects,
 						stack: panelLabels.stack,
-						relatedTechProjects: panelLabels.relatedTechProjects,
-						languageUiNote: panelLabels.languageUiNote
+						relatedTechProjects: panelLabels.relatedTechProjects
 					}}
 					{locale}
 					onResetHome={resetHome}

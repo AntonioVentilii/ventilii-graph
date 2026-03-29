@@ -8,10 +8,9 @@
 		entry: LanguageEntry;
 		locale: Locale;
 		sectionEyebrow?: string;
-		uiCopyNote: string;
 	}
 
-	let { entry, locale, sectionEyebrow, uiCopyNote }: Props = $props();
+	let { entry, locale, sectionEyebrow }: Props = $props();
 </script>
 
 <div class="animate-fade space-y-2">
@@ -23,6 +22,4 @@
 		subtitle={pickLocale({ text: entry.level, locale })}
 		title={pickLocale({ text: entry.label, locale })}
 	/>
-
-	<p class="text-xs text-fg-subtle">{uiCopyNote}</p>
 </div>
