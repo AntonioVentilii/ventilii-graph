@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Command, Search as SearchIcon, X } from 'lucide-svelte';
-	import { onMount, tick } from 'svelte';
+	import { onMount } from 'svelte';
 	import { fade, slide } from 'svelte/transition';
 	import type { Locale } from '$lib/types/portfolio.types';
 	import { searchLeaves, type Leaf } from '$lib/utils/leaf.utils';
@@ -117,15 +117,10 @@
 
 <div class="relative max-w-md flex-1">
 	<div
-		class="bg-card group flex h-10 w-full items-center gap-3 rounded-full border px-4 transition-all duration-200 {isFocused ||
-		query.length > 0
-			? 'border-accent ring-accent/20 border-accent shadow-sm ring-1'
-			: 'border-border'}"
+		class="bg-card group border-border ring-accent/20 focus-within:border-accent has-[:not(:placeholder-shown)]:border-accent flex h-10 w-full items-center gap-3 rounded-full border px-4 shadow-sm transition-all duration-200 focus-within:ring-1 has-[:not(:placeholder-shown)]:ring-1"
 	>
 		<SearchIcon
-			class="shrink-0 transition-colors {isFocused || query.length > 0
-				? 'text-accent'
-				: 'text-fg-muted'}"
+			class="text-fg-muted group-focus-within:text-accent group-has-[:not(:placeholder-shown)]:text-accent shrink-0 transition-colors"
 			size={18}
 		/>
 		<input

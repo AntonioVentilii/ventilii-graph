@@ -12,7 +12,7 @@
 <label class="text-fg-subtle inline-flex items-center gap-2 text-xs">
 	<span class="sr-only">{langLabel}</span>
 	<select
-		class="border-border bg-popover text-fg h-9 min-h-9 cursor-pointer rounded-full border px-3 text-xs leading-none"
+		class="border-border bg-popover text-fg focus:ring-accent focus:border-accent h-9 min-h-9 cursor-pointer rounded-full border px-3 text-xs leading-none outline-hidden focus:ring-2"
 		bind:value={locale}
 	>
 		<option value="en">EN</option>

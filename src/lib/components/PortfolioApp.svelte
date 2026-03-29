@@ -122,7 +122,7 @@
 			in:fade={{ duration: 680 }}
 			out:fade={{ duration: 420 }}
 		>
-			<div class="order-1 flex w-full min-w-0 flex-col items-center gap-6 lg:order-none">
+			<div class="order-1 flex w-full min-w-0 flex-col items-center gap-6 lg:order-0">
 				<PortfolioGraph
 					{categoryId}
 					{itemId}
@@ -140,7 +140,7 @@
 				/>
 			</div>
 
-			<div class="order-2 w-full min-w-0 lg:order-none">
+			<div class="order-2 w-full min-w-0 lg:order-0">
 				<DetailPanel labels={panelLabels} {locale} />
 			</div>
 		</div>
