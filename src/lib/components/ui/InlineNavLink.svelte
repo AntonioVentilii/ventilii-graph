@@ -11,7 +11,7 @@
 </script>
 
 <button
-	class="text-link hover:text-link-hover text-left transition {className}"
+	class="text-left text-link transition hover:text-link-hover {className}"
 	{onclick}
 	type="button"
 >

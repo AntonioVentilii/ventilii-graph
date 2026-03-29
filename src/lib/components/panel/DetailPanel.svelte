@@ -17,7 +17,7 @@
 <div class="flex min-h-0 flex-col lg:sticky lg:top-8">
 	<aside
 		id="detail-panel"
-		class="border-border bg-card min-h-[240px] scroll-mt-24 rounded-2xl border p-5 shadow-[var(--shadow-panel-inset)]"
+		class="min-h-[240px] scroll-mt-24 rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-panel-inset)]"
 		aria-label="Profile and links"
 		tabindex="-1"
 	>

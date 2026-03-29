@@ -207,9 +207,9 @@
 				class="graph-leaf-card-reveal pointer-events-auto absolute flex max-h-[min(48vh,var(--card-mh))] min-h-0 -translate-x-1/2 flex-col transition-[top,left] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none"
 			>
 				<div class="mb-1.5 flex shrink-0 flex-col items-center" aria-hidden="true">
-					<div class="bg-accent/70 h-4 w-px shrink-0"></div>
+					<div class="h-4 w-px shrink-0 bg-accent/70"></div>
 					<div
-						class="border-b-accent/70 h-0 w-0 border-x-[5px] border-b-[6px] border-x-transparent"
+						class="h-0 w-0 border-x-[5px] border-b-[6px] border-x-transparent border-b-accent/70"
 					></div>
 				</div>
 				<div

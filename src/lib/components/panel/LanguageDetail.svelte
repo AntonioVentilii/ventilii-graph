@@ -24,5 +24,5 @@
 		title={pickLocale({ text: entry.label, locale })}
 	/>
 
-	<p class="text-fg-subtle text-xs">{uiCopyNote}</p>
+	<p class="text-xs text-fg-subtle">{uiCopyNote}</p>
 </div>

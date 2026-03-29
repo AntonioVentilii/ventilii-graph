@@ -34,13 +34,13 @@
 		/>
 	</div>
 
-	<p class="text-fg-muted text-xs leading-relaxed">
+	<p class="text-xs leading-relaxed text-fg-muted">
 		{pickLocale({ text: data.person.tagline, locale })}
 	</p>
 
 	<div class="flex flex-wrap items-center gap-2 pt-2">
 		<a
-			class="bg-accent text-accent-fg hover:bg-accent-hover inline-flex items-center justify-center rounded-full px-3 py-1.5 text-[0.625rem] leading-none font-semibold transition"
+			class="inline-flex items-center justify-center rounded-full bg-accent px-3 py-1.5 text-[0.625rem] leading-none font-semibold text-accent-fg transition hover:bg-accent-hover"
 			aria-label={pickLocale({ text: { en: 'Email', it: 'Email' }, locale })}
 			href={`mailto:${data.person.email}`}
 			title={pickLocale({ text: { en: 'Email', it: 'Email' }, locale })}
@@ -55,7 +55,7 @@
 		/>
 		{#if data.person.cvUrl}
 			<a
-				class="border-border bg-popover text-fg hover:border-accent inline-flex items-center justify-center gap-1.5 rounded-full border px-3 py-1.5 text-[0.625rem] leading-none transition"
+				class="inline-flex items-center justify-center gap-1.5 rounded-full border border-border bg-popover px-3 py-1.5 text-[0.625rem] leading-none text-fg transition hover:border-accent"
 				download="Antonio_Ventilii_CV.pdf"
 				href={data.person.cvUrl}
 			>
@@ -70,7 +70,7 @@
 			{#each data.orgHighlights as org (org.url)}
 				<li>
 					<a
-						class="text-link hover:text-link-hover transition"
+						class="text-link transition hover:text-link-hover"
 						href={org.url}
 						rel="noopener noreferrer"
 						target="_blank"
@@ -83,5 +83,5 @@
 		</ul>
 	</RelatedSection>
 
-	<p class="text-fg-faint pt-4 text-[0.625rem]">{panelHint}</p>
+	<p class="pt-4 text-[0.625rem] text-fg-faint">{panelHint}</p>
 </div>

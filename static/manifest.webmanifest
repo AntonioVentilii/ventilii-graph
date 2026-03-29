@@ -32,21 +32,33 @@
 			"name": "Experience",
 			"url": "/?category=experience",
 			"icons": [
-				{ "src": "/favicons/web-app-manifest-192x192.png", "type": "image/png", "sizes": "192x192" }
+				{
+					"src": "/favicons/web-app-manifest-192x192.png",
+					"type": "image/png",
+					"sizes": "192x192"
+				}
 			]
 		},
 		{
 			"name": "Projects",
 			"url": "/?category=projects",
 			"icons": [
-				{ "src": "/favicons/web-app-manifest-192x192.png", "type": "image/png", "sizes": "192x192" }
+				{
+					"src": "/favicons/web-app-manifest-192x192.png",
+					"type": "image/png",
+					"sizes": "192x192"
+				}
 			]
 		},
 		{
 			"name": "Stack",
 			"url": "/?category=stack",
 			"icons": [
-				{ "src": "/favicons/web-app-manifest-192x192.png", "type": "image/png", "sizes": "192x192" }
+				{
+					"src": "/favicons/web-app-manifest-192x192.png",
+					"type": "image/png",
+					"sizes": "192x192"
+				}
 			]
 		}
 	]

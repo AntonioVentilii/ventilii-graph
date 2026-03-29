@@ -8,7 +8,7 @@
 </script>
 
 <button
-	class="border-border bg-card-solid text-fg-muted hover:border-accent inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs transition"
+	class="inline-flex items-center justify-center rounded-md border border-border bg-card-solid px-2 py-0.5 text-xs text-fg-muted transition hover:border-accent"
 	{onclick}
 	type="button"
 >

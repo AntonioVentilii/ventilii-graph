@@ -31,7 +31,7 @@
 		title={pickLocale({ text: technology.label, locale })}
 	/>
 
-	<p class="text-fg-muted text-sm leading-relaxed">
+	<p class="text-sm leading-relaxed text-fg-muted">
 		{pickLocale({ text: technology.blurb, locale })}
 	</p>
 

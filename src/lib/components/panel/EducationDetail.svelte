@@ -25,6 +25,6 @@
 	/>
 
 	{#if entry.note}
-		<p class="text-fg-muted text-sm">{pickLocale({ text: entry.note, locale })}</p>
+		<p class="text-sm text-fg-muted">{pickLocale({ text: entry.note, locale })}</p>
 	{/if}
 </div>

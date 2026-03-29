@@ -30,7 +30,7 @@
 <SkipToContent label={skipLabel} />
 
 <header
-	class="border-border bg-page/80 flex flex-wrap items-center justify-between gap-4 border-b px-4 py-3 backdrop-blur-md lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-3 lg:px-8"
+	class="flex flex-wrap items-center justify-between gap-4 border-b border-border bg-page/80 px-4 py-3 backdrop-blur-md lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-3 lg:px-8"
 >
 	<div class="flex min-w-0 flex-1 items-center justify-start">
 		<Search

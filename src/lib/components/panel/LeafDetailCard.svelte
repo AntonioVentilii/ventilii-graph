@@ -28,7 +28,7 @@
 
 <aside
 	id="leaf-detail-panel"
-	class="leaf-detail-card border-border border-l-accent bg-card scroll-mt-24 rounded-xl border border-l-[3px] p-4 text-sm shadow-[var(--shadow-panel-inset)] [&_.space-y-3]:space-y-2 [&_h2]:text-lg"
+	class="leaf-detail-card scroll-mt-24 rounded-xl border border-l-[3px] border-border border-l-accent bg-card p-4 text-sm shadow-[var(--shadow-panel-inset)] [&_.space-y-3]:space-y-2 [&_h2]:text-lg"
 	aria-label={leaf ? leafLabel({ leaf, locale }) : 'Detail'}
 	tabindex="-1"
 >

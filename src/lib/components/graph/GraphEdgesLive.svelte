@@ -102,7 +102,12 @@
 						if (t) {
 							const hubEnd =
 								hubEl instanceof HTMLElement
-									? attachOnNodeToward({ el: hubEl, cr, towardX: t.x, towardY: t.y })
+									? attachOnNodeToward({
+											el: hubEl,
+											cr,
+											towardX: t.x,
+											towardY: t.y
+										})
 									: hub;
 							const catEnd = attachOnNodeToward({ el, cr, towardX: hub.x, towardY: hub.y }) ?? t;
 							const x1 = hubEnd?.x ?? hub.x;
@@ -137,10 +142,26 @@
 							const leafC = centerOf({ el: le, cr });
 							if (leafC) {
 								const catOut =
-									attachOnNodeToward({ el: catEl, cr, towardX: leafC.x, towardY: leafC.y }) ?? catC;
+									attachOnNodeToward({
+										el: catEl,
+										cr,
+										towardX: leafC.x,
+										towardY: leafC.y
+									}) ?? catC;
 								const leafIn =
-									attachOnNodeToward({ el: le, cr, towardX: catC.x, towardY: catC.y }) ?? leafC;
-								next.push({ x1: catOut.x, y1: catOut.y, x2: leafIn.x, y2: leafIn.y, opacity: 1 });
+									attachOnNodeToward({
+										el: le,
+										cr,
+										towardX: catC.x,
+										towardY: catC.y
+									}) ?? leafC;
+								next.push({
+									x1: catOut.x,
+									y1: catOut.y,
+									x2: leafIn.x,
+									y2: leafIn.y,
+									opacity: 1
+								});
 							}
 						}
 					}
@@ -265,7 +286,7 @@
 
 {#if size > 0}
 	<svg
-		class="portfolio-graph-edges text-graph pointer-events-none absolute top-0 left-0 z-0"
+		class="portfolio-graph-edges pointer-events-none absolute top-0 left-0 z-0 text-graph"
 		aria-hidden="true"
 		height={size}
 		width={size}

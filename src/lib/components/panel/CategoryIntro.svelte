@@ -25,7 +25,7 @@
 
 	<EntryHeader title={pickLocale({ text: category.label, locale })} />
 
-	<p class="text-fg-muted text-sm leading-relaxed">
+	<p class="text-sm leading-relaxed text-fg-muted">
 		{pickLocale({ text: category.shortHint, locale })}
 	</p>
 

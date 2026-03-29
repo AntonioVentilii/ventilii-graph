@@ -117,15 +117,15 @@
 
 <div class="relative max-w-md flex-1">
 	<div
-		class="bg-card group border-border ring-accent/20 focus-within:border-accent has-[:not(:placeholder-shown)]:border-accent flex h-10 w-full items-center gap-3 rounded-full border px-4 shadow-sm transition-all duration-200 focus-within:ring-1 has-[:not(:placeholder-shown)]:ring-1"
+		class="group flex h-10 w-full items-center gap-3 rounded-full border border-border bg-card px-4 shadow-sm ring-accent/20 transition-all duration-200 focus-within:border-accent focus-within:ring-1 has-[:not(:placeholder-shown)]:border-accent has-[:not(:placeholder-shown)]:ring-1"
 	>
 		<SearchIcon
-			class="text-fg-muted group-focus-within:text-accent group-has-[:not(:placeholder-shown)]:text-accent shrink-0 transition-colors"
+			class="shrink-0 text-fg-muted transition-colors group-focus-within:text-accent group-has-[:not(:placeholder-shown)]:text-accent"
 			size={18}
 		/>
 		<input
 			bind:this={inputEl}
-			class="placeholder:text-fg-faint w-full bg-transparent text-sm outline-none"
+			class="w-full bg-transparent text-sm outline-none placeholder:text-fg-faint"
 			onblur={() => setTimeout(() => (isFocused = false), 200)}
 			onfocus={() => (isFocused = true)}
 			onkeydown={handleKeyDown}
@@ -136,7 +136,7 @@
 
 		{#if query.length > 0}
 			<button
-				class="text-fg-muted hover:text-fg shrink-0 transition-colors"
+				class="shrink-0 text-fg-muted transition-colors hover:text-fg"
 				onclick={() => (query = '')}
 				type="button"
 				transition:fade={{ duration: 100 }}
@@ -145,7 +145,7 @@
 			</button>
 		{:else}
 			<span
-				class="bg-page border-border text-fg-faint hidden items-center gap-1 rounded border px-1.5 py-0.5 text-[10px] lg:flex"
+				class="hidden items-center gap-1 rounded border border-border bg-page px-1.5 py-0.5 text-[10px] text-fg-faint lg:flex"
 				transition:fade={{ duration: 100 }}
 			>
 				<Command size={10} />
@@ -156,7 +156,7 @@
 
 	{#if (isFocused || query.length > 0) && (results.length > 0 || query.trim().length > 0)}
 		<div
-			class="bg-card border-accent absolute inset-x-0 top-full z-[100] mt-2 flex flex-col overflow-hidden rounded-2xl border shadow-2xl"
+			class="absolute inset-x-0 top-full z-[100] mt-2 flex flex-col overflow-hidden rounded-2xl border border-accent bg-card shadow-2xl"
 			transition:slide={{ duration: 200 }}
 		>
 			{#if results.length > 0}
@@ -165,7 +165,7 @@
 						{#each results as res, i (res.kind + res.id)}
 							<li>
 								<button
-									class="aria-selected:bg-accent/10 aria-selected:text-accent flex w-full items-center gap-3 rounded-lg p-2 text-left text-sm transition-colors"
+									class="flex w-full items-center gap-3 rounded-lg p-2 text-left text-sm transition-colors aria-selected:bg-accent/10 aria-selected:text-accent"
 									aria-selected={selectedIndex === i}
 									onclick={() => handleSelect(res)}
 									onmouseenter={() => (selectedIndex = i)}
@@ -173,7 +173,7 @@
 									type="button"
 								>
 									<span
-										class="bg-accent/10 text-accent rounded px-1.5 py-0.5 text-[10px] font-bold tracking-wider uppercase"
+										class="rounded bg-accent/10 px-1.5 py-0.5 text-[10px] font-bold tracking-wider text-accent uppercase"
 									>
 										{res.kind}
 									</span>
@@ -184,7 +184,7 @@
 					</ul>
 				</div>
 			{:else if query.trim().length > 0}
-				<div class="text-fg-faint p-6 text-center text-sm italic">No items found...</div>
+				<div class="p-6 text-center text-sm text-fg-faint italic">No items found...</div>
 			{/if}
 		</div>
 	{/if}

@@ -17,9 +17,9 @@
 		<h2 class="text-fg {titleClass}">{title}</h2>
 	{/if}
 	{#if subtitle}
-		<p class="text-fg-muted text-sm">{subtitle}</p>
+		<p class="text-sm text-fg-muted">{subtitle}</p>
 	{/if}
 	{#if meta}
-		<p class="text-fg-subtle text-xs">{meta}</p>
+		<p class="text-xs text-fg-subtle">{meta}</p>
 	{/if}
 </div>

@@ -129,14 +129,22 @@ export const searchLeaves = ({
 	// Search projects
 	portfolioData.projects.forEach((p) => {
 		if (matches(p.title)) {
-			results.push({ kind: 'project', id: p.id, label: pickLocale({ text: p.title, locale }) });
+			results.push({
+				kind: 'project',
+				id: p.id,
+				label: pickLocale({ text: p.title, locale })
+			});
 		}
 	});
 
 	// Search technologies
 	portfolioData.technologies.forEach((s) => {
 		if (matches(s.label)) {
-			results.push({ kind: 'technology', id: s.id, label: pickLocale({ text: s.label, locale }) });
+			results.push({
+				kind: 'technology',
+				id: s.id,
+				label: pickLocale({ text: s.label, locale })
+			});
 		}
 	});
 

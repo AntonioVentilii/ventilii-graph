@@ -6,7 +6,7 @@
 </script>
 
 <button
-	class="border-border bg-popover text-fg-muted hover:border-accent hover:text-fg focus-visible:ring-accent inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border outline-hidden transition focus-visible:ring-2"
+	class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-popover text-fg-muted outline-hidden transition hover:border-accent hover:text-fg focus-visible:ring-2 focus-visible:ring-accent"
 	aria-label={label}
 	onclick={() => toggleTheme()}
 	title={label}

@@ -20,5 +20,5 @@
 
 	<EntryHeader title={pickLocale({ text: block.title, locale })} />
 
-	<p class="text-fg-muted text-sm leading-relaxed">{pickLocale({ text: block.body, locale })}</p>
+	<p class="text-sm leading-relaxed text-fg-muted">{pickLocale({ text: block.body, locale })}</p>
 </div>

@@ -1,5 +1,6 @@
 import { default as svelteConfig } from '@dfinity/eslint-config-oisy-wallet/svelte';
 import { default as vitestConfig } from '@dfinity/eslint-config-oisy-wallet/vitest';
+import localRules from 'eslint-plugin-local-rules';
 import tailwind from 'eslint-plugin-tailwindcss';
 import ts from 'typescript-eslint';
 
@@ -39,7 +40,13 @@ export default ts.config(
 
 	{
 		plugins: {
-			tailwind
+			tailwind,
+			'local-rules': localRules
+		},
+		settings: {
+			tailwindcss: {
+				css: 'src/app.css'
+			}
 		},
 		rules: {
 			'tailwindcss/no-arbitrary-value': 'error'

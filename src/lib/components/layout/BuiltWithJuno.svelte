@@ -1,7 +1,7 @@
 <div class="flex items-center gap-3">
 	<span class="text-fg-subtle">Built with</span>
 	<a
-		class="text-fg-subtle inline-flex items-baseline transition-opacity hover:opacity-85"
+		class="inline-flex items-baseline text-fg-subtle transition-opacity hover:opacity-85"
 		aria-label="Go to Juno website and documentation"
 		href="https://juno.build"
 		rel="noopener noreferrer"

@@ -37,7 +37,7 @@
 		title={pickLocale({ text: experience.company, locale })}
 	/>
 
-	<p class="text-fg-muted text-sm leading-relaxed">
+	<p class="text-sm leading-relaxed text-fg-muted">
 		{pickLocale({ text: experience.summary, locale })}
 	</p>
 

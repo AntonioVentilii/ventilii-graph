@@ -103,7 +103,7 @@
 	};
 </script>
 
-<div class="bg-page text-fg selection:bg-selection/40 flex min-h-dvh flex-col">
+<div class="flex min-h-dvh flex-col bg-page text-fg selection:bg-selection/40">
 	<Header
 		cvFallbackLabel={tr('cvFallback')}
 		labels={{

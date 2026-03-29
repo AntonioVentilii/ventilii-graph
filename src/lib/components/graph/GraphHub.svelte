@@ -21,7 +21,7 @@
 	class="graph-node-shift absolute z-20 flex justify-center"
 >
 	<button
-		class="shadow-hub border-border-strong bg-card-solid hover:border-accent focus-visible:outline-accent flex w-full cursor-pointer flex-col items-center gap-1.5 rounded-2xl border-2 p-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 md:gap-2 md:p-3 {compact
+		class="shadow-hub flex w-full cursor-pointer flex-col items-center gap-1.5 rounded-2xl border-2 border-border-strong bg-card-solid p-2 transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent md:gap-2 md:p-3 {compact
 			? 'gap-1.5 p-2'
 			: ''}"
 		data-graph-hub
@@ -44,7 +44,7 @@
 			</span>
 		</span>
 		<p
-			class="text-fg text-center text-[0.625rem] leading-tight font-bold md:text-xs {compact
+			class="text-center text-[0.625rem] leading-tight font-bold text-fg md:text-xs {compact
 				? 'text-[0.625rem] leading-tight'
 				: ''}"
 		>

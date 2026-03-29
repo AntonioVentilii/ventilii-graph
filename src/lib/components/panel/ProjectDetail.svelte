@@ -31,7 +31,7 @@
 
 	<EntryHeader title={pickLocale({ text: project.title, locale })} />
 
-	<p class="text-fg-muted text-sm leading-relaxed">
+	<p class="text-sm leading-relaxed text-fg-muted">
 		{pickLocale({ text: project.summary, locale })}
 	</p>
 
@@ -53,7 +53,7 @@
 	{/if}
 
 	{#if project.note}
-		<div class="border-accent/10 bg-accent/5 text-accent mt-4 rounded-xl border p-3 text-xs italic">
+		<div class="mt-4 rounded-xl border border-accent/10 bg-accent/5 p-3 text-xs text-accent italic">
 			<span class="mr-1 font-bold not-italic">Meta:</span>
 			{pickLocale({ text: project.note, locale })}
 		</div>

@@ -235,7 +235,10 @@ export const portfolioData: PortfolioData = {
 				)
 			],
 			links: [
-				{ label: L.en('Repository', 'Repository'), href: 'https://github.com/dfinity/oisy-wallet' },
+				{
+					label: L.en('Repository', 'Repository'),
+					href: 'https://github.com/dfinity/oisy-wallet'
+				},
 				{ label: L.en('Website', 'Sito'), href: 'https://oisy.com' }
 			],
 			stackIds: ['typescript', 'svelte', 'rust', 'icp', 'evm-solana'],
@@ -250,7 +253,10 @@ export const portfolioData: PortfolioData = {
 				'Core clearing su IC (Rust) — workflow tipo settlement per mercati on-chain.'
 			),
 			links: [
-				{ label: L.en('GitHub', 'GitHub'), href: 'https://github.com/AntonioVentilii/icdc-core' }
+				{
+					label: L.en('GitHub', 'GitHub'),
+					href: 'https://github.com/AntonioVentilii/icdc-core'
+				}
 			],
 			stackIds: ['rust', 'icp']
 		},
@@ -263,7 +269,10 @@ export const portfolioData: PortfolioData = {
 				'Escrow decentralizzato in Solidity con ruoli user/admin/arbitro; app React.'
 			),
 			links: [
-				{ label: L.en('GitHub', 'GitHub'), href: 'https://github.com/AntonioVentilii/escrow' }
+				{
+					label: L.en('GitHub', 'GitHub'),
+					href: 'https://github.com/AntonioVentilii/escrow'
+				}
 			],
 			stackIds: ['react']
 		},
@@ -276,7 +285,10 @@ export const portfolioData: PortfolioData = {
 				'Audio WhatsApp → trascrizione/traduzione via modello AI (Flask, webhook).'
 			),
 			links: [
-				{ label: L.en('GitHub', 'GitHub'), href: 'https://github.com/AntonioVentilii/CHaDitt' }
+				{
+					label: L.en('GitHub', 'GitHub'),
+					href: 'https://github.com/AntonioVentilii/CHaDitt'
+				}
 			],
 			stackIds: ['python']
 		},
@@ -349,7 +361,10 @@ export const portfolioData: PortfolioData = {
 				'App Svelte — sviluppo attivo nell’ecosistema.'
 			),
 			links: [
-				{ label: L.en('GitHub', 'GitHub'), href: 'https://github.com/AntonioVentilii/vici-app' }
+				{
+					label: L.en('GitHub', 'GitHub'),
+					href: 'https://github.com/AntonioVentilii/vici-app'
+				}
 			],
 			stackIds: ['svelte', 'typescript']
 		},
@@ -382,7 +397,10 @@ export const portfolioData: PortfolioData = {
 				'Canister factory per token ICRC su Internet Computer.'
 			),
 			links: [
-				{ label: L.en('GitHub', 'GitHub'), href: 'https://github.com/AntonioVentilii/icrc-factory' }
+				{
+					label: L.en('GitHub', 'GitHub'),
+					href: 'https://github.com/AntonioVentilii/icrc-factory'
+				}
 			],
 			stackIds: ['rust', 'icp']
 		},

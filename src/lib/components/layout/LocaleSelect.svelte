@@ -9,10 +9,10 @@
 	let { locale = $bindable(), langLabel }: Props = $props();
 </script>
 
-<label class="text-fg-subtle inline-flex items-center gap-2 text-xs">
+<label class="inline-flex items-center gap-2 text-xs text-fg-subtle">
 	<span class="sr-only">{langLabel}</span>
 	<select
-		class="border-border bg-popover text-fg focus:ring-accent focus:border-accent h-9 min-h-9 cursor-pointer rounded-full border px-3 text-xs leading-none outline-hidden focus:ring-2"
+		class="h-9 min-h-9 cursor-pointer rounded-full border border-border bg-popover px-3 text-xs leading-none text-fg outline-hidden focus:border-accent focus:ring-2 focus:ring-accent"
 		bind:value={locale}
 	>
 		<option value="en">EN</option>

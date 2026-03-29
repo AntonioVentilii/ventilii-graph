@@ -33,7 +33,7 @@
 
 			<a
 				class="{linkClass ||
-					'text-link hover:text-link-hover text-sm transition'} inline-flex items-center justify-center leading-none"
+					'text-sm text-link transition hover:text-link-hover'} inline-flex items-center justify-center leading-none"
 				aria-label={Icon ? label : undefined}
 				href={link.href}
 				rel="noopener noreferrer"
