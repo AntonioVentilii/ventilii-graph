@@ -17,12 +17,22 @@
 </script>
 
 <div class="space-y-4">
-	<EntryHeader
-		meta={pickLocale({ text: data.person.location, locale })}
-		subtitle={pickLocale({ text: data.person.title, locale })}
-		title={data.person.name}
-		titleClass="text-base font-bold"
-	/>
+	<div class="flex items-start gap-4">
+		{#if data.person.avatarUrl}
+			<img
+				class="h-16 w-16 shrink-0 rounded-2xl object-cover shadow-sm"
+				alt={data.person.name}
+				src={data.person.avatarUrl}
+			/>
+		{/if}
+		<EntryHeader
+			isMain
+			meta={pickLocale({ text: data.person.location, locale })}
+			subtitle={pickLocale({ text: data.person.title, locale })}
+			title={data.person.name}
+			titleClass="text-base font-bold"
+		/>
+	</div>
 
 	<p class="text-fg-muted text-xs leading-relaxed">
 		{pickLocale({ text: data.person.tagline, locale })}

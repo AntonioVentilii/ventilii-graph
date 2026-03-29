@@ -1,0 +1,53 @@
+{
+	"name": "Antonio Ventilii — Portfolio",
+	"short_name": "AV Portfolio",
+	"description": "Interactive career map and project showcase for Antonio Ventilii, Senior Software Engineer.",
+	"start_url": ".",
+	"display": "standalone",
+	"background_color": "#f0f8fa",
+	"theme_color": "#3d8fa3",
+	"orientation": "portrait-primary",
+	"prefer_related_applications": false,
+	"categories": ["portfolio", "career", "professional"],
+	"icons": [
+		{
+			"src": "/favicons/web-app-manifest-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "/favicons/web-app-manifest-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		},
+		{
+			"src": "/favicons/web-app-manifest-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
+	],
+	"shortcuts": [
+		{
+			"name": "Experience",
+			"url": "/?category=experience",
+			"icons": [
+				{ "src": "/favicons/web-app-manifest-192x192.png", "type": "image/png", "sizes": "192x192" }
+			]
+		},
+		{
+			"name": "Projects",
+			"url": "/?category=projects",
+			"icons": [
+				{ "src": "/favicons/web-app-manifest-192x192.png", "type": "image/png", "sizes": "192x192" }
+			]
+		},
+		{
+			"name": "Stack",
+			"url": "/?category=stack",
+			"icons": [
+				{ "src": "/favicons/web-app-manifest-192x192.png", "type": "image/png", "sizes": "192x192" }
+			]
+		}
+	]
+}

@@ -1,0 +1,22 @@
+# Antonio Ventilii — Senior Software Engineer
+
+Antonio Ventilii is a Senior Software Engineer specializing in TypeScript, Rust, and Python, with a focus on Web3 and traditional finance automation.
+
+## Key Roles
+- **DFINITY Foundation**: Primary contributor to the OISY Wallet (multi-chain browser wallet).
+- **Vontobel Swiss Financial Advisers**: Led desk automation and FX hedge optimization.
+
+## Primary Skills
+- **Frontend**: Svelte, React, TypeScript.
+- **Systems & Backend**: Rust (Internet Computer canisters), Python (Flask, trading bots, linear programming).
+- **Web3**: Internet Computer (ICP), Solana, Ethereum (EVM).
+
+## Featured Projects
+- **OISY Wallet**: Production-ready, multi-chain browser wallet.
+- **CHaDitt**: WhatsApp audio transcription/translation via AI.
+- **icdc-core**: Clearing-focused core for on-chain markets.
+
+## Online Presence
+- **GitHub**: https://github.com/AntonioVentilii
+- **LinkedIn**: https://linkedin.com/in/AntonioVentilii
+- **Portfolio**: https://ventilii-graph.com

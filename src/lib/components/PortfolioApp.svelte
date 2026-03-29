@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import PortfolioGraph from '$lib/components/graph/PortfolioGraph.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
@@ -10,6 +11,22 @@
 	let locale = $state<Locale>('en');
 	let categoryId = $state<string | null>(null);
 	let itemId = $state<string | null>(null);
+
+	onMount(() => {
+		const params = new URLSearchParams(window.location.search);
+		const catParam = params.get('category');
+		const itemParam = params.get('item');
+
+		if (itemParam) {
+			const [kind, id] = itemParam.split(':');
+			if (kind && id) {
+				categoryId = categoryForLeafKind(kind as Leaf['kind']);
+				itemId = itemParam;
+			}
+		} else if (catParam) {
+			categoryId = catParam;
+		}
+	});
 
 	const t = {
 		skip: { en: 'Skip to details', it: 'Salta ai dettagli' },
