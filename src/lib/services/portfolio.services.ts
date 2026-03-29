@@ -548,32 +548,38 @@ export const portfolioData: PortfolioData = {
 		{
 			id: 'usp',
 			institution: L.en('University of São Paulo', 'Università di San Paolo'),
-			degree: L.en(
-				"Master's Degree in Aeronautics Engineering",
-				'Magistrale in Ingegneria Aeronautica'
-			),
-			dates: L.en('2012 — 2013', '2012 — 2013'),
-			note: L.en('International Exchange.', 'Scambio internazionale.')
+			degrees: [
+				{
+					label: L.en(
+						"Master's Degree in Aeronautics Engineering",
+						'Magistrale in Ingegneria Aeronautica'
+					),
+					dates: L.en('2012 — 2013', '2012 — 2013'),
+					note: L.en('International Exchange.', 'Scambio internazionale.')
+				}
+			]
 		},
 		{
-			id: 'polimi-m',
+			id: 'polimi',
 			institution: L.en('Politecnico di Milano', 'Politecnico di Milano'),
-			degree: L.en(
-				"Master's Degree in Aeronautics Engineering",
-				'Magistrale in Ingegneria Aeronautica'
-			),
-			dates: L.en('2011 — 2013', '2011 — 2013'),
-			note: L.en('2-year merit-based scholarship.', 'Borsa di merito biennale.')
-		},
-		{
-			id: 'polimi-b',
-			institution: L.en('Politecnico di Milano', 'Politecnico di Milano'),
-			degree: L.en(
-				"Bachelor's Degree in Aerospace Engineering",
-				'Triennale in Ingegneria Aerospaziale'
-			),
-			dates: L.en('2008 — 2011', '2008 — 2011'),
-			note: L.en('3-year merit-based scholarship.', 'Borsa di merito triennale.')
+			degrees: [
+				{
+					label: L.en(
+						"Master's Degree in Aeronautics Engineering",
+						'Magistrale in Ingegneria Aeronautica'
+					),
+					dates: L.en('2011 — 2013', '2011 — 2013'),
+					note: L.en('2-year merit-based scholarship.', 'Borsa di merito biennale.')
+				},
+				{
+					label: L.en(
+						"Bachelor's Degree in Aerospace Engineering",
+						'Triennale in Ingegneria Aerospaziale'
+					),
+					dates: L.en('2008 — 2011', '2008 — 2011'),
+					note: L.en('3-year merit-based scholarship.', 'Borsa di merito triennale.')
+				}
+			]
 		}
 	],
 	languages: [

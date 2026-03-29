@@ -150,7 +150,10 @@ export const searchLeaves = ({
 
 	// Search education
 	portfolioData.education.forEach((ed) => {
-		if (matches(ed.institution)) {
+		const institutionMatch = matches(ed.institution);
+		const degreeMatch = ed.degrees.some((d) => matches(d.label) || (d.note && matches(d.note)));
+
+		if (institutionMatch || degreeMatch) {
 			results.push({
 				kind: 'education',
 				id: ed.id,

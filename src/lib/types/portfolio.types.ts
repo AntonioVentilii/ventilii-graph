@@ -53,12 +53,16 @@ export interface Technology {
 	relatedProjectIds?: string[];
 }
 
+export interface EducationDegree {
+	label: Localised;
+	dates: Localised;
+	note?: Localised;
+}
+
 export interface Education {
 	id: string;
 	institution: Localised;
-	degree: Localised;
-	dates: Localised;
-	note?: Localised;
+	degrees: EducationDegree[];
 }
 
 export interface LanguageEntry {
