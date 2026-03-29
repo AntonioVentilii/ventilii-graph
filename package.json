@@ -1,6 +1,6 @@
 {
 	"name": "ventilii-graph",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --force",
@@ -22,8 +22,8 @@
 		"@sveltejs/adapter-static": "^3.0.9",
 		"@sveltejs/kit": "^2.37.0",
 		"@sveltejs/vite-plugin-svelte": "^6.1.4",
-		"@tailwindcss/postcss": "^4.1.13",
-		"@tailwindcss/vite": "^4.1.13",
+		"@tailwindcss/postcss": "4.2.1",
+		"@tailwindcss/vite": "4.2.1",
 		"@types/eslint": "^9.6.1",
 		"@types/node": "^25.3.0",
 		"eslint": "^9.34.0",
@@ -34,11 +34,11 @@
 		"postcss": "^8.5.6",
 		"prettier": "^3.6.2",
 		"prettier-plugin-organize-imports": "^4.3.0",
-		"prettier-plugin-svelte": "^3.5.1",
+		"prettier-plugin-svelte": "^3.4.0",
 		"prettier-plugin-tailwindcss": "^0.7.2",
 		"svelte": "^5.38.7",
 		"svelte-check": "^4.3.1",
-		"tailwindcss": "^4.1.13",
+		"tailwindcss": "4.2.1",
 		"tslib": "^2.8.1",
 		"typescript": "^5.9.2",
 		"typescript-eslint": "^8.42.0",
@@ -53,6 +53,10 @@
 		"nanoid": "^5.1.5"
 	},
 	"overrides": {
-		"cookie": "^0.7.0"
+		"cookie": "^0.7.0",
+		"lightningcss": "1.31.1",
+		"tailwindcss": "4.2.1",
+		"@tailwindcss/postcss": "4.2.1",
+		"@tailwindcss/vite": "4.2.1"
 	}
 }
