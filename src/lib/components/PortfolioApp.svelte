@@ -51,7 +51,10 @@
 		languageUiNote: {
 			en: 'Interface copy follows the EN/IT toggle above.',
 			it: 'Il testo dell’interfaccia segue il selettore EN/IT in alto.'
-		}
+		},
+		searchPlaceholder: { en: 'Search portfolio...', it: 'Cerca nel portfolio...' },
+		searchShortcut: { en: 'Search (⌘K)', it: 'Cerca (⌘K)' },
+		searchLabel: { en: 'Search', it: 'Cerca' }
 	} as const;
 
 	const tr = <K extends keyof typeof t>(key: K): string => t[key][locale];
@@ -64,7 +67,10 @@
 		relatedProjects: tr('relatedProjects'),
 		stack: tr('stack'),
 		relatedTechProjects: tr('relatedTechProjects'),
-		languageUiNote: tr('languageUiNote')
+		languageUiNote: tr('languageUiNote'),
+		searchPlaceholder: tr('searchPlaceholder'),
+		searchShortcut: tr('searchShortcut'),
+		searchLabel: tr('searchLabel')
 	});
 
 	const toggleCategory = (id: string) => {
@@ -100,7 +106,12 @@
 <div class="bg-page text-fg selection:bg-selection/40 flex min-h-dvh flex-col">
 	<Header
 		cvFallbackLabel={tr('cvFallback')}
+		labels={{
+			placeholder: panelLabels.searchPlaceholder,
+			shortcut: panelLabels.searchShortcut
+		}}
 		langLabel={tr('langLabel')}
+		onSelectLeaf={selectLeaf}
 		skipLabel={tr('skip')}
 		bind:locale
 	/>

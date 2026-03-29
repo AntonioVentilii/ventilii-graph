@@ -67,7 +67,7 @@
 		style="left: {left}px; top: {top}px; opacity: {opacity}; pointer-events: {opacity < 0.01
 			? 'none'
 			: 'auto'};"
-		class="graph-node-shift absolute z-10 -translate-x-1/2 -translate-y-1/2"
+		class="graph-node-shift absolute z-10 -translate-x-1/2 -translate-y-1/2 hover:z-50"
 		aria-hidden={opacity < 0.01}
 	>
 		<div style={driftStyle} class="{orbitInner} relative inline-block">
@@ -88,7 +88,7 @@
 		style="left: {left}px; top: {top}px; opacity: {opacity}; pointer-events: {opacity < 0.01
 			? 'none'
 			: 'auto'};"
-		class="graph-node-shift absolute z-10 -translate-x-1/2 -translate-y-1/2"
+		class="graph-node-shift absolute z-10 -translate-x-1/2 -translate-y-1/2 hover:z-50"
 		aria-hidden={opacity < 0.01}
 	>
 		<div style={driftStyle} class="{orbitInner} relative inline-block">

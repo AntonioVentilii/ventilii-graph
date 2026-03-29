@@ -51,4 +51,11 @@
 			</div>
 		</RelatedSection>
 	{/if}
+
+	{#if project.note}
+		<div class="border-accent/10 bg-accent/5 text-accent mt-4 rounded-xl border p-3 text-xs italic">
+			<span class="mr-1 font-bold not-italic">Meta:</span>
+			{pickLocale({ text: project.note, locale })}
+		</div>
+	{/if}
 </div>

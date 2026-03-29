@@ -419,18 +419,30 @@ export const portfolioData: PortfolioData = {
 			stackIds: ['python']
 		},
 		{
-			id: 'juno-ecosystem',
-			title: L.en('Juno ecosystem forks', 'Fork ecosistema Juno'),
+			id: 'ventilii-graph',
+			title: L.en('ventilii-graph', 'ventilii-graph'),
 			kind: 'personal',
 			summary: L.en(
-				'Contributions to Juno, juno-js, plugins, and icp-js-canisters.',
-				'Contributi a Juno, juno-js, plugin e canister icp-js.'
+				'The "Meta" Portfolio: This very interactive career map. A self-documenting visualization of my journey, stack, and projects.',
+				'Il Portfolio "Meta": Questa mappa interattiva. Una visualizzazione auto-documentante del mio percorso, stack e progetti.'
 			),
-			links: [
-				{ label: L.en('juno', 'juno'), href: 'https://github.com/AntonioVentilii/juno' },
-				{ label: L.en('juno-js', 'juno-js'), href: 'https://github.com/AntonioVentilii/juno-js' }
+			highlights: [
+				L.en(
+					'Custom Force-Directed Graph using Svelte 5 and Tailwind CSS v4.',
+					'Graph Force-Directed personalizzato in Svelte 5 e Tailwind CSS v4.'
+				)
 			],
-			stackIds: ['typescript', 'icp']
+			links: [
+				{
+					label: L.en('Repository', 'Repository'),
+					href: 'https://github.com/AntonioVentilii/ventilii-graph'
+				}
+			],
+			stackIds: ['typescript', 'svelte', 'tailwind'],
+			note: L.en(
+				'How meta it is that this portfolio is mentioned in itself as a project in its own deployment?',
+				'Quanto è "meta" che questo portfolio sia menzionato in sé stesso come progetto nel suo stesso deployment?'
+			)
 		},
 		{
 			id: 'all-github',
@@ -457,7 +469,7 @@ export const portfolioData: PortfolioData = {
 				'Linguaggio principale per OISY frontend/tooling. Focus su type safety e pattern moderni.'
 			),
 			yearsHint: L.en('Daily production use.', 'Uso quotidiano in produzione.'),
-			relatedProjectIds: ['oisy', 'vici-app', 'juno-ecosystem']
+			relatedProjectIds: ['oisy', 'ventilii-graph', 'vici-app']
 		},
 		{
 			id: 'rust',
@@ -484,7 +496,16 @@ export const portfolioData: PortfolioData = {
 				'Frontend development with Svelte, React, and React Native.',
 				'Sviluppo frontend con Svelte, React e React Native.'
 			),
-			relatedProjectIds: ['oisy', 'vici-app', 'escrow', 'retropanda']
+			relatedProjectIds: ['oisy', 'ventilii-graph', 'vici-app', 'escrow', 'retropanda']
+		},
+		{
+			id: 'tailwind',
+			label: L.en('Tailwind CSS', 'Tailwind CSS'),
+			blurb: L.en(
+				'Utility-first CSS framework for rapid and consistent UI development. Used heavily in this portfolio and OISY.',
+				'Framework CSS utility-first per sviluppo UI rapido e consistente. Usato pesantemente in questo portfolio e in OISY.'
+			),
+			relatedProjectIds: ['oisy', 'ventilii-graph']
 		},
 		{
 			id: 'icp',
@@ -493,7 +514,7 @@ export const portfolioData: PortfolioData = {
 				'ICP canisters, Internet Identity, and chain-key crypto patterns.',
 				'Canister ICP, Internet Identity e pattern chain-key crypto.'
 			),
-			relatedProjectIds: ['oisy', 'icdc-core', 'icrc-factory', 'juno-ecosystem']
+			relatedProjectIds: ['oisy', 'icdc-core', 'icrc-factory']
 		},
 		{
 			id: 'evm-solana',
@@ -544,6 +565,14 @@ export const portfolioData: PortfolioData = {
 		{ id: 'de', label: L.en('German', 'Tedesco'), level: L.en('Elementary', 'Base') }
 	],
 	about: [
+		{
+			id: 'meta',
+			title: L.en('A "Meta" Portfolio', 'Un Portfolio "Meta"'),
+			body: L.en(
+				'This project is recursive: it’s an interactive map of a career, built by its own subject using the same technologies (Svelte, Tailwind, TypeScript) it describes. It’s both the container and the content.',
+				'Questo progetto è ricorsivo: una mappa interattiva di una carriera, costruita dal soggetto stesso usando le tecnologie (Svelte, Tailwind, TypeScript) che descrive. È sia il contenitore che il contenuto.'
+			)
+		},
 		{
 			id: 'map',
 			title: L.en('How this portfolio works', 'Come funziona questa portfolio'),

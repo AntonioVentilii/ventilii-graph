@@ -93,3 +93,63 @@ export const parseLeaf = (itemId: string | null): Leaf | null => {
 	}
 	return null;
 };
+
+export const searchLeaves = ({
+	query,
+	locale
+}: {
+	query: string;
+	locale: Locale;
+}): (Leaf & { label: string })[] => {
+	const q = query.toLowerCase().trim();
+	if (!q) {
+		return [];
+	}
+
+	const results: (Leaf & { label: string })[] = [];
+
+	const matches = (text: string | { en: string; it?: string }): boolean => {
+		if (typeof text === 'string') {
+			return text.toLowerCase().includes(q);
+		}
+		return text.en.toLowerCase().includes(q) || (text.it?.toLowerCase() ?? '').includes(q);
+	};
+
+	// Search experiences
+	portfolioData.experiences.forEach((e) => {
+		if (matches(e.company)) {
+			results.push({
+				kind: 'experience',
+				id: e.id,
+				label: pickLocale({ text: e.company, locale })
+			});
+		}
+	});
+
+	// Search projects
+	portfolioData.projects.forEach((p) => {
+		if (matches(p.title)) {
+			results.push({ kind: 'project', id: p.id, label: pickLocale({ text: p.title, locale }) });
+		}
+	});
+
+	// Search technologies
+	portfolioData.technologies.forEach((s) => {
+		if (matches(s.label)) {
+			results.push({ kind: 'technology', id: s.id, label: pickLocale({ text: s.label, locale }) });
+		}
+	});
+
+	// Search education
+	portfolioData.education.forEach((ed) => {
+		if (matches(ed.institution)) {
+			results.push({
+				kind: 'education',
+				id: ed.id,
+				label: pickLocale({ text: ed.institution, locale })
+			});
+		}
+	});
+
+	return results;
+};

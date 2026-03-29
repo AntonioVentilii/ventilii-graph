@@ -20,7 +20,7 @@
 	<div class="flex items-start gap-4">
 		{#if data.person.avatarUrl}
 			<img
-				class="h-16 w-16 shrink-0 rounded-2xl object-cover shadow-sm"
+				class="h-18 w-18 shrink-0 rounded-2xl object-cover shadow-sm"
 				alt={data.person.name}
 				src={data.person.avatarUrl}
 			/>

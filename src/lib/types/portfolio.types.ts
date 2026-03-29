@@ -42,6 +42,7 @@ export interface Project {
 	links: { label: Localised; href: string; iconName?: string }[]; // GitHub / live
 	stackIds?: string[];
 	experienceId?: string;
+	note?: Localised;
 }
 
 export interface Technology {
