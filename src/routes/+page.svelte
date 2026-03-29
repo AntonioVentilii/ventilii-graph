@@ -31,6 +31,7 @@
 	/>
 	<meta content="website" property="og:type" />
 
+	<!-- prettier-ignore -->
 	<script type="application/ld+json">
 		{_jsonLdString}
 	</script>
