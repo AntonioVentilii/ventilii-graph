@@ -19,12 +19,12 @@
 </script>
 
 <svelte:head>
-	<title>Antonio Ventilii — Senior Software Engineer (Portfolio)</title>
+	<title>Antonio Ventilii | Senior Software Engineer (Portfolio)</title>
 	<meta
 		name="description"
 		content="Interactive career map: experience, projects, stack, and education. Senior Software Engineer specializing in TypeScript, Rust, and Finance / Web3 systems."
 	/>
-	<meta content="Antonio Ventilii — Portfolio" property="og:title" />
+	<meta content="Antonio Ventilii | Portfolio" property="og:title" />
 	<meta
 		content="Interactive career map and project showcase for Antonio Ventilii, Senior Software Engineer."
 		property="og:description"
