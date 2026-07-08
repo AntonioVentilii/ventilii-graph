@@ -77,7 +77,7 @@
 					>
 						{org.name}
 					</a>
-					<span class="text-fg-subtle"> — {pickLocale({ text: org.note, locale })}</span>
+					<span class="text-fg-subtle">: {pickLocale({ text: org.note, locale })}</span>
 				</li>
 			{/each}
 		</ul>

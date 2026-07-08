@@ -11,8 +11,8 @@ export const portfolioData: PortfolioData = {
 		name: 'Antonio Ventilii',
 		title: L.en('Senior Software Engineer', 'Senior Software Engineer'),
 		tagline: L.en(
-			'Senior software engineer shipping production systems in TypeScript, Rust, and Python across Web3 and traditional finance, including a flagship wallet whose full codebase is public on GitHub. Deeply invested in AI/agentic engineering — coding agents, custom agent skills, and MCP connectors as part of the daily workflow. Emphasis on code review, maintainability, and idiomatic code.',
-			'Senior software engineer — sistemi production in TypeScript, Rust e Python tra Web3 e finance tradizionale, incluso un wallet flagship open source su GitHub. Forte focus su AI/ingegneria agentica — coding agent, skill custom e connettori MCP nel workflow quotidiano. Attenzione a code review, manutenibilità e codice idiomatico.'
+			'Senior software engineer shipping production systems in TypeScript, Rust, and Python across Web3 and traditional finance, including a flagship wallet whose full codebase is public on GitHub. Deeply invested in AI/agentic engineering: coding agents, custom agent skills, and MCP connectors as part of the daily workflow. Emphasis on code review, maintainability, and idiomatic code.',
+			'Senior software engineer, con sistemi production in TypeScript, Rust e Python tra Web3 e finance tradizionale, incluso un wallet flagship open source su GitHub. Forte focus su AI/ingegneria agentica: coding agent, skill custom e connettori MCP nel workflow quotidiano. Attenzione a code review, manutenibilità e codice idiomatico.'
 		),
 		location: L.en('Zurich, Switzerland', 'Zurigo, Svizzera'),
 		avatarUrl: '/images/antonio-ventilii.jpg',
@@ -59,8 +59,8 @@ export const portfolioData: PortfolioData = {
 			id: 'languages',
 			label: L.en('Languages', 'Lingue'),
 			shortHint: L.en(
-				'Spoken languages — UI copy stays in your toggle.',
-				'Lingue parlate — l’interfaccia segue il selettore.'
+				'Spoken languages. UI copy stays in your toggle.',
+				'Lingue parlate. L’interfaccia segue il selettore.'
 			)
 		},
 		{
@@ -75,7 +75,7 @@ export const portfolioData: PortfolioData = {
 			company: L.en('DFINITY Foundation', 'DFINITY Foundation'),
 			location: L.en('Zurich, Switzerland', 'Zurigo, Svizzera'),
 			role: L.en('Senior Software Engineer', 'Senior Software Engineer'),
-			dates: L.en('2024 — Present', '2024 — oggi'),
+			dates: L.en('2024-Present', '2024-oggi'),
 			summary: L.en(
 				'OISY Wallet (Apache-2.0): production, multi-chain browser wallet on the Internet Computer (TypeScript, Svelte, Rust canisters, chain fusion). Fully public development on GitHub; primary contributor by commit volume (AntonioVentilii). Also collaborates on other foundation initiatives and partner-facing engineering.',
 				'OISY Wallet (Apache-2.0): wallet browser multi-chain su Internet Computer (TS, Svelte, Rust, chain fusion). Sviluppo pubblico su GitHub; contributore principale per volume di commit.'
@@ -124,7 +124,7 @@ export const portfolioData: PortfolioData = {
 				'Desk Developer / Senior Multi-Asset Trader',
 				'Desk Developer / Senior Multi-Asset Trader'
 			),
-			dates: L.en('2020 — 2024', '2020 — 2024'),
+			dates: L.en('2020-2024', '2020-2024'),
 			summary: L.en(
 				'Former UBS Swiss Financial Advisers AG. Built desk automation and controls while executing multi-asset trades for HNWI/UHNWI clients. Cut time on repetitive desk operations from about eight hours to about two hours per day.',
 				'Ex UBS Swiss Financial Advisers. Automazione desk operando mercati multi-asset per clienti HNWI/UHNWI. Operazioni ripetitive ridotte da 8 a 2 ore al giorno.'
@@ -139,7 +139,7 @@ export const portfolioData: PortfolioData = {
 					'Ottimizzazione hedge EOD FX (programmazione lineare), -40% in fee di mercato.'
 				),
 				L.en(
-					'Python package automating the booking GUI, eliminating manual steps across 7–8 recurring desk workflows; data pipeline for Bloomberg and third-party market data; internal/external API wrappers.',
+					'Python package automating the booking GUI, eliminating manual steps across 7-8 recurring desk workflows; data pipeline for Bloomberg and third-party market data; internal/external API wrappers.',
 					'Package Python per automazione GUI booking su 7-8 workflow; pipeline dati Bloomberg.'
 				),
 				L.en(
@@ -158,7 +158,7 @@ export const portfolioData: PortfolioData = {
 			company: L.en('Banco Itaú (Suisse) S.A.', 'Banco Itaú (Suisse) S.A.'),
 			location: L.en('Zurich, Switzerland', 'Zurigo, Svizzera'),
 			role: L.en('Senior Trader / Desk Developer', 'Senior Trader / Desk Developer'),
-			dates: L.en('2019 — 2020', '2019 — 2020'),
+			dates: L.en('2019-2020', '2019-2020'),
 			summary: L.en(
 				'Trading and coding for desk controls: scrapers for Certificates of Deposit, automated booking/pricing/P&L reporting.',
 				'Trading e tool per controlli: scraper per CD, reporting booking/pricing/P&L.'
@@ -183,7 +183,7 @@ export const portfolioData: PortfolioData = {
 				'Desk Developer / Financial Specialist, Treasury & Risk',
 				'Desk Developer / Financial Specialist, Treasury & Risk'
 			),
-			dates: L.en('2018 — 2019', '2018 — 2019'),
+			dates: L.en('2018-2019', '2018-2019'),
 			summary: L.en(
 				'IPO controls with internal dev teams, market risk data platform, Scrum/DevOps, treasury hedging, regulatory filing support.',
 				'Controlli IPO con team interni, piattaforma market risk, Scrum/DevOps, treasury, supporto filing.'
@@ -205,7 +205,7 @@ export const portfolioData: PortfolioData = {
 			company: L.en('Itaú Unibanco S.A.', 'Itaú Unibanco S.A.'),
 			location: L.en('São Paulo, Brazil', 'San Paolo, Brasile'),
 			role: L.en('Trader at Volatility Trading Desk', 'Trader at Volatility Trading Desk'),
-			dates: L.en('2013 — 2016', '2013 — 2016'),
+			dates: L.en('2013-2016', '2013-2016'),
 			summary: L.en(
 				'Flow pricing, prop risk, internal clients; co-built desk controls and a central Volatility database (SQL, C#).',
 				'Pricing flow, rischio prop, clienti interni; controlli desk e database Volatilità centralizzato.'
@@ -249,8 +249,8 @@ export const portfolioData: PortfolioData = {
 			title: L.en('claude-skills', 'claude-skills'),
 			kind: 'personal',
 			summary: L.en(
-				'Version-controlled Claude Code agent skills — a durable, git-backed home symlinked into the local agent so they are never lost, and ready to double as a plugin marketplace for a team.',
-				'Skill agentiche per Claude Code sotto version control — una casa durevole su git, in symlink sull’agente locale così da non perderle mai, pronte anche come plugin marketplace per un team.'
+				'Version-controlled Claude Code agent skills: a durable, git-backed home symlinked into the local agent so they are never lost, and ready to double as a plugin marketplace for a team.',
+				'Skill agentiche per Claude Code sotto version control: una casa durevole su git, in symlink sull’agente locale così da non perderle mai, pronte anche come plugin marketplace per un team.'
 			),
 			highlights: [
 				L.en(
@@ -268,7 +268,7 @@ export const portfolioData: PortfolioData = {
 		},
 		{
 			id: 'privatim',
-			title: L.en('Privatim — Sovereign AI', 'Privatim — Sovereign AI'),
+			title: L.en('Privatim: Sovereign AI', 'Privatim: Sovereign AI'),
 			kind: 'personal',
 			summary: L.en(
 				'Sovereign AI for private banking: a single-bundle wealth-management showcase for the Internet Computer’s Cloud Engines, built so client data never leaves the bank’s compute (banking secrecy, FINMA, FADP/GDPR).',
@@ -293,28 +293,6 @@ export const portfolioData: PortfolioData = {
 			stackIds: ['rust', 'icp', 'ai-agentic', 'cloud-engines']
 		},
 		{
-			id: 'openblocks',
-			title: L.en('OpenBlocks — Sovereign custody', 'OpenBlocks — Custodia sovrana'),
-			kind: 'personal',
-			summary: L.en(
-				'Fireblocks-style institutional custody as a single-bundle app for the Internet Computer’s Cloud Engines marketplace: vault accounts, address book, a transaction authorization policy engine, and the full transaction lifecycle — with an on-chain hash-chained audit log any auditor can re-verify in the browser.',
-				'Custodia istituzionale in stile Fireblocks come app single-bundle per il marketplace Cloud Engines di Internet Computer: vault account, address book, un motore di transaction authorization policy e l’intero ciclo di vita delle transazioni — con audit log hash-chained on-chain riverificabile nel browser da qualsiasi auditor.'
-			),
-			highlights: [
-				L.en(
-					'Transaction Authorization Policy: ordered rules resolve to Allow / RequireApprovers(n) / Block, snapshotted onto each transaction so later policy edits never alter in-flight ones.',
-					'Transaction Authorization Policy: regole ordinate risolvono in Allow / RequireApprovers(n) / Block, fissate su ogni transazione così che modifiche successive non alterino quelle in corso.'
-				)
-			],
-			links: [
-				{
-					label: L.en('GitHub', 'GitHub'),
-					href: 'https://github.com/AntonioVentilii/openblocks-bundle'
-				}
-			],
-			stackIds: ['svelte', 'icp', 'cloud-engines']
-		},
-		{
 			id: 'workday',
 			title: L.en('Workday AI Control Plane', 'Workday AI Control Plane'),
 			kind: 'personal',
@@ -324,8 +302,8 @@ export const portfolioData: PortfolioData = {
 			),
 			highlights: [
 				L.en(
-					'Modular surfaces — VS Code extension, JetBrains, CLI, GitHub App, web dashboard, MCP server, Claude Code plugin — all adapters over a shared client SDK and quota/policy/ledger/model-gateway core.',
-					'Surface modulari — estensione VS Code, JetBrains, CLI, GitHub App, dashboard web, server MCP, plugin Claude Code — tutte adapter su un client SDK condiviso e un core di quota/policy/ledger/model-gateway.'
+					'Modular surfaces (VS Code extension, JetBrains, CLI, GitHub App, web dashboard, MCP server, Claude Code plugin) are all adapters over a shared client SDK and quota/policy/ledger/model-gateway core.',
+					'Surface modulari (estensione VS Code, JetBrains, CLI, GitHub App, dashboard web, server MCP, plugin Claude Code) sono tutte adapter su un client SDK condiviso e un core di quota/policy/ledger/model-gateway.'
 				)
 			],
 			links: [
@@ -357,8 +335,8 @@ export const portfolioData: PortfolioData = {
 			title: L.en('icdc-core', 'icdc-core'),
 			kind: 'personal',
 			summary: L.en(
-				'Clearing-focused core on the Internet Computer (Rust canisters) — settlement-style workflows for on-chain markets.',
-				'Core clearing su IC (Rust) — workflow tipo settlement per mercati on-chain.'
+				'Clearing-focused core on the Internet Computer (Rust canisters): settlement-style workflows for on-chain markets.',
+				'Core clearing su IC (Rust): workflow tipo settlement per mercati on-chain.'
 			),
 			links: [
 				{
@@ -465,8 +443,8 @@ export const portfolioData: PortfolioData = {
 			title: L.en('vici-app', 'vici-app'),
 			kind: 'personal',
 			summary: L.en(
-				'Svelte app — active development in the ecosystem.',
-				'App Svelte — sviluppo attivo nell’ecosistema.'
+				'Svelte app in active development in the ecosystem.',
+				'App Svelte in sviluppo attivo nell’ecosistema.'
 			),
 			links: [
 				{
@@ -481,8 +459,8 @@ export const portfolioData: PortfolioData = {
 			title: L.en('vault-app / vault-core', 'vault-app / vault-core'),
 			kind: 'personal',
 			summary: L.en(
-				'Split Rust core and JavaScript app — custody/experiment surface.',
-				'Core Rust e app JS — superficie di esperimento per custodia.'
+				'Split Rust core and JavaScript app: a custody/experiment surface.',
+				'Core Rust e app JS: superficie di esperimento per custodia.'
 			),
 			links: [
 				{
@@ -575,8 +553,8 @@ export const portfolioData: PortfolioData = {
 			title: L.en('All public repositories', 'Tutte le repo pubbliche'),
 			kind: 'personal',
 			summary: L.en(
-				'Full list on GitHub — including eslint plugins and other experiments.',
-				'Lista completa su GitHub — plugin eslint e altri esperimenti.'
+				'Full list on GitHub, including eslint plugins and other experiments.',
+				'Lista completa su GitHub, con plugin eslint e altri esperimenti.'
 			),
 			links: [
 				{
@@ -622,14 +600,7 @@ export const portfolioData: PortfolioData = {
 				'Frontend development with Svelte, React, and React Native.',
 				'Sviluppo frontend con Svelte, React e React Native.'
 			),
-			relatedProjectIds: [
-				'oisy',
-				'ventilii-graph',
-				'vici-app',
-				'escrow',
-				'retropanda',
-				'openblocks'
-			]
+			relatedProjectIds: ['oisy', 'ventilii-graph', 'vici-app', 'escrow', 'retropanda']
 		},
 		{
 			id: 'tailwind',
@@ -647,14 +618,7 @@ export const portfolioData: PortfolioData = {
 				'ICP canisters, Internet Identity, and chain-key crypto patterns.',
 				'Canister ICP, Internet Identity e pattern chain-key crypto.'
 			),
-			relatedProjectIds: [
-				'oisy',
-				'icdc-core',
-				'icrc-factory',
-				'privatim',
-				'openblocks',
-				'vici-maker'
-			]
+			relatedProjectIds: ['oisy', 'icdc-core', 'icrc-factory', 'privatim', 'vici-maker']
 		},
 		{
 			id: 'evm-solana',
@@ -686,10 +650,10 @@ export const portfolioData: PortfolioData = {
 			id: 'cloud-engines',
 			label: L.en('Cloud Engines (Sovereign apps)', 'Cloud Engines (App sovrane)'),
 			blurb: L.en(
-				'Single-bundle sovereign apps for the Internet Computer’s Cloud Engines marketplace — auditable and jurisdiction-locked, running on the customer’s own compute. A growing suite: sovereign AI for private banking, institutional custody, and more.',
-				'App sovrane single-bundle per il marketplace Cloud Engines di Internet Computer — auditabili e vincolate per giurisdizione, eseguite sul compute del cliente. Una suite in crescita: AI sovrana per il private banking, custodia istituzionale e altro.'
+				'Single-bundle sovereign apps for the Internet Computer’s Cloud Engines marketplace: auditable and jurisdiction-locked, running on the customer’s own compute. A growing suite, starting with sovereign AI for private banking.',
+				'App sovrane single-bundle per il marketplace Cloud Engines di Internet Computer: auditabili e vincolate per giurisdizione, eseguite sul compute del cliente. Una suite in crescita, a partire dall’AI sovrana per il private banking.'
 			),
-			relatedProjectIds: ['privatim', 'openblocks']
+			relatedProjectIds: ['privatim']
 		}
 	],
 	education: [
@@ -702,7 +666,7 @@ export const portfolioData: PortfolioData = {
 						"Master's Degree in Aeronautics Engineering",
 						'Magistrale in Ingegneria Aeronautica'
 					),
-					dates: L.en('2012 — 2013', '2012 — 2013'),
+					dates: L.en('2012-2013', '2012-2013'),
 					note: L.en('International Exchange.', 'Scambio internazionale.')
 				}
 			]
@@ -716,7 +680,7 @@ export const portfolioData: PortfolioData = {
 						"Master's Degree in Aeronautics Engineering",
 						'Magistrale in Ingegneria Aeronautica'
 					),
-					dates: L.en('2011 — 2013', '2011 — 2013'),
+					dates: L.en('2011-2013', '2011-2013'),
 					note: L.en('2-year merit-based scholarship.', 'Borsa di merito biennale.')
 				},
 				{
@@ -724,7 +688,7 @@ export const portfolioData: PortfolioData = {
 						"Bachelor's Degree in Aerospace Engineering",
 						'Triennale in Ingegneria Aerospaziale'
 					),
-					dates: L.en('2008 — 2011', '2008 — 2011'),
+					dates: L.en('2008-2011', '2008-2011'),
 					note: L.en('3-year merit-based scholarship.', 'Borsa di merito triennale.')
 				}
 			]
@@ -759,8 +723,8 @@ export const portfolioData: PortfolioData = {
 			name: 'dfinity/oisy-wallet',
 			url: 'https://github.com/dfinity/oisy-wallet',
 			note: L.en(
-				'Primary public repo for my current product work — TypeScript, Svelte, Rust; Apache-2.0.',
-				'Mia repo prodotto principale — TypeScript, Svelte, Rust; Apache-2.0.'
+				'Primary public repo for my current product work: TypeScript, Svelte, Rust; Apache-2.0.',
+				'Mia repo prodotto principale: TypeScript, Svelte, Rust; Apache-2.0.'
 			)
 		},
 		{
