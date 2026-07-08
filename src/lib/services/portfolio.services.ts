@@ -11,8 +11,8 @@ export const portfolioData: PortfolioData = {
 		name: 'Antonio Ventilii',
 		title: L.en('Senior Software Engineer', 'Senior Software Engineer'),
 		tagline: L.en(
-			'Senior software engineer shipping production systems in TypeScript, Rust, and Python across Web3 and traditional finance, including a flagship wallet whose full codebase is public on GitHub. Works with modern tooling, including AI-assisted development. Emphasis on code review, maintainability, and idiomatic code.',
-			'Senior software engineer — sistemi production in TypeScript, Rust e Python tra Web3 e finance tradizionale, incluso un wallet flagship open source su GitHub. Focus su tooling moderno, sviluppo assistito da AI, code review e manutenibilità.'
+			'Senior software engineer shipping production systems in TypeScript, Rust, and Python across Web3 and traditional finance, including a flagship wallet whose full codebase is public on GitHub. Deeply invested in AI/agentic engineering — coding agents, custom agent skills, and MCP connectors as part of the daily workflow. Emphasis on code review, maintainability, and idiomatic code.',
+			'Senior software engineer — sistemi production in TypeScript, Rust e Python tra Web3 e finance tradizionale, incluso un wallet flagship open source su GitHub. Forte focus su AI/ingegneria agentica — coding agent, skill custom e connettori MCP nel workflow quotidiano. Attenzione a code review, manutenibilità e codice idiomatico.'
 		),
 		location: L.en('Zurich, Switzerland', 'Zurigo, Svizzera'),
 		avatarUrl: '/images/antonio-ventilii.jpg',
@@ -46,8 +46,8 @@ export const portfolioData: PortfolioData = {
 			id: 'stack',
 			label: L.en('Stack', 'Stack'),
 			shortHint: L.en(
-				'Languages, frontend, Web3, platforms.',
-				'Linguaggi, frontend, Web3, piattaforme.'
+				'Languages, frontend, Web3, AI/agentic, platforms.',
+				'Linguaggi, frontend, Web3, AI/agentico, piattaforme.'
 			)
 		},
 		{
@@ -243,6 +243,54 @@ export const portfolioData: PortfolioData = {
 			],
 			stackIds: ['typescript', 'svelte', 'rust', 'icp', 'evm-solana'],
 			experienceId: 'dfinity'
+		},
+		{
+			id: 'claude-skills',
+			title: L.en('claude-skills', 'claude-skills'),
+			kind: 'personal',
+			summary: L.en(
+				'Version-controlled Claude Code agent skills — a durable, git-backed home symlinked into the local agent so they are never lost, and ready to double as a plugin marketplace for a team.',
+				'Skill agentiche per Claude Code sotto version control — una casa durevole su git, in symlink sull’agente locale così da non perderle mai, pronte anche come plugin marketplace per un team.'
+			),
+			highlights: [
+				L.en(
+					'Skills like prototype-to-app-port (high-fidelity design→production porting) and sapiens (a concise-but-complete communication mode), each with a triggerable command.',
+					'Skill come prototype-to-app-port (porting design→produzione ad alta fedeltà) e sapiens (modalità di comunicazione concisa ma completa), ciascuna con comando dedicato.'
+				)
+			],
+			links: [
+				{
+					label: L.en('GitHub', 'GitHub'),
+					href: 'https://github.com/AntonioVentilii/claude-skills'
+				}
+			],
+			stackIds: ['ai-agentic']
+		},
+		{
+			id: 'privatim',
+			title: L.en('Privatim — Sovereign AI', 'Privatim — Sovereign AI'),
+			kind: 'personal',
+			summary: L.en(
+				'Sovereign AI for private banking: a single-bundle wealth-management showcase for the Internet Computer’s Cloud Engines, built so client data never leaves the bank’s compute (banking secrecy, FINMA, FADP/GDPR).',
+				'AI sovrana per il private banking: showcase wealth-management single-bundle per le Cloud Engines di Internet Computer, dove i dati cliente non lasciano mai il compute della banca (segreto bancario, FINMA, FADP/GDPR).'
+			),
+			highlights: [
+				L.en(
+					'AI assistant canister that queries the bank’s data under the caller’s identity and calls a real LLM on an attached GPU node via HTTPS outcall; canister-built citations the model can’t invent.',
+					'Canister assistente AI che interroga i dati della banca sotto l’identità del chiamante e chiama un LLM reale su GPU via HTTPS outcall; citazioni costruite dal canister, non inventate dal modello.'
+				),
+				L.en(
+					'Role-gated CRM (Advisor / Compliance / Admin), hash-chained audit log of every read, write, and AI prompt, and Internet Identity at the edge.',
+					'CRM con ruoli (Advisor / Compliance / Admin), audit log hash-chained di ogni lettura, scrittura e prompt AI, e Internet Identity al bordo.'
+				)
+			],
+			links: [
+				{
+					label: L.en('GitHub', 'GitHub'),
+					href: 'https://github.com/AntonioVentilii/privatim-bundle'
+				}
+			],
+			stackIds: ['rust', 'icp', 'ai-agentic']
 		},
 		{
 			id: 'icdc-core',
@@ -496,7 +544,7 @@ export const portfolioData: PortfolioData = {
 				'Backend canisters, icdc-core, vault-core, and systems programming.',
 				'Canister backend, icdc-core, vault-core e programmazione di sistema.'
 			),
-			relatedProjectIds: ['oisy', 'icdc-core', 'vault', 'icrc-factory', 'retropanda']
+			relatedProjectIds: ['oisy', 'icdc-core', 'vault', 'icrc-factory', 'retropanda', 'privatim']
 		},
 		{
 			id: 'python',
@@ -532,7 +580,7 @@ export const portfolioData: PortfolioData = {
 				'ICP canisters, Internet Identity, and chain-key crypto patterns.',
 				'Canister ICP, Internet Identity e pattern chain-key crypto.'
 			),
-			relatedProjectIds: ['oisy', 'icdc-core', 'icrc-factory']
+			relatedProjectIds: ['oisy', 'icdc-core', 'icrc-factory', 'privatim']
 		},
 		{
 			id: 'evm-solana',
@@ -542,6 +590,16 @@ export const portfolioData: PortfolioData = {
 				'Integrazione cross-chain: famiglia Ethereum e Solana.'
 			),
 			relatedProjectIds: ['oisy']
+		},
+		{
+			id: 'ai-agentic',
+			label: L.en('AI / Agentic Engineering', 'AI / Ingegneria Agentica'),
+			blurb: L.en(
+				'Agentic development as a daily practice: coding agents for implementation and review, custom agent skills, and MCP connectors wired into real workflows. Used to ship faster while keeping code review, maintainability, and idiomatic code front and center.',
+				'Sviluppo agentico come pratica quotidiana: coding agent per implementazione e review, skill agentiche custom e connettori MCP integrati nei workflow reali. Usati per accelerare la delivery mantenendo code review, manutenibilità e codice idiomatico.'
+			),
+			yearsHint: L.en('Core part of how I build today.', 'Parte centrale di come costruisco oggi.'),
+			relatedProjectIds: ['claude-skills', 'privatim', 'oisy', 'ventilii-graph', 'chaditt']
 		}
 	],
 	education: [
