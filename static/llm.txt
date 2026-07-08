@@ -1,20 +1,25 @@
 # Antonio Ventilii | Senior Software Engineer
 
-Antonio Ventilii is a Senior Software Engineer specializing in TypeScript, Rust, and Python, with a focus on Web3 and traditional finance automation.
+Antonio Ventilii is a Senior Software Engineer specializing in TypeScript, Rust, and Python across Web3 and traditional finance. Deeply invested in AI and agentic engineering: coding agents for implementation and review, custom agent skills, and MCP connectors as part of the daily workflow, with an emphasis on code review, maintainability, and idiomatic code. Based in Zurich, Switzerland.
 
 ## Key Roles
-- **DFINITY Foundation**: Primary contributor to the OISY Wallet (multi-chain browser wallet).
-- **Vontobel Swiss Financial Advisers**: Led desk automation and FX hedge optimization.
+- **DFINITY Foundation** (2024-Present): Primary contributor by commit volume to the OISY Wallet, a production multi-chain browser wallet on the Internet Computer (TypeScript, Svelte, Rust canisters, chain fusion).
+- **Vontobel Swiss Financial Advisers** (2020-2024): Led desk automation and FX hedge optimization while trading multi-asset markets for HNWI and UHNWI clients.
 
 ## Primary Skills
-- **Frontend**: Svelte, React, TypeScript.
+- **AI / Agentic Engineering**: Coding agents for implementation and review, custom Claude Code skills, MCP connectors wired into real workflows.
+- **Frontend**: Svelte, React, TypeScript, Tailwind CSS.
 - **Systems & Backend**: Rust (Internet Computer canisters), Python (Flask, trading bots, linear programming).
-- **Web3**: Internet Computer (ICP), Solana, Ethereum (EVM).
+- **Web3**: Internet Computer (ICP), Solana, Ethereum (EVM), multi-chain integration.
 
 ## Featured Projects
-- **OISY Wallet**: Production-ready, multi-chain browser wallet.
-- **CHaDitt**: WhatsApp audio transcription/translation via AI.
-- **icdc-core**: Clearing-focused core for on-chain markets.
+- **OISY Wallet**: Production, multi-chain browser wallet on the Internet Computer (Apache-2.0, fully public codebase).
+- **Privatim**: Sovereign AI for private banking on the Internet Computer Cloud Engines, built so client data never leaves the bank's compute.
+- **Workday AI Control Plane**: Developer AI platform with pooled team budgets, quota governance, and provider routing over LLMs such as Anthropic Claude.
+- **claude-skills**: Version-controlled Claude Code agent skills, git-backed and ready to double as a plugin marketplace.
+- **vici-maker**: Autonomous LMSR market maker that always quotes a price on every open prediction market via an on-chain order book.
+- **icdc-core**: Clearing-focused core (Rust canisters) for on-chain markets.
+- **CHaDitt**: WhatsApp audio transcription and translation via an AI model.
 
 ## Online Presence
 - **GitHub**: https://github.com/AntonioVentilii
