@@ -209,7 +209,7 @@ export const computeGraphLayout = (params: {
 		};
 	}
 
-	// leaf view — vertical hub → category → leaf; leaf anchored at center, parents stacked above
+	// leaf view: vertical hub → category → leaf; leaf anchored at center, parents stacked above
 	if (view === 'leaf' && categoryId && itemId && parentIndex >= 0) {
 		const currentLeaf = leaves.find((l) => `${l.kind}:${l.id}` === itemId);
 		if (!currentLeaf) {

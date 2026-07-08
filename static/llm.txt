@@ -1,4 +1,4 @@
-# Antonio Ventilii — Senior Software Engineer
+# Antonio Ventilii | Senior Software Engineer
 
 Antonio Ventilii is a Senior Software Engineer specializing in TypeScript, Rust, and Python, with a focus on Web3 and traditional finance automation.
 

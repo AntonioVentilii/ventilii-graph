@@ -20,7 +20,7 @@
 	src: url('/fonts/jetbrainsmono-bold.woff2') format('woff2');
 }
 
-/* Light blue with a hint of green — site accent scale (replaces starter/Juno palette) */
+/* Light blue with a hint of green: site accent scale (replaces starter/Juno palette) */
 @theme {
 	--font-display: 'JetBrains Mono', sans-serif;
 
@@ -43,7 +43,7 @@
 	--color-brand-900: #234553;
 	--color-brand-950: #12262e;
 
-	/* Semantic theme tokens (switch via html.dark — see theme-variables.css) */
+	/* Semantic theme tokens (switch via html.dark, see theme-variables.css) */
 	--color-page: var(--page-bg);
 	--color-card: var(--card-bg);
 	--color-card-solid: var(--card-bg-solid);
@@ -71,7 +71,7 @@ html {
 	min-height: 100dvh;
 }
 
-/* md+: larger type — scales all rem-based `text-*` utilities (Tailwind v4) */
+/* md+: larger type, scales all rem-based `text-*` utilities (Tailwind v4) */
 @media (min-width: 768px) {
 	html {
 		font-size: 1.1875rem; /* 19px at 16px browser default */
