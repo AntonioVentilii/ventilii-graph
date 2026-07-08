@@ -290,7 +290,67 @@ export const portfolioData: PortfolioData = {
 					href: 'https://github.com/AntonioVentilii/privatim-bundle'
 				}
 			],
-			stackIds: ['rust', 'icp', 'ai-agentic']
+			stackIds: ['rust', 'icp', 'ai-agentic', 'cloud-engines']
+		},
+		{
+			id: 'openblocks',
+			title: L.en('OpenBlocks — Sovereign custody', 'OpenBlocks — Custodia sovrana'),
+			kind: 'personal',
+			summary: L.en(
+				'Fireblocks-style institutional custody as a single-bundle app for the Internet Computer’s Cloud Engines marketplace: vault accounts, address book, a transaction authorization policy engine, and the full transaction lifecycle — with an on-chain hash-chained audit log any auditor can re-verify in the browser.',
+				'Custodia istituzionale in stile Fireblocks come app single-bundle per il marketplace Cloud Engines di Internet Computer: vault account, address book, un motore di transaction authorization policy e l’intero ciclo di vita delle transazioni — con audit log hash-chained on-chain riverificabile nel browser da qualsiasi auditor.'
+			),
+			highlights: [
+				L.en(
+					'Transaction Authorization Policy: ordered rules resolve to Allow / RequireApprovers(n) / Block, snapshotted onto each transaction so later policy edits never alter in-flight ones.',
+					'Transaction Authorization Policy: regole ordinate risolvono in Allow / RequireApprovers(n) / Block, fissate su ogni transazione così che modifiche successive non alterino quelle in corso.'
+				)
+			],
+			links: [
+				{
+					label: L.en('GitHub', 'GitHub'),
+					href: 'https://github.com/AntonioVentilii/openblocks-bundle'
+				}
+			],
+			stackIds: ['svelte', 'icp', 'cloud-engines']
+		},
+		{
+			id: 'workday',
+			title: L.en('Workday AI Control Plane', 'Workday AI Control Plane'),
+			kind: 'personal',
+			summary: L.en(
+				'A developer-AI platform concept: team-pooled budgets, workday access windows, quota governance, and provider routing over LLMs such as Anthropic Claude. The control plane is the product; every surface is a thin adapter over one stable API.',
+				'Una piattaforma AI per sviluppatori: budget condivisi di team, finestre di accesso “workday”, governance delle quote e routing tra provider LLM come Anthropic Claude. Il control plane è il prodotto; ogni surface è un adapter sottile su un’unica API stabile.'
+			),
+			highlights: [
+				L.en(
+					'Modular surfaces — VS Code extension, JetBrains, CLI, GitHub App, web dashboard, MCP server, Claude Code plugin — all adapters over a shared client SDK and quota/policy/ledger/model-gateway core.',
+					'Surface modulari — estensione VS Code, JetBrains, CLI, GitHub App, dashboard web, server MCP, plugin Claude Code — tutte adapter su un client SDK condiviso e un core di quota/policy/ledger/model-gateway.'
+				)
+			],
+			links: [
+				{
+					label: L.en('GitHub', 'GitHub'),
+					href: 'https://github.com/AntonioVentilii/workday-ai-control-plane'
+				}
+			],
+			stackIds: ['typescript', 'ai-agentic']
+		},
+		{
+			id: 'vici-maker',
+			title: L.en('vici-maker', 'vici-maker'),
+			kind: 'personal',
+			summary: L.en(
+				'Autonomous market maker for VICI: a Bun + Elysia service (on Fly.io) running an LMSR pricing brain that always quotes a price on every open prediction market, posting real two-sided limit orders on the on-chain CLOB so a market is never empty.',
+				'Market maker autonomo per VICI: servizio Bun + Elysia (su Fly.io) con un “cervello” di pricing LMSR che quota sempre un prezzo su ogni mercato di previsione aperto, postando ordini limite reali su due lati sul CLOB on-chain così che un mercato non sia mai vuoto.'
+			),
+			links: [
+				{
+					label: L.en('GitHub', 'GitHub'),
+					href: 'https://github.com/AntonioVentilii/vici-maker'
+				}
+			],
+			stackIds: ['typescript', 'icp']
 		},
 		{
 			id: 'icdc-core',
@@ -562,7 +622,14 @@ export const portfolioData: PortfolioData = {
 				'Frontend development with Svelte, React, and React Native.',
 				'Sviluppo frontend con Svelte, React e React Native.'
 			),
-			relatedProjectIds: ['oisy', 'ventilii-graph', 'vici-app', 'escrow', 'retropanda']
+			relatedProjectIds: [
+				'oisy',
+				'ventilii-graph',
+				'vici-app',
+				'escrow',
+				'retropanda',
+				'openblocks'
+			]
 		},
 		{
 			id: 'tailwind',
@@ -580,7 +647,14 @@ export const portfolioData: PortfolioData = {
 				'ICP canisters, Internet Identity, and chain-key crypto patterns.',
 				'Canister ICP, Internet Identity e pattern chain-key crypto.'
 			),
-			relatedProjectIds: ['oisy', 'icdc-core', 'icrc-factory', 'privatim']
+			relatedProjectIds: [
+				'oisy',
+				'icdc-core',
+				'icrc-factory',
+				'privatim',
+				'openblocks',
+				'vici-maker'
+			]
 		},
 		{
 			id: 'evm-solana',
@@ -599,7 +673,23 @@ export const portfolioData: PortfolioData = {
 				'Sviluppo agentico come pratica quotidiana: coding agent per implementazione e review, skill agentiche custom e connettori MCP integrati nei workflow reali. Usati per accelerare la delivery mantenendo code review, manutenibilità e codice idiomatico.'
 			),
 			yearsHint: L.en('Core part of how I build today.', 'Parte centrale di come costruisco oggi.'),
-			relatedProjectIds: ['claude-skills', 'privatim', 'oisy', 'ventilii-graph', 'chaditt']
+			relatedProjectIds: [
+				'claude-skills',
+				'workday',
+				'privatim',
+				'oisy',
+				'ventilii-graph',
+				'chaditt'
+			]
+		},
+		{
+			id: 'cloud-engines',
+			label: L.en('Cloud Engines (Sovereign apps)', 'Cloud Engines (App sovrane)'),
+			blurb: L.en(
+				'Single-bundle sovereign apps for the Internet Computer’s Cloud Engines marketplace — auditable and jurisdiction-locked, running on the customer’s own compute. A growing suite: sovereign AI for private banking, institutional custody, and more.',
+				'App sovrane single-bundle per il marketplace Cloud Engines di Internet Computer — auditabili e vincolate per giurisdizione, eseguite sul compute del cliente. Una suite in crescita: AI sovrana per il private banking, custodia istituzionale e altro.'
+			),
+			relatedProjectIds: ['privatim', 'openblocks']
 		}
 	],
 	education: [
