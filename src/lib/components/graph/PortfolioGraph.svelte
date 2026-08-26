@@ -124,7 +124,7 @@
 		}
 		const gapBelowNode = 10;
 		const pad = 14;
-		const cardMaxW = Math.min(352, size - pad * 2);
+		const cardMaxW = Math.min(400, size - pad * 2);
 		const halfW = cardMaxW / 2;
 		const left = Math.round(Math.max(halfW + pad, Math.min(L.left, size - halfW - pad)));
 		/* L.left/top = ring center (OrbitNode translate); place card just under the pill */
@@ -143,7 +143,8 @@
 
 <div
 	bind:this={wrapEl}
-	class="relative aspect-square w-full max-w-[min(96vw,720px)] shrink-0 overflow-visible {layoutReady
+	style="height: {layout.height}px"
+	class="graph-wrap relative w-full max-w-[min(96vw,720px)] shrink-0 overflow-visible {layoutReady
 		? 'graph-layout-ready'
 		: ''} {frozen ? 'graph-frozen' : ''}"
 	aria-label="Portfolio graph"

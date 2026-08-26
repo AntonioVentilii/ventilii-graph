@@ -37,7 +37,7 @@
 
 	<BulletList items={bullets} />
 
-	<LinkList links={project.links} {locale} />
+	<LinkList links={project.links ?? []} {locale} />
 
 	{#if stacks.length}
 		<RelatedSection label={stackLabel}>

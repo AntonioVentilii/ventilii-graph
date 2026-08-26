@@ -35,6 +35,9 @@
 	--grad-from: #dff0f4;
 	--grad-via: #3d8fa3;
 	--grad-to: #1a4c59;
+	--aurora-1: rgba(42, 109, 127, 0.08);
+	--aurora-2: rgba(90, 170, 190, 0.09);
+	--aurora-3: rgba(42, 109, 127, 0.06);
 }
 
 .shadow-orbit {
@@ -80,4 +83,16 @@ html.dark {
 	--grad-from: #bce0e8;
 	--grad-via: #5aaabe;
 	--grad-to: #1a4c59;
+	--aurora-1: rgba(143, 201, 214, 0.07);
+	--aurora-2: rgba(61, 143, 163, 0.09);
+	--aurora-3: rgba(143, 201, 214, 0.05);
+}
+
+/* Soft accent glows behind the whole page; sits on the app root (see PortfolioApp) */
+.page-aurora {
+	background-color: var(--page-bg);
+	background-image:
+		radial-gradient(52rem 36rem at 12% -6%, var(--aurora-1), transparent 68%),
+		radial-gradient(60rem 42rem at 105% 32%, var(--aurora-2), transparent 70%),
+		radial-gradient(48rem 40rem at 45% 112%, var(--aurora-3), transparent 72%);
 }

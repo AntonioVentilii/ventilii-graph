@@ -87,3 +87,23 @@ html {
 body {
 	min-height: 100dvh;
 }
+
+/* Thin, theme-aware scrollbars (notably the in-graph leaf detail card) */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--border-strong) transparent;
+}
+
+*::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+	background: var(--border-strong);
+	border-radius: 8px;
+}
+
+*::-webkit-scrollbar-track {
+	background: transparent;
+}

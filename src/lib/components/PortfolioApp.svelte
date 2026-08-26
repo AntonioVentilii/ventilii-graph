@@ -98,7 +98,7 @@
 	};
 </script>
 
-<div class="flex min-h-dvh flex-col bg-page text-fg selection:bg-selection/40">
+<div class="page-aurora flex min-h-dvh flex-col text-fg selection:bg-selection/40">
 	<Header
 		cvFallbackLabel={tr('cvFallback')}
 		labels={{
