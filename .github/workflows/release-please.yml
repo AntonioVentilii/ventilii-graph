@@ -9,6 +9,11 @@ permissions:
   contents: write
   pull-requests: write
 
+# One release run at a time; queue (never cancel) so a deploy is not cut short
+concurrency:
+  group: release-please
+  cancel-in-progress: false
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
