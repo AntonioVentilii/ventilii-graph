@@ -27,8 +27,9 @@ jobs:
           target-branch: main
 
       # Tags cut with GITHUB_TOKEN don't trigger the tag workflows; dispatch them instead.
+      # A PAT-cut tag does trigger them, so skip the dispatch to avoid double runs.
       - name: Trigger deploy + publish for the new release
-        if: steps.release.outputs.release_created == 'true'
+        if: ${{ steps.release.outputs.release_created == 'true' && secrets.RELEASE_PLEASE_PAT == '' }}
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.release.outputs.tag_name }}
