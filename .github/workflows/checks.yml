@@ -1,18 +1,30 @@
 name: Checks
 
 on:
+  push:
+    branches: [main]
+    tags: ['v*']
   pull_request:
+  merge_group:
   workflow_dispatch:
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
+  # Squash-merge titles become the commits release-please reads, so PR titles
+  # must be Conventional Commits. Scope stays optional here: this repo's
+  # history uses plain "type: description" titles.
   pr-title:
-    if: github.event_name == 'pull_request'
     runs-on: ubuntu-24.04
+    # No API access needed — the title comes from the event payload, not the API.
+    permissions: {}
     steps:
+      - name: Skip outside pull requests
+        if: github.event_name != 'pull_request'
+        run: echo "PR title check only runs for pull_request events."
+
       - name: Validate Conventional Commit PR title
+        if: github.event_name == 'pull_request'
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
@@ -23,15 +35,20 @@ jobs:
             exit 0
           fi
 
-          echo "::error::PR title must be a Conventional Commit: 'type: description' or 'type(scope): description' ('type!: …' for a breaking change)."
+          # Keep the title off the start of a line so it can't inject a ::workflow:: command.
+          echo "::error::PR title must be a Conventional Commit: 'type: description' (or 'type(scope)!: …' for a breaking change)."
           echo "Got title: $PR_TITLE"
           exit 1
 
   lint:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
     steps:
-      - name: Check out the repo
+      - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: Prepare
         uses: ./.github/actions/prepare
@@ -41,9 +58,13 @@ jobs:
 
   check:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
     steps:
-      - name: Check out the repo
+      - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: Prepare
         uses: ./.github/actions/prepare
@@ -53,9 +74,13 @@ jobs:
 
   build:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
     steps:
-      - name: Check out the repo
+      - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: Prepare
         uses: ./.github/actions/prepare
