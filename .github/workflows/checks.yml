@@ -8,8 +8,35 @@ permissions:
   contents: read
 
 jobs:
+  # Squash-merge titles become the commits release-please versions from,
+  # so a malformed title breaks the release flow. Scope stays optional —
+  # this repo's history uses plain "type: description" titles.
+  pr-title:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Skip outside pull requests
+        if: github.event_name != 'pull_request'
+        run: echo "PR title check only runs for pull_request events."
+
+      - name: Validate Conventional Commit PR title
+        if: github.event_name == 'pull_request'
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          pattern='^(feat|fix|perf|deps|revert|docs|style|chore|refactor|test|build|ci)(\([-a-zA-Z0-9,._/ ]+\))?!?: .+$'
+
+          if [[ "$PR_TITLE" =~ $pattern ]]; then
+            echo "PR title OK."
+            exit 0
+          fi
+
+          # Keep the title off the start of a line so it can't inject a ::workflow:: command.
+          echo "::error::PR title must be a Conventional Commit: 'type: description' or 'type(scope): description' ('type!: …' for a breaking change)."
+          echo "Got title: $PR_TITLE"
+          exit 1
+
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Check out the repo
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -21,7 +48,7 @@ jobs:
         run: npm run lint
 
   check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Check out the repo
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -33,7 +60,7 @@ jobs:
         run: npm run check
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Check out the repo
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2

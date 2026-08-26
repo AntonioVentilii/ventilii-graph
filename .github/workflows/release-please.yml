@@ -1,77 +1,60 @@
 name: Release Please
 
+# Automates versioning + changelog from Conventional Commit PR titles.
+# Same pattern as ombrellone/vici-app.
+#
+# On every push to `main`, release-please maintains a standing "release PR"
+# that bumps the package.json version and regenerates CHANGELOG.md from the
+# commits since the last release. Merging that PR cuts a `vX.Y.Z` tag +
+# GitHub Release.
+#
+# DEPLOY stays in its own workflows (.github/workflows/deploy.yml and
+# publish.yml) triggered by the `v*` tag this cuts — kept apart so a deploy
+# failure never shows up as a release failure (and vice-versa).
+#
+# TOKEN: GitHub does NOT trigger downstream workflows (like deploy.yml's tag
+# trigger) for tags created with the default GITHUB_TOKEN — but
+# workflow_dispatch is explicitly EXEMPT from that rule, so dispatching
+# deploy.yml/publish.yml below closes the loop without needing a PAT. A
+# fine-grained PAT with `contents: write` + `pull-requests: write` stored as
+# the `RELEASE_PLEASE_PAT` repo secret remains supported but optional.
+
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: release-please-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
   pull-requests: write
-
-concurrency:
-  group: release-please
-  cancel-in-progress: false
+  actions: write # to dispatch deploy.yml / publish.yml on release
 
 jobs:
   release-please:
-    runs-on: ubuntu-latest
-    outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
+    runs-on: ubuntu-24.04
     steps:
-      - name: Release Please
+      # When updating this action, also bump the $schema version in
+      # release-please-config.json to match the bundled release-please version.
+      - uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # v4.4.0
         id: release
-        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
         with:
-          release-type: node
+          token: ${{ secrets.RELEASE_PLEASE_PAT || secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+          # Pinned to main, not github.ref_name: workflow_dispatch can run from
+          # any branch, and a dynamic target would let a dispatch on a non-main
+          # branch cut a v* tag there. Releases only ever come off main.
+          target-branch: main
 
-  # Tags created with the default GITHUB_TOKEN do not trigger other workflows,
-  # so the tag-based deploy.yml / publish.yml never fire for release-please
-  # releases. Deploy directly from this run instead.
-  deploy:
-    needs: release-please
-    if: ${{ needs.release-please.outputs.release_created == 'true' }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          ref: ${{ needs.release-please.outputs.tag_name }}
-
-      - name: Prepare
-        uses: ./.github/actions/prepare
-
-      - name: Deploy to Juno
-        uses: junobuild/juno-action@main
-        with:
-          args: hosting deploy
-
-  publish:
-    needs: release-please
-    if: ${{ needs.release-please.outputs.release_created == 'true' }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          ref: ${{ needs.release-please.outputs.tag_name }}
-
-      - name: Prepare
-        uses: ./.github/actions/prepare
-
-      - name: Build
-        uses: junobuild/juno-action@full
-        with:
-          args: functions build
-
-      - name: Publish
-        uses: junobuild/juno-action@full
-        with:
-          args: functions publish
+      - name: Trigger deploy + publish for the new release
+        if: steps.release.outputs.release_created == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.release.outputs.tag_name }}
+        run: |
+          gh workflow run deploy.yml --repo "$GITHUB_REPOSITORY" --ref "$TAG"
+          gh workflow run publish.yml --repo "$GITHUB_REPOSITORY" --ref "$TAG"
