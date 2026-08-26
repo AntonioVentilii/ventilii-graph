@@ -44,6 +44,15 @@
 	transition: none;
 }
 
+/* Container grows for crowded categories on small screens; animate after first paint */
+.graph-wrap {
+	transition: none;
+}
+
+.graph-layout-ready.graph-wrap {
+	transition: height 0.34s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .graph-layout-ready .graph-node-shift {
 	transition:
 		left 0.34s cubic-bezier(0.4, 0, 0.2, 1),
@@ -124,7 +133,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.graph-layout-ready .graph-node-shift {
+	.graph-layout-ready .graph-node-shift,
+	.graph-layout-ready.graph-wrap {
 		transition: none;
 	}
 

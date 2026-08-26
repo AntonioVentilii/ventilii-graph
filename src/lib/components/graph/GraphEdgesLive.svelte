@@ -288,7 +288,7 @@
 	<svg
 		class="portfolio-graph-edges pointer-events-none absolute top-0 left-0 z-0 text-graph"
 		aria-hidden="true"
-		height={size}
+		height={layout.height}
 		width={size}
 	>
 		{#each segments as s (`${s.x1}-${s.y1}-${s.x2}-${s.y2}`)}

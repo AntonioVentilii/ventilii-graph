@@ -151,7 +151,7 @@ export const portfolioData: PortfolioData = {
 					'Esecuzione trade multi-asset (FI, FX, Equity, Strutturati, Derivati).'
 				)
 			],
-			stackIds: ['python', 'react']
+			stackIds: ['python', 'svelte']
 		},
 		{
 			id: 'itau-ch',
@@ -198,7 +198,7 @@ export const portfolioData: PortfolioData = {
 					'Agile (Scrum); Docker/venv e CI/CD con test automatizzati.'
 				)
 			],
-			stackIds: ['python', 'react']
+			stackIds: ['python', 'svelte']
 		},
 		{
 			id: 'itau-br',
@@ -267,6 +267,39 @@ export const portfolioData: PortfolioData = {
 			stackIds: ['ai-agentic']
 		},
 		{
+			id: 'ombrellone',
+			title: L.en('OmbrellOne', 'OmbrellOne'),
+			kind: 'personal',
+			summary: L.en(
+				'Beach-umbrella booking marketplace, live at ombrell.one. Started as a Motoko + React app on the Internet Computer, then ported to a Bun + Elysia + Postgres backend on Fly.io with the same React frontend.',
+				'Marketplace di prenotazione ombrelloni, live su ombrell.one. Nato come app Motoko + React su Internet Computer, poi portato su backend Bun + Elysia + Postgres su Fly.io con lo stesso frontend React.'
+			),
+			highlights: [
+				L.en(
+					'Full product surface: email-OTP and Google auth, listings with photo uploads (S3-compatible storage), bookings, and Stripe payments where the platform never holds host funds.',
+					'Superficie prodotto completa: auth email-OTP e Google, annunci con foto (storage S3-compatible), prenotazioni e pagamenti Stripe dove la piattaforma non custodisce mai i fondi degli host.'
+				)
+			],
+			links: [{ label: L.en('ombrell.one', 'ombrell.one'), href: 'https://ombrell.one' }],
+			stackIds: ['typescript', 'svelte', 'tailwind']
+		},
+		{
+			id: 'verto',
+			title: L.en('Verto', 'Verto'),
+			kind: 'personal',
+			summary: L.en(
+				'Framework for AI-personalized apps with governance: users request personal app variants, an agent classifies and generates reversible variant manifests, policy validates them, and repeated successful variants are promoted into product proposals.',
+				'Framework per app personalizzate dall’AI con governance: gli utenti chiedono varianti personali, un agente classifica e genera manifest reversibili, la policy li valida e le varianti ricorrenti diventano proposte di prodotto.'
+			),
+			highlights: [
+				L.en(
+					'TypeScript monorepo: typed agent contracts, policy engine, variant engine with rollback, telemetry contracts, and a Svelte reference integration. In active development.',
+					'Monorepo TypeScript: contratti agente tipizzati, policy engine, variant engine con rollback, contratti di telemetria e integrazione di riferimento in Svelte. In sviluppo attivo.'
+				)
+			],
+			stackIds: ['typescript', 'svelte', 'ai-agentic']
+		},
+		{
 			id: 'privatim',
 			title: L.en('Privatim: Sovereign AI', 'Privatim: Sovereign AI'),
 			kind: 'personal',
@@ -306,12 +339,6 @@ export const portfolioData: PortfolioData = {
 					'Surface modulari (estensione VS Code, JetBrains, CLI, GitHub App, dashboard web, server MCP, plugin Claude Code) sono tutte adapter su un client SDK condiviso e un core di quota/policy/ledger/model-gateway.'
 				)
 			],
-			links: [
-				{
-					label: L.en('GitHub', 'GitHub'),
-					href: 'https://github.com/AntonioVentilii/workday-ai-control-plane'
-				}
-			],
 			stackIds: ['typescript', 'ai-agentic']
 		},
 		{
@@ -324,8 +351,8 @@ export const portfolioData: PortfolioData = {
 			),
 			links: [
 				{
-					label: L.en('GitHub', 'GitHub'),
-					href: 'https://github.com/AntonioVentilii/vici-maker'
+					label: L.en('VICI on GitHub', 'VICI su GitHub'),
+					href: 'https://github.com/ViciApp'
 				}
 			],
 			stackIds: ['typescript', 'icp']
@@ -360,7 +387,7 @@ export const portfolioData: PortfolioData = {
 					href: 'https://github.com/AntonioVentilii/escrow'
 				}
 			],
-			stackIds: ['react']
+			stackIds: ['svelte']
 		},
 		{
 			id: 'chaditt',
@@ -425,7 +452,7 @@ export const portfolioData: PortfolioData = {
 				'Smart contract NFT sviluppati in Solidity e Rust.'
 			),
 			links: [{ label: L.en('GitHub', 'GitHub'), href: 'https://github.com/AntonioVentilii' }],
-			stackIds: ['rust', 'react']
+			stackIds: ['rust', 'svelte']
 		},
 		{
 			id: 'treasure-hunt',
@@ -443,13 +470,13 @@ export const portfolioData: PortfolioData = {
 			title: L.en('vici-app', 'vici-app'),
 			kind: 'personal',
 			summary: L.en(
-				'Svelte app in active development in the ecosystem.',
-				'App Svelte in sviluppo attivo nell’ecosistema.'
+				'VICI prediction-markets app: Svelte frontend in active development in the VICI ecosystem.',
+				'App di mercati di previsione VICI: frontend Svelte in sviluppo attivo nell’ecosistema VICI.'
 			),
 			links: [
 				{
 					label: L.en('GitHub', 'GitHub'),
-					href: 'https://github.com/AntonioVentilii/vici-app'
+					href: 'https://github.com/ViciApp/vici-app'
 				}
 			],
 			stackIds: ['svelte', 'typescript']
@@ -573,7 +600,7 @@ export const portfolioData: PortfolioData = {
 				'Linguaggio principale per OISY frontend/tooling. Focus su type safety e pattern moderni.'
 			),
 			yearsHint: L.en('Daily production use.', 'Uso quotidiano in produzione.'),
-			relatedProjectIds: ['oisy', 'ventilii-graph', 'vici-app']
+			relatedProjectIds: ['oisy', 'ventilii-graph', 'vici-app', 'ombrellone', 'verto']
 		},
 		{
 			id: 'rust',
@@ -600,7 +627,15 @@ export const portfolioData: PortfolioData = {
 				'Frontend development with Svelte, React, and React Native.',
 				'Sviluppo frontend con Svelte, React e React Native.'
 			),
-			relatedProjectIds: ['oisy', 'ventilii-graph', 'vici-app', 'escrow', 'retropanda']
+			relatedProjectIds: [
+				'oisy',
+				'ventilii-graph',
+				'vici-app',
+				'escrow',
+				'retropanda',
+				'ombrellone',
+				'verto'
+			]
 		},
 		{
 			id: 'tailwind',
@@ -609,7 +644,7 @@ export const portfolioData: PortfolioData = {
 				'Utility-first CSS framework for rapid and consistent UI development. Used heavily in this portfolio and OISY.',
 				'Framework CSS utility-first per sviluppo UI rapido e consistente. Usato pesantemente in questo portfolio e in OISY.'
 			),
-			relatedProjectIds: ['oisy', 'ventilii-graph']
+			relatedProjectIds: ['oisy', 'ventilii-graph', 'ombrellone']
 		},
 		{
 			id: 'icp',
@@ -640,6 +675,7 @@ export const portfolioData: PortfolioData = {
 			relatedProjectIds: [
 				'claude-skills',
 				'workday',
+				'verto',
 				'privatim',
 				'oisy',
 				'ventilii-graph',

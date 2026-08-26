@@ -44,7 +44,7 @@
 			? 'flex h-10 w-20 items-center justify-center rounded-full border-2 text-[0.625rem] font-semibold leading-tight shadow-orbit'
 			: emphasis === 'center'
 				? 'inline-flex w-max max-w-[min(92vw,18rem)] items-center justify-center whitespace-normal rounded-2xl border-2 px-4 py-3 text-center text-xs font-medium leading-tight shadow-leaf lg:max-w-none lg:whitespace-nowrap lg:leading-none'
-				: 'inline-flex w-max max-w-[min(92vw,10rem)] items-center justify-center whitespace-normal rounded-2xl border-2 px-3 py-2 text-center text-[0.625rem] font-medium leading-tight shadow-leaf sm:text-xs lg:max-w-none lg:whitespace-nowrap lg:leading-none'
+				: 'inline-flex w-max max-w-[min(92vw,10.25rem)] items-center justify-center whitespace-normal rounded-2xl border-2 px-3 py-2 text-center text-[0.625rem] font-medium leading-tight shadow-leaf sm:text-xs lg:max-w-[11.5rem]'
 	);
 
 	const stateClass = $derived(

@@ -39,7 +39,7 @@ export interface Project {
 	kind: 'work' | 'personal' | 'org';
 	summary: Localised;
 	highlights?: Localised[];
-	links: { label: Localised; href: string; iconName?: string }[]; // GitHub / live
+	links?: { label: Localised; href: string; iconName?: string }[]; // GitHub / live
 	stackIds?: string[];
 	experienceId?: string;
 	note?: Localised;
