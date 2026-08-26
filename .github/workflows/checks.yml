@@ -8,9 +8,6 @@ permissions:
   contents: read
 
 jobs:
-  # Squash-merge titles become the commits release-please versions from,
-  # so a malformed title breaks the release flow. Scope stays optional —
-  # this repo's history uses plain "type: description" titles.
   pr-title:
     runs-on: ubuntu-24.04
     steps:
@@ -30,7 +27,6 @@ jobs:
             exit 0
           fi
 
-          # Keep the title off the start of a line so it can't inject a ::workflow:: command.
           echo "::error::PR title must be a Conventional Commit: 'type: description' or 'type(scope): description' ('type!: …' for a breaking change)."
           echo "Got title: $PR_TITLE"
           exit 1

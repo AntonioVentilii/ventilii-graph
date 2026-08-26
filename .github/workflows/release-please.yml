@@ -1,24 +1,5 @@
 name: Release Please
 
-# Automates versioning + changelog from Conventional Commit PR titles.
-# Same pattern as ombrellone/vici-app.
-#
-# On every push to `main`, release-please maintains a standing "release PR"
-# that bumps the package.json version and regenerates CHANGELOG.md from the
-# commits since the last release. Merging that PR cuts a `vX.Y.Z` tag +
-# GitHub Release.
-#
-# DEPLOY stays in its own workflows (.github/workflows/deploy.yml and
-# publish.yml) triggered by the `v*` tag this cuts — kept apart so a deploy
-# failure never shows up as a release failure (and vice-versa).
-#
-# TOKEN: GitHub does NOT trigger downstream workflows (like deploy.yml's tag
-# trigger) for tags created with the default GITHUB_TOKEN — but
-# workflow_dispatch is explicitly EXEMPT from that rule, so dispatching
-# deploy.yml/publish.yml below closes the loop without needing a PAT. A
-# fine-grained PAT with `contents: write` + `pull-requests: write` stored as
-# the `RELEASE_PLEASE_PAT` repo secret remains supported but optional.
-
 on:
   push:
     branches: [main]
@@ -31,25 +12,21 @@ concurrency:
 permissions:
   contents: write
   pull-requests: write
-  actions: write # to dispatch deploy.yml / publish.yml on release
+  actions: write
 
 jobs:
   release-please:
     runs-on: ubuntu-24.04
     steps:
-      # When updating this action, also bump the $schema version in
-      # release-please-config.json to match the bundled release-please version.
       - uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # v4.4.0
         id: release
         with:
           token: ${{ secrets.RELEASE_PLEASE_PAT || secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
-          # Pinned to main, not github.ref_name: workflow_dispatch can run from
-          # any branch, and a dynamic target would let a dispatch on a non-main
-          # branch cut a v* tag there. Releases only ever come off main.
           target-branch: main
 
+      # Tags cut with GITHUB_TOKEN don't trigger the tag workflows; dispatch them instead.
       - name: Trigger deploy + publish for the new release
         if: steps.release.outputs.release_created == 'true'
         env:
