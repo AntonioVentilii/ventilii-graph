@@ -11,12 +11,8 @@ on:
 permissions: {}
 
 jobs:
-  # Squash-merge titles become the commits release-please reads, so PR titles
-  # must be Conventional Commits. Scope stays optional here: this repo's
-  # history uses plain "type: description" titles.
   pr-title:
     runs-on: ubuntu-24.04
-    # No API access needed — the title comes from the event payload, not the API.
     permissions: {}
     steps:
       - name: Skip outside pull requests
