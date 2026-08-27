@@ -1,15 +1,15 @@
 <script lang="ts">
 	import PortfolioApp from '$lib/components/PortfolioApp.svelte';
 	import { portfolioData } from '$lib/services/portfolio.services';
-	import { serializeSchema } from '$lib/utils/seo.utils';
+	import { absoluteUrl, serializeSchema } from '$lib/utils/seo.utils';
 
 	const _jsonLd = {
 		'@context': 'https://schema.org',
 		'@type': 'Person',
 		name: portfolioData.person.name,
 		jobTitle: 'Senior Software Engineer',
-		url: 'https://ventilii-graph.com',
-		image: `https://ventilii-graph.com${portfolioData.person.avatarUrl}`,
+		url: absoluteUrl('/'),
+		image: absoluteUrl(portfolioData.person.avatarUrl),
 		sameAs: portfolioData.person.links.map((l) => l.href),
 		description: 'Senior Software Engineer specializing in TypeScript, Rust, and Python.',
 		knowsAbout: portfolioData.technologies.map((t) => t.label.en)

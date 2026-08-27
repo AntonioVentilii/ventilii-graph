@@ -1,3 +1,9 @@
+/** Canonical origin of the deployed site; keep in sync with static/sitemap.xml. */
+export const SITE_ORIGIN = 'https://ventilii.dev';
+
+/** Absolute URL for a site-root-relative path, for canonical/OG metadata. */
+export const absoluteUrl = (path: string): string => new URL(path, SITE_ORIGIN).href;
+
 /**
  * Securely stringifies a JSON-LD object for embedding in a <script> tag.
  * This prevents XSS by escaping characters that could be interpreted as HTML tags,
