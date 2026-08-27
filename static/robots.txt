@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ventilii-graph.com/sitemap.xml
+Sitemap: https://l54kz-4yaaa-aaaal-asyla-cai.icp0.io/sitemap.xml

@@ -8,8 +8,8 @@
 		'@type': 'Person',
 		name: portfolioData.person.name,
 		jobTitle: 'Senior Software Engineer',
-		url: 'https://ventilii-graph.com',
-		image: `https://ventilii-graph.com${portfolioData.person.avatarUrl}`,
+		url: 'https://l54kz-4yaaa-aaaal-asyla-cai.icp0.io',
+		image: `https://l54kz-4yaaa-aaaal-asyla-cai.icp0.io${portfolioData.person.avatarUrl}`,
 		sameAs: portfolioData.person.links.map((l) => l.href),
 		description: 'Senior Software Engineer specializing in TypeScript, Rust, and Python.',
 		knowsAbout: portfolioData.technologies.map((t) => t.label.en)
