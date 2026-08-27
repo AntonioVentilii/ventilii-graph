@@ -2,76 +2,35 @@ name: Release Please
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: release-please-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
   pull-requests: write
-
-concurrency:
-  group: release-please
-  cancel-in-progress: false
+  actions: write
 
 jobs:
   release-please:
-    runs-on: ubuntu-latest
-    outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
+    runs-on: ubuntu-24.04
     steps:
-      - name: Release Please
+      - uses: googleapis/release-please-action@0b6b3fc0186a2f7118bfd88fab9ea481e1839504 # v4.4.0
         id: release
-        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
         with:
-          release-type: node
+          token: ${{ secrets.RELEASE_PLEASE_PAT || secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+          target-branch: main
 
-  # Tags created with the default GITHUB_TOKEN do not trigger other workflows,
-  # so the tag-based deploy.yml / publish.yml never fire for release-please
-  # releases. Deploy directly from this run instead.
-  deploy:
-    needs: release-please
-    if: ${{ needs.release-please.outputs.release_created == 'true' }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          ref: ${{ needs.release-please.outputs.tag_name }}
-
-      - name: Prepare
-        uses: ./.github/actions/prepare
-
-      - name: Deploy to Juno
-        uses: junobuild/juno-action@main
-        with:
-          args: hosting deploy
-
-  publish:
-    needs: release-please
-    if: ${{ needs.release-please.outputs.release_created == 'true' }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          ref: ${{ needs.release-please.outputs.tag_name }}
-
-      - name: Prepare
-        uses: ./.github/actions/prepare
-
-      - name: Build
-        uses: junobuild/juno-action@full
-        with:
-          args: functions build
-
-      - name: Publish
-        uses: junobuild/juno-action@full
-        with:
-          args: functions publish
+      # Tags cut with GITHUB_TOKEN don't trigger the tag workflows; dispatch them instead.
+      - name: Trigger deploy + publish for the new release
+        if: steps.release.outputs.release_created == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run deploy.yml --repo "$GITHUB_REPOSITORY" --ref "${{ steps.release.outputs.tag_name }}"
+          gh workflow run publish.yml --repo "$GITHUB_REPOSITORY" --ref "${{ steps.release.outputs.tag_name }}"
