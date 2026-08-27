@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.1](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.1.0...v1.1.1) (2026-08-27)
+
+
+### Bug Fixes
+
+* **seo:** point canonical URLs at ventilii.dev ([#13](https://github.com/AntonioVentilii/ventilii-graph/issues/13)) ([a32dd4b](https://github.com/AntonioVentilii/ventilii-graph/commit/a32dd4b07989a2fa100c7969cb9e83f851f30117))
+
+
+### Build System
+
+* **deps:** bump the npm_and_yarn group across 1 directory with 2 updates ([#10](https://github.com/AntonioVentilii/ventilii-graph/issues/10)) ([a64db2f](https://github.com/AntonioVentilii/ventilii-graph/commit/a64db2f0039e36b97e37f63fc10a7afac8b5c749))
+
 ## [1.1.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.0.6...v1.1.0) (2026-08-27)
 
 
