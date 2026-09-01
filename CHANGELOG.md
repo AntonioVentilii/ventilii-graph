@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.1](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.2.0...v1.2.1) (2026-09-01)
+
+
+### Bug Fixes
+
+* **seo:** dedicated 1600x838 social-share banner as og:image ([#20](https://github.com/AntonioVentilii/ventilii-graph/issues/20)) ([8248494](https://github.com/AntonioVentilii/ventilii-graph/commit/82484940b5e42e3646d9166ced540ae689183be7))
+
+
+### Build System
+
+* **deps:** bump esbuild from 0.27.7 to 0.28.2 in the npm_and_yarn group across 1 directory ([#18](https://github.com/AntonioVentilii/ventilii-graph/issues/18)) ([1a0585c](https://github.com/AntonioVentilii/ventilii-graph/commit/1a0585c237e02c98193382bb5f384e6f3068f045))
+
 ## [1.2.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.1.1...v1.2.0) (2026-09-01)
 
 
