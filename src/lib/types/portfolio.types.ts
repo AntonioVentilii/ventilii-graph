@@ -1,6 +1,10 @@
-export type Locale = 'en' | 'it';
+export type Locale = 'en' | 'it' | 'pt';
 
-export type Localised = Record<Locale, string> | { en: string; it?: string };
+export interface Localised {
+	en: string;
+	it?: string;
+	pt?: string;
+}
 
 export interface Person {
 	id: string;

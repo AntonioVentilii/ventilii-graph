@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Github } from 'lucide-svelte';
+	import FlattenToggle from '$lib/components/layout/FlattenToggle.svelte';
 	import LocaleSelect from '$lib/components/layout/LocaleSelect.svelte';
 	import ThemeToggle from '$lib/components/layout/ThemeToggle.svelte';
 	import type { Locale } from '$lib/types/portfolio.types';
@@ -8,12 +9,19 @@
 		locale: Locale;
 		cvFallbackLabel: string;
 		langLabel: string;
+		flatten: { href: string; label: string; title: string; onFlatten: () => void };
 	}
 
-	let { locale = $bindable(), cvFallbackLabel, langLabel }: Props = $props();
+	let { locale = $bindable(), cvFallbackLabel, langLabel, flatten }: Props = $props();
 </script>
 
 <div class="flex flex-wrap items-center gap-2">
+	<FlattenToggle
+		href={flatten.href}
+		label={flatten.label}
+		onFlatten={flatten.onFlatten}
+		title={flatten.title}
+	/>
 	<ThemeToggle />
 	<a
 		class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-popover text-fg-muted outline-hidden transition hover:border-accent hover:text-fg focus-visible:ring-2 focus-visible:ring-accent"

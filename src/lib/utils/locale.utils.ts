@@ -1,10 +1,9 @@
 import type { Locale, Localised } from '$lib/types/portfolio.types';
 
-export const pickLocale = ({ text, locale }: { text: Localised; locale: Locale }): string => {
-	if ('en' in text && 'it' in text) {
-		const t = text as Record<Locale, string>;
-		return t[locale] ?? t.en;
-	}
-	const partial = text as { en: string; it?: string };
-	return locale === 'it' && partial.it ? partial.it : partial.en;
-};
+export const LOCALES: Locale[] = ['en', 'it', 'pt'];
+
+export const pickLocale = ({ text, locale }: { text: Localised; locale: Locale }): string =>
+	text[locale] ?? text.en;
+
+/** Site-root-relative path of the static CV page for a locale (see src/routes/cv). */
+export const cvPath = (locale: Locale): string => (locale === 'en' ? '/cv/' : `/cv/${locale}/`);

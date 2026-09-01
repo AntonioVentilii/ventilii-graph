@@ -1,13 +1,13 @@
-# Antonio Ventilii | Senior Software Engineer
+# Antonio Ventilii | AI-Native Senior Software Engineer
 
-Antonio Ventilii is a Senior Software Engineer specializing in TypeScript, Rust, and Python across Web3 and traditional finance. Deeply invested in AI and agentic engineering: coding agents for implementation and review, custom agent skills, and MCP connectors as part of the daily workflow, with an emphasis on code review, maintainability, and idiomatic code. Based in Zurich, Switzerland.
+Antonio Ventilii is a Senior Software Engineer who pairs deep hands-on engineering (TypeScript, Rust, Python, Svelte) with an AI-native workflow: orchestrating fleets of coding agents across many parallel projects, building custom agent skills, and wiring MCP (Model Context Protocol) connectors into real development pipelines. Multi-agent workflows and AI orchestration do not replace the engineering: he designs the architecture, writes the hard parts himself, and reviews every line that ships to production Web3 and finance systems.
 
 ## Key Roles
 - **DFINITY Foundation** (2024-Present): Primary contributor by commit volume to the OISY Wallet, a production multi-chain browser wallet on the Internet Computer (TypeScript, Svelte, Rust canisters, chain fusion).
 - **Vontobel Swiss Financial Advisers** (2020-2024): Led desk automation and FX hedge optimization while trading multi-asset markets for HNWI and UHNWI clients.
 
 ## Primary Skills
-- **AI / Agentic Engineering**: Coding agents for implementation and review, custom Claude Code skills, MCP connectors wired into real workflows.
+- **AI / Agentic Engineering**: Orchestration of many parallel AI projects; coding agents for implementation and review, custom Claude Code agent skills, MCP connectors, and multi-agent workflows wired into real delivery pipelines.
 - **Frontend**: Svelte, React, TypeScript, Tailwind CSS.
 - **Systems & Backend**: Rust (Internet Computer canisters), Python (Flask, trading bots, linear programming).
 - **Web3**: Internet Computer (ICP), Solana, Ethereum (EVM), multi-chain integration.
@@ -27,3 +27,4 @@ Antonio Ventilii is a Senior Software Engineer specializing in TypeScript, Rust,
 - **GitHub**: https://github.com/AntonioVentilii
 - **LinkedIn**: https://linkedin.com/in/AntonioVentilii
 - **Portfolio**: https://ventilii.dev
+- **Full CV (static HTML)**: https://ventilii.dev/cv/ (English), https://ventilii.dev/cv/it/ (Italian), https://ventilii.dev/cv/pt/ (Portuguese)
