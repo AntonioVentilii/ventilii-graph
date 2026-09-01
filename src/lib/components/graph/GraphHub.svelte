@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onDestroy } from 'svelte';
 	import type { Person } from '$lib/types/portfolio.types';
 
 	interface Props {
@@ -37,8 +38,12 @@
 
 	const cancelHold = () => {
 		clearTimeout(holdTimer);
+		holdTimer = undefined;
 		holding = false;
 	};
+
+	// The timer must not outlive the component (e.g. navigating away mid-hold)
+	onDestroy(() => clearTimeout(holdTimer));
 
 	const handleClick = () => {
 		// A completed hold fires a click on pointerup; swallow it so it doesn't reset the graph
