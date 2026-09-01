@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.1.1...v1.2.0) (2026-09-01)
+
+
+### Features
+
+* **seo:** static CV pages (EN/IT/PT-BR) with flatten/scatter toggle ([#15](https://github.com/AntonioVentilii/ventilii-graph/issues/15)) ([af0bb1d](https://github.com/AntonioVentilii/ventilii-graph/commit/af0bb1d0493365ba0e55713ae0c9e12435121276))
+
+
+### Bug Fixes
+
+* **seo:** absolute og:image URL and Person JSON-LD on the homepage ([#16](https://github.com/AntonioVentilii/ventilii-graph/issues/16)) ([66783a7](https://github.com/AntonioVentilii/ventilii-graph/commit/66783a7a13bcdea07b05d468db69ed844e44668e))
+
 ## [1.1.1](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.1.0...v1.1.1) (2026-08-27)
 
 
