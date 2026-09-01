@@ -10,6 +10,7 @@
 		skipLabel: string;
 		cvFallbackLabel: string;
 		langLabel: string;
+		flatten: { href: string; label: string; title: string; onFlatten: () => void };
 		onSelectLeaf: (leaf: Leaf) => void;
 		labels: {
 			placeholder: string;
@@ -22,6 +23,7 @@
 		skipLabel,
 		cvFallbackLabel,
 		langLabel,
+		flatten,
 		onSelectLeaf,
 		labels
 	}: Props = $props();
@@ -46,6 +48,6 @@
 	</div>
 
 	<div class="flex items-center justify-end">
-		<HeaderActions {cvFallbackLabel} {langLabel} bind:locale />
+		<HeaderActions {cvFallbackLabel} {flatten} {langLabel} bind:locale />
 	</div>
 </header>

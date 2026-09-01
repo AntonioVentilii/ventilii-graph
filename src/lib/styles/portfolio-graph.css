@@ -142,3 +142,114 @@
 		animation: none !important;
 	}
 }
+
+/*
+ * Flatten-to-CV exit (FlattenToggle / hub hold-to-print): every graph node
+ * drops off the map before navigating to the static /cv page (PortfolioApp).
+ */
+.graph-flattening .graph-node-shift {
+	transition:
+		transform 0.6s cubic-bezier(0.5, -0.1, 0.75, 0.6),
+		opacity 0.5s ease 0.1s !important;
+	transform: translate(-50%, -50%) translateY(60vh) scale(0.5) !important;
+	opacity: 0 !important;
+	pointer-events: none;
+}
+
+.graph-flattening .graph-node-shift:nth-child(even) {
+	transition-delay: 0.06s, 0.16s;
+}
+
+.graph-flattening .graph-wrap svg {
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.graph-flattening .orbit-float {
+	animation: none !important;
+}
+
+/* Hub hold-to-print progress ring (GraphHub easter egg) */
+.hub-hold-ring {
+	position: absolute;
+	inset: -5px;
+	width: calc(100% + 10px);
+	height: calc(100% + 10px);
+	pointer-events: none;
+	overflow: visible;
+}
+
+.hub-hold-ring rect {
+	fill: none;
+	stroke: var(--accent);
+	stroke-width: 2.5;
+	stroke-linecap: round;
+	vector-effect: non-scaling-stroke;
+	stroke-dasharray: 100;
+	stroke-dashoffset: 100;
+	animation: hub-hold-fill 0.9s linear forwards;
+}
+
+@keyframes hub-hold-fill {
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+/* Flatten-glyph morph (FlattenToggle): five scattered dots <-> five stacked lines */
+.flatten-glyph circle {
+	fill: currentColor;
+	transform-box: fill-box;
+	transform-origin: center;
+	transition:
+		cx 0.45s cubic-bezier(0.6, 0, 0.3, 1.2),
+		cy 0.45s cubic-bezier(0.6, 0, 0.3, 1.2),
+		transform 0.45s cubic-bezier(0.6, 0, 0.3, 1.2);
+}
+
+.flatten-toggle:hover .flatten-glyph circle,
+.flatten-toggle:focus-visible .flatten-glyph circle {
+	cx: 8px;
+	transform: scaleX(3.4);
+}
+
+.flatten-toggle:hover .flatten-glyph .fg-1,
+.flatten-toggle:focus-visible .flatten-glyph .fg-1 {
+	cy: 3px;
+}
+.flatten-toggle:hover .flatten-glyph .fg-2,
+.flatten-toggle:focus-visible .flatten-glyph .fg-2 {
+	cy: 6px;
+}
+.flatten-toggle:hover .flatten-glyph .fg-3,
+.flatten-toggle:focus-visible .flatten-glyph .fg-3 {
+	cy: 9px;
+}
+.flatten-toggle:hover .flatten-glyph .fg-4,
+.flatten-toggle:focus-visible .flatten-glyph .fg-4 {
+	cy: 12px;
+}
+.flatten-toggle:hover .flatten-glyph .fg-5,
+.flatten-toggle:focus-visible .flatten-glyph .fg-5 {
+	cy: 15px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.graph-flattening .graph-node-shift {
+		transition: none !important;
+	}
+
+	.hub-hold-ring rect {
+		animation-duration: 0.01s;
+	}
+
+	.flatten-glyph circle {
+		transition: none;
+	}
+}
+
+/* Fade the detail panel while the graph flattens */
+.graph-flattening .flatten-fade {
+	opacity: 0;
+	transition: opacity 0.4s ease;
+}

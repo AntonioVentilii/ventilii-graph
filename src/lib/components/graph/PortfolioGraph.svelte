@@ -24,6 +24,8 @@
 		onResetHome: () => void;
 		/** Clear leaf selection (stay on category); used for parent category in leaf view */
 		onStepToCategoryView: () => void;
+		/** Easter egg: hold the hub to "print" the graph into the static CV */
+		onPrint?: () => void;
 	}
 
 	let {
@@ -34,7 +36,8 @@
 		onToggleCategory,
 		onSelectLeaf,
 		onResetHome,
-		onStepToCategoryView
+		onStepToCategoryView,
+		onPrint
 	}: Props = $props();
 
 	let wrapEl: HTMLDivElement | undefined = $state();
@@ -194,6 +197,7 @@
 		centerY={layout.hub.y}
 		compact={layout.hub.compact}
 		hubWidthPx={layout.hubWidthPx}
+		{onPrint}
 		onclick={onResetHome}
 		person={portfolioData.person}
 	/>

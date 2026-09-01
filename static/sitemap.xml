@@ -1,9 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://ventilii.dev/</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://ventilii.dev/cv/</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ventilii.dev/cv/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://ventilii.dev/cv/it/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://ventilii.dev/cv/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ventilii.dev/cv/"/>
+  </url>
+  <url>
+    <loc>https://ventilii.dev/cv/it/</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ventilii.dev/cv/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://ventilii.dev/cv/it/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://ventilii.dev/cv/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ventilii.dev/cv/"/>
+  </url>
+  <url>
+    <loc>https://ventilii.dev/cv/pt/</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ventilii.dev/cv/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://ventilii.dev/cv/it/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://ventilii.dev/cv/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ventilii.dev/cv/"/>
   </url>
 </urlset>
