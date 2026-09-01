@@ -4,7 +4,7 @@
 	import { portfolioData } from '$lib/services/portfolio.services';
 	import type { Locale, Localised } from '$lib/types/portfolio.types';
 	import { cvPath, pickLocale } from '$lib/utils/locale.utils';
-	import { absoluteUrl, serializeSchema } from '$lib/utils/seo.utils';
+	import { PERSON_KNOWS_ABOUT, absoluteUrl, serializeSchema } from '$lib/utils/seo.utils';
 
 	interface Props {
 		locale: Locale;
@@ -29,14 +29,14 @@
 
 	const t: Record<string, Localised> = {
 		metaTitle: {
-			en: 'Antonio Ventilii — CV | Senior Software Engineer',
-			it: 'Antonio Ventilii — CV | Senior Software Engineer',
-			pt: 'Antonio Ventilii — CV | Senior Software Engineer'
+			en: 'Antonio Ventilii CV | AI-Native Senior Software Engineer',
+			it: 'CV di Antonio Ventilii | Senior Software Engineer AI-Native',
+			pt: 'CV de Antonio Ventilii | Senior Software Engineer AI-Native'
 		},
 		metaDescription: {
-			en: 'CV of Antonio Ventilii, Senior Software Engineer in Zurich: TypeScript, Rust, and Python across Web3 and traditional finance. Experience at DFINITY, Vontobel, and Itaú; projects, stack, education, and languages.',
-			it: 'CV di Antonio Ventilii, Senior Software Engineer a Zurigo: TypeScript, Rust e Python tra Web3 e finanza tradizionale. Esperienza in DFINITY, Vontobel e Itaú; progetti, stack, formazione e lingue.',
-			pt: 'CV de Antonio Ventilii, Senior Software Engineer em Zurique: TypeScript, Rust e Python entre Web3 e finanças tradicionais. Experiência em DFINITY, Vontobel e Itaú; projetos, stack, formação e idiomas.'
+			en: 'CV of Antonio Ventilii, Senior Software Engineer. Orchestrates AI coding agents across many parallel projects while shipping production TypeScript, Rust, and Python for Web3 and finance. Experience at DFINITY, Vontobel, and Itaú.',
+			it: 'CV di Antonio Ventilii, Senior Software Engineer. Orchestra coding agent AI su molti progetti in parallelo e sviluppa TypeScript, Rust e Python in produzione per Web3 e finanza. Esperienza in DFINITY, Vontobel e Itaú.',
+			pt: 'CV de Antonio Ventilii, Senior Software Engineer. Orquestra coding agents de IA em muitos projetos paralelos e entrega TypeScript, Rust e Python em produção para Web3 e finanças. Experiência em DFINITY, Vontobel e Itaú.'
 		},
 		scatter: { en: 'scatter', it: 'sparpaglia', pt: 'espalhar' },
 		scatterTitle: {
@@ -69,30 +69,41 @@
 
 	const _jsonLd = $derived({
 		'@context': 'https://schema.org',
-		'@type': 'Person',
-		name: person.name,
-		jobTitle: 'Senior Software Engineer',
-		url: canonical,
-		mainEntityOfPage: canonical,
-		image: absoluteUrl(person.avatarUrl),
-		email: `mailto:${person.email}`,
-		address: { '@type': 'PostalAddress', addressLocality: 'Zurich', addressCountry: 'CH' },
-		sameAs: person.links.map((l) => l.href),
-		description: pick(person.tagline),
-		knowsAbout: technologies.map((s) => s.label.en),
-		knowsLanguage: ['it', 'pt', 'en', 'de'],
-		worksFor: {
-			'@type': 'Organization',
-			name: 'DFINITY Foundation',
-			url: 'https://dfinity.org'
-		},
-		alumniOf: [
-			{ '@type': 'CollegeOrUniversity', name: 'Politecnico di Milano' },
-			{ '@type': 'CollegeOrUniversity', name: 'University of São Paulo' }
-		]
+		'@type': 'ProfilePage',
+		mainEntity: {
+			'@type': 'Person',
+			name: person.name,
+			jobTitle: 'Senior Software Engineer',
+			url: canonical,
+			mainEntityOfPage: canonical,
+			image: absoluteUrl(person.avatarUrl),
+			email: `mailto:${person.email}`,
+			sameAs: person.links.map((l) => l.href),
+			description: pick(person.tagline),
+			knowsAbout: PERSON_KNOWS_ABOUT,
+			knowsLanguage: ['it', 'pt', 'en', 'de'],
+			hasOccupation: {
+				'@type': 'Occupation',
+				name: 'Senior Software Engineer',
+				skills: PERSON_KNOWS_ABOUT.join(', ')
+			},
+			worksFor: {
+				'@type': 'Organization',
+				name: 'DFINITY Foundation',
+				url: 'https://dfinity.org'
+			},
+			alumniOf: [
+				{ '@type': 'CollegeOrUniversity', name: 'Politecnico di Milano' },
+				{ '@type': 'CollegeOrUniversity', name: 'University of São Paulo' }
+			]
+		}
 	});
 
 	const _jsonLdString = $derived(serializeSchema(_jsonLd));
+	// Svelte renders <script> tag content in markup as raw text, so inject via @html
+	const _jsonLdScript = $derived(
+		`<script type="application/ld+json">${_jsonLdString}</${''}script>`
+	);
 
 	onMount(() => {
 		document.documentElement.lang = htmlLang;
@@ -115,11 +126,11 @@
 	<meta content="profile" property="og:type" />
 	<meta content={canonical} property="og:url" />
 	<meta content={ogLocale} property="og:locale" />
+	<meta content={absoluteUrl(person.avatarUrl)} property="og:image" />
+	<meta name="twitter:card" content="summary" />
 
-	<!-- prettier-ignore -->
-	<script type="application/ld+json">
-		{_jsonLdString}
-	</script>
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -- serializeSchema escapes <, >, & -->
+	{@html _jsonLdScript}
 </svelte:head>
 
 <div class="flex min-h-dvh flex-col bg-page text-fg">
@@ -182,7 +193,7 @@
 			<header class="mb-10">
 				<h1 class="text-2xl font-extrabold tracking-tight text-balance">{person.name}</h1>
 				<p class="mt-1 text-sm font-semibold text-accent">
-					{pick(person.title)} · {pick(person.location)}
+					{pick(person.title)}
 				</p>
 				<p class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-fg-muted">
 					<a class="text-link underline-offset-2 hover:underline" href={`mailto:${person.email}`}>
@@ -209,14 +220,16 @@
 			</header>
 
 			<section class="mb-10">
-				<h2 class="mb-4 border-b border-border pb-1 text-xs font-bold tracking-[0.14em] text-accent uppercase">
+				<h2
+					class="mb-4 border-b border-border pb-1 text-xs font-bold tracking-[0.14em] text-accent uppercase"
+				>
 					{category('experience').label}
 				</h2>
 				<div class="flex flex-col gap-7">
 					{#each experiences as exp (exp.id)}
 						<section>
 							<h3 class="text-sm font-bold">
-								{pick(exp.role)} — {pick(exp.company)}
+								{pick(exp.role)} · {pick(exp.company)}
 							</h3>
 							<p class="mt-0.5 text-xs text-fg-subtle">
 								{pick(exp.dates)} · {pick(exp.location)}
@@ -262,7 +275,9 @@
 			</section>
 
 			<section class="mb-10">
-				<h2 class="mb-4 border-b border-border pb-1 text-xs font-bold tracking-[0.14em] text-accent uppercase">
+				<h2
+					class="mb-4 border-b border-border pb-1 text-xs font-bold tracking-[0.14em] text-accent uppercase"
+				>
 					{category('projects').label}
 				</h2>
 				<div class="flex flex-col gap-6">
@@ -322,7 +337,7 @@
 								>
 									{org.name}
 								</a>
-								— {pick(org.note)}
+								· {pick(org.note)}
 							</li>
 						{/each}
 					</ul>
@@ -330,7 +345,9 @@
 			</section>
 
 			<section class="mb-10">
-				<h2 class="mb-4 border-b border-border pb-1 text-xs font-bold tracking-[0.14em] text-accent uppercase">
+				<h2
+					class="mb-4 border-b border-border pb-1 text-xs font-bold tracking-[0.14em] text-accent uppercase"
+				>
 					{category('stack').label}
 				</h2>
 				<div class="flex flex-col gap-4">
@@ -349,7 +366,9 @@
 			</section>
 
 			<section class="mb-10">
-				<h2 class="mb-4 border-b border-border pb-1 text-xs font-bold tracking-[0.14em] text-accent uppercase">
+				<h2
+					class="mb-4 border-b border-border pb-1 text-xs font-bold tracking-[0.14em] text-accent uppercase"
+				>
 					{category('education').label}
 				</h2>
 				<div class="flex flex-col gap-4">
@@ -360,7 +379,7 @@
 								{#each edu.degrees as degree, i (i)}
 									<li class="max-w-[70ch] leading-relaxed">
 										{pick(degree.label)} ({pick(degree.dates)}){#if degree.note}
-											— {pick(degree.note)}{/if}
+											· {pick(degree.note)}{/if}
 									</li>
 								{/each}
 							</ul>
@@ -370,18 +389,22 @@
 			</section>
 
 			<section class="mb-10">
-				<h2 class="mb-4 border-b border-border pb-1 text-xs font-bold tracking-[0.14em] text-accent uppercase">
+				<h2
+					class="mb-4 border-b border-border pb-1 text-xs font-bold tracking-[0.14em] text-accent uppercase"
+				>
 					{category('languages').label}
 				</h2>
 				<ul class="flex flex-col gap-1 text-sm text-fg-muted">
 					{#each languages as lang (lang.id)}
-						<li>{pick(lang.label)} — {pick(lang.level)}</li>
+						<li>{pick(lang.label)} · {pick(lang.level)}</li>
 					{/each}
 				</ul>
 			</section>
 
 			<section class="mb-10">
-				<h2 class="mb-4 border-b border-border pb-1 text-xs font-bold tracking-[0.14em] text-accent uppercase">
+				<h2
+					class="mb-4 border-b border-border pb-1 text-xs font-bold tracking-[0.14em] text-accent uppercase"
+				>
 					{category('about').label}
 				</h2>
 				<div class="flex flex-col gap-4">

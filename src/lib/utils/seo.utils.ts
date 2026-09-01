@@ -16,3 +16,29 @@ export const serializeSchema = (schema: object): string =>
 		.replace(/&/g, '\\u0026')
 		.replace(/\u2028/g, '\\u2028')
 		.replace(/\u2029/g, '\\u2029');
+
+/** Topics for JSON-LD knowsAbout / Occupation skills, shared by the graph and CV pages. */
+export const PERSON_KNOWS_ABOUT = [
+	'TypeScript',
+	'JavaScript',
+	'Rust',
+	'Python',
+	'Svelte',
+	'React',
+	'Tailwind CSS',
+	'AI agent orchestration',
+	'Agentic engineering',
+	'Coding agents',
+	'Claude Code',
+	'Model Context Protocol (MCP)',
+	'Multi-agent workflows',
+	'LLM integration',
+	'AI-assisted code review',
+	'Internet Computer (ICP)',
+	'Ethereum (EVM)',
+	'Solana',
+	'Web3',
+	'Smart contracts',
+	'Trading systems',
+	'Quantitative finance'
+];

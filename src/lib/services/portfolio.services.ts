@@ -15,9 +15,9 @@ export const portfolioData: PortfolioData = {
 		name: 'Antonio Ventilii',
 		title: L.en('Senior Software Engineer', 'Senior Software Engineer', 'Senior Software Engineer'),
 		tagline: L.en(
-			'Senior software engineer shipping production systems in TypeScript, Rust, and Python across Web3 and traditional finance, including a flagship wallet whose full codebase is public on GitHub. Deeply invested in AI/agentic engineering: coding agents, custom agent skills, and MCP connectors as part of the daily workflow. Emphasis on code review, maintainability, and idiomatic code.',
-			'Senior software engineer, con sistemi production in TypeScript, Rust e Python tra Web3 e finance tradizionale, incluso un wallet flagship open source su GitHub. Forte focus su AI/ingegneria agentica: coding agent, skill custom e connettori MCP nel workflow quotidiano. Attenzione a code review, manutenibilità e codice idiomatico.',
-			'Engenheiro de software sênior entregando sistemas em produção com TypeScript, Rust e Python entre Web3 e finanças tradicionais, incluindo uma wallet flagship com código totalmente público no GitHub. Forte foco em IA/engenharia agêntica: coding agents, skills customizadas e conectores MCP no fluxo de trabalho diário. Ênfase em code review, manutenibilidade e código idiomático.'
+			'Senior software engineer shipping production systems in TypeScript, Rust, and Python across Web3 and traditional finance, including a flagship wallet whose full codebase is public on GitHub. AI-native workflow: orchestrating fleets of coding agents across many parallel projects, with custom agent skills and MCP connectors, while still owning architecture, the hard code, and every review.',
+			'Senior software engineer con sistemi production in TypeScript, Rust e Python tra Web3 e finanza tradizionale, incluso un wallet flagship open source su GitHub. Workflow AI-native: orchestrazione di flotte di coding agent su molti progetti in parallelo, con skill agentiche custom e connettori MCP, mantenendo la responsabilità di architettura, codice difficile e ogni review.',
+			'Engenheiro de software sênior entregando sistemas em produção com TypeScript, Rust e Python entre Web3 e finanças tradicionais, incluindo uma wallet flagship com código totalmente público no GitHub. Workflow AI-native: orquestrando frotas de coding agents em muitos projetos paralelos, com skills de agente customizadas e conectores MCP, mantendo a responsabilidade pela arquitetura, pelo código difícil e por cada review.'
 		),
 		location: L.en('Zurich, Switzerland', 'Zurigo, Svizzera', 'Zurique, Suíça'),
 		avatarUrl: '/images/antonio-ventilii.jpg',
@@ -876,6 +876,19 @@ export const portfolioData: PortfolioData = {
 		}
 	],
 	about: [
+		{
+			id: 'ai-native',
+			title: L.en(
+				'AI-native, still an engineer',
+				'AI-native, ma sempre ingegnere',
+				'AI-native, ainda engenheiro'
+			),
+			body: L.en(
+				'I run many AI projects in parallel: fleets of coding agents that build, review, and test under human direction, coordinated through custom agent skills, MCP connectors, and multi-agent workflows. Orchestration does not replace engineering. I design the architecture, write the hard parts in TypeScript and Rust myself, and review every line that ships.',
+				'Gestisco molti progetti AI in parallelo: flotte di coding agent che implementano, revisionano e testano sotto direzione umana, coordinate con skill agentiche custom, connettori MCP e workflow multi-agente. L’orchestrazione non sostituisce l’ingegneria. Progetto l’architettura, scrivo io le parti difficili in TypeScript e Rust e revisiono ogni riga che va in produzione.',
+				'Conduzo muitos projetos de IA em paralelo: frotas de coding agents que implementam, revisam e testam sob direção humana, coordenadas com skills de agente customizadas, conectores MCP e workflows multiagente. Orquestração não substitui engenharia. Eu desenho a arquitetura, escrevo as partes difíceis em TypeScript e Rust e reviso cada linha que vai para produção.'
+			)
+		},
 		{
 			id: 'meta',
 			title: L.en('A "Meta" Portfolio', 'Un Portfolio "Meta"', 'Um Portfólio "Meta"'),
