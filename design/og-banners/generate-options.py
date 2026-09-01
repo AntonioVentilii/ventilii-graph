@@ -79,7 +79,7 @@ def line(parts, yy):
         d.text((xx, yy), txt, font=mono, fill=col)
         xx += mono.getlength(txt)
 line([('~ ❯ ', ACCENT), ('whoami', FG)], y)
-line([('Antonio Ventilii — AI-Native Senior Software Engineer', SUBTLE)], y+62)
+line([('Antonio Ventilii · AI-Native Senior Software Engineer', SUBTLE)], y+62)
 line([('~ ❯ ', ACCENT), ('cat stack.txt', FG)], y+155)
 line([('TypeScript · Rust · AI Agents · Web3', SUBTLE)], y+217)
 line([('~ ❯ ', ACCENT), ('open ', FG), ('https://ventilii.dev', LINK)], y+310)
