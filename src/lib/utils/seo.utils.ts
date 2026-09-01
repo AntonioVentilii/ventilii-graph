@@ -42,3 +42,9 @@ export const PERSON_KNOWS_ABOUT = [
 	'Trading systems',
 	'Quantitative finance'
 ];
+
+/** Social-share banner (1600x838, 1.91:1) used as og:image on all pages. */
+export const OG_IMAGE = absoluteUrl('/images/og-banner.jpg');
+export const OG_IMAGE_WIDTH = '1600';
+export const OG_IMAGE_HEIGHT = '838';
+export const OG_IMAGE_ALT = 'Antonio Ventilii · AI-Native Senior Software Engineer';

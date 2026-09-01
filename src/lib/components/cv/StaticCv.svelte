@@ -4,7 +4,15 @@
 	import { portfolioData } from '$lib/services/portfolio.services';
 	import type { Locale, Localised } from '$lib/types/portfolio.types';
 	import { cvPath, pickLocale } from '$lib/utils/locale.utils';
-	import { PERSON_KNOWS_ABOUT, absoluteUrl, serializeSchema } from '$lib/utils/seo.utils';
+	import {
+		OG_IMAGE,
+		OG_IMAGE_ALT,
+		OG_IMAGE_HEIGHT,
+		OG_IMAGE_WIDTH,
+		PERSON_KNOWS_ABOUT,
+		absoluteUrl,
+		serializeSchema
+	} from '$lib/utils/seo.utils';
 
 	interface Props {
 		locale: Locale;
@@ -126,8 +134,12 @@
 	<meta content="profile" property="og:type" />
 	<meta content={canonical} property="og:url" />
 	<meta content={ogLocale} property="og:locale" />
-	<meta content={absoluteUrl(person.avatarUrl)} property="og:image" />
-	<meta name="twitter:card" content="summary" />
+	<meta content={OG_IMAGE} property="og:image" />
+	<meta content={OG_IMAGE_WIDTH} property="og:image:width" />
+	<meta content={OG_IMAGE_HEIGHT} property="og:image:height" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content={OG_IMAGE} />
+	<meta name="twitter:image:alt" content={OG_IMAGE_ALT} />
 
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -- serializeSchema escapes <, >, & -->
 	{@html _jsonLdScript}
