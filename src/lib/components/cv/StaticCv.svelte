@@ -10,6 +10,9 @@
 		OG_IMAGE_HEIGHT,
 		OG_IMAGE_WIDTH,
 		PERSON_KNOWS_ABOUT,
+		SITE_AUTHOR,
+		SITE_MODIFIED_TIME,
+		SITE_PUBLISHED_TIME,
 		absoluteUrl,
 		serializeSchema
 	} from '$lib/utils/seo.utils';
@@ -137,6 +140,10 @@
 	<meta content={OG_IMAGE} property="og:image" />
 	<meta content={OG_IMAGE_WIDTH} property="og:image:width" />
 	<meta content={OG_IMAGE_HEIGHT} property="og:image:height" />
+	<meta name="author" content={SITE_AUTHOR} />
+	<meta content={SITE_AUTHOR} property="article:author" />
+	<meta content={SITE_PUBLISHED_TIME} property="article:published_time" />
+	<meta content={SITE_MODIFIED_TIME} property="article:modified_time" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:image" content={OG_IMAGE} />
 	<meta name="twitter:image:alt" content={OG_IMAGE_ALT} />

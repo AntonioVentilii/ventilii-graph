@@ -48,3 +48,12 @@ export const OG_IMAGE = absoluteUrl('/images/og-banner.jpg');
 export const OG_IMAGE_WIDTH = '1600';
 export const OG_IMAGE_HEIGHT = '838';
 export const OG_IMAGE_ALT = 'Antonio Ventilii · AI-Native Senior Software Engineer';
+
+/** Author name for author/article metadata; matches portfolioData.person.name. */
+export const SITE_AUTHOR = 'Antonio Ventilii';
+
+/** First publication of the site (ISO 8601), for article:published_time. */
+export const SITE_PUBLISHED_TIME = '2026-03-27T00:00:00+00:00';
+
+/** Last content update (ISO 8601); keep in sync with static/sitemap.xml lastmod. */
+export const SITE_MODIFIED_TIME = '2026-09-01T00:00:00+00:00';
