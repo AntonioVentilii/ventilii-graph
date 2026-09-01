@@ -27,3 +27,4 @@ Antonio Ventilii is a Senior Software Engineer specializing in TypeScript, Rust,
 - **GitHub**: https://github.com/AntonioVentilii
 - **LinkedIn**: https://linkedin.com/in/AntonioVentilii
 - **Portfolio**: https://ventilii.dev
+- **Full CV (static HTML)**: https://ventilii.dev/cv/ (English), https://ventilii.dev/cv/it/ (Italian), https://ventilii.dev/cv/pt/ (Portuguese)
