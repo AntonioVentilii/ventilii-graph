@@ -47,3 +47,4 @@ export const PERSON_KNOWS_ABOUT = [
 export const OG_IMAGE = absoluteUrl('/images/og-banner.jpg');
 export const OG_IMAGE_WIDTH = '1600';
 export const OG_IMAGE_HEIGHT = '838';
+export const OG_IMAGE_ALT = 'Antonio Ventilii — AI-Native Senior Software Engineer';

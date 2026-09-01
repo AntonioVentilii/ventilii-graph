@@ -3,6 +3,7 @@
 	import { portfolioData } from '$lib/services/portfolio.services';
 	import {
 		OG_IMAGE,
+		OG_IMAGE_ALT,
 		OG_IMAGE_HEIGHT,
 		OG_IMAGE_WIDTH,
 		PERSON_KNOWS_ABOUT,
@@ -61,6 +62,8 @@
 	<meta content={OG_IMAGE_WIDTH} property="og:image:width" />
 	<meta content={OG_IMAGE_HEIGHT} property="og:image:height" />
 	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content={OG_IMAGE} />
+	<meta name="twitter:image:alt" content={OG_IMAGE_ALT} />
 
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -- serializeSchema escapes <, >, & -->
 	{@html _jsonLdScript}
