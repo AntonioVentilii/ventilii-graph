@@ -14,6 +14,16 @@
 		description:
 			'Senior Software Engineer. AI-native development with coding agents, agent skills, and MCP connectors, plus production TypeScript, Rust, and Python.',
 		knowsAbout: PERSON_KNOWS_ABOUT,
+		worksFor: {
+			'@type': 'Organization',
+			name: 'DFINITY Foundation',
+			url: 'https://dfinity.org'
+		},
+		address: {
+			'@type': 'PostalAddress',
+			addressLocality: 'Zurich',
+			addressCountry: 'CH'
+		},
 		hasOccupation: {
 			'@type': 'Occupation',
 			name: 'Senior Software Engineer',
