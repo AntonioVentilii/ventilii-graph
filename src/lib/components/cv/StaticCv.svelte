@@ -11,6 +11,7 @@
 		OG_IMAGE_WIDTH,
 		PERSON_KNOWS_ABOUT,
 		SITE_AUTHOR,
+		SITE_AUTHOR_URL,
 		SITE_MODIFIED_TIME,
 		SITE_PUBLISHED_TIME,
 		absoluteUrl,
@@ -141,7 +142,7 @@
 	<meta content={OG_IMAGE_WIDTH} property="og:image:width" />
 	<meta content={OG_IMAGE_HEIGHT} property="og:image:height" />
 	<meta name="author" content={SITE_AUTHOR} />
-	<meta content={SITE_AUTHOR} property="article:author" />
+	<meta content={SITE_AUTHOR_URL} property="article:author" />
 	<meta content={SITE_PUBLISHED_TIME} property="article:published_time" />
 	<meta content={SITE_MODIFIED_TIME} property="article:modified_time" />
 	<meta name="twitter:card" content="summary_large_image" />

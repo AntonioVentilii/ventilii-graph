@@ -1,3 +1,6 @@
+import { portfolioData } from '$lib/services/portfolio.services';
+import { cvPath } from '$lib/utils/locale.utils';
+
 /** Canonical origin of the deployed site; keep in sync with static/sitemap.xml. */
 export const SITE_ORIGIN = 'https://ventilii.dev';
 
@@ -49,8 +52,14 @@ export const OG_IMAGE_WIDTH = '1600';
 export const OG_IMAGE_HEIGHT = '838';
 export const OG_IMAGE_ALT = 'Antonio Ventilii · AI-Native Senior Software Engineer';
 
-/** Author name for author/article metadata; matches portfolioData.person.name. */
-export const SITE_AUTHOR = 'Antonio Ventilii';
+/** Author name for meta[name=author], derived from the portfolio data source. */
+export const SITE_AUTHOR = portfolioData.person.name;
+
+/**
+ * Canonical author profile URL for article:author, which Open Graph defines as a URL.
+ * The English CV page is the site's own og:type=profile page for the author.
+ */
+export const SITE_AUTHOR_URL = absoluteUrl(cvPath('en'));
 
 /** First publication of the site (ISO 8601), for article:published_time. */
 export const SITE_PUBLISHED_TIME = '2026-03-27T00:00:00+00:00';
