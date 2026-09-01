@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.2.1...v1.2.2) (2026-09-01)
+
+
+### Bug Fixes
+
+* **seo:** replace em dash with middot in alt text and banner archive ([#21](https://github.com/AntonioVentilii/ventilii-graph/issues/21)) ([835b854](https://github.com/AntonioVentilii/ventilii-graph/commit/835b854ef440f28ab4e642d103d8e809c99bd486))
+
 ## [1.2.1](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.2.0...v1.2.1) (2026-09-01)
 
 
