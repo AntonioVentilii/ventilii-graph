@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.4](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.2.3...v1.2.4) (2026-09-02)
+
+
+### Continuous Integration
+
+* pin release-please-action to the real v5.0.0 tag ([#29](https://github.com/AntonioVentilii/ventilii-graph/issues/29)) ([2d7bc1e](https://github.com/AntonioVentilii/ventilii-graph/commit/2d7bc1e8cc2c9cc5b7c7e220b929ec1b3cb09c7b))
+
 ## [1.2.3](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.2.2...v1.2.3) (2026-09-02)
 
 
