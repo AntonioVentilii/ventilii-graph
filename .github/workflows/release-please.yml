@@ -46,7 +46,7 @@ jobs:
 
       - name: Run release-please
         id: release
-        uses: googleapis/release-please-action@0b6b3fc0186a2f7118bfd88fab9ea481e1839504 # v4.4.0
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
         with:
           token: ${{ steps.app-token.outputs.token }}
           config-file: release-please-config.json
