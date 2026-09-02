@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.2.3](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.2.2...v1.2.3) (2026-09-02)
+
+
+### Bug Fixes
+
+* **seo:** add author and publish date metadata ([#26](https://github.com/AntonioVentilii/ventilii-graph/issues/26)) ([09c85e3](https://github.com/AntonioVentilii/ventilii-graph/commit/09c85e34630693151018696615f1bf860f882556))
+* **seo:** serve the AI-crawler summary at the standard /llms.txt path ([#23](https://github.com/AntonioVentilii/ventilii-graph/issues/23)) ([3f2133a](https://github.com/AntonioVentilii/ventilii-graph/commit/3f2133adb2c0566fca2030d389fb1207b129b90d))
+
+
+### Miscellaneous Chores
+
+* **cv:** refresh downloadable CV PDF ([#25](https://github.com/AntonioVentilii/ventilii-graph/issues/25)) ([cbc0d23](https://github.com/AntonioVentilii/ventilii-graph/commit/cbc0d2357a8849e6976b5ef660eb70c79f0fb8f4))
+* update CV PDF ([#28](https://github.com/AntonioVentilii/ventilii-graph/issues/28)) ([e2313a5](https://github.com/AntonioVentilii/ventilii-graph/commit/e2313a54cd1b8ed0e20119bd2b3847bfbf4d4cab))
+
+
+### Continuous Integration
+
+* cut release PRs with the release bot app instead of GITHUB_TOKEN ([#27](https://github.com/AntonioVentilii/ventilii-graph/issues/27)) ([2c829fe](https://github.com/AntonioVentilii/ventilii-graph/commit/2c829fe6d9661ec82d76d3e3ae9ecfc567bb65a6))
+
 ## [1.2.2](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.2.1...v1.2.2) (2026-09-01)
 
 
