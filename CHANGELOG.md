@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.5](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.2.4...v1.2.5) (2026-09-03)
+
+
+### Build System
+
+* **deps:** bump the npm_and_yarn group across 1 directory with 3 updates ([#31](https://github.com/AntonioVentilii/ventilii-graph/issues/31)) ([c7a1121](https://github.com/AntonioVentilii/ventilii-graph/commit/c7a112135a74e5e8eebe8064c46e154e13fc34c4))
+
 ## [1.2.4](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.2.3...v1.2.4) (2026-09-02)
 
 
