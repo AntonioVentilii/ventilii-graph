@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.2.5...v1.3.0) (2026-09-17)
+
+
+### Features
+
+* **hosting:** serve on Fly.io with nginx instead of Juno ([#34](https://github.com/AntonioVentilii/ventilii-graph/issues/34)) ([ee55651](https://github.com/AntonioVentilii/ventilii-graph/commit/ee55651b027370d04992f7f13770cd65f2e12f01))
+
+
+### Build System
+
+* **deps-dev:** bump js-yaml from 4.3.1 to 4.3.2 in the npm_and_yarn group across 1 directory ([#33](https://github.com/AntonioVentilii/ventilii-graph/issues/33)) ([e6cc4b7](https://github.com/AntonioVentilii/ventilii-graph/commit/e6cc4b7fdb6f7ffb95e1d42a70efaf5a16befa60))
+
 ## [1.2.5](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.2.4...v1.2.5) (2026-09-03)
 
 
