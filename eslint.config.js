@@ -11,6 +11,16 @@ export default ts.config(
 	},
 
 	{
+		// Injected by Vite `define` (see vite.config.ts). The declaration in
+		// src/app.d.ts covers TypeScript; ESLint's no-undef needs it here too.
+		languageOptions: {
+			globals: {
+				__BUILD_YEAR__: 'readonly'
+			}
+		}
+	},
+
+	{
 		rules: {
 			'svelte/no-navigation-without-resolve': 'off'
 		}

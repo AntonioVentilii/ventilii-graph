@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { portfolioData } from '$lib/services/portfolio.services';
 
-	// Evaluated at prerender time, so this is the year of the last release
-	// build — which is what a copyright line should say anyway.
-	const year = new Date().getFullYear();
+	// Injected by Vite `define` at build time, so the prerendered HTML and the
+	// client bundle carry the same year and hydration has nothing to correct.
+	const year = __BUILD_YEAR__;
 </script>
 
 <footer class="w-full border-t border-border bg-page">
