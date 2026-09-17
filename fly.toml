@@ -1,0 +1,38 @@
+# ventilii-graph on Fly.io: the prerendered portfolio site, served by nginx.
+# See Dockerfile and nginx.conf.
+#
+# Custom domain, once after the first deploy:
+#   fly certs add ventilii.dev
+#   fly certs add www.ventilii.dev
+# then point the DNS records Fly prints (A/AAAA for the apex, CNAME for www)
+# at the app. SITE_ORIGIN in src/lib/utils/seo.utils.ts is the canonical host.
+
+app = "ventilii-graph"
+primary_region = "fra"
+
+[build]
+  dockerfile = "Dockerfile"
+
+# Keep one machine warm: this is a public portfolio, so a cold start is a
+# recruiter staring at a blank tab, and the site is far too small for
+# scale-to-zero to save anything worth having.
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 1
+
+# nginx serves the prerendered home page on `/` (HTTP 200), so `/` doubles as
+# the liveness probe.
+[[http_service.checks]]
+  method = "get"
+  path = "/"
+  interval = "15s"
+  timeout = "2s"
+
+# Static files out of nginx: the smallest shared VM is ample.
+[[vm]]
+  memory = "256mb"
+  cpu_kind = "shared"
+  cpus = 1

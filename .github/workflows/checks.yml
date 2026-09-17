@@ -83,3 +83,64 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  # The deploy ships an image, not the `build` job's output, so the image has to
+  # be exercised here or a broken Dockerfile/nginx.conf would only ever surface
+  # on a release tag, when it is too late to catch cheaply.
+  docker:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Build the image
+        run: docker build -t ventilii-graph:ci .
+
+      - name: Validate the nginx config
+        run: docker run --rm ventilii-graph:ci nginx -t
+
+      - name: Serve it and check the prerendered routes
+        run: |
+          docker run --rm -d --name ventilii-graph-ci -p 8080:8080 ventilii-graph:ci
+
+          for i in $(seq 1 30); do
+            if curl -fsS -o /dev/null http://localhost:8080/; then break; fi
+            if [ "$i" -eq 30 ]; then
+              echo '::error::The container never started serving on :8080.'
+              docker logs ventilii-graph-ci
+              docker rm -f ventilii-graph-ci
+              exit 1
+            fi
+            sleep 1
+          done
+
+          status=0
+
+          # Every prerendered route must be a real 200, and an unknown path must
+          # be a real 404 — not the home page with a 200, which is what a
+          # mistakenly SPA-style fallback would produce.
+          check() {
+            got="$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8080$1")"
+            if [ "$got" = "$2" ]; then
+              echo "OK   $1 -> $got"
+            else
+              echo "::error::$1 returned $got, expected $2"
+              status=1
+            fi
+          }
+
+          check / 200
+          check /cv/ 200
+          check /cv/it/ 200
+          check /cv/pt/ 200
+          check /robots.txt 200
+          check /sitemap.xml 200
+          check /Antonio_Ventilii_CV.pdf 200
+          check /no-such-page 404
+
+          docker rm -f ventilii-graph-ci > /dev/null
+          exit $status
