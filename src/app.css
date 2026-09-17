@@ -20,7 +20,7 @@
 	src: url('/fonts/jetbrainsmono-bold.woff2') format('woff2');
 }
 
-/* Light blue with a hint of green: site accent scale (replaces starter/Juno palette) */
+/* Light blue with a hint of green: the site accent scale */
 @theme {
 	--font-display: 'JetBrains Mono', sans-serif;
 

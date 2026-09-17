@@ -1,0 +1,24 @@
+# The image builds from source inside the container, so nothing generated on a
+# host should leak in. node_modules especially: the build runs on linux and the
+# host's tree carries darwin binaries for esbuild, rollup and lightningcss.
+node_modules
+build
+.svelte-kit
+target
+
+.git
+.github
+.claude
+design
+CHANGELOG.md
+README.md
+
+.env
+.env.*
+!.env.example
+
+.DS_Store
+**/.DS_Store
+.eslintcache
+.vscode
+.idea

@@ -18,15 +18,17 @@ const config = {
 		// If your environment is not supported or you settled on a specific environment, switch out the adapter.
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter({
-			precompress: false
+			precompress: false,
+			// Every route is prerendered, so this fallback is only ever served for an
+			// unmatched path: nginx returns it as the 404 body, and the client-side
+			// router renders the app's own error page instead of nginx's default.
+			fallback: '404.html'
 		}),
 		version: {
 			name: version
 		},
 		alias: {
-			$declarations: './src/declarations',
 			$routes: './src/lib/routes',
-			$satellite: './src/satellite',
 			$root: './'
 		}
 	}
