@@ -22,7 +22,7 @@ while kill -0 "$api" 2>/dev/null && kill -0 "$web" 2>/dev/null; do
 	sleep 2
 done
 
-echo "entrypoint: a process exited, stopping the container" >&2
+echo "start.sh: a process exited, stopping the container" >&2
 kill -TERM "$api" "$web" 2>/dev/null || true
 wait
 exit 1

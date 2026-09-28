@@ -89,6 +89,9 @@ jobs:
   # on a release tag, when it is too late to catch cheaply.
   docker:
     runs-on: ubuntu-24.04
+    # The image runs long-lived servers; a step that accidentally starts them in
+    # the foreground must fail fast, not hang until the 6h default.
+    timeout-minutes: 15
     permissions:
       contents: read
     steps:
@@ -147,12 +150,12 @@ jobs:
           # must report itself unconfigured and refuse generations with a 503,
           # while nginx still proxies it (a 502 here means node is not running).
           check /api/ai/health 200
-          health="$(curl -s http://localhost:8080/api/ai/health)"
+          health="$(curl -s -m 10 http://localhost:8080/api/ai/health)"
           if [ "$(echo "$health" | jq -r .configured)" != "false" ]; then
             echo "::error::/api/ai/health should report configured=false without a key, got: $health"
             status=1
           fi
-          got="$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' \
+          got="$(curl -s -m 10 -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' \
             -d '{"mode":"ask","locale":"en","question":"What has he built?"}' http://localhost:8080/api/ai)"
           if [ "$got" = "503" ]; then echo "OK   POST /api/ai -> 503 (unconfigured)"; else
             echo "::error::POST /api/ai returned $got, expected 503"

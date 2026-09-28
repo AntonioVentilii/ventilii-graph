@@ -29,6 +29,8 @@ RUN apk add --no-cache nodejs su-exec
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/build /usr/share/nginx/html
 COPY --from=build /app/build-api/server.mjs /srv/api/server.mjs
-COPY docker/entrypoint.sh /entrypoint.sh
+COPY docker/start.sh /start.sh
 EXPOSE 8080
-ENTRYPOINT ["/entrypoint.sh"]
+# CMD, not ENTRYPOINT: the nginx image's own entrypoint still runs and execs
+# this, and `docker run <image> nginx -t` (CI) still overrides it.
+CMD ["/start.sh"]

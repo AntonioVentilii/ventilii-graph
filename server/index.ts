@@ -13,7 +13,7 @@ import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult } from './modes.ts';
 
 /**
  * The AI version's API: one JSON endpoint in front of the Claude API. It runs
- * next to nginx in the same container (see docker/entrypoint.sh), which
+ * next to nginx in the same container (see docker/start.sh), which
  * proxies /api/ to it. No state beyond memory: limits and the answer cache
  * reset on restart, which is fine for a portfolio.
  */

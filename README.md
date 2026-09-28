@@ -36,7 +36,7 @@ A page where a visitor asks about Antonio, pastes a job posting for a fit check
 - `server/index.ts` is a dependency-free `node:http` server: input limits,
   per-IP and daily caps, an answer cache (cached answers are free), and
   `GET /api/ai/health` so the page can show an offline note.
-- In the image, esbuild bundles it to one file and `docker/entrypoint.sh` runs
+- In the image, esbuild bundles it to one file and `docker/start.sh` runs
   it next to nginx, which proxies `/api/`.
 
 It needs `ANTHROPIC_API_KEY` (`fly secrets set ANTHROPIC_API_KEY=...`, or a
