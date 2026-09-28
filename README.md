@@ -9,15 +9,15 @@ small API behind `/ask`, in `server/`.
 
 ## Commands
 
-| Command             | Action                                     |
-| ------------------- | ------------------------------------------ |
-| `npm run dev`       | Start dev server (proxies `/api` to 8787)  |
-| `npm run dev:api`   | Start the AI API on 8787 (reads `.env`)    |
-| `npm run build`     | Production build to `build/`               |
-| `npm run build:api` | Bundle the AI API to `build-api/`          |
-| `npm run preview`   | Preview the production build               |
-| `npm run check`     | Type-check the site and the API            |
-| `npm run quality`   | Format, then lint                          |
+| Command             | Action                                    |
+| ------------------- | ----------------------------------------- |
+| `npm run dev`       | Start dev server (proxies `/api` to 8787) |
+| `npm run dev:api`   | Start the AI API on 8787 (reads `.env`)   |
+| `npm run build`     | Production build to `build/`              |
+| `npm run build:api` | Bundle the AI API to `build-api/`         |
+| `npm run preview`   | Preview the production build              |
+| `npm run check`     | Type-check the site and the API           |
+| `npm run quality`   | Format, then lint                         |
 
 Content lives in `src/lib/services/portfolio.services.ts`. Projects carry their
 `dates` and `status` (live, in private use, prototype, archived), so a
