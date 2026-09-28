@@ -137,10 +137,27 @@ jobs:
           check /cv/ 200
           check /cv/it/ 200
           check /cv/pt/ 200
+          check /ask/ 200
           check /robots.txt 200
           check /sitemap.xml 200
           check /Antonio_Ventilii_CV.pdf 200
           check /no-such-page 404
+
+          # The AI API runs in the same container. CI has no Anthropic key, so it
+          # must report itself unconfigured and refuse generations with a 503,
+          # while nginx still proxies it (a 502 here means node is not running).
+          check /api/ai/health 200
+          health="$(curl -s http://localhost:8080/api/ai/health)"
+          if [ "$(echo "$health" | jq -r .configured)" != "false" ]; then
+            echo "::error::/api/ai/health should report configured=false without a key, got: $health"
+            status=1
+          fi
+          got="$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'content-type: application/json' \
+            -d '{"mode":"ask","locale":"en","question":"What has he built?"}' http://localhost:8080/api/ai)"
+          if [ "$got" = "503" ]; then echo "OK   POST /api/ai -> 503 (unconfigured)"; else
+            echo "::error::POST /api/ai returned $got, expected 503"
+            status=1
+          fi
 
           docker rm -f ventilii-graph-ci > /dev/null
           exit $status
