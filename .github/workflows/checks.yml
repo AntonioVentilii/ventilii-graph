@@ -149,6 +149,11 @@ jobs:
           # The AI API runs in the same container. CI has no Anthropic key, so it
           # must report itself unconfigured and refuse generations with a 503,
           # while nginx still proxies it (a 502 here means node is not running).
+          # nginx answers at once; node takes a moment to listen, so wait for it.
+          for i in $(seq 1 30); do
+            if curl -fsS -m 2 -o /dev/null http://localhost:8080/api/ai/health; then break; fi
+            sleep 1
+          done
           check /api/ai/health 200
           health="$(curl -s -m 10 http://localhost:8080/api/ai/health)"
           if [ "$(echo "$health" | jq -r .configured)" != "false" ]; then
@@ -162,5 +167,6 @@ jobs:
             status=1
           fi
 
+          if [ "$status" -ne 0 ]; then docker logs ventilii-graph-ci; fi
           docker rm -f ventilii-graph-ci > /dev/null
           exit $status
