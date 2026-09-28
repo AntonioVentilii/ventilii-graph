@@ -7,6 +7,7 @@
 	import Header from '$lib/components/layout/Header.svelte';
 	import DetailPanel from '$lib/components/panel/DetailPanel.svelte';
 	import type { Locale } from '$lib/types/portfolio.types';
+	import { askCopy, askPath } from '$lib/utils/ask-copy.utils';
 	import { categoryForLeafKind, type Leaf } from '$lib/utils/leaf.utils';
 	import { cvPath } from '$lib/utils/locale.utils';
 
@@ -161,6 +162,10 @@
 	class:graph-flattening={flattening}
 >
 	<Header
+		ask={{
+			href: askPath(locale),
+			label: askCopy({ key: 'askCta', locale })
+		}}
 		cvFallbackLabel={tr('cvFallback')}
 		flatten={{
 			href: cvPath(locale),

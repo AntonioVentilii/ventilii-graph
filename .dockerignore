@@ -3,6 +3,7 @@
 # host's tree carries darwin binaries for esbuild, rollup and lightningcss.
 node_modules
 build
+build-api
 .svelte-kit
 target
 

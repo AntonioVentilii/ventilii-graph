@@ -1,0 +1,23 @@
+{
+	// The API runs straight from source with Node's type stripping in dev
+	// (`npm run dev:api`) and is bundled by esbuild for the image, so this
+	// config only type-checks: imports carry their .ts extension, and only
+	// erasable syntax is allowed.
+	"compilerOptions": {
+		"target": "ES2023",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"lib": ["ES2023"],
+		"types": ["node"],
+		"strict": true,
+		"noEmit": true,
+		"skipLibCheck": true,
+		"allowImportingTsExtensions": true,
+		"erasableSyntaxOnly": true,
+		"verbatimModuleSyntax": true,
+		"paths": {
+			"$lib/*": ["../src/lib/*.ts"]
+		}
+	},
+	"include": ["./**/*.ts"]
+}

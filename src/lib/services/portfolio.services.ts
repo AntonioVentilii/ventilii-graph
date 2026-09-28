@@ -50,9 +50,9 @@ export const portfolioData: PortfolioData = {
 			id: 'projects',
 			label: L.en('Projects', 'Progetti', 'Projetos'),
 			shortHint: L.en(
-				'OISY, personal repos, experiments.',
-				'OISY, repo personali, esperimenti.',
-				'OISY, repositórios pessoais, experimentos.'
+				'OISY, Officina, VICI, experiments. Each marked with when and how far it got.',
+				'OISY, Officina, VICI, esperimenti. Ognuno con quando e fin dove è arrivato.',
+				'OISY, Officina, VICI, experimentos. Cada um com quando e até onde chegou.'
 			)
 		},
 		{
@@ -273,6 +273,8 @@ export const portfolioData: PortfolioData = {
 				'Wallet multi-chain su Internet Computer. Codebase pubblica e revisionabile su GitHub.',
 				'Wallet de navegador multi-chain na Internet Computer. Código público: histórico auditável, issues e reviews no GitHub. Foco principal do meu cargo atual.'
 			),
+			dates: L.en('2024-present', '2024-oggi', '2024-presente'),
+			status: 'production',
 			highlights: [
 				L.en(
 					'Apache-2.0, TypeScript + Svelte frontend, Rust canisters, chain fusion (Bitcoin, Ethereum-family, Solana).',
@@ -291,6 +293,130 @@ export const portfolioData: PortfolioData = {
 			experienceId: 'dfinity'
 		},
 		{
+			id: 'officina',
+			title: L.en('Officina', 'Officina'),
+			kind: 'personal',
+			summary: L.en(
+				'A collaborative software workshop on top of a GitHub repository. Anyone on a team describes a change in plain language; Claude agents interview them, write the spec, build the branch and review it; people approve, verify and merge. One shared board, one audit trail, and agents never merge or approve their own work.',
+				'Un’officina software collaborativa sopra un repository GitHub. Chiunque nel team descrive una modifica a parole; agenti Claude fanno le domande giuste, scrivono la spec, costruiscono il branch e lo revisionano; le persone approvano, verificano e fanno il merge. Una board condivisa, un unico audit trail, e gli agenti non fanno mai merge né approvano il proprio lavoro.',
+				'Uma oficina de software colaborativa sobre um repositório GitHub. Qualquer pessoa do time descreve uma mudança em linguagem natural; agentes Claude fazem as perguntas certas, escrevem a spec, constroem o branch e fazem a review; pessoas aprovam, verificam e fazem o merge. Um board compartilhado, um único audit trail, e os agentes nunca fazem merge nem aprovam o próprio trabalho.'
+			),
+			dates: L.en('Sep 2026-present', 'set 2026-oggi', 'set 2026-presente'),
+			status: 'in-use',
+			highlights: [
+				L.en(
+					'Bun + Elysia API, SvelteKit board (Svelte 5), Postgres with an append-only audit log and pg_notify feeding realtime updates over SSE. Seven agent roles (interviewer, spec, builder, two reviewers, chooser, learner) run on Anthropic Managed Agents; each returns a typed result that code validates, with retries.',
+					'API Bun + Elysia, board SvelteKit (Svelte 5), Postgres con audit log append-only e pg_notify per gli aggiornamenti realtime via SSE. Sette ruoli agente (interviewer, spec, builder, due reviewer, chooser, learner) girano su Anthropic Managed Agents; ognuno restituisce un risultato tipizzato che il codice valida, con retry.',
+					'API Bun + Elysia, board SvelteKit (Svelte 5), Postgres com audit log append-only e pg_notify alimentando atualizações em tempo real via SSE. Sete papéis de agente (interviewer, spec, builder, dois reviewers, chooser, learner) rodam no Anthropic Managed Agents; cada um devolve um resultado tipado que o código valida, com retries.'
+				),
+				L.en(
+					'Deterministic engine: one tested state machine decides every transition. Risk lanes are recomputed from the real diff (the stricter lane wins) instead of trusting the model; GitHub App tokens are least-privilege, and the builder may only push its own task branch.',
+					'Engine deterministico: un’unica state machine testata decide ogni transizione. Le risk lane sono ricalcolate dal diff reale (vince la più restrittiva) invece di fidarsi del modello; token GitHub App a privilegio minimo, e il builder può pushare solo il proprio branch.',
+					'Engine determinístico: uma única state machine testada decide cada transição. As risk lanes são recalculadas a partir do diff real (vence a mais restritiva) em vez de confiar no modelo; tokens de GitHub App com privilégio mínimo, e o builder só pode fazer push no próprio branch.'
+				),
+				L.en(
+					'No API key stored in production: Fly.io OIDC workload identity federation to Anthropic. Honest scope: a solo build of about 12 days (16 PRs) with Claude Code, deployed on Fly.io as a single-tenant instance for one repository. In early use, not a released product.',
+					'Nessuna API key salvata in produzione: workload identity federation OIDC da Fly.io verso Anthropic. Perimetro onesto: costruito da solo in circa 12 giorni (16 PR) con Claude Code, deployato su Fly.io come istanza single-tenant per un solo repository. In uso iniziale, non un prodotto rilasciato.',
+					'Nenhuma API key armazenada em produção: workload identity federation OIDC do Fly.io para a Anthropic. Escopo honesto: construído sozinho em cerca de 12 dias (16 PRs) com Claude Code, implantado no Fly.io como instância single-tenant para um único repositório. Em uso inicial, não é um produto lançado.'
+				)
+			],
+			stackIds: ['typescript', 'svelte', 'ai-agentic']
+		},
+		{
+			id: 'vici-app',
+			title: L.en('VICI', 'VICI'),
+			kind: 'personal',
+			summary: L.en(
+				'Social prediction-markets app (YES/NO markets, feed, leagues, battles), live at vici.market and moving to vici.app. One SvelteKit codebase ships two builds: a web3 build on the Internet Computer (Juno, Internet Identity, icdc-core clearing) and a web2 build on Fly.io with a Bun + Elysia + Postgres backend.',
+				'App social di mercati di previsione (mercati SÌ/NO, feed, leghe, sfide), live su vici.market e in migrazione verso vici.app. Un’unica codebase SvelteKit produce due build: una web3 su Internet Computer (Juno, Internet Identity, clearing icdc-core) e una web2 su Fly.io con backend Bun + Elysia + Postgres.',
+				'App social de mercados de previsão (mercados SIM/NÃO, feed, ligas, batalhas), no ar em vici.market e migrando para vici.app. Uma única codebase SvelteKit gera dois builds: um web3 na Internet Computer (Juno, Internet Identity, clearing icdc-core) e um web2 no Fly.io com backend Bun + Elysia + Postgres.'
+			),
+			dates: L.en('Feb 2026-present', 'feb 2026-oggi', 'fev 2026-presente'),
+			status: 'production',
+			highlights: [
+				L.en(
+					'Phased web3-to-web2 migration in progress: account-claim flow with a signed principal handoff, adoption of imported accounts, and an idempotent points import that never re-pays an award.',
+					'Migrazione web3→web2 a fasi, in corso: flusso di claim dell’account con handoff firmato del principal, adozione degli account importati e import idempotente dei punti che non ripaga mai un premio.',
+					'Migração web3→web2 em fases, em andamento: fluxo de claim de conta com handoff assinado do principal, adoção de contas importadas e import idempotente de pontos que nunca paga um prêmio duas vezes.'
+				),
+				L.en(
+					'Web2 backend with custodial multi-chain accounts (BTC, EVM, Solana, ICP chain watchers, ledger, withdrawals). 70+ releases via release-please, Playwright E2E tests, and an agent-first repo setup: it is the first repository Officina runs on.',
+					'Backend web2 con account custodial multi-chain (chain watcher BTC, EVM, Solana, ICP, ledger, prelievi). Oltre 70 release con release-please, test E2E Playwright e un setup del repo pensato per agenti: è il primo repository su cui gira Officina.',
+					'Backend web2 com contas custodiais multi-chain (chain watchers BTC, EVM, Solana, ICP, ledger, saques). Mais de 70 releases via release-please, testes E2E com Playwright e um setup de repositório pensado para agentes: é o primeiro repositório em que o Officina roda.'
+				)
+			],
+			links: [
+				{ label: L.en('vici.market', 'vici.market'), href: 'https://vici.market' },
+				{ label: L.en('vici.app', 'vici.app'), href: 'https://vici.app' },
+				{
+					label: L.en('GitHub', 'GitHub'),
+					href: 'https://github.com/ViciApp/vici-app'
+				}
+			],
+			stackIds: ['svelte', 'typescript', 'icp']
+		},
+		{
+			id: 'icdc-core',
+			title: L.en('icdc-core', 'icdc-core'),
+			kind: 'personal',
+			summary: L.en(
+				'IC Derivatives Clearing: a multi-canister central-counterparty engine in Rust for derivatives and prediction markets (instrument registry, margin, order matching with partial fills, settlement). Deployed on mainnet as the backend of VICI’s markets.',
+				'IC Derivatives Clearing: un motore di controparte centrale multi-canister in Rust per derivati e mercati di previsione (registro strumenti, margini, matching ordini con fill parziali, settlement). Deployato su mainnet come backend dei mercati VICI.',
+				'IC Derivatives Clearing: um motor de contraparte central multi-canister em Rust para derivativos e mercados de previsão (registro de instrumentos, margem, matching de ordens com fills parciais, settlement). Implantado na mainnet como backend dos mercados do VICI.'
+			),
+			dates: L.en('Feb 2026-present', 'feb 2026-oggi', 'fev 2026-presente'),
+			status: 'production',
+			highlights: [
+				L.en(
+					'Plan-Execute-Finalise pattern for every ledger interaction (no await while planning, created_at_time as the idempotency key) and multi-phase settlement with a heartbeat sweep for stalled settlements. PocketIC integration tests, CI that deploys to staging and production canisters.',
+					'Pattern Plan-Execute-Finalise per ogni interazione col ledger (nessun await in fase di plan, created_at_time come chiave di idempotenza) e settlement multi-fase con uno sweep periodico per quelli bloccati. Test di integrazione PocketIC, CI che deploya su canister di staging e produzione.',
+					'Padrão Plan-Execute-Finalise para toda interação com o ledger (nenhum await no planejamento, created_at_time como chave de idempotência) e settlement em várias fases com um sweep periódico para os travados. Testes de integração com PocketIC, CI que implanta em canisters de staging e produção.'
+				),
+				L.en(
+					'Not finished, per its own README: exchange authorisation and position-proof signatures are not implemented yet, and multi-asset margin is planned.',
+					'Non finito, come dice il suo README: autorizzazione degli exchange e firme delle position proof non sono ancora implementate, e il margine multi-asset è pianificato.',
+					'Não está pronto, segundo o próprio README: autorização de exchanges e assinaturas de position proofs ainda não foram implementadas, e margem multi-asset está planejada.'
+				)
+			],
+			links: [
+				{
+					label: L.en('GitHub', 'GitHub'),
+					href: 'https://github.com/AntonioVentilii/icdc-core'
+				}
+			],
+			stackIds: ['rust', 'icp']
+		},
+		{
+			id: 'household-app',
+			title: L.en('Household app (private)', 'App di casa (privata)', 'App da casa (privado)'),
+			kind: 'personal',
+			summary: L.en(
+				'A private app for a two-person household (calendar, tasks and lists, trips, shared finances), used every day on the web, from Claude over MCP, and from WhatsApp. Designed so AI can help without being trusted: agents propose, humans commit.',
+				'Un’app privata per una casa di due persone (calendario, attività e liste, viaggi, finanze condivise), usata ogni giorno dal web, da Claude via MCP e da WhatsApp. Progettata perché l’AI possa aiutare senza doversi fidare di lei: gli agenti propongono, le persone confermano.',
+				'Um app privado para uma casa de duas pessoas (calendário, tarefas e listas, viagens, finanças compartilhadas), usado todo dia pela web, pelo Claude via MCP e pelo WhatsApp. Projetado para a IA ajudar sem precisar confiar nela: agentes propõem, pessoas confirmam.'
+			),
+			dates: L.en('Sep 2026-present', 'set 2026-oggi', 'set 2026-presente'),
+			status: 'in-use',
+			highlights: [
+				L.en(
+					'Its own MCP server (about 30 verbs, deliberately no raw SQL) with an OAuth 2.1 authorization server (dynamic client registration, PKCE, rotating refresh tokens), so Claude and ChatGPT connect as first-class clients.',
+					'Un proprio server MCP (circa 30 verbi, volutamente niente SQL libero) con un authorization server OAuth 2.1 (dynamic client registration, PKCE, refresh token a rotazione), così Claude e ChatGPT si collegano come client a pieno titolo.',
+					'Um servidor MCP próprio (cerca de 30 verbos, propositalmente sem SQL livre) com um authorization server OAuth 2.1 (dynamic client registration, PKCE, refresh tokens rotativos), para que Claude e ChatGPT se conectem como clientes de primeira classe.'
+				),
+				L.en(
+					'Propose-then-approve writes: whatever an agent or job suggests (Claude over MCP, a nightly Gmail sweep, a WhatsApp assistant) becomes a typed proposal a person accepts. A stale check refuses the acceptance if the row changed, and a database constraint stops automated actors from writing money movements.',
+					'Scritture proponi-poi-approva: qualunque cosa suggerisca un agente o un job (Claude via MCP, uno sweep notturno di Gmail, un assistente WhatsApp) diventa una proposta tipizzata che una persona accetta. Un controllo di staleness rifiuta l’accettazione se il dato è cambiato, e un vincolo nel database impedisce agli attori automatici di scrivere movimenti di denaro.',
+					'Escritas propor-depois-aprovar: o que um agente ou job sugere (Claude via MCP, uma varredura noturna do Gmail, um assistente no WhatsApp) vira uma proposta tipada que uma pessoa aceita. Uma checagem de staleness recusa a aceitação se o dado mudou, e uma constraint no banco impede atores automáticos de gravar movimentações de dinheiro.'
+				),
+				L.en(
+					'Bun + Elysia + Postgres (forward-only migrations applied at release) and a SvelteKit PWA on Fly.io; about 350 tests, including one that walks every route and expects a 401 unless the route is explicitly public. Built with Claude Code in about three weeks; private repository.',
+					'Bun + Elysia + Postgres (migrazioni forward-only applicate al rilascio) e una PWA SvelteKit su Fly.io; circa 350 test, tra cui uno che percorre ogni route e si aspetta un 401 salvo route esplicitamente pubbliche. Costruita con Claude Code in circa tre settimane; repository privato.',
+					'Bun + Elysia + Postgres (migrations forward-only aplicadas no release) e uma PWA SvelteKit no Fly.io; cerca de 350 testes, incluindo um que percorre todas as rotas e espera 401 salvo rotas explicitamente públicas. Construído com Claude Code em cerca de três semanas; repositório privado.'
+				)
+			],
+			stackIds: ['typescript', 'svelte', 'ai-agentic']
+		},
+		{
 			id: 'claude-skills',
 			title: L.en('claude-skills', 'claude-skills'),
 			kind: 'personal',
@@ -299,6 +425,8 @@ export const portfolioData: PortfolioData = {
 				'Skill agentiche per Claude Code sotto version control: una casa durevole su git, in symlink sull’agente locale così da non perderle mai, pronte anche come plugin marketplace per un team.',
 				'Skills de agente do Claude Code versionadas: um lar durável no git, com symlink para o agente local para nunca se perderem, prontas para servir também como marketplace de plugins para um time.'
 			),
+			dates: L.en('Jun 2026', 'giu 2026', 'jun 2026'),
+			status: 'in-use',
 			highlights: [
 				L.en(
 					'Skills like prototype-to-app-port (high-fidelity design→production porting) and sapiens (a concise-but-complete communication mode), each with a triggerable command.',
@@ -323,6 +451,8 @@ export const portfolioData: PortfolioData = {
 				'Marketplace di prenotazione ombrelloni, live su ombrell.one. Nato come app Motoko + React su Internet Computer, poi portato su backend Bun + Elysia + Postgres su Fly.io con lo stesso frontend React.',
 				'Marketplace de reserva de guarda-sóis, no ar em ombrell.one. Começou como app Motoko + React na Internet Computer, depois portado para um backend Bun + Elysia + Postgres no Fly.io com o mesmo frontend React.'
 			),
+			dates: L.en('May-Aug 2026', 'mag-ago 2026', 'mai-ago 2026'),
+			status: 'production',
 			highlights: [
 				L.en(
 					'Full product surface: email-OTP and Google auth, listings with photo uploads (S3-compatible storage), bookings, and Stripe payments where the platform never holds host funds.',
@@ -334,6 +464,40 @@ export const portfolioData: PortfolioData = {
 			stackIds: ['typescript', 'svelte', 'tailwind']
 		},
 		{
+			id: 'fantasy-football',
+			title: L.en(
+				'Fantasy-football assistant',
+				'Assistente per il fantacalcio',
+				'Assistente de fantasy football'
+			),
+			kind: 'personal',
+			summary: L.en(
+				'A personal assistant for a private fantasy-football league among friends: an auction coach used live at the draft, then scheduled jobs that run the season (lineups, transfer bids, reports). Decisions are deterministic; the LLM only explains and researches.',
+				'Un assistente personale per una lega privata di fantacalcio tra amici: un coach per l’asta usato dal vivo, poi job schedulati che gestiscono la stagione (formazioni, offerte di mercato, report). Le decisioni sono deterministiche; l’LLM spiega e fa ricerca, e basta.',
+				'Um assistente pessoal para uma liga privada de fantasy football entre amigos: um coach de leilão usado ao vivo no draft, depois jobs agendados que tocam a temporada (escalações, lances de transferência, relatórios). As decisões são determinísticas; o LLM só explica e pesquisa.'
+			),
+			dates: L.en('Sep 2026-present', 'set 2026-oggi', 'set 2026-presente'),
+			status: 'in-use',
+			highlights: [
+				L.en(
+					'Exact knapsack auction planner in Python, ported to JavaScript inside a single-file mobile app (about 11 ms per lot) and replayed over the 200 real auction lots to evaluate it.',
+					'Planner d’asta con knapsack esatto in Python, portato in JavaScript dentro una web app mobile a file singolo (circa 11 ms per giocatore) e rigiocato sui 200 lotti reali dell’asta per valutarlo.',
+					'Planejador de leilão com knapsack exato em Python, portado para JavaScript dentro de um app mobile de arquivo único (cerca de 11 ms por lote) e reexecutado sobre os 200 lotes reais do leilão para avaliá-lo.'
+				),
+				L.en(
+					'Telemetry first: about 2,750 logged auction events rebuilt the whole auction and matched the league’s official file exactly, after the primary state sync had silently failed (root cause found and documented).',
+					'Telemetria prima di tutto: circa 2.750 eventi d’asta registrati hanno ricostruito l’intera asta, identica al file ufficiale della lega, dopo che la sincronizzazione principale era fallita in silenzio (causa trovata e documentata).',
+					'Telemetria em primeiro lugar: cerca de 2.750 eventos registrados reconstruíram o leilão inteiro, idêntico ao arquivo oficial da liga, depois que a sincronização principal falhou em silêncio (causa encontrada e documentada).'
+				),
+				L.en(
+					'A hobby tool with one user: Python, Supabase, Fly.io, GitHub Actions cron jobs and scheduled Claude routines; the league sync has six guards and treats silence as failure.',
+					'Uno strumento hobbistico con un solo utente: Python, Supabase, Fly.io, cron su GitHub Actions e routine Claude schedulate; la sincronizzazione della lega ha sei controlli e tratta il silenzio come un errore.',
+					'Uma ferramenta de hobby com um único usuário: Python, Supabase, Fly.io, cron jobs no GitHub Actions e rotinas Claude agendadas; a sincronização da liga tem seis checagens e trata silêncio como falha.'
+				)
+			],
+			stackIds: ['python', 'ai-agentic']
+		},
+		{
 			id: 'verto',
 			title: L.en('Verto', 'Verto'),
 			kind: 'personal',
@@ -342,11 +506,13 @@ export const portfolioData: PortfolioData = {
 				'Framework per app personalizzate dall’AI con governance: gli utenti chiedono varianti personali, un agente classifica e genera manifest reversibili, la policy li valida e le varianti ricorrenti diventano proposte di prodotto.',
 				'Framework para apps personalizados por IA com governança: usuários pedem variantes pessoais, um agente classifica e gera manifests reversíveis, a policy os valida e variantes recorrentes bem-sucedidas viram propostas de produto.'
 			),
+			dates: L.en('Jun 2026', 'giu 2026', 'jun 2026'),
+			status: 'prototype',
 			highlights: [
 				L.en(
-					'TypeScript monorepo: typed agent contracts, policy engine, variant engine with rollback, telemetry contracts, and a Svelte reference integration. In active development.',
-					'Monorepo TypeScript: contratti agente tipizzati, policy engine, variant engine con rollback, contratti di telemetria e integrazione di riferimento in Svelte. In sviluppo attivo.',
-					'Monorepo TypeScript: contratos de agente tipados, policy engine, variant engine com rollback, contratos de telemetria e integração de referência em Svelte. Em desenvolvimento ativo.'
+					'TypeScript monorepo: typed agent contracts, policy engine, variant engine with rollback, telemetry contracts, and a Svelte reference integration. A short prototype (June 2026), not in use.',
+					'Monorepo TypeScript: contratti agente tipizzati, policy engine, variant engine con rollback, contratti di telemetria e integrazione di riferimento in Svelte. Un prototipo breve (giugno 2026), non in uso.',
+					'Monorepo TypeScript: contratos de agente tipados, policy engine, variant engine com rollback, contratos de telemetria e integração de referência em Svelte. Um protótipo curto (junho de 2026), fora de uso.'
 				)
 			],
 			stackIds: ['typescript', 'svelte', 'ai-agentic']
@@ -360,6 +526,8 @@ export const portfolioData: PortfolioData = {
 				'AI sovrana per il private banking: showcase wealth-management single-bundle per le Cloud Engines di Internet Computer, dove i dati cliente non lasciano mai il compute della banca (segreto bancario, FINMA, FADP/GDPR).',
 				'IA soberana para private banking: showcase de wealth management em bundle único para as Cloud Engines da Internet Computer, construída para que os dados do cliente nunca saiam do compute do banco (sigilo bancário, FINMA, FADP/GDPR).'
 			),
+			dates: L.en('May-Jul 2026', 'mag-lug 2026', 'mai-jul 2026'),
+			status: 'prototype',
 			highlights: [
 				L.en(
 					'AI assistant canister that queries the bank’s data under the caller’s identity and calls a real LLM on an attached GPU node via HTTPS outcall; canister-built citations the model can’t invent.',
@@ -389,6 +557,8 @@ export const portfolioData: PortfolioData = {
 				'Una piattaforma AI per sviluppatori: budget condivisi di team, finestre di accesso “workday”, governance delle quote e routing tra provider LLM come Anthropic Claude. Il control plane è il prodotto; ogni surface è un adapter sottile su un’unica API stabile.',
 				'Um conceito de plataforma de IA para desenvolvedores: orçamentos compartilhados por time, janelas de acesso "workday", governança de quotas e roteamento entre providers de LLM como o Anthropic Claude. O control plane é o produto; cada surface é um adapter fino sobre uma única API estável.'
 			),
+			dates: L.en('Jun 2026', 'giu 2026', 'jun 2026'),
+			status: 'prototype',
 			highlights: [
 				L.en(
 					'Modular surfaces (VS Code extension, JetBrains, CLI, GitHub App, web dashboard, MCP server, Claude Code plugin) are all adapters over a shared client SDK and quota/policy/ledger/model-gateway core.',
@@ -416,23 +586,6 @@ export const portfolioData: PortfolioData = {
 			stackIds: ['typescript', 'icp']
 		},
 		{
-			id: 'icdc-core',
-			title: L.en('icdc-core', 'icdc-core'),
-			kind: 'personal',
-			summary: L.en(
-				'Clearing-focused core on the Internet Computer (Rust canisters): settlement-style workflows for on-chain markets.',
-				'Core clearing su IC (Rust): workflow tipo settlement per mercati on-chain.',
-				'Núcleo focado em clearing na Internet Computer (canisters em Rust): fluxos estilo settlement para mercados on-chain.'
-			),
-			links: [
-				{
-					label: L.en('GitHub', 'GitHub'),
-					href: 'https://github.com/AntonioVentilii/icdc-core'
-				}
-			],
-			stackIds: ['rust', 'icp']
-		},
-		{
 			id: 'escrow',
 			title: L.en('escrow', 'escrow'),
 			kind: 'personal',
@@ -441,6 +594,8 @@ export const portfolioData: PortfolioData = {
 				'Escrow decentralizzato in Solidity con ruoli user/admin/arbitro; app React.',
 				'Escrow descentralizado: Solidity com papéis de usuário, admin e árbitro; app React para interação.'
 			),
+			dates: L.en('Mar-May 2026', 'mar-mag 2026', 'mar-mai 2026'),
+			status: 'prototype',
 			links: [
 				{
 					label: L.en('GitHub', 'GitHub'),
@@ -458,6 +613,8 @@ export const portfolioData: PortfolioData = {
 				'Audio WhatsApp → trascrizione/traduzione via modello AI (Flask, webhook).',
 				'Áudio do WhatsApp → transcrição/tradução via modelo de IA (Flask, webhooks).'
 			),
+			dates: L.en('Apr 2024', 'apr 2024', 'abr 2024'),
+			status: 'prototype',
 			links: [
 				{
 					label: L.en('GitHub', 'GitHub'),
@@ -475,6 +632,8 @@ export const portfolioData: PortfolioData = {
 				'Wrapper WhatsApp Cloud API con persistenza su Firestore.',
 				'Wrapper da WhatsApp Cloud API com armazenamento de mensagens no Firestore.'
 			),
+			dates: L.en('Apr 2024', 'apr 2024', 'abr 2024'),
+			status: 'prototype',
 			links: [
 				{
 					label: L.en('GitHub', 'GitHub'),
@@ -532,23 +691,6 @@ export const portfolioData: PortfolioData = {
 			stackIds: ['python']
 		},
 		{
-			id: 'vici-app',
-			title: L.en('vici-app', 'vici-app'),
-			kind: 'personal',
-			summary: L.en(
-				'VICI prediction-markets app: Svelte frontend in active development in the VICI ecosystem.',
-				'App di mercati di previsione VICI: frontend Svelte in sviluppo attivo nell’ecosistema VICI.',
-				'App de mercados de previsão VICI: frontend Svelte em desenvolvimento ativo no ecossistema VICI.'
-			),
-			links: [
-				{
-					label: L.en('GitHub', 'GitHub'),
-					href: 'https://github.com/ViciApp/vici-app'
-				}
-			],
-			stackIds: ['svelte', 'typescript']
-		},
-		{
 			id: 'vault',
 			title: L.en('vault-app / vault-core', 'vault-app / vault-core'),
 			kind: 'personal',
@@ -557,6 +699,8 @@ export const portfolioData: PortfolioData = {
 				'Core Rust e app JS: superficie di esperimento per custodia.',
 				'Núcleo em Rust e app em JavaScript separados: uma superfície de experimentos de custódia.'
 			),
+			dates: L.en('Feb 2026', 'feb 2026', 'fev 2026'),
+			status: 'prototype',
 			links: [
 				{
 					label: L.en('vault-core', 'vault-core'),
@@ -578,6 +722,8 @@ export const portfolioData: PortfolioData = {
 				'Canister factory per token ICRC su Internet Computer.',
 				'Canister factory para implantar e gerenciar tokens ICRC na IC.'
 			),
+			dates: L.en('Jan 2026', 'gen 2026', 'jan 2026'),
+			status: 'prototype',
 			links: [
 				{
 					label: L.en('GitHub', 'GitHub'),
@@ -595,6 +741,7 @@ export const portfolioData: PortfolioData = {
 				'Layer di integrazione Python per l’API di Deribit.',
 				'Camada de integração em Python para a API de trading da Deribit.'
 			),
+			dates: L.en('2024-2026', '2024-2026'),
 			links: [
 				{
 					label: L.en('GitHub', 'GitHub'),
@@ -612,6 +759,8 @@ export const portfolioData: PortfolioData = {
 				'Selezione UTXO Bitcoin con ottimizzazione LP/MILP.',
 				'Seleção de UTXOs de Bitcoin via otimização LP/MILP.'
 			),
+			dates: L.en('Jan 2026', 'gen 2026', 'jan 2026'),
+			status: 'prototype',
 			links: [
 				{
 					label: L.en('GitHub', 'GitHub'),
@@ -629,6 +778,8 @@ export const portfolioData: PortfolioData = {
 				'Il Portfolio "Meta": Questa mappa interattiva. Una visualizzazione auto-documentante del mio percorso, stack e progetti.',
 				'O Portfólio "Meta": este próprio mapa interativo de carreira. Uma visualização autodocumentada da minha trajetória, stack e projetos.'
 			),
+			dates: L.en('Mar 2026-present', 'mar 2026-oggi', 'mar 2026-presente'),
+			status: 'production',
 			highlights: [
 				L.en(
 					'Custom Force-Directed Graph using Svelte 5 and Tailwind CSS v4.',
@@ -684,7 +835,15 @@ export const portfolioData: PortfolioData = {
 				'Uso quotidiano in produzione.',
 				'Uso diário em produção.'
 			),
-			relatedProjectIds: ['oisy', 'ventilii-graph', 'vici-app', 'ombrellone', 'verto']
+			relatedProjectIds: [
+				'oisy',
+				'officina',
+				'vici-app',
+				'household-app',
+				'ventilii-graph',
+				'ombrellone',
+				'verto'
+			]
 		},
 		{
 			id: 'rust',
@@ -704,7 +863,13 @@ export const portfolioData: PortfolioData = {
 				'Automazione trading, pipeline dati, API Flask e logica di ottimizzazione.',
 				'Automação de trading, pipelines de dados, APIs (Flask) e lógica de otimização.'
 			),
-			relatedProjectIds: ['chaditt', 'deribit-wrapper', 'bitcoin-utxo-lp', 'whatsapp-wrapper']
+			relatedProjectIds: [
+				'fantasy-football',
+				'chaditt',
+				'deribit-wrapper',
+				'bitcoin-utxo-lp',
+				'whatsapp-wrapper'
+			]
 		},
 		{
 			id: 'svelte',
@@ -716,8 +881,10 @@ export const portfolioData: PortfolioData = {
 			),
 			relatedProjectIds: [
 				'oisy',
-				'ventilii-graph',
+				'officina',
 				'vici-app',
+				'household-app',
+				'ventilii-graph',
 				'escrow',
 				'retropanda',
 				'ombrellone',
@@ -742,7 +909,7 @@ export const portfolioData: PortfolioData = {
 				'Canister ICP, Internet Identity e pattern chain-key crypto.',
 				'Canisters ICP, Internet Identity e padrões de criptografia chain-key.'
 			),
-			relatedProjectIds: ['oisy', 'icdc-core', 'icrc-factory', 'privatim', 'vici-maker']
+			relatedProjectIds: ['oisy', 'vici-app', 'icdc-core', 'icrc-factory', 'privatim', 'vici-maker']
 		},
 		{
 			id: 'evm-solana',
@@ -772,7 +939,10 @@ export const portfolioData: PortfolioData = {
 				'Parte central de como eu construo hoje.'
 			),
 			relatedProjectIds: [
+				'officina',
+				'household-app',
 				'claude-skills',
+				'fantasy-football',
 				'workday',
 				'verto',
 				'privatim',
@@ -931,5 +1101,37 @@ export const portfolioData: PortfolioData = {
 				'Casa da organização para a stack e o ecossistema da Internet Computer.'
 			)
 		}
+	],
+	limits: [
+		L.en(
+			'Formal background is an MSc in aeronautical engineering, not computer science. Software skills were built on the job: first as a desk developer inside trading roles (2013-2024), then full-time as a software engineer from 2024.'
+		),
+		L.en(
+			'Full-time software-engineering tenure is about two years (DFINITY, 2024-present). Before that, code was a large part of trading-desk roles but not the whole job.'
+		),
+		L.en(
+			'The newest personal projects (Officina, the household app, the fantasy-football assistant) are weeks old, were built with heavy Claude Code assistance, and have very few users: one or two people, or one team. They show system design and judgement, not scale or years of maintenance.'
+		),
+		L.en(
+			'Nothing in this portfolio shows operating high-traffic distributed systems at large scale, or training ML models. The AI work is applying and orchestrating LLMs, not ML research.'
+		),
+		L.en(
+			'Management: led technical direction, planning and mentoring on OISY for a period before a team restructure. No formal people-manager title.'
+		),
+		L.en(
+			'German is elementary, so roles that need working German are a real gap. Italian is native; English and Portuguese are fluent.'
+		),
+		L.en(
+			'No shipped native mobile app in this portfolio, even though React Native appears in the stack.'
+		),
+		L.en(
+			'Recent work is TypeScript, Rust and Python. Go, Java/Kotlin and similar backend languages are not shown; C# and SQL were used at Itaú (2013-2016).'
+		),
+		L.en(
+			'Several listed repositories are short experiments or prototypes. Each project carries its dates and status so it is not over-read.'
+		),
+		L.en(
+			'Salary, notice period, availability, visa and relocation are not in this portfolio: ask Antonio directly.'
+		)
 	]
 };

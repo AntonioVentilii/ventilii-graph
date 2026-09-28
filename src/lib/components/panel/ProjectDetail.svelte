@@ -8,6 +8,7 @@
 	import type { Project, Locale } from '$lib/types/portfolio.types';
 	import type { Leaf } from '$lib/utils/leaf.utils';
 	import { pickLocale } from '$lib/utils/locale.utils';
+	import { projectMeta } from '$lib/utils/project.utils';
 	import { relatedStackForProject } from '$lib/utils/relations.utils';
 
 	interface Props {
@@ -22,6 +23,7 @@
 
 	const bullets = $derived(project.highlights?.map((h) => pickLocale({ text: h, locale })) ?? []);
 	const stacks = $derived(relatedStackForProject(project.id));
+	const meta = $derived(projectMeta({ project, locale }));
 </script>
 
 <div class="animate-fade space-y-3">
@@ -29,7 +31,7 @@
 		<PanelEyebrow text={sectionEyebrow} />
 	{/if}
 
-	<EntryHeader title={pickLocale({ text: project.title, locale })} />
+	<EntryHeader {meta} title={pickLocale({ text: project.title, locale })} />
 
 	<p class="text-sm leading-relaxed text-fg-muted">
 		{pickLocale({ text: project.summary, locale })}
