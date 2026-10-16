@@ -13,7 +13,7 @@ Antonio Ventilii is a Senior Software Engineer who pairs deep hands-on engineeri
 - **Web3**: Internet Computer (ICP), Solana, Ethereum (EVM), multi-chain integration.
 
 ## Featured Projects
-Each project on the site carries its dates and status (live, in private use, prototype), so a weeks-old experiment is never read as a product.
+Projects on the site carry their dates and status (live, in private use, prototype) where the repository history shows them, so a weeks-old experiment is never read as a product.
 - **OISY Wallet** (2024-present, live): Production, multi-chain browser wallet on the Internet Computer (Apache-2.0, fully public codebase).
 - **Officina** (Sep 2026-present, in private use): Collaborative software workshop on a GitHub repo: Claude agents interview, spec, build and review; people approve, verify and merge. Deterministic state machine, risk lanes recomputed from the real diff, Managed Agents, Bun + Elysia + Postgres + SvelteKit on Fly.io.
 - **VICI** (Feb 2026-present, live): Social prediction-markets app at vici.market / vici.app; SvelteKit with a web3 build on the Internet Computer and a web2 build on Bun + Elysia + Postgres.

@@ -24,9 +24,9 @@ export const ASK_COPY = {
 		pt: 'Pergunte sobre o Antonio. Receba uma resposta direta.'
 	},
 	intro: {
-		en: 'A language model that has read everything on this site: every role, every project with its dates and how far it got, and a list of his known gaps. It is told to keep proportions and to say what the portfolio does not show. It is not Antonio, and it can be wrong: every claim links to the item that supports it, so you can check.',
-		it: 'Un modello linguistico che ha letto tutto il sito: ogni ruolo, ogni progetto con le sue date e fin dove è arrivato, e un elenco delle sue lacune note. Ha l’istruzione di mantenere le proporzioni e di dire cosa il portfolio non mostra. Non è Antonio e può sbagliare: ogni affermazione rimanda all’elemento che la sostiene, così puoi verificare.',
-		pt: 'Um modelo de linguagem que leu tudo neste site: cada cargo, cada projeto com suas datas e até onde chegou, e uma lista das lacunas conhecidas. Ele é instruído a manter as proporções e a dizer o que o portfólio não mostra. Não é o Antonio e pode errar: cada afirmação aponta para o item que a sustenta, para você conferir.'
+		en: 'A language model that has read everything on this site: every role, every project with its dates and how far it got where they are known, and a list of his known gaps. It is told to keep proportions and to say what the portfolio does not show. It is not Antonio, and it can be wrong: every claim links to the item that supports it, so you can check.',
+		it: 'Un modello linguistico che ha letto tutto il sito: ogni ruolo, ogni progetto con date e stato dove sono noti, e un elenco delle sue lacune note. Ha l’istruzione di mantenere le proporzioni e di dire cosa il portfolio non mostra. Non è Antonio e può sbagliare: ogni affermazione rimanda all’elemento che la sostiene, così puoi verificare.',
+		pt: 'Um modelo de linguagem que leu tudo neste site: cada cargo, cada projeto com datas e status quando conhecidos, e uma lista das lacunas conhecidas. Ele é instruído a manter as proporções e a dizer o que o portfólio não mostra. Não é o Antonio e pode errar: cada afirmação aponta para o item que a sustenta, para você conferir.'
 	},
 	tabsLabel: { en: 'What to do', it: 'Cosa fare', pt: 'O que fazer' },
 	tabAsk: { en: 'Ask', it: 'Chiedi', pt: 'Perguntar' },

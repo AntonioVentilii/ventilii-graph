@@ -1128,7 +1128,7 @@ export const portfolioData: PortfolioData = {
 			'Recent work is TypeScript, Rust and Python. Go, Java/Kotlin and similar backend languages are not shown; C# and SQL were used at Itaú (2013-2016).'
 		),
 		L.en(
-			'Several listed repositories are short experiments or prototypes. Each project carries its dates and status so it is not over-read.'
+			'Several listed repositories are short experiments or prototypes. Projects carry their dates and status where known so they are not over-read; a few older ones have neither recorded, which means unknown, not current.'
 		),
 		L.en(
 			'Salary, notice period, availability, visa and relocation are not in this portfolio: ask Antonio directly.'

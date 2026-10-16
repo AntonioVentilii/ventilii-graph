@@ -20,8 +20,10 @@ small API behind `/ask`, in `server/`.
 | `npm run quality`   | Format, then lint                         |
 
 Content lives in `src/lib/services/portfolio.services.ts`. Projects carry their
-`dates` and `status` (live, in private use, prototype, archived), so a
-weeks-old experiment is never read as a product; `limits` lists known gaps.
+`dates` and `status` (live, in private use, prototype, archived) wherever the
+repository history shows them, so a weeks-old experiment is never read as a
+product; older entries without that evidence leave them unset rather than guess,
+and the AI sees them as "not recorded". `limits` lists known gaps.
 
 ## The AI version (`/ask`)
 

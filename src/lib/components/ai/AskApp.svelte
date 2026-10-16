@@ -46,8 +46,13 @@
 		if (m === 'ask' || m === 'fit' || m === 'deck') {
 			mode = m;
 		}
+		// Only a definite "no key" answer locks the forms. A failed health
+		// request (network blip, cold start) leaves them usable: each
+		// generation reports its own error anyway.
 		void fetchAiHealth().then((health) => {
-			online = health?.configured === true;
+			if (health) {
+				online = health.configured;
+			}
 		});
 	});
 

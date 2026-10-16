@@ -26,8 +26,11 @@ export class AiRequestState<M extends Mode> {
 		const controller = new AbortController();
 		this.#controller = controller;
 
+		// Drop the previous answer too: if this run fails, its error must not
+		// sit above an old result that looks like the answer to the new request.
 		this.loading = true;
 		this.error = undefined;
+		this.result = undefined;
 
 		try {
 			const response = await requestAi({ request, signal: controller.signal });
