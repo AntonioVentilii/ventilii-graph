@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.4.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.3.0...v1.4.0) (2026-10-23)
+
+
+### Features
+
+* **content:** add Officina and recent projects, with dates and status ([#38](https://github.com/AntonioVentilii/ventilii-graph/issues/38)) ([209ed21](https://github.com/AntonioVentilii/ventilii-graph/commit/209ed21dcf500ba4b1672c9022b7d48468c4f813))
+
+
+### Miscellaneous Chores
+
+* update CV PDF ([#37](https://github.com/AntonioVentilii/ventilii-graph/issues/37)) ([5cc0096](https://github.com/AntonioVentilii/ventilii-graph/commit/5cc0096f50585972a52e6d3b24c68a438d880920))
+
 ## [1.3.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.2.5...v1.3.0) (2026-09-17)
 
 
