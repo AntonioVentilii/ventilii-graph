@@ -14,7 +14,10 @@ to its own HTML file, served by nginx on [Fly.io](https://fly.io).
 | `npm run preview` | Preview the production build |
 | `npm run quality` | Format, then lint            |
 
-Content lives in `src/lib/services/portfolio.services.ts`.
+Content lives in `src/lib/services/portfolio.services.ts`. Projects carry their
+`dates` and `status` (live, in private use, prototype, archived) wherever the
+repository history shows them, so a weeks-old experiment is never read as a
+product; older entries without that evidence leave them unset rather than guess.
 
 ## Deployment
 

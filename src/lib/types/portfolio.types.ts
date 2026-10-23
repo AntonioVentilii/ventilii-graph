@@ -37,11 +37,21 @@ export interface Experience {
 	projectIds?: string[];
 }
 
+/**
+ * How far a project actually got, so a prototype is never read as a product:
+ * `production` has real users, `in-use` runs privately for its author or one
+ * team, `prototype` is an experiment or showcase, `archived` is no longer run.
+ */
+export type ProjectStatus = 'production' | 'in-use' | 'prototype' | 'archived';
+
 export interface Project {
 	id: string;
 	title: Localised;
 	kind: 'work' | 'personal' | 'org';
 	summary: Localised;
+	/** When it was built, taken from the repository history. */
+	dates?: Localised;
+	status?: ProjectStatus;
 	highlights?: Localised[];
 	links?: { label: Localised; href: string; iconName?: string }[]; // GitHub / live
 	stackIds?: string[];

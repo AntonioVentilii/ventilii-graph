@@ -65,4 +65,4 @@ export const SITE_AUTHOR_URL = absoluteUrl(cvPath('en'));
 export const SITE_PUBLISHED_TIME = '2026-03-27T00:00:00+00:00';
 
 /** Last content update (ISO 8601); keep in sync with static/sitemap.xml lastmod. */
-export const SITE_MODIFIED_TIME = '2026-09-01T00:00:00+00:00';
+export const SITE_MODIFIED_TIME = '2026-09-28T00:00:00+00:00';
