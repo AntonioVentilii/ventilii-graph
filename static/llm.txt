@@ -21,7 +21,7 @@ Projects on the site carry their dates and status (live, in private use, prototy
 - **Household app** (Sep 2026-present, in private use): Two-person household app with its own MCP server and OAuth 2.1; AI agents propose, humans commit.
 - **OmbrellOne** (May-Aug 2026, live): Beach-umbrella booking marketplace at ombrell.one (React, Bun + Elysia + Postgres, Stripe), originally built on the Internet Computer.
 - **Privatim** (May-Jul 2026, prototype): Sovereign AI for private banking on the Internet Computer Cloud Engines, built so client data never leaves the bank's compute.
-- **claude-skills** (Jun 2026): Version-controlled Claude Code agent skills, git-backed and ready to double as a plugin marketplace.
+- **claude-skills** (Jun 2026, in private use): Version-controlled Claude Code agent skills, git-backed and ready to double as a plugin marketplace.
 - **Verto**, **Workday AI Control Plane** (Jun 2026, prototypes): AI-personalized app variants with governance; developer AI platform with pooled budgets and provider routing.
 
 ## Ask the AI version
