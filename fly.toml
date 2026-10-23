@@ -1,5 +1,11 @@
-# ventilii-graph on Fly.io: the prerendered portfolio site, served by nginx.
-# See Dockerfile and nginx.conf.
+# ventilii-graph on Fly.io: the prerendered portfolio site, served by nginx,
+# and the AI version's API behind /api/. See Dockerfile and nginx.conf.
+#
+# The API needs one secret; without it /ask shows an "offline" note and the
+# rest of the site is unaffected:
+#   fly secrets set ANTHROPIC_API_KEY=...
+# Optional tuning (defaults in server/index.ts): AI_MODEL, AI_EFFORT,
+# AI_DAILY_LIMIT, AI_PER_IP_PER_10_MIN, AI_PER_IP_PER_DAY.
 #
 # Custom domain, once after the first deploy:
 #   fly certs add ventilii.dev
@@ -31,8 +37,8 @@ primary_region = "fra"
   interval = "15s"
   timeout = "2s"
 
-# Static files out of nginx: the smallest shared VM is ample.
+# nginx plus one small Node process that mostly waits on the Claude API.
 [[vm]]
-  memory = "256mb"
+  memory = "512mb"
   cpu_kind = "shared"
   cpus = 1
