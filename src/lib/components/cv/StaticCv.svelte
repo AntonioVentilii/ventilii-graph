@@ -4,6 +4,7 @@
 	import { portfolioData } from '$lib/services/portfolio.services';
 	import type { Locale, Localised } from '$lib/types/portfolio.types';
 	import { cvPath, pickLocale } from '$lib/utils/locale.utils';
+	import { projectMeta } from '$lib/utils/project.utils';
 	import {
 		OG_IMAGE,
 		OG_IMAGE_ALT,
@@ -302,8 +303,12 @@
 				</h2>
 				<div class="flex flex-col gap-6">
 					{#each projects as project (project.id)}
+						{@const meta = projectMeta({ project, locale })}
 						<section>
 							<h3 class="text-sm font-bold">{pick(project.title)}</h3>
+							{#if meta}
+								<p class="text-xs text-fg-subtle">{meta}</p>
+							{/if}
 							<p class="mt-1 max-w-[70ch] text-sm leading-relaxed text-fg-muted">
 								{pick(project.summary)}
 							</p>
