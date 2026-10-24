@@ -43,10 +43,32 @@ const MAX_OUTPUT_TOKENS: Record<AiRequest['mode'], number> = {
 	deck: 8_000
 };
 
-// USD per million tokens for the configured model (claude-opus-5 by default).
-// Cache reads bill at 0.1x input and 1-hour cache writes at 2x.
-const PRICE_IN = Number(process.env.AI_PRICE_IN_PER_MTOK ?? 5);
-const PRICE_OUT = Number(process.env.AI_PRICE_OUT_PER_MTOK ?? 25);
+// USD per million tokens, by the model that ran an attempt: the configured
+// model, and the one `fallbacks: 'default'` retries a declined request on
+// (claude-opus-4-8 for claude-opus-5). Cache reads bill at 0.1x input and
+// 1-hour cache writes at 2x. A model missing from the table is billed at the
+// AI_PRICE_*_PER_MTOK prices, by default the dearest listed, so the budget errs
+// high; set them when AI_MODEL names a dearer model.
+interface Price {
+	in: number;
+	out: number;
+}
+const PRICES: Record<string, Price> = {
+	'claude-opus-5-5': { in: 4, out: 20 },
+	'claude-opus-5': { in: 5, out: 25 },
+	'claude-opus-4-8': { in: 5, out: 25 }
+};
+const UNLISTED_PRICE: Price = {
+	in: Number(process.env.AI_PRICE_IN_PER_MTOK ?? 5),
+	out: Number(process.env.AI_PRICE_OUT_PER_MTOK ?? 25)
+};
+const priceOf = (model: string): Price => PRICES[model] ?? UNLISTED_PRICE;
+// A fallback can cost a second attempt, on whichever model is dearest.
+const MAX_ATTEMPTS = 2;
+const WORST_PRICE: Price = [priceOf(MODEL), ...Object.values(PRICES)].reduce((a, b) => ({
+	in: Math.max(a.in, b.in),
+	out: Math.max(a.out, b.out)
+}));
 const MAX_BODY_BYTES = 64 * 1024;
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
 const CACHE_MAX_ENTRIES = 500;
@@ -72,15 +94,18 @@ let inFlight = 0;
 // its worst case up front: the whole prompt billed as a cache write, counting
 // one token per UTF-8 byte (a token never covers less than a byte, so this
 // holds for any script or emoji a visitor sends), plus every output token
-// the mode allows.
+// the mode allows, for every attempt a fallback can add.
 // Admission counts these reservations, so requests in flight together can't
 // push the day past the budget; the reservation is released when the real
 // usage is recorded.
 let reservedUsd = 0;
 
 const worstCaseUsd = (request: AiRequest): number =>
-	((Buffer.byteLength(SYSTEM_PROMPT) + Buffer.byteLength(buildTurn(request))) * PRICE_IN * 2 +
-		MAX_OUTPUT_TOKENS[request.mode] * PRICE_OUT) /
+	(MAX_ATTEMPTS *
+		((Buffer.byteLength(SYSTEM_PROMPT) + Buffer.byteLength(buildTurn(request))) *
+			WORST_PRICE.in *
+			2 +
+			MAX_OUTPUT_TOKENS[request.mode] * WORST_PRICE.out)) /
 	1_000_000;
 
 const rollDay = () => {
@@ -118,18 +143,38 @@ const checkLimits = ({ ip, reserve }: { ip: string; reserve: number }): LimitChe
 	return { ok: true };
 };
 
-const recordSpend = (usage: {
+interface Usage {
 	input_tokens: number;
 	output_tokens: number;
 	cache_read_input_tokens?: number | null;
 	cache_creation_input_tokens?: number | null;
+}
+
+const usageUsd = ({ usage, model }: { usage: Usage; model: string }): number => {
+	const price = priceOf(model);
+	return (
+		(usage.input_tokens * price.in +
+			(usage.cache_read_input_tokens ?? 0) * price.in * 0.1 +
+			(usage.cache_creation_input_tokens ?? 0) * price.in * 2 +
+			usage.output_tokens * price.out) /
+		1_000_000
+	);
+};
+
+// Top-level usage covers only the attempt that produced the message. When a
+// fallback ran, usage.iterations lists every attempt, the declined one
+// included, each with the model that ran it; all of them are counted.
+const recordSpend = (response: {
+	model: string;
+	usage: Usage & { iterations?: (Usage & { model?: string | null })[] | null };
 }): number => {
-	const usd =
-		(usage.input_tokens * PRICE_IN +
-			(usage.cache_read_input_tokens ?? 0) * PRICE_IN * 0.1 +
-			(usage.cache_creation_input_tokens ?? 0) * PRICE_IN * 2 +
-			usage.output_tokens * PRICE_OUT) /
-		1_000_000;
+	const { iterations } = response.usage;
+	const usd = iterations?.length
+		? iterations.reduce(
+				(sum, usage) => sum + usageUsd({ usage, model: usage.model ?? response.model }),
+				0
+			)
+		: usageUsd({ usage: response.usage, model: response.model });
 	rollDay();
 	spentTodayUsd += usd;
 	return usd;
@@ -275,7 +320,7 @@ const generate = async (request: AiRequest): Promise<AiResult> => {
 
 	// Count the spend before anything can throw: truncated or refused
 	// responses are billed too.
-	const usd = recordSpend(response.usage);
+	const usd = recordSpend(response);
 
 	if (response.stop_reason === 'refusal') {
 		throw new RefusedError(response.stop_details?.category ?? 'refusal');
