@@ -1116,7 +1116,7 @@ export const portfolioData: PortfolioData = {
 			'The newest personal projects (Officina, the household app, the fantasy-football assistant) are weeks old, were built with heavy Claude Code assistance, and have very few users: one or two people, or one team. They show system design and judgement, not scale or years of maintenance.'
 		),
 		L.en(
-			'Nothing in this portfolio shows operating high-traffic distributed systems at large scale, or training ML models. The AI work is applying and orchestrating LLMs, not ML research.'
+			'OISY is a production wallet holding real funds, with around 5,000 users in total (active-user figures are not in this portfolio). As one of few senior developers he handled production releases and incidents, weekends included, without a formal on-call rotation. At the trading desks he built pipelines on high-frequency Bloomberg market data. What the portfolio does not show is operating distributed systems at internet scale (millions of users, large on-call rotations), or training ML models: the AI work is applying and orchestrating LLMs, not ML research.'
 		),
 		L.en(
 			'Management: led technical direction, planning and mentoring on OISY for a period before a team restructure. No formal people-manager title.'
