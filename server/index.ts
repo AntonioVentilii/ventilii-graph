@@ -69,15 +69,17 @@ let spentTodayUsd = 0;
 let inFlight = 0;
 
 // Spend is only known once a response is back, so each generation reserves
-// its worst case up front: the whole prompt billed as a cache write (~3 chars
-// per token, on the high side) plus every output token the mode allows.
+// its worst case up front: the whole prompt billed as a cache write, counting
+// one token per UTF-8 byte (a token never covers less than a byte, so this
+// holds for any script or emoji a visitor sends), plus every output token
+// the mode allows.
 // Admission counts these reservations, so requests in flight together can't
 // push the day past the budget; the reservation is released when the real
 // usage is recorded.
 let reservedUsd = 0;
 
 const worstCaseUsd = (request: AiRequest): number =>
-	(((SYSTEM_PROMPT.length + buildTurn(request).length) / 3) * PRICE_IN * 2 +
+	((Buffer.byteLength(SYSTEM_PROMPT) + Buffer.byteLength(buildTurn(request))) * PRICE_IN * 2 +
 		MAX_OUTPUT_TOKENS[request.mode] * PRICE_OUT) /
 	1_000_000;
 

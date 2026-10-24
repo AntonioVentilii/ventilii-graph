@@ -225,19 +225,28 @@ const cleanFit = (r: FitResult): FitResult => ({
 
 // Structured outputs do not enforce array lengths, so the deck's contract
 // (DECK_TASK: 5 to 7 slides, at most 4 bullets each) is enforced here: extra
-// slides and bullets are cut, and a deck shorter than the contract is rejected.
+// bullets are cut, extra middle slides are cut so the last two (what to know,
+// why talk) survive, and a deck shorter than the contract is rejected.
 const DECK_MIN_SLIDES = 5;
 const DECK_MAX_SLIDES = 7;
+const DECK_CLOSING_SLIDES = 2;
 const DECK_MAX_BULLETS = 4;
 
 const cleanDeck = (r: DeckResult): DeckResult => {
 	if (r.slides.length < DECK_MIN_SLIDES) {
 		throw new Error(`deck has ${r.slides.length} slides, expected at least ${DECK_MIN_SLIDES}`);
 	}
+	const slides =
+		r.slides.length > DECK_MAX_SLIDES
+			? [
+					...r.slides.slice(0, DECK_MAX_SLIDES - DECK_CLOSING_SLIDES),
+					...r.slides.slice(-DECK_CLOSING_SLIDES)
+				]
+			: r.slides;
 	return {
 		title: text({ value: r.title, max: 120 }),
 		audience: text({ value: r.audience, max: 160 }),
-		slides: r.slides.slice(0, DECK_MAX_SLIDES).map((s) => ({
+		slides: slides.map((s) => ({
 			kicker: text({ value: s.kicker, max: 60 }),
 			heading: text({ value: s.heading, max: 120 }),
 			bullets: s.bullets.slice(0, DECK_MAX_BULLETS).map((b) => text({ value: b, max: 240 })),
