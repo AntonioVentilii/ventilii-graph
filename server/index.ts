@@ -23,12 +23,30 @@ const MODEL = process.env.AI_MODEL ?? 'claude-opus-5';
 const EFFORT = (process.env.AI_EFFORT ?? 'medium') as 'low' | 'medium' | 'high';
 
 // Cost guards. A visitor gets a handful of generations; the whole site gets a
-// daily budget. Cached answers are free and don't count.
+// daily request count AND a daily dollar budget, measured from real token
+// usage. Per-IP limits can be dodged by rotating addresses; the dollar budget
+// cannot, so it is the hard ceiling on what an abusive visitor can spend.
+// Cached answers are free and don't count.
 const PER_IP_WINDOW_MS = 10 * 60 * 1000;
 const PER_IP_PER_WINDOW = Number(process.env.AI_PER_IP_PER_10_MIN ?? 6);
 const PER_IP_PER_DAY = Number(process.env.AI_PER_IP_PER_DAY ?? 25);
 const DAILY_LIMIT = Number(process.env.AI_DAILY_LIMIT ?? 300);
+const DAILY_BUDGET_USD = Number(process.env.AI_DAILY_BUDGET_USD ?? 5);
 const MAX_IN_FLIGHT = 4;
+
+// Output ceiling per mode, thinking included. The JSON each mode asks for fits
+// well inside these; a prompt that talks the model into a long translation or
+// essay gets cut off here instead of running to the model's maximum.
+const MAX_OUTPUT_TOKENS: Record<AiRequest['mode'], number> = {
+	ask: 5_000,
+	fit: 8_000,
+	deck: 8_000
+};
+
+// USD per million tokens for the configured model (claude-opus-5 by default).
+// Cache reads bill at 0.1x input and 1-hour cache writes at 2x.
+const PRICE_IN = Number(process.env.AI_PRICE_IN_PER_MTOK ?? 5);
+const PRICE_OUT = Number(process.env.AI_PRICE_OUT_PER_MTOK ?? 25);
 const MAX_BODY_BYTES = 64 * 1024;
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
 const CACHE_MAX_ENTRIES = 500;
@@ -47,6 +65,7 @@ const LOCALES: Locale[] = ['en', 'it', 'pt'];
 const hits = new Map<string, number[]>();
 let day = new Date().toISOString().slice(0, 10);
 let usedToday = 0;
+let spentTodayUsd = 0;
 let inFlight = 0;
 
 const rollDay = () => {
@@ -54,6 +73,7 @@ const rollDay = () => {
 	if (today !== day) {
 		day = today;
 		usedToday = 0;
+		spentTodayUsd = 0;
 		hits.clear();
 	}
 };
@@ -63,7 +83,7 @@ type LimitCheck = { ok: true } | { ok: false; error: 'rate_limited' | 'daily_cap
 const checkLimits = (ip: string): LimitCheck => {
 	rollDay();
 	const now = Date.now();
-	if (usedToday >= DAILY_LIMIT) {
+	if (usedToday >= DAILY_LIMIT || spentTodayUsd >= DAILY_BUDGET_USD) {
 		const midnight = new Date(`${day}T00:00:00Z`).getTime() + 24 * 60 * 60 * 1000;
 		return { ok: false, error: 'daily_cap', retry: Math.ceil((midnight - now) / 1000) };
 	}
@@ -81,6 +101,23 @@ const checkLimits = (ip: string): LimitCheck => {
 		};
 	}
 	return { ok: true };
+};
+
+const recordSpend = (usage: {
+	input_tokens: number;
+	output_tokens: number;
+	cache_read_input_tokens?: number | null;
+	cache_creation_input_tokens?: number | null;
+}): number => {
+	const usd =
+		(usage.input_tokens * PRICE_IN +
+			(usage.cache_read_input_tokens ?? 0) * PRICE_IN * 0.1 +
+			(usage.cache_creation_input_tokens ?? 0) * PRICE_IN * 2 +
+			usage.output_tokens * PRICE_OUT) /
+		1_000_000;
+	rollDay();
+	spentTodayUsd += usd;
+	return usd;
 };
 
 const recordHit = (ip: string) => {
@@ -195,7 +232,7 @@ const generate = async (request: AiRequest): Promise<AiResult> => {
 	}
 	const response = await client.beta.messages.create({
 		model: MODEL,
-		max_tokens: 16_000,
+		max_tokens: MAX_OUTPUT_TOKENS[request.mode],
 		betas: ['server-side-fallback-2026-07-01'],
 		fallbacks: 'default',
 		thinking: { type: 'adaptive' },
@@ -208,6 +245,10 @@ const generate = async (request: AiRequest): Promise<AiResult> => {
 		],
 		messages: [{ role: 'user', content: buildTurn(request) }]
 	});
+
+	// Count the spend before anything can throw: truncated or refused
+	// responses are billed too.
+	const usd = recordSpend(response.usage);
 
 	if (response.stop_reason === 'refusal') {
 		throw new RefusedError(response.stop_details?.category ?? 'refusal');
@@ -229,7 +270,9 @@ const generate = async (request: AiRequest): Promise<AiResult> => {
 			input: response.usage.input_tokens,
 			cacheRead: response.usage.cache_read_input_tokens,
 			cacheWrite: response.usage.cache_creation_input_tokens,
-			output: response.usage.output_tokens
+			output: response.usage.output_tokens,
+			usd: Number(usd.toFixed(4)),
+			spentTodayUsd: Number(spentTodayUsd.toFixed(4))
 		})
 	);
 

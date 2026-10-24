@@ -44,7 +44,12 @@ A page where a visitor asks about Antonio, pastes a job posting for a fit check
 It needs `ANTHROPIC_API_KEY` (`fly secrets set ANTHROPIC_API_KEY=...`, or a
 `.env` locally). Without it the site works and `/ask` says it is offline.
 Tuning via env: `AI_MODEL` (default `claude-opus-5`), `AI_EFFORT` (`medium`),
-`AI_DAILY_LIMIT` (300), `AI_PER_IP_PER_10_MIN` (6), `AI_PER_IP_PER_DAY` (25).
+`AI_DAILY_BUDGET_USD` (5, measured from real token usage: the hard ceiling,
+since per-IP limits can be dodged by rotating addresses), `AI_DAILY_LIMIT`
+(300 requests), `AI_PER_IP_PER_10_MIN` (6), `AI_PER_IP_PER_DAY` (25), and
+`AI_PRICE_IN_PER_MTOK` / `AI_PRICE_OUT_PER_MTOK` (5 / 25, the model's prices).
+Each mode also caps its output tokens, so a prompt that talks the model into a
+long translation or essay is cut off early.
 
 ## Deployment
 
