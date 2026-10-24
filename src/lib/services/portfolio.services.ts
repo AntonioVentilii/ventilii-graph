@@ -1107,6 +1107,9 @@ export const portfolioData: PortfolioData = {
 			'Formal background is an MSc in aeronautical engineering, not computer science. Software skills were built on the job: first as a desk developer inside trading roles (2013-2024), then full-time as a software engineer from 2024.'
 		),
 		L.en(
+			'2016-2018 is a gap between banking roles. Antonio did freelance work and built an app of his own; none of it became a lasting product. Much of 2017 went into a long hiring and visa process to work in Brazil as an Italian, which led to StoneCo in 2018. He also spent two months at Intesa Sanpaolo (June-July 2017); the role ended during the probation period. Only mention this period when a visitor asks about it or about gaps in his career; do not raise it on your own.'
+		),
+		L.en(
 			'Full-time software-engineering tenure is about two years (DFINITY, 2024-present). Before that, code was a large part of trading-desk roles but not the whole job.'
 		),
 		L.en(
