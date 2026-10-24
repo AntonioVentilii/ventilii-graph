@@ -1,4 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
+import { oidcFederationProvider } from '@anthropic-ai/sdk/lib/credentials/oidc-federation';
 import { createHash } from 'node:crypto';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import {
@@ -9,6 +10,7 @@ import {
 	type AiResult
 } from '../src/lib/types/ai.types.ts';
 import type { Locale } from '../src/lib/types/portfolio.types.ts';
+import { mintFlyIdentityToken } from './fly-oidc.ts';
 import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult } from './modes.ts';
 
 /**
@@ -51,12 +53,41 @@ const MAX_BODY_BYTES = 64 * 1024;
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
 const CACHE_MAX_ENTRIES = 500;
 
-// The SDK resolves credentials itself: ANTHROPIC_API_KEY, or workload identity
-// federation (ANTHROPIC_FEDERATION_RULE_ID + ...) as the other Fly apps use.
-const configured = Boolean(
-	process.env.ANTHROPIC_API_KEY ?? process.env.ANTHROPIC_FEDERATION_RULE_ID
-);
-const client = configured ? new Anthropic({ timeout: 110_000, maxRetries: 1 }) : undefined;
+// Credentials: ANTHROPIC_API_KEY locally (it always wins), and on Fly workload
+// identity federation, as the other Fly apps use: the machine's OIDC token is
+// exchanged for a Claude access token, which the SDK renews before it expires.
+// The four ids are public identifiers, not secrets.
+const optionalEnv = (name: string): string | undefined => {
+	const value = process.env[name];
+	return value === undefined || value === '' ? undefined : value;
+};
+const federation = {
+	federationRuleId: optionalEnv('ANTHROPIC_FEDERATION_RULE_ID') ?? '',
+	organizationId: optionalEnv('ANTHROPIC_ORGANIZATION_ID') ?? '',
+	serviceAccountId: optionalEnv('ANTHROPIC_SERVICE_ACCOUNT_ID'),
+	workspaceId: optionalEnv('ANTHROPIC_WORKSPACE_ID')
+};
+const auth: AiHealth['auth'] = process.env.ANTHROPIC_API_KEY
+	? 'api_key'
+	: federation.federationRuleId && federation.organizationId
+		? 'federation'
+		: 'off';
+const configured = auth !== 'off';
+const clientOptions = { timeout: 110_000, maxRetries: 1 };
+const client =
+	auth === 'api_key'
+		? new Anthropic(clientOptions)
+		: auth === 'federation'
+			? new Anthropic({
+					...clientOptions,
+					credentials: oidcFederationProvider({
+						...federation,
+						identityTokenProvider: mintFlyIdentityToken,
+						baseURL: process.env.ANTHROPIC_BASE_URL ?? 'https://api.anthropic.com',
+						fetch
+					})
+				})
+			: undefined;
 
 const LOCALES: Locale[] = ['en', 'it', 'pt'];
 
@@ -394,7 +425,7 @@ const server = createServer((req, res) => {
 	const [path] = (req.url ?? '/').split('?');
 
 	if (req.method === 'GET' && path === '/api/ai/health') {
-		send({ res, status: 200, body: { configured, model: MODEL } });
+		send({ res, status: 200, body: { configured, auth, model: MODEL } });
 		return;
 	}
 	if (req.method === 'POST' && path === '/api/ai') {
@@ -406,7 +437,7 @@ const server = createServer((req, res) => {
 
 server.listen(PORT, '127.0.0.1', () => {
 	console.log(
-		JSON.stringify({ event: 'listening', port: PORT, model: MODEL, effort: EFFORT, configured })
+		JSON.stringify({ event: 'listening', port: PORT, model: MODEL, effort: EFFORT, auth })
 	);
 });
 

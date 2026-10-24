@@ -41,8 +41,31 @@ A page where a visitor asks about Antonio, pastes a job posting for a fit check
 - In the image, esbuild bundles it to one file and `docker/start.sh` runs
   it next to nginx, which proxies `/api/`.
 
-It needs `ANTHROPIC_API_KEY` (`fly secrets set ANTHROPIC_API_KEY=...`, or a
-`.env` locally). Without it the site works and `/ask` says it is offline.
+Locally it needs `ANTHROPIC_API_KEY` in a `.env`. On Fly it holds no key: it
+uses Workload Identity Federation (`server/fly-oidc.ts`). The machine mints a
+short-lived OIDC token from Fly's agent socket and the SDK exchanges it for a
+Claude access token:
+
+```
+iss  https://oidc.fly.io/<fly-org>
+sub  <fly-org>:ventilii-graph:<machine>
+aud  https://api.anthropic.com
+```
+
+One-time setup in the Claude Console (Settings → Workload identity → Connect
+workload → Custom OIDC): issuer `https://oidc.fly.io/<fly-org>`, subject prefix
+`<fly-org>:ventilii-graph:*`, audience `https://api.anthropic.com`, the
+workspace that carries the spend limit, scope `workspace:inference`. Then the
+four public ids on the app:
+
+```sh
+fly secrets set -a ventilii-graph \
+  ANTHROPIC_FEDERATION_RULE_ID=fdrl_... ANTHROPIC_ORGANIZATION_ID=... \
+  ANTHROPIC_SERVICE_ACCOUNT_ID=svac_... ANTHROPIC_WORKSPACE_ID=wrkspc_...
+```
+
+`GET /api/ai/health` reports `"auth":"federation"` once they are in; a key, if
+set, always wins. Without either the site works and `/ask` says it is offline.
 Facts that sharpen the AI's answers but should not live in this public repo
 (career details, internal figures) go in the `AI_PRIVATE_NOTES` secret, one
 `- ` line each; the server appends them to the known limits.

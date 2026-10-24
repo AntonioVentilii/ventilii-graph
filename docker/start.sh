@@ -5,6 +5,13 @@
 # machine instead of serving a site whose API silently vanished.
 set -eu
 
+# With workload identity federation the API mints its Claude credentials from
+# Fly's machine socket, which belongs to root: let the API's user reach it.
+if [ -n "${ANTHROPIC_FEDERATION_RULE_ID:-}" ] && [ -S /.fly/api ]; then
+	chgrp nginx /.fly/api && chmod g+rw /.fly/api ||
+		echo "start.sh: could not open /.fly/api to the API; federation will fail" >&2
+fi
+
 su-exec nginx node /srv/api/server.mjs &
 api=$!
 
