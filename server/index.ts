@@ -166,6 +166,18 @@ const cachePut = ({ key, value }: { key: string; value: AiResult }) => {
 	cache.set(key, { at: Date.now(), value });
 };
 
+// The /ask privacy note promises answers are gone after 6 hours and IPs at
+// midnight UTC; both are otherwise only cleared when a later request arrives.
+setInterval(() => {
+	rollDay();
+	const now = Date.now();
+	cache.forEach(({ at }, key) => {
+		if (now - at > CACHE_TTL_MS) {
+			cache.delete(key);
+		}
+	});
+}, 60 * 1000).unref();
+
 // --- request parsing ------------------------------------------------------
 
 const normalise = ({ value, max }: { value: unknown; max: number }): string | undefined => {

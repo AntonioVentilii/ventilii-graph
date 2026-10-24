@@ -103,6 +103,13 @@
 				{t('title')}
 			</h1>
 			<p class="max-w-[70ch] text-sm leading-relaxed text-fg-muted">{t('intro')}</p>
+			<p class="max-w-[70ch] text-xs leading-relaxed text-fg-subtle">
+				{t('privacy')}
+				<a
+					class="text-link underline underline-offset-2 hover:text-link-hover"
+					href="mailto:{person.email}">{person.email}</a
+				>
+			</p>
 		</section>
 
 		{#if online === false}

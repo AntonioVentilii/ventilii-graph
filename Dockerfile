@@ -27,6 +27,7 @@ FROM nginx:alpine
 # needs only a Node binary, not node_modules. su-exec drops it to the nginx user.
 RUN apk add --no-cache nodejs su-exec
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx-security-headers.conf /etc/nginx/snippets/security-headers.conf
 COPY --from=build /app/build /usr/share/nginx/html
 COPY --from=build /app/build-api/server.mjs /srv/api/server.mjs
 COPY docker/start.sh /start.sh
