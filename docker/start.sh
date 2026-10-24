@@ -1,35 +1,47 @@
 #!/bin/sh
-# Runs the two processes of the image: the AI API (node, unprivileged, on
-# 127.0.0.1:8787) and nginx (static site on :8080, proxying /api/ to node).
-# If either exits, stop the other and exit non-zero so Fly restarts the
-# machine instead of serving a site whose API silently vanished.
+# Runs the processes of the image: the AI API (node, as the unprivileged `api`
+# user, on 127.0.0.1:8787), nginx (static site on :8080, proxying /api/ to
+# node) and, with workload identity federation, the OIDC helper (root; the
+# only process that touches Fly's machine socket, see server/oidc-helper.ts).
+# If the API or nginx exits, stop the rest and exit non-zero so Fly restarts
+# the machine instead of serving a site whose API silently vanished. The
+# helper is left out of that: if it dies, only /ask fails (logged as
+# generate_failed), and the site stays up.
 set -eu
 
-# With workload identity federation the API mints its Claude credentials from
-# Fly's machine socket, which belongs to root: let the API's user reach it.
+pids=""
+
 if [ -n "${ANTHROPIC_FEDERATION_RULE_ID:-}" ] && [ -S /.fly/api ]; then
-	chgrp nginx /.fly/api && chmod g+rw /.fly/api ||
-		echo "start.sh: could not open /.fly/api to the API; federation will fail" >&2
+	node /srv/api/oidc-helper.mjs &
+	helper=$!
 fi
 
-su-exec nginx node /srv/api/server.mjs &
-api=$!
+su-exec api node /srv/api/server.mjs &
+pids="$pids $!"
 
 nginx -g 'daemon off;' &
-web=$!
+pids="$pids $!"
 
 stop() {
-	kill -TERM "$api" "$web" 2>/dev/null || true
+	# shellcheck disable=SC2086 # word splitting is the point
+	kill -TERM $pids ${helper:-} 2>/dev/null || true
 	wait
 	exit 0
 }
 trap stop TERM INT
 
-while kill -0 "$api" 2>/dev/null && kill -0 "$web" 2>/dev/null; do
+running() {
+	for pid in $pids; do
+		kill -0 "$pid" 2>/dev/null || return 1
+	done
+}
+
+while running; do
 	sleep 2
 done
 
 echo "start.sh: a process exited, stopping the container" >&2
-kill -TERM "$api" "$web" 2>/dev/null || true
+# shellcheck disable=SC2086
+kill -TERM $pids ${helper:-} 2>/dev/null || true
 wait
 exit 1

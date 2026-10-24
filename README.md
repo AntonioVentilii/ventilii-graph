@@ -43,8 +43,11 @@ A page where a visitor asks about Antonio, pastes a job posting for a fit check
 
 Locally it needs `ANTHROPIC_API_KEY` in a `.env`. On Fly it holds no key: it
 uses Workload Identity Federation (`server/fly-oidc.ts`). The machine mints a
-short-lived OIDC token from Fly's agent socket and the SDK exchanges it for a
-Claude access token:
+short-lived OIDC token and the SDK exchanges it for a Claude access token.
+Fly's agent socket (`/.fly/api`) is the whole Machines API, so the API never
+touches it: `server/oidc-helper.ts`, a root process that only mints tokens for
+Anthropic's audience, answers on `/run/oidc/oidc.sock`, open to the API's own
+`api` user and not to nginx (`docker/start.sh`). The token says:
 
 ```
 iss  https://oidc.fly.io/<fly-org>
