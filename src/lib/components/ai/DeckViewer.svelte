@@ -91,7 +91,7 @@
 						<EvidenceChips evidence={slide.evidence} {locale} />
 					</div>
 					<p class="shrink-0 text-xs text-fg-faint tabular-nums">
-						{name} · {i + 1}/{total}
+						{name} · {t('aiGenerated')} · {i + 1}/{total}
 					</p>
 				</footer>
 			</article>
