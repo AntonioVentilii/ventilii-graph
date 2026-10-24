@@ -11,9 +11,13 @@
 
 	let { evidence, locale, label }: Props = $props();
 
+	// The model can cite the same item twice; the keyed list below needs each id once.
 	const links = $derived(
-		evidence.flatMap((e) => {
+		evidence.flatMap((e, i) => {
 			const ref = typeof e === 'string' ? { id: e, why: '' } : e;
+			if (evidence.findIndex((o) => (typeof o === 'string' ? o : o.id) === ref.id) !== i) {
+				return [];
+			}
 			const link = evidenceLink({ id: ref.id, locale });
 			return link ? [{ ...link, why: ref.why }] : [];
 		})

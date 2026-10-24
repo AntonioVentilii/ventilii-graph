@@ -188,17 +188,20 @@ export const SCHEMAS = { ask: ASK_SCHEMA, fit: FIT_SCHEMA, deck: DECK_SCHEMA } a
 const text = ({ value, max }: { value: string; max: number }): string =>
 	value.length > max ? `${value.slice(0, max - 1).trimEnd()}…` : value;
 
-const knownIds = (ids: string[]): string[] => ids.filter((id) => EVIDENCE_IDS.has(id));
+// Unknown ids are dropped and repeats collapsed: the page keys its lists by id.
+const knownIds = (ids: string[]): string[] => [
+	...new Set(ids.filter((id) => EVIDENCE_IDS.has(id)))
+];
 
 const cleanAsk = (r: AskResult): AskResult => ({
 	answer: text({ value: r.answer, max: 4_000 }),
 	confidence: r.confidence,
 	evidence: r.evidence
-		.filter((e) => EVIDENCE_IDS.has(e.id))
+		.filter((e, i) => EVIDENCE_IDS.has(e.id) && r.evidence.findIndex((o) => o.id === e.id) === i)
 		.slice(0, 6)
 		.map((e) => ({ id: e.id, why: text({ value: e.why, max: 200 }) })),
 	notInPortfolio: r.notInPortfolio === null ? null : text({ value: r.notInPortfolio, max: 600 }),
-	followUps: r.followUps.slice(0, 3).map((q) => text({ value: q, max: 160 }))
+	followUps: [...new Set(r.followUps)].slice(0, 3).map((q) => text({ value: q, max: 160 }))
 });
 
 const cleanFit = (r: FitResult): FitResult => ({

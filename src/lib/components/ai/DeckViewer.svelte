@@ -30,6 +30,10 @@
 		if (!active) {
 			return;
 		}
+		// Space on a focused button presses it (Present, Print, prev/next); it only turns the slide elsewhere.
+		if (e.key === ' ' && document.activeElement instanceof HTMLButtonElement) {
+			return;
+		}
 		if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
 			e.preventDefault();
 			go(1);
