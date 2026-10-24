@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.3.0...v1.4.0) (2026-10-24)
+
+
+### Features
+
+* **ask:** honest AI version of the portfolio at /ask ([#40](https://github.com/AntonioVentilii/ventilii-graph/issues/40)) ([f074e86](https://github.com/AntonioVentilii/ventilii-graph/commit/f074e8646bd7647e4805e6448b63b674d6afc0dd))
+* **content:** add Officina and recent projects, with dates and status ([#38](https://github.com/AntonioVentilii/ventilii-graph/issues/38)) ([209ed21](https://github.com/AntonioVentilii/ventilii-graph/commit/209ed21dcf500ba4b1672c9022b7d48468c4f813))
+
+
+### Miscellaneous Chores
+
+* update CV PDF ([#37](https://github.com/AntonioVentilii/ventilii-graph/issues/37)) ([5cc0096](https://github.com/AntonioVentilii/ventilii-graph/commit/5cc0096f50585972a52e6d3b24c68a438d880920))
+
 ## [1.3.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.2.5...v1.3.0) (2026-09-17)
 
 
