@@ -46,9 +46,11 @@ const MAX_OUTPUT_TOKENS: Record<AiRequest['mode'], number> = {
 // USD per million tokens, by the model that ran an attempt: the configured
 // model, and the one `fallbacks: 'default'` retries a declined request on
 // (claude-opus-4-8 for claude-opus-5). Cache reads bill at 0.1x input and
-// 1-hour cache writes at 2x. A model missing from the table is billed at the
-// AI_PRICE_*_PER_MTOK prices, by default the dearest listed, so the budget errs
-// high; set them when AI_MODEL names a dearer model.
+// 1-hour cache writes at 2x. AI_PRICE_IN_PER_MTOK / AI_PRICE_OUT_PER_MTOK set
+// the configured model's prices: required when AI_MODEL is not in the table,
+// and an override when it is. A model not in the table (a fallback's dated
+// snapshot id, say) is billed at the dearest price known, so the budget errs
+// high.
 interface Price {
 	in: number;
 	out: number;
@@ -58,17 +60,17 @@ const PRICES: Record<string, Price> = {
 	'claude-opus-5': { in: 5, out: 25 },
 	'claude-opus-4-8': { in: 5, out: 25 }
 };
-const UNLISTED_PRICE: Price = {
-	in: Number(process.env.AI_PRICE_IN_PER_MTOK ?? 5),
-	out: Number(process.env.AI_PRICE_OUT_PER_MTOK ?? 25)
+PRICES[MODEL] = {
+	in: Number(process.env.AI_PRICE_IN_PER_MTOK ?? PRICES[MODEL]?.in ?? 5),
+	out: Number(process.env.AI_PRICE_OUT_PER_MTOK ?? PRICES[MODEL]?.out ?? 25)
 };
-const priceOf = (model: string): Price => PRICES[model] ?? UNLISTED_PRICE;
-// A fallback can cost a second attempt, on whichever model is dearest.
-const MAX_ATTEMPTS = 2;
-const WORST_PRICE: Price = [priceOf(MODEL), ...Object.values(PRICES)].reduce((a, b) => ({
+const WORST_PRICE: Price = Object.values(PRICES).reduce((a, b) => ({
 	in: Math.max(a.in, b.in),
 	out: Math.max(a.out, b.out)
 }));
+const priceOf = (model: string): Price => PRICES[model] ?? WORST_PRICE;
+// A fallback can cost a second attempt, on whichever model is dearest.
+const MAX_ATTEMPTS = 2;
 const MAX_BODY_BYTES = 64 * 1024;
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
 const CACHE_MAX_ENTRIES = 500;
