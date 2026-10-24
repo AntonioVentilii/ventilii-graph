@@ -15,6 +15,10 @@ export default defineConfig({
 	server: {
 		fs: {
 			allow: ['.']
+		},
+		// The AI version's API (server/, `npm run dev:api`); nginx does the same in production.
+		proxy: {
+			'/api': 'http://127.0.0.1:8787'
 		}
 	},
 	resolve: {

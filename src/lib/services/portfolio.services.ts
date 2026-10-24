@@ -1101,5 +1101,37 @@ export const portfolioData: PortfolioData = {
 				'Casa da organização para a stack e o ecossistema da Internet Computer.'
 			)
 		}
+	],
+	limits: [
+		L.en(
+			'Formal background is an MSc in aeronautical engineering, not computer science. Software skills were built on the job: first as a desk developer inside trading roles (2013-2024), then full-time as a software engineer from 2024.'
+		),
+		L.en(
+			'Full-time software-engineering tenure is about two years (DFINITY, 2024-present). Before that, code was a large part of trading-desk roles but not the whole job.'
+		),
+		L.en(
+			'The newest personal projects (Officina, the household app, the fantasy-football assistant) are weeks old, were built with heavy Claude Code assistance, and have very few users: one or two people, or one team. They show system design and judgement, not scale or years of maintenance.'
+		),
+		L.en(
+			'OISY is a production wallet holding real funds. As one of few senior developers he handled production releases and incidents, weekends included, without a formal on-call rotation. At the trading desks he built pipelines on high-frequency Bloomberg market data. What the portfolio does not show is operating distributed systems at internet scale (millions of users, large on-call rotations), or training ML models: the AI work is applying and orchestrating LLMs, not ML research.'
+		),
+		L.en(
+			'Management: led technical direction, planning and mentoring on OISY for a period before a team restructure. No formal people-manager title.'
+		),
+		L.en(
+			'German is elementary, so roles that need working German are a real gap. Italian is native; English and Portuguese are fluent.'
+		),
+		L.en(
+			'Mobile is not a focus of this portfolio: React Native appears in the stack, but no React Native app is shown.'
+		),
+		L.en(
+			'Recent work is TypeScript, Rust and Python. Go, Java/Kotlin and similar backend languages are not shown; C# and SQL were used at Itaú (2013-2016).'
+		),
+		L.en(
+			'Several listed repositories are short experiments or prototypes. Projects carry their dates and status where known so they are not over-read; a few older ones have neither recorded, which means unknown, not current.'
+		),
+		L.en(
+			'Salary, notice period, availability, visa and relocation are not in this portfolio: ask Antonio directly.'
+		)
 	]
 };

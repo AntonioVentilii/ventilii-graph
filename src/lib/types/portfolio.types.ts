@@ -101,4 +101,9 @@ export interface PortfolioData {
 	languages: LanguageEntry[];
 	about: AboutBlock[];
 	orgHighlights: { name: string; url: string; note: Localised }[];
+	/**
+	 * Known gaps and caveats, stated plainly. Not rendered on the map: the AI
+	 * version (/ask) reads them so it never oversells.
+	 */
+	limits: Localised[];
 }

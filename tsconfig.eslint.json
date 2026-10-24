@@ -4,6 +4,7 @@
 		"ambient.d.ts",
 		"non-ambient.d.ts",
 		"./scripts/",
+		"./server/",
 		"./src/",
 		"./eslint.config.js",
 		"./eslint-local-rules.cjs",
