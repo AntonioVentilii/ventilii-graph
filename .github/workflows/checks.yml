@@ -171,10 +171,16 @@ jobs:
           # error responses: a page, a hashed bundle, the 404 and the API.
           asset="$(curl -s http://localhost:8080/ | grep -o '/_app/immutable/[^"]*\.js' | head -n 1)"
           for path in / "$asset" /no-such-page /api/ai/health; do
-            if curl -s -o /dev/null -D - "http://localhost:8080$path" | grep -qi '^x-content-type-options: nosniff'; then
+            headers="$(curl -s -o /dev/null -D - "http://localhost:8080$path")"
+            missing=""
+            for header in content-security-policy x-frame-options x-content-type-options \
+              referrer-policy permissions-policy; do
+              if ! echo "$headers" | grep -qi "^$header:"; then missing="$missing $header"; fi
+            done
+            if [ -z "$missing" ]; then
               echo "OK   $path has the security headers"
             else
-              echo "::error::$path is missing the security headers (nginx-security-headers.conf)"
+              echo "::error::$path is missing$missing (nginx-security-headers.conf)"
               status=1
             fi
           done
