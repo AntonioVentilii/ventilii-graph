@@ -34,6 +34,16 @@ export default ts.config(
 	},
 
 	{
+		// The AI API is a separate Node entry point that reads the site's own
+		// portfolio data from src/ (one source of truth), and logs to stdout.
+		files: ['server/**/*'],
+		rules: {
+			'import/no-relative-parent-imports': 'off',
+			'no-console': 'off'
+		}
+	},
+
+	{
 		rules: {
 			'no-restricted-syntax': [
 				'error',

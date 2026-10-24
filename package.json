@@ -4,10 +4,12 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --force",
+		"dev:api": "node --watch --env-file-if-exists=.env server/index.ts",
 		"build": "tsc --noEmit && vite build",
+		"build:api": "esbuild server/index.ts --bundle --platform=node --format=esm --target=node20 --outfile=build-api/server.mjs",
 		"prepare": "svelte-kit sync",
 		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && tsc -p server",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write . && eslint . --fix",
@@ -22,6 +24,7 @@
 		"@tailwindcss/vite": "4.2.1",
 		"@types/eslint": "^9.6.1",
 		"@types/node": "^25.3.0",
+		"esbuild": "^0.28.2",
 		"eslint": "^9.34.0",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-svelte": "^3.12.1",
@@ -41,6 +44,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@anthropic-ai/sdk": "^0.128.0",
 		"lucide-svelte": "^0.577.0"
 	},
 	"overrides": {

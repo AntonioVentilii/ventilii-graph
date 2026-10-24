@@ -24,8 +24,12 @@ Projects on the site carry their dates and status (live, in private use, prototy
 - **claude-skills** (Jun 2026, in private use): Version-controlled Claude Code agent skills, git-backed and ready to double as a plugin marketplace.
 - **Verto**, **Workday AI Control Plane** (Jun 2026, prototypes): AI-personalized app variants with governance; developer AI platform with pooled budgets and provider routing.
 
+## Ask the AI version
+- **https://ventilii.dev/ask/**: an AI that has read this portfolio. Ask questions, paste a job posting for a fit check (matches, gaps, interview questions), or generate a short tailored presentation. It is instructed to state gaps and cite evidence, not to sell.
+
 ## Online Presence
 - **GitHub**: https://github.com/AntonioVentilii
 - **LinkedIn**: https://linkedin.com/in/AntonioVentilii
 - **Portfolio**: https://ventilii.dev
+- **AI version**: https://ventilii.dev/ask/
 - **Full CV (static HTML)**: https://ventilii.dev/cv/ (English), https://ventilii.dev/cv/it/ (Italian), https://ventilii.dev/cv/pt/ (Portuguese)
