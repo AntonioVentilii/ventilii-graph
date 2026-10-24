@@ -33,13 +33,14 @@ const linksLine = (links: { href: string }[] | undefined): string[] =>
 
 // Notes that sharpen the AI's answers but should not sit in this public repo
 // (career details, internal figures). They come from the AI_PRIVATE_NOTES
-// secret, one "- " bullet per line, and are read under the same honesty rules.
-const privateNotes = (): string[] =>
-	(process.env.AI_PRIVATE_NOTES ?? '')
-		.split('\n')
-		.map((line) => line.trim())
-		.filter((line) => line.length > 0)
-		.map((line) => (line.startsWith('- ') ? line : `- ${line}`));
+// secret, one "- " bullet per line, and are kept out of the portfolio text:
+// the system prompt puts them in their own block with a non-disclosure rule.
+export const BACKGROUND_NOTES = (process.env.AI_PRIVATE_NOTES ?? '')
+	.split('\n')
+	.map((line) => line.trim())
+	.filter((line) => line.length > 0)
+	.map((line) => (line.startsWith('- ') ? line : `- ${line}`))
+	.join('\n');
 
 const buildKnowledge = (): string => {
 	const { person, experiences, projects, technologies, education, languages, about, limits } =
@@ -104,7 +105,7 @@ const buildKnowledge = (): string => {
 		section({ title: 'Education', lines: educationLines }),
 		section({ title: 'Spoken languages', lines: languageLines }),
 		section({ title: 'About', lines: aboutLines }),
-		section({ title: 'Known limits and caveats', lines: [...bullets(limits), ...privateNotes()] })
+		section({ title: 'Known limits and caveats', lines: bullets(limits) })
 	].join('\n\n');
 };
 

@@ -68,6 +68,19 @@ let usedToday = 0;
 let spentTodayUsd = 0;
 let inFlight = 0;
 
+// Spend is only known once a response is back, so each generation reserves
+// its worst case up front: the whole prompt billed as a cache write (~3 chars
+// per token, on the high side) plus every output token the mode allows.
+// Admission counts these reservations, so requests in flight together can't
+// push the day past the budget; the reservation is released when the real
+// usage is recorded.
+let reservedUsd = 0;
+
+const worstCaseUsd = (request: AiRequest): number =>
+	(((SYSTEM_PROMPT.length + buildTurn(request).length) / 3) * PRICE_IN * 2 +
+		MAX_OUTPUT_TOKENS[request.mode] * PRICE_OUT) /
+	1_000_000;
+
 const rollDay = () => {
 	const today = new Date().toISOString().slice(0, 10);
 	if (today !== day) {
@@ -80,10 +93,10 @@ const rollDay = () => {
 
 type LimitCheck = { ok: true } | { ok: false; error: 'rate_limited' | 'daily_cap'; retry: number };
 
-const checkLimits = (ip: string): LimitCheck => {
+const checkLimits = ({ ip, reserve }: { ip: string; reserve: number }): LimitCheck => {
 	rollDay();
 	const now = Date.now();
-	if (usedToday >= DAILY_LIMIT || spentTodayUsd >= DAILY_BUDGET_USD) {
+	if (usedToday >= DAILY_LIMIT || spentTodayUsd + reservedUsd + reserve > DAILY_BUDGET_USD) {
 		const midnight = new Date(`${day}T00:00:00Z`).getTime() + 24 * 60 * 60 * 1000;
 		return { ok: false, error: 'daily_cap', retry: Math.ceil((midnight - now) / 1000) };
 	}
@@ -325,7 +338,8 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 	}
 
 	const ip = clientIp(req);
-	const limit = checkLimits(ip);
+	const reserve = worstCaseUsd(request);
+	const limit = checkLimits({ ip, reserve });
 	if (!limit.ok) {
 		send({
 			res,
@@ -340,8 +354,11 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 		return;
 	}
 
+	// No await between the checks above and these lines, so admission and
+	// reservation happen as one step.
 	recordHit(ip);
 	inFlight += 1;
+	reservedUsd += reserve;
 	try {
 		const value = await generate(request);
 		cachePut({ key, value });
@@ -366,6 +383,7 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 		send({ res, status: 502, body: { ok: false, error: 'upstream' } });
 	} finally {
 		inFlight -= 1;
+		reservedUsd = Math.max(0, reservedUsd - reserve);
 	}
 };
 
