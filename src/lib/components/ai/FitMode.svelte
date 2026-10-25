@@ -66,6 +66,7 @@
 		[
 			`${r.role}: ${t(VERDICT_KEY[r.verdict])}`,
 			r.verdictLine,
+			t('fitNotADecision'),
 			'',
 			`${t('matches')}:`,
 			...r.matches.map((m) => `- ${m.requirement} (${t(m.strength)}): ${m.note}`),
@@ -165,6 +166,7 @@
 						<h3 class="font-display text-lg font-bold text-fg">{t(VERDICT_KEY[r.verdict])}</h3>
 					</div>
 					<p class="max-w-[70ch] text-sm text-fg-muted">{r.verdictLine}</p>
+					<p class="max-w-[70ch] text-xs text-fg-faint">{t('fitNotADecision')}</p>
 				</div>
 				<button
 					class="h-8 rounded-full border border-border bg-popover px-3 text-xs text-fg-muted transition hover:border-accent hover:text-fg"

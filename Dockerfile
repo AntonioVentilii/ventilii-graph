@@ -29,6 +29,7 @@ FROM nginx:alpine
 RUN apk add --no-cache nodejs su-exec \
 	&& addgroup -S api && adduser -S -D -H -G api api
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx-security-headers.conf /etc/nginx/snippets/security-headers.conf
 COPY --from=build /app/build /usr/share/nginx/html
 COPY --from=build /app/build-api/server.mjs /app/build-api/oidc-helper.mjs /srv/api/
 COPY docker/start.sh /start.sh
