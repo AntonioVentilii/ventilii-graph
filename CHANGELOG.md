@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.5.0...v1.5.1) (2026-10-25)
+
+
+### Bug Fixes
+
+* **ask:** let the background notes supply figures, in the terms they set ([#50](https://github.com/AntonioVentilii/ventilii-graph/issues/50)) ([faa9448](https://github.com/AntonioVentilii/ventilii-graph/commit/faa94489b1899bdfac03dc63f9e20d3225116891))
+
 ## [1.5.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.4.0...v1.5.0) (2026-10-25)
 
 
