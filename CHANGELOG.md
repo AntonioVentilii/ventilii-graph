@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.5.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.4.0...v1.5.0) (2026-10-25)
+
+
+### Features
+
+* **ask:** authenticate with Fly workload identity instead of an API key ([#41](https://github.com/AntonioVentilii/ventilii-graph/issues/41)) ([d940b86](https://github.com/AntonioVentilii/ventilii-graph/commit/d940b867ecd0156b6fc05167b572e3f8bebf34ff))
+
+
+### Bug Fixes
+
+* **ask:** count every attempt's spend at the price of the model that ran it ([#44](https://github.com/AntonioVentilii/ventilii-graph/issues/44)) ([4b2b4a6](https://github.com/AntonioVentilii/ventilii-graph/commit/4b2b4a6f57a54ef71bcffa206c3ad6efa74c928a))
+* **ask:** make the privacy note true and label every AI answer ([#47](https://github.com/AntonioVentilii/ventilii-graph/issues/47)) ([3bf59aa](https://github.com/AntonioVentilii/ventilii-graph/commit/3bf59aad235e13737085f3331f5066736d09c593))
+* **ask:** privacy note, hiring-decision framing, AI label on slides, security headers ([#42](https://github.com/AntonioVentilii/ventilii-graph/issues/42)) ([d112993](https://github.com/AntonioVentilii/ventilii-graph/commit/d11299302e1ffd46dbb0f54446199cebb15b5380))
+* **ask:** refuse cross-site requests, count failed attempts, keep the budget alive ([#46](https://github.com/AntonioVentilii/ventilii-graph/issues/46)) ([13f41ae](https://github.com/AntonioVentilii/ventilii-graph/commit/13f41ae2571e28d6fe8509ca2b2a398de0bb073a))
+
+
+### Miscellaneous Chores
+
+* drop unused actions, hide the nginx version, ignore local Claude settings ([#48](https://github.com/AntonioVentilii/ventilii-graph/issues/48)) ([c7921b5](https://github.com/AntonioVentilii/ventilii-graph/commit/c7921b5f53b5dffa8ec204a51f8861b141535a3c))
+* update CV PDF ([#49](https://github.com/AntonioVentilii/ventilii-graph/issues/49)) ([6df6dd6](https://github.com/AntonioVentilii/ventilii-graph/commit/6df6dd601fb50b5e5d069399f8c854fba0b25158))
+
+
+### Build System
+
+* **deps:** npm audit fix for build-time advisories ([#45](https://github.com/AntonioVentilii/ventilii-graph/issues/45)) ([67290da](https://github.com/AntonioVentilii/ventilii-graph/commit/67290dad96e83305b011532d26c99b6ee25e47ff))
+
 ## [1.4.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.3.0...v1.4.0) (2026-10-24)
 
 
