@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.5.2](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.5.1...v1.5.2) (2026-10-25)
+
+
+### Bug Fixes
+
+* **ask:** keep evidence ids out of the answer text ([#54](https://github.com/AntonioVentilii/ventilii-graph/issues/54)) ([8c74010](https://github.com/AntonioVentilii/ventilii-graph/commit/8c74010dd1bb93301ffb6954b29dcfd898a7819d))
+* **ask:** key the per-IP limits on the /64 for IPv6 visitors ([#53](https://github.com/AntonioVentilii/ventilii-graph/issues/53)) ([30c5011](https://github.com/AntonioVentilii/ventilii-graph/commit/30c5011ab0425c90564620eab43a4243d6b4736b))
+
+
+### Build System
+
+* **deps:** bump node from 24-slim to 26-slim ([#56](https://github.com/AntonioVentilii/ventilii-graph/issues/56)) ([bad648f](https://github.com/AntonioVentilii/ventilii-graph/commit/bad648f55eeba11293897160c0c56c4c0e3560ee))
+* pin the base images by digest and let Dependabot move them ([#52](https://github.com/AntonioVentilii/ventilii-graph/issues/52)) ([c51d283](https://github.com/AntonioVentilii/ventilii-graph/commit/c51d2830ae9826de649ff3a2948527af55f09bcc))
+
+
+### Continuous Integration
+
+* **deps:** bump actions/checkout from 6.0.2 to 7.0.1 ([#58](https://github.com/AntonioVentilii/ventilii-graph/issues/58)) ([323b05d](https://github.com/AntonioVentilii/ventilii-graph/commit/323b05d567d86199df79d6f47932facc424072cc))
+* **deps:** bump actions/create-github-app-token from 3.2.0 to 3.3.0 ([#57](https://github.com/AntonioVentilii/ventilii-graph/issues/57)) ([9f598df](https://github.com/AntonioVentilii/ventilii-graph/commit/9f598dfa14bfbd2016795aa7ab721b0d2813bd64))
+* **deps:** bump actions/setup-node from 4.3.0 to 7.1.0 in /.github/actions/prepare ([#59](https://github.com/AntonioVentilii/ventilii-graph/issues/59)) ([581c8d2](https://github.com/AntonioVentilii/ventilii-graph/commit/581c8d2be5818130685f11264c6f0872304f08f6))
+
 ## [1.5.1](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.5.0...v1.5.1) (2026-10-25)
 
 
