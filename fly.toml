@@ -1,9 +1,11 @@
 # ventilii-graph on Fly.io: the prerendered portfolio site, served by nginx,
 # and the AI version's API behind /api/. See Dockerfile and nginx.conf.
 #
-# The API needs one secret; without it /ask shows an "offline" note and the
-# rest of the site is unaffected:
-#   fly secrets set ANTHROPIC_API_KEY=...
+# The API holds no Anthropic key: it uses workload identity federation (see
+# README, "Workload Identity Federation"). Without the four federation ids
+# /ask shows an "offline" note and the rest of the site is unaffected:
+#   fly secrets set ANTHROPIC_FEDERATION_RULE_ID=... ANTHROPIC_ORGANIZATION_ID=... \
+#     ANTHROPIC_SERVICE_ACCOUNT_ID=... ANTHROPIC_WORKSPACE_ID=...
 # Optional tuning (defaults in server/index.ts): AI_MODEL, AI_EFFORT,
 # AI_DAILY_BUDGET_USD (hard daily spend cap, default 5), AI_PRIVATE_NOTES
 # (extra caveats kept out of this public repo, one "- " line each), AI_DAILY_LIMIT, AI_PER_IP_PER_10_MIN, AI_PER_IP_PER_DAY.
