@@ -199,6 +199,13 @@ jobs:
             fi
           done
 
+          # server_tokens off: the Server header names nginx but not its version.
+          server="$(curl -s -o /dev/null -D - http://localhost:8080/ | grep -i '^server:' | tr -d '\r')"
+          case "$server" in
+            *[0-9]*) echo "::error::Server header leaks the nginx version: $server"; status=1 ;;
+            *) echo "OK   $server" ;;
+          esac
+
           if [ "$status" -ne 0 ]; then docker logs ventilii-graph-ci; fi
           docker rm -f ventilii-graph-ci > /dev/null
           exit $status
