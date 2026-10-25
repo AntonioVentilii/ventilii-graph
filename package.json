@@ -6,7 +6,7 @@
 		"dev": "vite dev --force",
 		"dev:api": "node --watch --env-file-if-exists=.env server/index.ts",
 		"build": "tsc --noEmit && vite build",
-		"build:api": "esbuild server/index.ts --bundle --platform=node --format=esm --target=node20 --outfile=build-api/server.mjs",
+		"build:api": "esbuild server/index.ts --bundle --platform=node --format=esm --target=node20 --outfile=build-api/server.mjs && esbuild server/oidc-helper.ts --bundle --platform=node --format=esm --target=node20 --outfile=build-api/oidc-helper.mjs",
 		"prepare": "svelte-kit sync",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && tsc -p server",

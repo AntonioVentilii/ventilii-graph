@@ -84,6 +84,7 @@ export type AiResult =
 
 export type AiErrorCode =
 	| 'bad_request'
+	| 'forbidden'
 	| 'unconfigured'
 	| 'rate_limited'
 	| 'daily_cap'
@@ -97,6 +98,8 @@ export type AiResponse =
 
 export interface AiHealth {
 	configured: boolean;
+	/** Which credentials the API runs on: a key (local), Fly workload identity, or none. */
+	auth: 'api_key' | 'federation' | 'off';
 	model: string;
 }
 

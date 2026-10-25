@@ -167,6 +167,20 @@ jobs:
             status=1
           fi
 
+          # A cross-site page must not be able to spend the budget: a body sent
+          # as text/plain (no CORS preflight) and a browser-flagged cross-site
+          # request are both refused before anything else happens.
+          body='{"mode":"ask","locale":"en","question":"What has he built?"}'
+          forbidden() {
+            got="$(curl -s -m 10 -o /dev/null -w '%{http_code}' -X POST -H "$1" -H "$2" -d "$body" http://localhost:8080/api/ai)"
+            if [ "$got" = "403" ]; then echo "OK   POST /api/ai with '$2' -> 403"; else
+              echo "::error::POST /api/ai with '$2' returned $got, expected 403"
+              status=1
+            fi
+          }
+          forbidden 'accept: application/json' 'content-type: text/plain'
+          forbidden 'content-type: application/json' 'sec-fetch-site: cross-site'
+
           # Security headers must survive every location's own add_header and
           # error responses: a page, a hashed bundle, the 404 and the API.
           asset="$(curl -s http://localhost:8080/ | grep -o '/_app/immutable/[^"]*\.js' | head -n 1)"
@@ -184,6 +198,13 @@ jobs:
               status=1
             fi
           done
+
+          # server_tokens off: the Server header names nginx but not its version.
+          server="$(curl -s -o /dev/null -D - http://localhost:8080/ | grep -i '^server:' | tr -d '\r')"
+          case "$server" in
+            *[0-9]*) echo "::error::Server header leaks the nginx version: $server"; status=1 ;;
+            *) echo "OK   $server" ;;
+          esac
 
           if [ "$status" -ne 0 ]; then docker logs ventilii-graph-ci; fi
           docker rm -f ventilii-graph-ci > /dev/null

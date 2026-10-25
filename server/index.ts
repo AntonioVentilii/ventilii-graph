@@ -1,4 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
+import { oidcFederationProvider } from '@anthropic-ai/sdk/lib/credentials/oidc-federation';
 import { createHash } from 'node:crypto';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import {
@@ -9,6 +10,7 @@ import {
 	type AiResult
 } from '../src/lib/types/ai.types.ts';
 import type { Locale } from '../src/lib/types/portfolio.types.ts';
+import { mintFlyIdentityToken } from './fly-oidc.ts';
 import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult } from './modes.ts';
 
 /**
@@ -75,12 +77,43 @@ const MAX_BODY_BYTES = 64 * 1024;
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
 const CACHE_MAX_ENTRIES = 500;
 
-// The SDK resolves credentials itself: ANTHROPIC_API_KEY, or workload identity
-// federation (ANTHROPIC_FEDERATION_RULE_ID + ...) as the other Fly apps use.
-const configured = Boolean(
-	process.env.ANTHROPIC_API_KEY ?? process.env.ANTHROPIC_FEDERATION_RULE_ID
-);
-const client = configured ? new Anthropic({ timeout: 110_000, maxRetries: 1 }) : undefined;
+// Credentials: ANTHROPIC_API_KEY locally (it always wins), and on Fly workload
+// identity federation, as the other Fly apps use: the machine's OIDC token is
+// exchanged for a Claude access token, which the SDK renews before it expires.
+// The four ids are public identifiers, not secrets.
+const optionalEnv = (name: string): string | undefined => {
+	const value = process.env[name];
+	return value === undefined || value === '' ? undefined : value;
+};
+const federation = {
+	federationRuleId: optionalEnv('ANTHROPIC_FEDERATION_RULE_ID') ?? '',
+	organizationId: optionalEnv('ANTHROPIC_ORGANIZATION_ID') ?? '',
+	serviceAccountId: optionalEnv('ANTHROPIC_SERVICE_ACCOUNT_ID'),
+	workspaceId: optionalEnv('ANTHROPIC_WORKSPACE_ID')
+};
+const auth: AiHealth['auth'] = process.env.ANTHROPIC_API_KEY
+	? 'api_key'
+	: federation.federationRuleId && federation.organizationId
+		? 'federation'
+		: 'off';
+const configured = auth !== 'off';
+// No SDK retries: a retried attempt is billed twice and its usage arrives
+// once, so the budget would undercount; the page tells the visitor to retry.
+const clientOptions = { timeout: 110_000, maxRetries: 0 };
+const client =
+	auth === 'api_key'
+		? new Anthropic(clientOptions)
+		: auth === 'federation'
+			? new Anthropic({
+					...clientOptions,
+					credentials: oidcFederationProvider({
+						...federation,
+						identityTokenProvider: mintFlyIdentityToken,
+						baseURL: process.env.ANTHROPIC_BASE_URL ?? 'https://api.anthropic.com',
+						fetch
+					})
+				})
+			: undefined;
 
 const LOCALES: Locale[] = ['en', 'it', 'pt'];
 
@@ -182,6 +215,12 @@ const recordSpend = (response: {
 	return usd;
 };
 
+// An attempt whose usage never arrived is charged what it could have cost.
+const recordWorstCase = (usd: number) => {
+	rollDay();
+	spentTodayUsd += usd;
+};
+
 const recordHit = (ip: string) => {
 	usedToday += 1;
 	hits.set(ip, [...(hits.get(ip) ?? []), Date.now()]);
@@ -226,6 +265,22 @@ setInterval(() => {
 }, 60 * 1000).unref();
 
 // --- request parsing ------------------------------------------------------
+
+// Only the site's own page may spend the budget. A cross-site page can POST
+// here without a CORS preflight as long as the body is a "simple" type
+// (text/plain), and the browser then runs the generation even though it
+// hides the response: each visitor of such a page would burn a generation
+// from their own IP. Requiring application/json forces a preflight, which
+// this server never approves; Sec-Fetch-Site, where the browser sends it,
+// settles it outright. Non-browser clients send neither and pass.
+const isSameSite = (req: IncomingMessage): boolean => {
+	const type = req.headers['content-type'] ?? '';
+	if (!type.toLowerCase().startsWith('application/json')) {
+		return false;
+	}
+	const site = req.headers['sec-fetch-site'];
+	return site === undefined || site === 'same-origin' || site === 'none';
+};
 
 const normalise = ({ value, max }: { value: unknown; max: number }): string | undefined => {
 	if (typeof value !== 'string') {
@@ -300,25 +355,44 @@ const clientIp = (req: IncomingMessage): string => {
 
 class RefusedError extends Error {}
 
+// The call failed before any usage came back. Whether Anthropic generated
+// anyway (timeout, dropped connection, 5xx) is unknown, so the caller charges
+// the worst case; a 4xx means nothing was generated.
+class UncountedError extends Error {
+	readonly cause: unknown;
+	constructor(cause: unknown) {
+		super(cause instanceof Error ? cause.message : String(cause));
+		this.cause = cause;
+	}
+	get generated(): boolean {
+		return !(this.cause instanceof Anthropic.APIError) || (this.cause.status ?? 500) >= 500;
+	}
+}
+
 const generate = async (request: AiRequest): Promise<AiResult> => {
 	if (!client) {
 		throw new Error('unconfigured');
 	}
-	const response = await client.beta.messages.create({
-		model: MODEL,
-		max_tokens: MAX_OUTPUT_TOKENS[request.mode],
-		betas: ['server-side-fallback-2026-07-01'],
-		fallbacks: 'default',
-		thinking: { type: 'adaptive' },
-		output_config: {
-			effort: EFFORT,
-			format: { type: 'json_schema', schema: SCHEMAS[request.mode] }
-		},
-		system: [
-			{ type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral', ttl: '1h' } }
-		],
-		messages: [{ role: 'user', content: buildTurn(request) }]
-	});
+	let response;
+	try {
+		response = await client.beta.messages.create({
+			model: MODEL,
+			max_tokens: MAX_OUTPUT_TOKENS[request.mode],
+			betas: ['server-side-fallback-2026-07-01'],
+			fallbacks: 'default',
+			thinking: { type: 'adaptive' },
+			output_config: {
+				effort: EFFORT,
+				format: { type: 'json_schema', schema: SCHEMAS[request.mode] }
+			},
+			system: [
+				{ type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral', ttl: '1h' } }
+			],
+			messages: [{ role: 'user', content: buildTurn(request) }]
+		});
+	} catch (err: unknown) {
+		throw new UncountedError(err);
+	}
 
 	// Count the spend before anything can throw: truncated or refused
 	// responses are billed too.
@@ -385,6 +459,10 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 		send({ res, status: 400, body: { ok: false, error: 'bad_request' } });
 		return;
 	}
+	if (!isSameSite(req)) {
+		send({ res, status: 403, body: { ok: false, error: 'forbidden' } });
+		return;
+	}
 
 	const key = cacheKey(request);
 	const cached = cacheGet(key);
@@ -429,15 +507,21 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 			send({ res, status: 422, body: { ok: false, error: 'refused' } });
 			return;
 		}
-		if (err instanceof Anthropic.RateLimitError) {
+		if (err instanceof UncountedError && err.cause instanceof Anthropic.RateLimitError) {
 			send({ res, status: 503, body: { ok: false, error: 'busy', retryAfterSeconds: 30 } });
 			return;
+		}
+		if (err instanceof UncountedError && err.generated) {
+			recordWorstCase(reserve);
 		}
 		console.error(
 			JSON.stringify({
 				event: 'generate_failed',
 				mode: request.mode,
-				status: err instanceof Anthropic.APIError ? err.status : undefined,
+				status:
+					err instanceof UncountedError && err.cause instanceof Anthropic.APIError
+						? err.cause.status
+						: undefined,
 				message: err instanceof Error ? err.message : String(err)
 			})
 		);
@@ -453,7 +537,7 @@ const server = createServer((req, res) => {
 	const [path] = (req.url ?? '/').split('?');
 
 	if (req.method === 'GET' && path === '/api/ai/health') {
-		send({ res, status: 200, body: { configured, model: MODEL } });
+		send({ res, status: 200, body: { configured, auth, model: MODEL } });
 		return;
 	}
 	if (req.method === 'POST' && path === '/api/ai') {
@@ -465,7 +549,18 @@ const server = createServer((req, res) => {
 
 server.listen(PORT, '127.0.0.1', () => {
 	console.log(
-		JSON.stringify({ event: 'listening', port: PORT, model: MODEL, effort: EFFORT, configured })
+		JSON.stringify({ event: 'listening', port: PORT, model: MODEL, effort: EFFORT, auth })
+	);
+});
+
+// Node exits on an unhandled rejection, and start.sh then restarts the
+// container with a fresh budget: log it and keep serving instead.
+process.on('unhandledRejection', (reason: unknown) => {
+	console.error(
+		JSON.stringify({
+			event: 'unhandled_rejection',
+			message: reason instanceof Error ? reason.message : String(reason)
+		})
 	);
 });
 

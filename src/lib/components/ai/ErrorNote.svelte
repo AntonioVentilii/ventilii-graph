@@ -23,6 +23,8 @@
 				return askCopy({ key: 'errorRefused', locale });
 			case 'unconfigured':
 				return askCopy({ key: 'offline', locale });
+			case 'forbidden':
+				return askCopy({ key: 'errorForbidden', locale });
 			default:
 				return askCopy({ key: 'errorGeneric', locale });
 		}
