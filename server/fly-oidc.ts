@@ -15,10 +15,19 @@ import { request } from 'node:http';
 
 const HELPER_SOCKET = '/run/oidc/oidc.sock';
 
-/** The agent answers with the compact JWT, sometimes JSON-quoted. */
+/** The agent answers with the compact JWT, a JSON string, or an object
+ * carrying it (`{"token": ...}`, `{"jwt": ...}`); accept all three. */
 const parseToken = (body: string): string => {
 	const trimmed = body.trim();
-	const token = trimmed.startsWith('"') ? (JSON.parse(trimmed) as unknown) : trimmed;
+	let token: unknown = trimmed;
+	if (trimmed.startsWith('"') || trimmed.startsWith('{')) {
+		const parsed = JSON.parse(trimmed) as unknown;
+		token =
+			typeof parsed === 'object' && parsed !== null
+				? ((parsed as { token?: unknown; jwt?: unknown }).token ??
+					(parsed as { jwt?: unknown }).jwt)
+				: parsed;
+	}
 	if (typeof token !== 'string' || token.split('.').length !== 3) {
 		throw new Error('fly oidc: response is not a JWT');
 	}

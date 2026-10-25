@@ -58,7 +58,8 @@ aud  https://api.anthropic.com
 One-time setup in the Claude Console (Settings → Workload identity → Connect
 workload → Custom OIDC): issuer `https://oidc.fly.io/<fly-org>`, subject prefix
 `<fly-org>:ventilii-graph:*`, audience `https://api.anthropic.com`, the
-workspace that carries the spend limit, scope `workspace:inference`. Then the
+workspace that carries the spend limit, scope `workspace:developer` (the lowest
+the Console offers; the other is `org:admin`), token lifetime 1 hour. Then the
 four public ids on the app:
 
 ```sh
