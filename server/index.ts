@@ -354,11 +354,13 @@ const limitKey = (ip: string): string => {
 		return ip;
 	}
 	// A dotted IPv4 tail becomes its two hex groups, then '::' is expanded.
-	const hex = ip.replace(/(\d+)\.(\d+)\.(\d+)\.(\d+)$/, (_, a, b, c, d) =>
-		[(Number(a) << 8) | Number(b), (Number(c) << 8) | Number(d)]
-			.map((n) => n.toString(16))
-			.join(':')
-	);
+	const parts = ip.split(':');
+	const last = parts.at(-1) ?? '';
+	if (last.includes('.')) {
+		const [a = 0, b = 0, c = 0, d = 0] = last.split('.').map(Number);
+		parts.splice(-1, 1, ((a << 8) | b).toString(16), ((c << 8) | d).toString(16));
+	}
+	const hex = parts.join(':');
 	const [head = '', tail = ''] = hex.split('::');
 	const left = head ? head.split(':') : [];
 	const right = tail ? tail.split(':') : [];
