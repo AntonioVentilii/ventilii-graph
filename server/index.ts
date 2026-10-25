@@ -359,7 +359,7 @@ const send = ({
 }: {
 	res: ServerResponse;
 	status: number;
-	body: AiResponse | AiHealth | { ok: false; error: 'not_found' | 'forbidden' };
+	body: AiResponse | AiHealth | { ok: false; error: 'not_found' };
 	headers?: Record<string, string>;
 }) => {
 	res.writeHead(status, {

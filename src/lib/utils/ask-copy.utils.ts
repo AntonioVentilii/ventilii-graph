@@ -211,6 +211,11 @@ export const ASK_COPY = {
 		it: 'Il modello ha rifiutato questa richiesta. Prova a riformularla come domanda sul lavoro di Antonio.',
 		pt: 'O modelo recusou este pedido. Tente reformular como uma pergunta sobre o trabalho do Antonio.'
 	},
+	errorForbidden: {
+		en: 'The AI version only answers requests made from ventilii.dev itself. Open this page there and try again.',
+		it: 'La versione AI risponde solo a richieste fatte da ventilii.dev stesso. Apri questa pagina lì e riprova.',
+		pt: 'A versão IA só responde a pedidos feitos a partir do próprio ventilii.dev. Abra esta página lá e tente de novo.'
+	},
 	errorGeneric: {
 		en: 'Something went wrong. Try again, or write to Antonio directly.',
 		it: 'Qualcosa è andato storto. Riprova, o scrivi direttamente ad Antonio.',
