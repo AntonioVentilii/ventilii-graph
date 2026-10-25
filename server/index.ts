@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { oidcFederationProvider } from '@anthropic-ai/sdk/lib/credentials/oidc-federation';
 import { createHash } from 'node:crypto';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
+import { isIPv6 } from 'node:net';
 import {
 	AI_INPUT_LIMITS,
 	type AiHealth,
@@ -344,11 +345,36 @@ const readBody = (req: IncomingMessage): Promise<unknown> =>
 		req.on('error', reject);
 	});
 
+// An IPv6 visitor usually holds a whole /64 and can pick a fresh address for
+// every request, so the per-IP limits key IPv6 on its /64 prefix. IPv4, and
+// IPv4 mapped into IPv6, keys on the full address.
+const limitKey = (ip: string): string => {
+	const mapped = /^::ffff:(\d+\.\d+\.\d+\.\d+)$/i.exec(ip);
+	if (mapped) {
+		return mapped[1];
+	}
+	if (!isIPv6(ip)) {
+		return ip;
+	}
+	const [head = '', tail = ''] = ip.split('::');
+	const left = head ? head.split(':') : [];
+	const right = tail ? tail.split(':') : [];
+	const groups = ip.includes('::')
+		? [...left, ...Array<string>(Math.max(0, 8 - left.length - right.length)).fill('0'), ...right]
+		: left;
+	return `${groups
+		.slice(0, 4)
+		.map((g) => parseInt(g, 16).toString(16))
+		.join(':')}::/64`;
+};
+
 // nginx forwards Fly's Fly-Client-IP as X-Client-IP (falling back to its own
 // view of the peer), so the socket address is only used when run directly.
 const clientIp = (req: IncomingMessage): string => {
 	const header = req.headers['x-client-ip'];
-	return (Array.isArray(header) ? header[0] : header) ?? req.socket.remoteAddress ?? 'unknown';
+	return limitKey(
+		(Array.isArray(header) ? header[0] : header) ?? req.socket.remoteAddress ?? 'unknown'
+	);
 };
 
 // --- the model call -------------------------------------------------------
