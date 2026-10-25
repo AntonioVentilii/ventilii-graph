@@ -4,8 +4,8 @@
 # Dockerfile.web (scaven-family, toyfolio, ombrellone), except this repo is a
 # single root-level app on npm, not a pnpm workspace.
 #
-# No build ARGs: the site is prerendered HTML, and the API reads its only
-# secret (ANTHROPIC_API_KEY, a Fly secret) at runtime.
+# No build ARGs: the site is prerendered HTML, and the API reads its
+# credentials (workload identity ids, or a key) from Fly secrets at runtime.
 FROM node:24-slim AS build
 WORKDIR /app
 
@@ -24,12 +24,14 @@ RUN npm run prepare && npm run build && npm run build:api
 
 FROM nginx:alpine
 # The API is one esbuild bundle with its dependencies inlined, so the runtime
-# needs only a Node binary, not node_modules. su-exec drops it to the nginx user.
-RUN apk add --no-cache nodejs su-exec
+# needs only a Node binary, not node_modules. su-exec drops it to its own `api`
+# user, apart from nginx, so only the API can reach the OIDC helper's socket.
+RUN apk add --no-cache nodejs su-exec \
+	&& addgroup -S api && adduser -S -D -H -G api api
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY nginx-security-headers.conf /etc/nginx/snippets/security-headers.conf
 COPY --from=build /app/build /usr/share/nginx/html
-COPY --from=build /app/build-api/server.mjs /srv/api/server.mjs
+COPY --from=build /app/build-api/server.mjs /app/build-api/oidc-helper.mjs /srv/api/
 COPY docker/start.sh /start.sh
 EXPOSE 8080
 # CMD, not ENTRYPOINT: the nginx image's own entrypoint still runs and execs
