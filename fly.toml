@@ -24,13 +24,16 @@ primary_region = "fra"
 
 # Keep one machine warm: this is a public portfolio, so a cold start is a
 # recruiter staring at a blank tab, and the site is far too small for
-# scale-to-zero to save anything worth having.
+# scale-to-zero to save anything worth having. And never more than one: the
+# API's daily budget lives in the process, so a second machine would be a
+# second budget.
 [http_service]
   internal_port = 8080
   force_https = true
   auto_stop_machines = "stop"
   auto_start_machines = true
   min_machines_running = 1
+  max_machines_running = 1
 
 # nginx serves the prerendered home page on `/` (HTTP 200), so `/` doubles as
 # the liveness probe.

@@ -84,6 +84,7 @@ export type AiResult =
 
 export type AiErrorCode =
 	| 'bad_request'
+	| 'forbidden'
 	| 'unconfigured'
 	| 'rate_limited'
 	| 'daily_cap'
