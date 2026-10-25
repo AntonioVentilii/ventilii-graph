@@ -122,6 +122,8 @@
 				<span class="font-bold tracking-wide uppercase">{t('confidence')}</span>:
 				{confidenceText(r.confidence)}
 			</p>
+
+			<p class="text-xs text-fg-faint">{t('generatedBy')}</p>
 		</article>
 
 		{#if r.followUps.length}
