@@ -187,8 +187,9 @@ export const SCHEMAS = { ask: ASK_SCHEMA, fit: FIT_SCHEMA, deck: DECK_SCHEMA } a
 // prompt asks for and drop any evidence id the portfolio does not contain.
 
 // Ids belong in the evidence fields, which the page turns into links. In the
-// text they would show as raw "[education:polimi]", so any the model writes
-// there anyway (one or several, comma-separated) are cut with their spacing.
+// text they would show as raw "[education:polimi]", so any ids the model
+// writes there anyway (one or several, comma-separated) are cut with their
+// spacing.
 const ID_TYPES = 'experience|project|technology|education|language|about';
 const INLINE_IDS = new RegExp(
 	`(?:\\s*,?\\s*\\[(?:(?:${ID_TYPES}):[a-z0-9_-]+(?:\\s*,\\s*)?)+\\])+`,
