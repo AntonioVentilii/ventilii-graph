@@ -6,7 +6,7 @@
 #
 # No build ARGs: the site is prerendered HTML, and the API reads its
 # credentials (workload identity ids, or a key) from Fly secrets at runtime.
-FROM node:24-slim AS build
+FROM node:24-slim@sha256:55fb5f5a527ea2c5c4a95f963e48ef90aa38c7b346054fdc8ee9957a2b55d205 AS build
 WORKDIR /app
 
 # Manifests first, so the dependency layer is cached across content-only edits.
@@ -22,7 +22,7 @@ COPY . .
 # not as a side effect of it.
 RUN npm run prepare && npm run build && npm run build:api
 
-FROM nginx:alpine
+FROM nginx:alpine@sha256:a3554c0d0b48177b1413c26e01f695334428020d9df01243fbae3e11cfd17417
 # The API is one esbuild bundle with its dependencies inlined, so the runtime
 # needs only a Node binary, not node_modules. su-exec drops it to its own `api`
 # user, apart from nginx, so only the API can reach the OIDC helper's socket.

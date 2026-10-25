@@ -1,0 +1,23 @@
+# Keeps pinned versions moving. The Dockerfile's base images are pinned by
+# digest and the workflows' actions by commit SHA, so nothing updates them
+# unless Dependabot does. Titles follow the Conventional Commit rule that the
+# pr-title check enforces ("build(deps): …", "ci(deps): …").
+version: 2
+updates:
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: build
+      include: scope
+
+  - package-ecosystem: github-actions
+    directories:
+      - /
+      - /.github/actions/*
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci
+      include: scope
