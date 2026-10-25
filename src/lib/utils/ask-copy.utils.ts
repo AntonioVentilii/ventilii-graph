@@ -29,9 +29,9 @@ export const ASK_COPY = {
 		pt: 'Um modelo de linguagem que leu tudo neste site: cada cargo, cada projeto com datas e status quando conhecidos, e uma lista das lacunas conhecidas. Ele é instruído a manter as proporções e a dizer o que o portfólio não mostra. Não é o Antonio e pode errar: cada afirmação aponta para o item que a sustenta, para você conferir.'
 	},
 	privacy: {
-		en: 'Privacy: what you type is sent to Anthropic, which runs the model, only to generate the answer; under Anthropic’s commercial terms it is not used to train models. This site does not log it. It keeps generated answers in memory for up to 6 hours, to reuse them for identical requests, and your IP address until midnight UTC, for rate limits. Please don’t paste confidential postings or other people’s personal details. Questions:',
-		it: 'Privacy: ciò che scrivi viene inviato ad Anthropic, che gestisce il modello, solo per generare la risposta; secondo i termini commerciali di Anthropic non viene usato per addestrare modelli. Questo sito non lo registra. Tiene in memoria le risposte generate fino a 6 ore, per riusarle con richieste identiche, e il tuo indirizzo IP fino alla mezzanotte UTC, per i limiti di utilizzo. Non incollare annunci riservati né dati personali di altre persone. Domande:',
-		pt: 'Privacidade: o que você digita é enviado à Anthropic, que opera o modelo, só para gerar a resposta; pelos termos comerciais da Anthropic, não é usado para treinar modelos. Este site não registra o texto. Ele guarda as respostas geradas na memória por até 6 horas, para reutilizá-las em pedidos idênticos, e seu endereço IP até a meia-noite UTC, para os limites de uso. Não cole vagas confidenciais nem dados pessoais de outras pessoas. Dúvidas:'
+		en: 'Privacy: what you type is sent to Anthropic, in the United States, which runs the model. It is used only to generate the answer, never to train models, and Anthropic may keep it for up to 30 days to monitor abuse. This site does not log it: it keeps generated answers in memory for up to 6 hours, to reuse them for identical requests, and your IP address until midnight UTC, for rate limits. Page views sit in the hosting provider’s server logs, as on any site. Please don’t paste confidential postings or other people’s personal details. Questions:',
+		it: 'Privacy: ciò che scrivi viene inviato ad Anthropic, negli Stati Uniti, che gestisce il modello. Serve solo a generare la risposta, mai ad addestrare modelli, e Anthropic può conservarlo fino a 30 giorni per il controllo degli abusi. Questo sito non lo registra: tiene in memoria le risposte generate fino a 6 ore, per riusarle con richieste identiche, e il tuo indirizzo IP fino alla mezzanotte UTC, per i limiti di utilizzo. Le visite alle pagine restano nei log del provider di hosting, come su ogni sito. Non incollare annunci riservati né dati personali di altre persone. Domande:',
+		pt: 'Privacidade: o que você digita é enviado à Anthropic, nos Estados Unidos, que opera o modelo. É usado só para gerar a resposta, nunca para treinar modelos, e a Anthropic pode guardá-lo por até 30 dias para monitorar abusos. Este site não registra o texto: guarda as respostas geradas na memória por até 6 horas, para reutilizá-las em pedidos idênticos, e seu endereço IP até a meia-noite UTC, para os limites de uso. As visitas às páginas ficam nos logs do provedor de hospedagem, como em qualquer site. Não cole vagas confidenciais nem dados pessoais de outras pessoas. Dúvidas:'
 	},
 	tabsLabel: { en: 'What to do', it: 'Cosa fare', pt: 'O que fazer' },
 	tabAsk: { en: 'Ask', it: 'Chiedi', pt: 'Perguntar' },
@@ -145,7 +145,7 @@ export const ASK_COPY = {
 		pt: 'Fora do portfólio'
 	},
 	followUps: { en: 'Ask next', it: 'Chiedi poi', pt: 'Pergunte em seguida' },
-	verdict: { en: 'Verdict', it: 'Verdetto', pt: 'Veredito' },
+	verdict: { en: 'Fit reading', it: 'Lettura del fit', pt: 'Leitura do fit' },
 	verdictStrong: { en: 'Strong fit', it: 'Fit forte', pt: 'Fit forte' },
 	verdictGood: { en: 'Good fit', it: 'Buon fit', pt: 'Bom fit' },
 	verdictPartial: { en: 'Partial fit', it: 'Fit parziale', pt: 'Fit parcial' },
