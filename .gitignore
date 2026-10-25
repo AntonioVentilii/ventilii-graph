@@ -19,3 +19,6 @@ node_modules
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Per-machine Claude Code permissions
+.claude/settings.local.json
