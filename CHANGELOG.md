@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.3](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.5.2...v1.5.3) (2026-10-29)
+
+
+### Bug Fixes
+
+* **ask:** state background facts plainly instead of attributing them ([#60](https://github.com/AntonioVentilii/ventilii-graph/issues/60)) ([dd1ee10](https://github.com/AntonioVentilii/ventilii-graph/commit/dd1ee10f7d61c47a775f035300d9157b67799900))
+
 ## [1.5.2](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.5.1...v1.5.2) (2026-10-25)
 
 
