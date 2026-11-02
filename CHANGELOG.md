@@ -66,7 +66,7 @@
 
 ### Features
 
-* **ask:** honest AI version of the portfolio at /ask ([#40](https://github.com/AntonioVentilii/ventilii-graph/issues/40)) ([f074e86](https://github.com/AntonioVentilii/ventilii-graph/commit/f074e8646bd7647e4805e6448b63b674d6afc0dd))
+* **ask:** honest AI version of the portfolio at /ask ([f074e86](https://github.com/AntonioVentilii/ventilii-graph/commit/f074e8646bd7647e4805e6448b63b674d6afc0dd))
 * **content:** add Officina and recent projects, with dates and status ([#38](https://github.com/AntonioVentilii/ventilii-graph/issues/38)) ([209ed21](https://github.com/AntonioVentilii/ventilii-graph/commit/209ed21dcf500ba4b1672c9022b7d48468c4f813))
 
 
