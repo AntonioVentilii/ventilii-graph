@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.5](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.5.4...v1.5.5) (2026-11-03)
+
+
+### Documentation
+
+* **changelog:** remove a dead pull request link ([#64](https://github.com/AntonioVentilii/ventilii-graph/issues/64)) ([4e01794](https://github.com/AntonioVentilii/ventilii-graph/commit/4e017949c64dac3e946196a027ce15a21d7e4cd7))
+
 ## [1.5.4](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.5.3...v1.5.4) (2026-11-02)
 
 
