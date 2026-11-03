@@ -5,7 +5,7 @@
 
 ### Documentation
 
-* **changelog:** drop the link to deleted PR [#40](https://github.com/AntonioVentilii/ventilii-graph/issues/40) ([#62](https://github.com/AntonioVentilii/ventilii-graph/issues/62)) ([97da0c3](https://github.com/AntonioVentilii/ventilii-graph/commit/97da0c32c4f9dc0970207f00b785ad4b46c5fa53))
+* **changelog:** drop the link to a deleted PR ([#62](https://github.com/AntonioVentilii/ventilii-graph/issues/62)) ([97da0c3](https://github.com/AntonioVentilii/ventilii-graph/commit/97da0c32c4f9dc0970207f00b785ad4b46c5fa53))
 
 ## [1.5.3](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.5.2...v1.5.3) (2026-10-29)
 
