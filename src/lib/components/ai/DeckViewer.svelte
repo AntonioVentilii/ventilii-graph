@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { ChevronLeft, ChevronRight, Maximize2, Printer } from 'lucide-svelte';
-	import EvidenceChips from '$lib/components/ai/EvidenceChips.svelte';
-	import type { DeckResult } from '$lib/types/ai.types';
-	import type { Locale } from '$lib/types/portfolio.types';
-	import { askCopy } from '$lib/utils/ask-copy.utils';
+	import EvidenceChips from '#lib/components/ai/EvidenceChips.svelte';
+	import type { DeckResult } from '#lib/types/ai.types.ts';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import { askCopy } from '#lib/utils/ask-copy.utils.ts';
 
 	interface Props {
 		deck: DeckResult;

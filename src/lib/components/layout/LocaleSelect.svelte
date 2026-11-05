@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Locale } from '$lib/types/portfolio.types';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
 
 	interface Props {
 		locale: Locale;

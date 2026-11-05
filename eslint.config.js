@@ -2,6 +2,19 @@ import { default as svelteConfig } from '@dfinity/eslint-config-oisy-wallet/svel
 import { default as vitestConfig } from '@dfinity/eslint-config-oisy-wallet/vitest';
 import ts from 'typescript-eslint';
 
+const ZERO_LITERAL = {
+	selector: "Literal[raw='0n']",
+	message: 'Use the shared constant `ZERO` instead of `0n`.'
+};
+
+// import-x's `import/no-relative-parent-imports` resolves `#lib/…` subpath
+// imports to their file and then reports them as parent imports. This checks
+// the specifier as written instead, so `#lib/…` passes and `../…` does not.
+const PARENT_IMPORT = {
+	selector: 'ImportDeclaration[source.value=/^\\.\\.\\//]',
+	message: 'Import from a parent directory through `#lib/…` instead of `../`.'
+};
+
 export default ts.config(
 	...vitestConfig,
 	...svelteConfig,
@@ -22,7 +35,9 @@ export default ts.config(
 
 	{
 		rules: {
-			'svelte/no-navigation-without-resolve': 'off'
+			'svelte/no-navigation-without-resolve': 'off',
+			'import/no-relative-parent-imports': 'off',
+			'no-restricted-syntax': ['error', ZERO_LITERAL, PARENT_IMPORT]
 		}
 	},
 
@@ -38,20 +53,8 @@ export default ts.config(
 		// portfolio data from src/ (one source of truth), and logs to stdout.
 		files: ['server/**/*'],
 		rules: {
-			'import/no-relative-parent-imports': 'off',
+			'no-restricted-syntax': ['error', ZERO_LITERAL],
 			'no-console': 'off'
-		}
-	},
-
-	{
-		rules: {
-			'no-restricted-syntax': [
-				'error',
-				{
-					selector: "Literal[raw='0n']",
-					message: 'Use the shared constant `ZERO` instead of `0n`.'
-				}
-			]
 		}
 	}
 );
