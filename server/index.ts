@@ -132,6 +132,10 @@ let day = new Date().toISOString().slice(0, 10);
 let usedToday = 0;
 let spentTodayUsd = 0;
 let inFlight = 0;
+// Generations running per address. One at a time: strikes are only known once
+// a verdict is back, so parallel requests from one address would all pass the
+// strike check before any of them counted.
+const inFlightByIp = new Set<string>();
 
 // Spend is only known once a response is back, so each generation reserves
 // its worst case up front: the whole prompt billed as a cache write, counting
@@ -478,7 +482,7 @@ const generate = async (request: AiRequest): Promise<Outcome> => {
 	const raw: unknown = JSON.parse(textBlock.text);
 	// Neither the request nor the model's paraphrase of it is logged: the
 	// /ask privacy note promises the site does not keep what visitors type.
-	const guard = readGuard(raw);
+	const guard = readGuard({ raw, request });
 
 	console.log(
 		JSON.stringify({
@@ -529,19 +533,25 @@ const send = ({
 	res.end(JSON.stringify(body));
 };
 
-// A guard verdict is a strike against the address that sent the request,
-// whether it was generated now or served from the cache.
+// A freshly generated guard verdict is a strike against the address that
+// sent the request. A cached one costs nothing and is not counted: otherwise
+// replaying it from rotating addresses would grow the strike table without
+// passing any limit.
 const sendOutcome = ({
 	res,
 	ip,
-	outcome
+	outcome,
+	fresh
 }: {
 	res: ServerResponse;
 	ip: string;
 	outcome: Outcome;
+	fresh: boolean;
 }) => {
 	if ('guard' in outcome) {
-		const strikesLeft = recordStrike(ip);
+		const strikesLeft = fresh
+			? recordStrike(ip)
+			: Math.max(0, STRIKES_PER_DAY - (strikes.get(ip) ?? 0));
 		send({
 			res,
 			status: 422,
@@ -572,7 +582,7 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 	const key = cacheKey(request);
 	const cached = cacheGet(key);
 	if (cached) {
-		sendOutcome({ res, ip, outcome: cached });
+		sendOutcome({ res, ip, outcome: cached, fresh: false });
 		return;
 	}
 
@@ -592,7 +602,7 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 		});
 		return;
 	}
-	if (inFlight >= MAX_IN_FLIGHT) {
+	if (inFlight >= MAX_IN_FLIGHT || inFlightByIp.has(ip)) {
 		send({ res, status: 503, body: { ok: false, error: 'busy', retryAfterSeconds: 20 } });
 		return;
 	}
@@ -601,11 +611,12 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 	// reservation happen as one step.
 	recordHit(ip);
 	inFlight += 1;
+	inFlightByIp.add(ip);
 	reservedUsd += reserve;
 	try {
 		const outcome = await generate(request);
 		cachePut({ key, value: outcome });
-		sendOutcome({ res, ip, outcome });
+		sendOutcome({ res, ip, outcome, fresh: true });
 	} catch (err: unknown) {
 		if (err instanceof RefusedError) {
 			send({ res, status: 422, body: { ok: false, error: 'refused' } });
@@ -632,6 +643,7 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 		send({ res, status: 502, body: { ok: false, error: 'upstream' } });
 	} finally {
 		inFlight -= 1;
+		inFlightByIp.delete(ip);
 		reservedUsd = Math.max(0, reservedUsd - reserve);
 	}
 };

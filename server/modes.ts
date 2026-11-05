@@ -282,30 +282,6 @@ const cleanDeck = (r: DeckResult): DeckResult => {
 	};
 };
 
-// The page quotes `attempt` back to the visitor inside a note of its own, so
-// it is reduced to one short line of plain words: no line breaks, markup,
-// links, quotes or brackets, whatever the model was talked into writing.
-const ATTEMPT_MAX = 90;
-
-const cleanAttempt = (value: string): string => {
-	const plain = value
-		.replace(/https?:\/\/\S+|www\.\S+/gi, '')
-		.replace(/[\s]+/g, ' ')
-		.replace(/[*_`#<>[\]{}"“”«»]/g, '')
-		.trim()
-		.replace(/[.,;:!?]+$/, '');
-	return plain.length > ATTEMPT_MAX ? `${plain.slice(0, ATTEMPT_MAX - 1).trimEnd()}…` : plain;
-};
-
-/** The guard verdict, when the model would not take the request on. */
-export const readGuard = (raw: unknown): Guard | undefined => {
-	const { scope, attempt } = (raw ?? {}) as { scope?: unknown; attempt?: unknown };
-	if (scope !== 'off_topic' && scope !== 'manipulation') {
-		return undefined;
-	}
-	return { kind: scope, attempt: typeof attempt === 'string' ? cleanAttempt(attempt) : '' };
-};
-
 // The prompt forbids quoting the background notes, but a prompt is not a
 // wall, and the /ask challenge invites people to try. As a second line, an
 // answer that repeats a run of LEAK_RUN consecutive words from a note is not
@@ -326,7 +302,8 @@ const runs = (list: string[]): string[] =>
 		list.slice(i, i + LEAK_RUN).join(' ')
 	);
 
-const PUBLIC_RUNS = new Set(runs(words(KNOWLEDGE)));
+const PUBLIC_WORDS = words(KNOWLEDGE);
+const PUBLIC_RUNS = new Set(runs(PUBLIC_WORDS));
 const NOTE_RUNS = new Set(
 	BACKGROUND_NOTES.split('\n')
 		.flatMap((line) => runs(words(line)))
@@ -346,6 +323,69 @@ const strings = (value: unknown): string[] =>
 export const leaksNotes = (result: AiResult): boolean =>
 	NOTE_RUNS.size > 0 &&
 	strings(result.result).some((text) => runs(words(text)).some((run) => NOTE_RUNS.has(run)));
+
+// The guard's `attempt` is a short paraphrase that the page quotes back, so a
+// leak there could be a single word or figure, too short for a run of
+// LEAK_RUN. It is quoted only when each of its numbers, and each word that
+// appears in the notes but nowhere in the public portfolio, also appears in
+// what the visitor wrote: a paraphrase of their own request needs nothing
+// else.
+const PUBLIC_WORD_SET = new Set(PUBLIC_WORDS);
+const NOTE_ONLY_WORDS = new Set(words(BACKGROUND_NOTES).filter((w) => !PUBLIC_WORD_SET.has(w)));
+
+const attemptIsSafe = ({ attempt, input }: { attempt: string; input: string }): boolean => {
+	const own = new Set(words(input));
+	return words(attempt).every((w) => own.has(w) || (!NOTE_ONLY_WORDS.has(w) && !/\d/.test(w)));
+};
+
+// The page quotes `attempt` back to the visitor inside a note of its own, so
+// it is reduced to one short line of plain words: no line breaks, markup,
+// links, quotes or brackets, whatever the model was talked into writing.
+const ATTEMPT_MAX = 90;
+
+const cleanAttempt = (value: string): string => {
+	const plain = value
+		.replace(/https?:\/\/\S+|www\.\S+/gi, '')
+		.replace(/[\s]+/g, ' ')
+		.replace(/[*_`#<>[\]{}"“”«»]/g, '')
+		.trim()
+		.replace(/[.,;:!?]+$/, '');
+	return plain.length > ATTEMPT_MAX ? `${plain.slice(0, ATTEMPT_MAX - 1).trimEnd()}…` : plain;
+};
+
+const visitorText = (request: AiRequest): string => {
+	switch (request.mode) {
+		case 'ask':
+			return request.question;
+		case 'fit':
+			return request.jobDescription;
+		case 'deck':
+			return request.audience;
+	}
+};
+
+/**
+ * The guard verdict, when the model would not take the request on. Its
+ * paraphrase is dropped (the page then shows a plain note) when it might
+ * carry anything from the private notes.
+ */
+export const readGuard = ({
+	raw,
+	request
+}: {
+	raw: unknown;
+	request: AiRequest;
+}): Guard | undefined => {
+	const { scope, attempt } = (raw ?? {}) as { scope?: unknown; attempt?: unknown };
+	if (scope !== 'off_topic' && scope !== 'manipulation') {
+		return undefined;
+	}
+	const clean = typeof attempt === 'string' ? cleanAttempt(attempt) : '';
+	return {
+		kind: scope,
+		attempt: attemptIsSafe({ attempt: clean, input: visitorText(request) }) ? clean : ''
+	};
+};
 
 export const cleanResult = ({ mode, raw }: { mode: AiRequest['mode']; raw: unknown }): AiResult => {
 	switch (mode) {

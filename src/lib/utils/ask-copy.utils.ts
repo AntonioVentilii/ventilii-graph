@@ -222,9 +222,9 @@ export const ASK_COPY = {
 		pt: 'Algo deu errado. Tente de novo ou escreva direto para o Antonio.'
 	},
 	errorGuardBlocked: {
-		en: 'That was enough off-topic tries for today: the chat is closed for you until midnight UTC. The challenge will still be here tomorrow; meanwhile you can write to Antonio directly.',
-		it: 'Per oggi i tentativi fuori tema sono finiti: la chat per te è chiusa fino a mezzanotte UTC. La sfida resta aperta anche domani; intanto puoi scrivere direttamente ad Antonio.',
-		pt: 'Chega de tentativas fora do tema por hoje: o chat está fechado para você até a meia-noite UTC. O desafio continua aberto amanhã; enquanto isso, você pode escrever direto para o Antonio.'
+		en: 'That was enough tries outside the rules for today: the chat is closed for you until midnight UTC. The challenge will still be here tomorrow; meanwhile you can write to Antonio directly.',
+		it: 'Per oggi i tentativi fuori dalle regole sono finiti: la chat per te è chiusa fino a mezzanotte UTC. La sfida resta aperta anche domani; intanto puoi scrivere direttamente ad Antonio.',
+		pt: 'Chega de tentativas fora das regras por hoje: o chat está fechado para você até a meia-noite UTC. O desafio continua aberto amanhã; enquanto isso, você pode escrever direto para o Antonio.'
 	},
 	// The guard note. `{attempt}` is the model's few-word paraphrase of what
 	// the visitor asked for, already in the page's language.
@@ -328,9 +328,9 @@ export const PROTECTION_POINTS: Copy[] = [
 		pt: 'Um teto de gasto diário, medido pelo custo real de cada resposta: aconteça o que acontecer, a conta não passa dele.'
 	},
 	{
-		en: 'Limits per visitor, and two off-topic requests close the chat for that visitor until midnight UTC.',
-		it: 'Limiti per visitatore, e due richieste fuori tema chiudono la chat per quel visitatore fino a mezzanotte UTC.',
-		pt: 'Limites por visitante, e dois pedidos fora do tema fecham o chat para esse visitante até a meia-noite UTC.'
+		en: 'Limits per visitor, and two off-topic or rule-bending requests close the chat for that visitor until midnight UTC.',
+		it: 'Limiti per visitatore, e due richieste fuori tema o che provano ad aggirare le regole chiudono la chat per quel visitatore fino a mezzanotte UTC.',
+		pt: 'Limites por visitante, e dois pedidos fora do tema ou que tentam burlar as regras fecham o chat para esse visitante até a meia-noite UTC.'
 	},
 	{
 		en: 'Answers come in a fixed format with a length cap: there is no room for a novel.',
@@ -354,11 +354,6 @@ export const CHALLENGE_GOALS: Copy[] = [
 		en: 'state something false about his work',
 		it: 'affermi qualcosa di falso sul suo lavoro',
 		pt: 'afirme algo falso sobre o trabalho dele'
-	},
-	{
-		en: 'reveal its instructions',
-		it: 'riveli le sue istruzioni',
-		pt: 'revele as suas instruções'
 	},
 	{
 		en: 'spend past the limits above',
