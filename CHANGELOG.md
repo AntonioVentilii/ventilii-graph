@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.6.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.5.5...v1.6.0) (2026-11-05)
+
+
+### Features
+
+* **ai:** answer credit-burning requests with a guard note and a challenge ([#76](https://github.com/AntonioVentilii/ventilii-graph/issues/76)) ([27d9837](https://github.com/AntonioVentilii/ventilii-graph/commit/27d98379882e639019e15046807467b46fa90b09))
+
+
+### Miscellaneous Chores
+
+* update CV PDF ([#66](https://github.com/AntonioVentilii/ventilii-graph/issues/66)) ([ee82286](https://github.com/AntonioVentilii/ventilii-graph/commit/ee82286e6c8ff326fa7d2afdf5e61640cc4c1352))
+
+
+### Build System
+
+* **deps:** move from lucide-svelte to @lucide/svelte 1 ([#74](https://github.com/AntonioVentilii/ventilii-graph/issues/74)) ([5d4ed4a](https://github.com/AntonioVentilii/ventilii-graph/commit/5d4ed4ac2a51fcb36113a92da65a20faf16f9b95))
+* **deps:** move to Anthropic SDK 1.x (API version 2026-10-21) ([#75](https://github.com/AntonioVentilii/ventilii-graph/issues/75)) ([a0a023c](https://github.com/AntonioVentilii/ventilii-graph/commit/a0a023c61a6ae1e24c59a5678f5a2a1130cc8a18))
+* **deps:** move to ESLint 10 and oisy-wallet config 0.5 ([#72](https://github.com/AntonioVentilii/ventilii-graph/issues/72)) ([e7299fa](https://github.com/AntonioVentilii/ventilii-graph/commit/e7299fa8d66f8838a5a9c326982341c1481ac1c8))
+* **deps:** move to prettier-plugin-svelte 4 and prettier-plugin-tailwindcss 0.8 ([#73](https://github.com/AntonioVentilii/ventilii-graph/issues/73)) ([e6fcbe0](https://github.com/AntonioVentilii/ventilii-graph/commit/e6fcbe0bbd7d1145e5577fbd71a7e8c748d3aafc))
+* **deps:** move to TypeScript 6 ([#68](https://github.com/AntonioVentilii/ventilii-graph/issues/68)) ([0011d53](https://github.com/AntonioVentilii/ventilii-graph/commit/0011d537515c0573a392b7e3ae4f0b2008b84597))
+* **deps:** move to Vite 8 and vite-plugin-svelte 7 ([#69](https://github.com/AntonioVentilii/ventilii-graph/issues/69)) ([da85c7d](https://github.com/AntonioVentilii/ventilii-graph/commit/da85c7d6054a9bcf5ee8034a545cb78f42932b8c))
+* run on Node 26 ([#67](https://github.com/AntonioVentilii/ventilii-graph/issues/67)) ([59a4636](https://github.com/AntonioVentilii/ventilii-graph/commit/59a4636ca557a622bce1664dada693dd10942c24))
+
 ## [1.5.5](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.5.4...v1.5.5) (2026-11-03)
 
 
