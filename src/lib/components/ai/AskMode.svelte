@@ -2,6 +2,7 @@
 	import ErrorNote from '#lib/components/ai/ErrorNote.svelte';
 	import EvidenceChips from '#lib/components/ai/EvidenceChips.svelte';
 	import FieldCounter from '#lib/components/ai/FieldCounter.svelte';
+	import GuardNote from '#lib/components/ai/GuardNote.svelte';
 	import RichText from '#lib/components/ai/RichText.svelte';
 	import ThinkingIndicator from '#lib/components/ai/ThinkingIndicator.svelte';
 	import { AiRequestState } from '#lib/stores/ai-request.svelte.ts';
@@ -95,6 +96,8 @@
 <div class="mt-6 space-y-4">
 	{#if req.loading}
 		<ThinkingIndicator {locale} />
+	{:else if req.error === 'guarded' && req.guard}
+		<GuardNote guard={req.guard.guard} {locale} onAsk={ask} strikesLeft={req.guard.strikesLeft} />
 	{:else if req.error}
 		<ErrorNote {email} error={req.error} {locale} />
 	{/if}

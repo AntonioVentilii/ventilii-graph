@@ -4,7 +4,8 @@ import type {
 	AiRequest,
 	AskResult,
 	DeckResult,
-	FitResult
+	FitResult,
+	Guard
 } from '#lib/types/ai.types.ts';
 
 type Mode = AiRequest['mode'];
@@ -24,6 +25,8 @@ export class AiRequestState<M extends Mode> {
 	loading = $state(false);
 	result = $state<ResultByMode[M] | undefined>(undefined);
 	error = $state<AiErrorCode | undefined>(undefined);
+	/** Set with the 'guarded' error: what the model would not do, and how many tries are left today. */
+	guard = $state<{ guard: Guard; strikesLeft: number } | undefined>(undefined);
 
 	#controller: AbortController | undefined;
 
@@ -36,6 +39,7 @@ export class AiRequestState<M extends Mode> {
 		// sit above an old result that looks like the answer to the new request.
 		this.loading = true;
 		this.error = undefined;
+		this.guard = undefined;
 		this.result = undefined;
 
 		try {
@@ -45,6 +49,9 @@ export class AiRequestState<M extends Mode> {
 			}
 			if (response.ok && response.mode === request.mode) {
 				this.result = response.result as ResultByMode[M];
+			} else if (!response.ok && response.error === 'guarded') {
+				this.error = 'guarded';
+				this.guard = { guard: response.guard, strikesLeft: response.strikesLeft };
 			} else {
 				this.error = response.ok ? 'upstream' : response.error;
 			}

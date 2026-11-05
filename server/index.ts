@@ -8,11 +8,12 @@ import {
 	type AiHealth,
 	type AiRequest,
 	type AiResponse,
-	type AiResult
+	type AiResult,
+	type Guard
 } from '../src/lib/types/ai.types.ts';
 import type { Locale } from '../src/lib/types/portfolio.types.ts';
 import { mintFlyIdentityToken } from './fly-oidc.ts';
-import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult } from './modes.ts';
+import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, leaksNotes, readGuard } from './modes.ts';
 
 /**
  * The AI version's API: one JSON endpoint in front of the Claude API. It runs
@@ -36,6 +37,11 @@ const PER_IP_PER_DAY = Number(process.env.AI_PER_IP_PER_DAY ?? 25);
 const DAILY_LIMIT = Number(process.env.AI_DAILY_LIMIT ?? 300);
 const DAILY_BUDGET_USD = Number(process.env.AI_DAILY_BUDGET_USD ?? 5);
 const MAX_IN_FLIGHT = 4;
+// Off-topic or manipulative requests (see Guard) count as strikes against the
+// visitor's address. At this many in a day the address gets no more
+// generations until midnight UTC, so whoever keeps trying to use the chat as
+// a free model stops spending the budget real visitors need.
+const STRIKES_PER_DAY = Number(process.env.AI_GUARD_STRIKES_PER_DAY ?? 2);
 
 // Output ceiling per mode, thinking included. The JSON each mode asks for fits
 // well inside these; a prompt that talks the model into a long translation or
@@ -121,10 +127,15 @@ const LOCALES: Locale[] = ['en', 'it', 'pt'];
 // --- limits -------------------------------------------------------------
 
 const hits = new Map<string, number[]>();
+const strikes = new Map<string, number>();
 let day = new Date().toISOString().slice(0, 10);
 let usedToday = 0;
 let spentTodayUsd = 0;
 let inFlight = 0;
+// Generations running per address. One at a time: strikes are only known once
+// a verdict is back, so parallel requests from one address would all pass the
+// strike check before any of them counted.
+const inFlightByIp = new Set<string>();
 
 // Spend is only known once a response is back, so each generation reserves
 // its worst case up front: the whole prompt billed as a cache write, counting
@@ -151,17 +162,25 @@ const rollDay = () => {
 		usedToday = 0;
 		spentTodayUsd = 0;
 		hits.clear();
+		strikes.clear();
 	}
 };
 
-type LimitCheck = { ok: true } | { ok: false; error: 'rate_limited' | 'daily_cap'; retry: number };
+type LimitCheck =
+	| { ok: true }
+	| { ok: false; error: 'rate_limited' | 'daily_cap' | 'guard_blocked'; retry: number };
+
+const secondsToMidnight = (now: number): number =>
+	Math.ceil((new Date(`${day}T00:00:00Z`).getTime() + 24 * 60 * 60 * 1000 - now) / 1000);
 
 const checkLimits = ({ ip, reserve }: { ip: string; reserve: number }): LimitCheck => {
 	rollDay();
 	const now = Date.now();
 	if (usedToday >= DAILY_LIMIT || spentTodayUsd + reservedUsd + reserve > DAILY_BUDGET_USD) {
-		const midnight = new Date(`${day}T00:00:00Z`).getTime() + 24 * 60 * 60 * 1000;
-		return { ok: false, error: 'daily_cap', retry: Math.ceil((midnight - now) / 1000) };
+		return { ok: false, error: 'daily_cap', retry: secondsToMidnight(now) };
+	}
+	if ((strikes.get(ip) ?? 0) >= STRIKES_PER_DAY) {
+		return { ok: false, error: 'guard_blocked', retry: secondsToMidnight(now) };
 	}
 	const mine = hits.get(ip) ?? [];
 	const recent = mine.filter((t) => now - t < PER_IP_WINDOW_MS);
@@ -227,14 +246,27 @@ const recordHit = (ip: string) => {
 	hits.set(ip, [...(hits.get(ip) ?? []), Date.now()]);
 };
 
+/** Counts a strike against the address and returns how many it has left. */
+const recordStrike = (ip: string): number => {
+	rollDay();
+	const count = (strikes.get(ip) ?? 0) + 1;
+	strikes.set(ip, count);
+	return Math.max(0, STRIKES_PER_DAY - count);
+};
+
 // --- answer cache (suggested questions get asked again and again) --------
 
-const cache = new Map<string, { at: number; value: AiResult }>();
+// What a generation produced: an answer, or the guard verdict on a request
+// the model would not take on. Both are cached, so sending the same
+// off-topic prompt again costs nothing.
+type Outcome = { result: AiResult } | { guard: Guard };
+
+const cache = new Map<string, { at: number; value: Outcome }>();
 
 const cacheKey = (request: AiRequest): string =>
 	createHash('sha256').update(JSON.stringify(request)).digest('hex');
 
-const cacheGet = (key: string): AiResult | undefined => {
+const cacheGet = (key: string): Outcome | undefined => {
 	const hit = cache.get(key);
 	if (!hit || Date.now() - hit.at > CACHE_TTL_MS) {
 		cache.delete(key);
@@ -243,7 +275,7 @@ const cacheGet = (key: string): AiResult | undefined => {
 	return hit.value;
 };
 
-const cachePut = ({ key, value }: { key: string; value: AiResult }) => {
+const cachePut = ({ key, value }: { key: string; value: Outcome }) => {
 	if (cache.size >= CACHE_MAX_ENTRIES) {
 		const oldest = cache.keys().next().value;
 		if (oldest !== undefined) {
@@ -406,7 +438,7 @@ class UncountedError extends Error {
 	}
 }
 
-const generate = async (request: AiRequest): Promise<AiResult> => {
+const generate = async (request: AiRequest): Promise<Outcome> => {
 	if (!client) {
 		throw new Error('unconfigured');
 	}
@@ -447,10 +479,16 @@ const generate = async (request: AiRequest): Promise<AiResult> => {
 		throw new Error('no text in response');
 	}
 
+	const raw: unknown = JSON.parse(textBlock.text);
+	// Neither the request nor the model's paraphrase of it is logged: the
+	// /ask privacy note promises the site does not keep what visitors type.
+	const guard = readGuard({ raw, request });
+
 	console.log(
 		JSON.stringify({
-			event: 'generated',
+			event: guard ? 'guarded' : 'generated',
 			mode: request.mode,
+			...(guard && { kind: guard.kind }),
 			model: response.model,
 			input: response.usage.input_tokens,
 			cacheRead: response.usage.cache_read_input_tokens,
@@ -461,7 +499,17 @@ const generate = async (request: AiRequest): Promise<AiResult> => {
 		})
 	);
 
-	return cleanResult({ mode: request.mode, raw: JSON.parse(textBlock.text) });
+	if (guard) {
+		return { guard };
+	}
+	const result = cleanResult({ mode: request.mode, raw });
+	// An answer that copies the confidential notes is withheld and treated as
+	// the manipulation it most likely is.
+	if (leaksNotes(result)) {
+		console.log(JSON.stringify({ event: 'leak_blocked', mode: request.mode }));
+		return { guard: { kind: 'manipulation', attempt: '' } };
+	}
+	return { result };
 };
 
 // --- HTTP -----------------------------------------------------------------
@@ -485,6 +533,35 @@ const send = ({
 	res.end(JSON.stringify(body));
 };
 
+// A freshly generated guard verdict is a strike against the address that
+// sent the request. A cached one costs nothing and is not counted: otherwise
+// replaying it from rotating addresses would grow the strike table without
+// passing any limit.
+const sendOutcome = ({
+	res,
+	ip,
+	outcome,
+	fresh
+}: {
+	res: ServerResponse;
+	ip: string;
+	outcome: Outcome;
+	fresh: boolean;
+}) => {
+	if ('guard' in outcome) {
+		const strikesLeft = fresh
+			? recordStrike(ip)
+			: Math.max(0, STRIKES_PER_DAY - (strikes.get(ip) ?? 0));
+		send({
+			res,
+			status: 422,
+			body: { ok: false, error: 'guarded', guard: outcome.guard, strikesLeft }
+		});
+		return;
+	}
+	send({ res, status: 200, body: { ok: true, ...outcome.result } });
+};
+
 const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerResponse }) => {
 	let request: AiRequest | undefined;
 	try {
@@ -501,10 +578,11 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 		return;
 	}
 
+	const ip = clientIp(req);
 	const key = cacheKey(request);
 	const cached = cacheGet(key);
 	if (cached) {
-		send({ res, status: 200, body: { ok: true, ...cached } });
+		sendOutcome({ res, ip, outcome: cached, fresh: false });
 		return;
 	}
 
@@ -513,7 +591,6 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 		return;
 	}
 
-	const ip = clientIp(req);
 	const reserve = worstCaseUsd(request);
 	const limit = checkLimits({ ip, reserve });
 	if (!limit.ok) {
@@ -525,7 +602,7 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 		});
 		return;
 	}
-	if (inFlight >= MAX_IN_FLIGHT) {
+	if (inFlight >= MAX_IN_FLIGHT || inFlightByIp.has(ip)) {
 		send({ res, status: 503, body: { ok: false, error: 'busy', retryAfterSeconds: 20 } });
 		return;
 	}
@@ -534,11 +611,12 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 	// reservation happen as one step.
 	recordHit(ip);
 	inFlight += 1;
+	inFlightByIp.add(ip);
 	reservedUsd += reserve;
 	try {
-		const value = await generate(request);
-		cachePut({ key, value });
-		send({ res, status: 200, body: { ok: true, ...value } });
+		const outcome = await generate(request);
+		cachePut({ key, value: outcome });
+		sendOutcome({ res, ip, outcome, fresh: true });
 	} catch (err: unknown) {
 		if (err instanceof RefusedError) {
 			send({ res, status: 422, body: { ok: false, error: 'refused' } });
@@ -565,6 +643,7 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 		send({ res, status: 502, body: { ok: false, error: 'upstream' } });
 	} finally {
 		inFlight -= 1;
+		inFlightByIp.delete(ip);
 		reservedUsd = Math.max(0, reservedUsd - reserve);
 	}
 };
