@@ -103,8 +103,7 @@
 		class="shadow-leaf min-h-48 w-full resize-y rounded-2xl border border-border bg-card-solid p-4 text-sm text-fg outline-hidden placeholder:text-fg-faint focus:border-accent"
 		maxlength={AI_INPUT_LIMITS.jobDescription}
 		placeholder={t('fitPlaceholder')}
-		bind:value={posting}
-	></textarea>
+		bind:value={posting}></textarea>
 	<div class="flex flex-wrap items-center justify-between gap-3">
 		<div class="flex flex-wrap items-center gap-2">
 			<span class="text-xs text-fg-subtle">{t('fitSamples')}</span>
