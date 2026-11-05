@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import PortfolioGraph from '#lib/components/graph/PortfolioGraph.svelte';
+	import Footer from '#lib/components/layout/Footer.svelte';
+	import Header from '#lib/components/layout/Header.svelte';
+	import DetailPanel from '#lib/components/panel/DetailPanel.svelte';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import { askCopy, askPath } from '#lib/utils/ask-copy.utils.ts';
+	import { categoryForLeafKind, type Leaf } from '#lib/utils/leaf.utils.ts';
+	import { cvPath } from '#lib/utils/locale.utils.ts';
 	import { goto } from '$app/navigation';
-	import PortfolioGraph from '$lib/components/graph/PortfolioGraph.svelte';
-	import Footer from '$lib/components/layout/Footer.svelte';
-	import Header from '$lib/components/layout/Header.svelte';
-	import DetailPanel from '$lib/components/panel/DetailPanel.svelte';
-	import type { Locale } from '$lib/types/portfolio.types';
-	import { askCopy, askPath } from '$lib/utils/ask-copy.utils';
-	import { categoryForLeafKind, type Leaf } from '$lib/utils/leaf.utils';
-	import { cvPath } from '$lib/utils/locale.utils';
 
 	let locale = $state<Locale>('en');
 	let flattening = $state(false);

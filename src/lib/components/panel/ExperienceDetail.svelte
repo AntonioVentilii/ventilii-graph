@@ -1,14 +1,14 @@
 <script lang="ts">
-	import BulletList from '$lib/components/ui/BulletList.svelte';
-	import EntryHeader from '$lib/components/ui/EntryHeader.svelte';
-	import InlineNavLink from '$lib/components/ui/InlineNavLink.svelte';
-	import LinkList from '$lib/components/ui/LinkList.svelte';
-	import PanelEyebrow from '$lib/components/ui/PanelEyebrow.svelte';
-	import RelatedSection from '$lib/components/ui/RelatedSection.svelte';
-	import { portfolioData } from '$lib/services/portfolio.services';
-	import type { Locale, Experience } from '$lib/types/portfolio.types';
-	import type { Leaf } from '$lib/utils/leaf.utils';
-	import { pickLocale } from '$lib/utils/locale.utils';
+	import BulletList from '#lib/components/ui/BulletList.svelte';
+	import EntryHeader from '#lib/components/ui/EntryHeader.svelte';
+	import InlineNavLink from '#lib/components/ui/InlineNavLink.svelte';
+	import LinkList from '#lib/components/ui/LinkList.svelte';
+	import PanelEyebrow from '#lib/components/ui/PanelEyebrow.svelte';
+	import RelatedSection from '#lib/components/ui/RelatedSection.svelte';
+	import { portfolioData } from '#lib/services/portfolio.services.ts';
+	import type { Locale, Experience } from '#lib/types/portfolio.types.ts';
+	import type { Leaf } from '#lib/utils/leaf.utils.ts';
+	import { pickLocale } from '#lib/utils/locale.utils.ts';
 
 	interface Props {
 		experience: Experience;

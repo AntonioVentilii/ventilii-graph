@@ -1,13 +1,13 @@
 <script lang="ts">
-	import AboutDetail from '$lib/components/panel/AboutDetail.svelte';
-	import EducationDetail from '$lib/components/panel/EducationDetail.svelte';
-	import ExperienceDetail from '$lib/components/panel/ExperienceDetail.svelte';
-	import LanguageDetail from '$lib/components/panel/LanguageDetail.svelte';
-	import ProjectDetail from '$lib/components/panel/ProjectDetail.svelte';
-	import TechnologyDetail from '$lib/components/panel/TechnologyDetail.svelte';
-	import { portfolioData } from '$lib/services/portfolio.services';
-	import type { Locale } from '$lib/types/portfolio.types';
-	import { leafLabel, parseLeaf, type Leaf } from '$lib/utils/leaf.utils';
+	import AboutDetail from '#lib/components/panel/AboutDetail.svelte';
+	import EducationDetail from '#lib/components/panel/EducationDetail.svelte';
+	import ExperienceDetail from '#lib/components/panel/ExperienceDetail.svelte';
+	import LanguageDetail from '#lib/components/panel/LanguageDetail.svelte';
+	import ProjectDetail from '#lib/components/panel/ProjectDetail.svelte';
+	import TechnologyDetail from '#lib/components/panel/TechnologyDetail.svelte';
+	import { portfolioData } from '#lib/services/portfolio.services.ts';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import { leafLabel, parseLeaf, type Leaf } from '#lib/utils/leaf.utils.ts';
 
 	interface Props {
 		locale: Locale;

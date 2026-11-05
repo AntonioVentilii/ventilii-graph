@@ -1,6 +1,6 @@
 <script lang="ts">
-	import PortfolioApp from '$lib/components/PortfolioApp.svelte';
-	import { portfolioData } from '$lib/services/portfolio.services';
+	import PortfolioApp from '#lib/components/PortfolioApp.svelte';
+	import { portfolioData } from '#lib/services/portfolio.services.ts';
 	import {
 		OG_IMAGE,
 		OG_IMAGE_ALT,
@@ -13,7 +13,7 @@
 		SITE_PUBLISHED_TIME,
 		absoluteUrl,
 		serializeSchema
-	} from '$lib/utils/seo.utils';
+	} from '#lib/utils/seo.utils.ts';
 
 	const _jsonLd = {
 		'@context': 'https://schema.org',

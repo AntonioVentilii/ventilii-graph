@@ -1,5 +1,5 @@
-import { portfolioData } from '$lib/services/portfolio.services';
-import { cvPath } from '$lib/utils/locale.utils';
+import { portfolioData } from '#lib/services/portfolio.services.ts';
+import { cvPath } from '#lib/utils/locale.utils.ts';
 
 /** Canonical origin of the deployed site; keep in sync with static/sitemap.xml. */
 export const SITE_ORIGIN = 'https://ventilii.dev';

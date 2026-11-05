@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { portfolioData } from '$lib/services/portfolio.services';
+	import { portfolioData } from '#lib/services/portfolio.services.ts';
 
 	// Injected by Vite `define` at build time, so the prerendered HTML and the
 	// client bundle carry the same year and hydration has nothing to correct.
