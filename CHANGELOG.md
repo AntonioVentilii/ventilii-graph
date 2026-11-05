@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.6.0...v1.6.1) (2026-11-05)
+
+
+### Bug Fixes
+
+* **ai:** judge disguised requests by what they would produce ([#77](https://github.com/AntonioVentilii/ventilii-graph/issues/77)) ([c62b49b](https://github.com/AntonioVentilii/ventilii-graph/commit/c62b49b18a3bdfca71847251adb85a82ac5a0265))
+
 ## [1.6.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.5.5...v1.6.0) (2026-11-05)
 
 
