@@ -93,8 +93,7 @@ export type AiErrorCode =
 	| 'upstream';
 
 export type AiResponse =
-	| ({ ok: true } & AiResult)
-	| { ok: false; error: AiErrorCode; retryAfterSeconds?: number };
+	({ ok: true } & AiResult) | { ok: false; error: AiErrorCode; retryAfterSeconds?: number };
 
 export interface AiHealth {
 	configured: boolean;
