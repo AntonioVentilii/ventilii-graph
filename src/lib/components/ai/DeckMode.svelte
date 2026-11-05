@@ -1,12 +1,12 @@
 <script lang="ts">
-	import DeckViewer from '$lib/components/ai/DeckViewer.svelte';
-	import ErrorNote from '$lib/components/ai/ErrorNote.svelte';
-	import FieldCounter from '$lib/components/ai/FieldCounter.svelte';
-	import ThinkingIndicator from '$lib/components/ai/ThinkingIndicator.svelte';
-	import { AiRequestState } from '$lib/stores/ai-request.svelte';
-	import { AI_INPUT_LIMITS } from '$lib/types/ai.types';
-	import type { Locale } from '$lib/types/portfolio.types';
-	import { DECK_PRESETS, askCopy } from '$lib/utils/ask-copy.utils';
+	import DeckViewer from '#lib/components/ai/DeckViewer.svelte';
+	import ErrorNote from '#lib/components/ai/ErrorNote.svelte';
+	import FieldCounter from '#lib/components/ai/FieldCounter.svelte';
+	import ThinkingIndicator from '#lib/components/ai/ThinkingIndicator.svelte';
+	import { AiRequestState } from '#lib/stores/ai-request.svelte.ts';
+	import { AI_INPUT_LIMITS } from '#lib/types/ai.types.ts';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import { DECK_PRESETS, askCopy } from '#lib/utils/ask-copy.utils.ts';
 
 	interface Props {
 		locale: Locale;

@@ -11,7 +11,7 @@ WORKDIR /app
 
 # Manifests first, so the dependency layer is cached across content-only edits.
 # `--ignore-scripts` skips the `prepare` lifecycle here: `svelte-kit sync` needs
-# svelte.config.js and src/, which are not in this layer yet. It runs below.
+# vite.config.ts and src/, which are not in this layer yet. It runs below.
 COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund --ignore-scripts
 

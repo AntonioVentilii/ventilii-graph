@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { EvidenceRef } from '$lib/types/ai.types';
-	import type { Locale } from '$lib/types/portfolio.types';
-	import { evidenceLink } from '$lib/utils/evidence.utils';
+	import type { EvidenceRef } from '#lib/types/ai.types.ts';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import { evidenceLink } from '#lib/utils/evidence.utils.ts';
 
 	interface Props {
 		evidence: (EvidenceRef | string)[];

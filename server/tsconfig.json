@@ -14,10 +14,7 @@
 		"skipLibCheck": true,
 		"allowImportingTsExtensions": true,
 		"erasableSyntaxOnly": true,
-		"verbatimModuleSyntax": true,
-		"paths": {
-			"$lib/*": ["../src/lib/*.ts"]
-		}
+		"verbatimModuleSyntax": true
 	},
 	"include": ["./**/*.ts"]
 }

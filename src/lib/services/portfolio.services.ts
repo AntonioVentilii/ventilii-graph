@@ -1,4 +1,4 @@
-import type { Localised, PortfolioData } from '$lib/types/portfolio.types';
+import type { Localised, PortfolioData } from '#lib/types/portfolio.types.ts';
 
 const L = {
 	// eslint-disable-next-line local-rules/prefer-object-params
