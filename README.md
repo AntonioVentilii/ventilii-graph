@@ -87,7 +87,11 @@ localized note that quotes the paraphrase, names the attack and links the
 challenge rules and hall of fame at `/ask/#protection` (entries live in
 `HALL_OF_FAME`, `src/lib/utils/ask-copy.utils.ts`). Each such verdict is a
 strike against the visitor's address; at `AI_GUARD_STRIKES_PER_DAY` (2) the
-address gets no more generations until midnight UTC.
+address gets no more generations until midnight UTC. As a second line for
+`AI_PRIVATE_NOTES`, an answer that repeats eight consecutive words of a note
+(runs also in the public portfolio excepted) is withheld and treated as a
+manipulation; paraphrases are not caught, so keep the notes to facts you could
+live with seeing published.
 `static/.well-known/security.txt` points reports at the same page; renew its
 `Expires` before 2027-11-01.
 

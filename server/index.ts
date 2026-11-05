@@ -13,7 +13,7 @@ import {
 } from '../src/lib/types/ai.types.ts';
 import type { Locale } from '../src/lib/types/portfolio.types.ts';
 import { mintFlyIdentityToken } from './fly-oidc.ts';
-import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, readGuard } from './modes.ts';
+import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, leaksNotes, readGuard } from './modes.ts';
 
 /**
  * The AI version's API: one JSON endpoint in front of the Claude API. It runs
@@ -495,7 +495,17 @@ const generate = async (request: AiRequest): Promise<Outcome> => {
 		})
 	);
 
-	return guard ? { guard } : { result: cleanResult({ mode: request.mode, raw }) };
+	if (guard) {
+		return { guard };
+	}
+	const result = cleanResult({ mode: request.mode, raw });
+	// An answer that copies the confidential notes is withheld and treated as
+	// the manipulation it most likely is.
+	if (leaksNotes(result)) {
+		console.log(JSON.stringify({ event: 'leak_blocked', mode: request.mode }));
+		return { guard: { kind: 'manipulation', attempt: '' } };
+	}
+	return { result };
 };
 
 // --- HTTP -----------------------------------------------------------------

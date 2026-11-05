@@ -306,6 +306,47 @@ export const readGuard = (raw: unknown): Guard | undefined => {
 	return { kind: scope, attempt: typeof attempt === 'string' ? cleanAttempt(attempt) : '' };
 };
 
+// The prompt forbids quoting the background notes, but a prompt is not a
+// wall, and the /ask challenge invites people to try. As a second line, an
+// answer that repeats a run of LEAK_RUN consecutive words from a note is not
+// sent. Runs that also appear in the public portfolio don't count, so an
+// answer quoting the portfolio is never caught by a note that repeats it.
+const LEAK_RUN = 8;
+
+const words = (text: string): string[] =>
+	text
+		.toLowerCase()
+		.normalize('NFKD')
+		.replace(/[\u0300-\u036f]/g, '')
+		.split(/[^\p{L}\p{N}]+/u)
+		.filter(Boolean);
+
+const runs = (list: string[]): string[] =>
+	Array.from({ length: Math.max(0, list.length - LEAK_RUN + 1) }, (_, i) =>
+		list.slice(i, i + LEAK_RUN).join(' ')
+	);
+
+const PUBLIC_RUNS = new Set(runs(words(KNOWLEDGE)));
+const NOTE_RUNS = new Set(
+	BACKGROUND_NOTES.split('\n')
+		.flatMap((line) => runs(words(line)))
+		.filter((run) => !PUBLIC_RUNS.has(run))
+);
+
+const strings = (value: unknown): string[] =>
+	typeof value === 'string'
+		? [value]
+		: Array.isArray(value)
+			? value.flatMap(strings)
+			: typeof value === 'object' && value !== null
+				? Object.values(value).flatMap(strings)
+				: [];
+
+/** True when any text in the result repeats a run of words from a background note. */
+export const leaksNotes = (result: AiResult): boolean =>
+	NOTE_RUNS.size > 0 &&
+	strings(result.result).some((text) => runs(words(text)).some((run) => NOTE_RUNS.has(run)));
+
 export const cleanResult = ({ mode, raw }: { mode: AiRequest['mode']; raw: unknown }): AiResult => {
 	switch (mode) {
 		case 'ask':
