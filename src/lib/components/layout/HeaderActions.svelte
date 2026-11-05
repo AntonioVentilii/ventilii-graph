@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Github, Sparkles } from 'lucide-svelte';
+	import { Sparkles } from '@lucide/svelte';
+	import Github from '#lib/components/icons/GithubIcon.svelte';
 	import FlattenToggle from '#lib/components/layout/FlattenToggle.svelte';
 	import LocaleSelect from '#lib/components/layout/LocaleSelect.svelte';
 	import ThemeToggle from '#lib/components/layout/ThemeToggle.svelte';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ChevronLeft, ChevronRight, Maximize2, Printer } from 'lucide-svelte';
+	import { ChevronLeft, ChevronRight, Maximize2, Printer } from '@lucide/svelte';
 	import EvidenceChips from '#lib/components/ai/EvidenceChips.svelte';
 	import type { DeckResult } from '#lib/types/ai.types.ts';
 	import type { Locale } from '#lib/types/portfolio.types.ts';

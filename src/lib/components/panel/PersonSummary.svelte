@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Download, Mail } from 'lucide-svelte';
+	import { Download, Mail } from '@lucide/svelte';
 	import EntryHeader from '#lib/components/ui/EntryHeader.svelte';
 	import LinkList from '#lib/components/ui/LinkList.svelte';
 	import RelatedSection from '#lib/components/ui/RelatedSection.svelte';
