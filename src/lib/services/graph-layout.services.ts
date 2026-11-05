@@ -264,7 +264,8 @@ export const computeGraphLayout = (params: {
 
 		let height = size;
 		let catY = size / 2;
-		let hy = Math.max(hubHalfH + 4, catY - size * 0.3);
+		/* Set by both layouts below */
+		let hy: number;
 		const hx = cx;
 
 		const boxes: LeafBox[] = [];
