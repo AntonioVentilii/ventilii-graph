@@ -1,5 +1,5 @@
-import type { Locale, Project, ProjectStatus } from '$lib/types/portfolio.types';
-import { pickLocale } from '$lib/utils/locale.utils';
+import type { Locale, Project, ProjectStatus } from '#lib/types/portfolio.types.ts';
+import { pickLocale } from '#lib/utils/locale.utils.ts';
 
 const STATUS_LABELS: Record<ProjectStatus, Record<Locale, string>> = {
 	production: { en: 'Live', it: 'Live', pt: 'No ar' },

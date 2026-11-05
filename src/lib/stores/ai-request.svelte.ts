@@ -1,5 +1,11 @@
-import { requestAi } from '$lib/services/ai.services';
-import type { AiErrorCode, AiRequest, AskResult, DeckResult, FitResult } from '$lib/types/ai.types';
+import { requestAi } from '#lib/services/ai.services.ts';
+import type {
+	AiErrorCode,
+	AiRequest,
+	AskResult,
+	DeckResult,
+	FitResult
+} from '#lib/types/ai.types.ts';
 
 type Mode = AiRequest['mode'];
 

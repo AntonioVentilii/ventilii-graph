@@ -1,4 +1,4 @@
-import type { AiHealth, AiRequest, AiResponse } from '$lib/types/ai.types';
+import type { AiHealth, AiRequest, AiResponse } from '#lib/types/ai.types.ts';
 
 /** Client for the API in server/, served on the same origin under /api/ by nginx (vite proxies it in dev). */
 

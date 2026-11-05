@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { ringFloatStyle } from '$lib/utils/graph-geometry.utils';
+	import { ringFloatStyle } from '#lib/utils/graph-geometry.utils.ts';
 
 	interface Props {
 		left: number;

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import type { Person } from '$lib/types/portfolio.types';
+	import type { Person } from '#lib/types/portfolio.types.ts';
 
 	interface Props {
 		person: Person;

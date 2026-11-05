@@ -1,18 +1,18 @@
 <script lang="ts">
 	import { ArrowLeft } from 'lucide-svelte';
 	import { onMount } from 'svelte';
-	import AskMode from '$lib/components/ai/AskMode.svelte';
-	import DeckMode from '$lib/components/ai/DeckMode.svelte';
-	import FitMode from '$lib/components/ai/FitMode.svelte';
-	import Footer from '$lib/components/layout/Footer.svelte';
-	import LocaleSelect from '$lib/components/layout/LocaleSelect.svelte';
-	import ThemeToggle from '$lib/components/layout/ThemeToggle.svelte';
-	import { fetchAiHealth } from '$lib/services/ai.services';
-	import { portfolioData } from '$lib/services/portfolio.services';
-	import type { AiMode } from '$lib/types/ai.types';
-	import type { Locale } from '$lib/types/portfolio.types';
-	import { askCopy } from '$lib/utils/ask-copy.utils';
-	import { cvPath } from '$lib/utils/locale.utils';
+	import AskMode from '#lib/components/ai/AskMode.svelte';
+	import DeckMode from '#lib/components/ai/DeckMode.svelte';
+	import FitMode from '#lib/components/ai/FitMode.svelte';
+	import Footer from '#lib/components/layout/Footer.svelte';
+	import LocaleSelect from '#lib/components/layout/LocaleSelect.svelte';
+	import ThemeToggle from '#lib/components/layout/ThemeToggle.svelte';
+	import { fetchAiHealth } from '#lib/services/ai.services.ts';
+	import { portfolioData } from '#lib/services/portfolio.services.ts';
+	import type { AiMode } from '#lib/types/ai.types.ts';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import { askCopy } from '#lib/utils/ask-copy.utils.ts';
+	import { cvPath } from '#lib/utils/locale.utils.ts';
 
 	const { person } = portfolioData;
 
