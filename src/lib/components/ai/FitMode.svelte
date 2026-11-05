@@ -2,6 +2,7 @@
 	import ErrorNote from '$lib/components/ai/ErrorNote.svelte';
 	import EvidenceChips from '$lib/components/ai/EvidenceChips.svelte';
 	import FieldCounter from '$lib/components/ai/FieldCounter.svelte';
+	import GuardNote from '$lib/components/ai/GuardNote.svelte';
 	import ThinkingIndicator from '$lib/components/ai/ThinkingIndicator.svelte';
 	import { AiRequestState } from '$lib/stores/ai-request.svelte';
 	import { AI_INPUT_LIMITS, type FitGap, type FitResult } from '$lib/types/ai.types';
@@ -141,6 +142,8 @@
 <div class="mt-6 space-y-4">
 	{#if req.loading}
 		<ThinkingIndicator {locale} />
+	{:else if req.error === 'guarded' && req.guard}
+		<GuardNote guard={req.guard.guard} {locale} strikesLeft={req.guard.strikesLeft} />
 	{:else if req.error}
 		<ErrorNote {email} error={req.error} {locale} />
 	{/if}

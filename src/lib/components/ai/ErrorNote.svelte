@@ -21,6 +21,8 @@
 				return askCopy({ key: 'errorBusy', locale });
 			case 'refused':
 				return askCopy({ key: 'errorRefused', locale });
+			case 'guard_blocked':
+				return askCopy({ key: 'errorGuardBlocked', locale });
 			case 'unconfigured':
 				return askCopy({ key: 'offline', locale });
 			case 'forbidden':

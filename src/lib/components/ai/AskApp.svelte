@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ArrowLeft } from 'lucide-svelte';
+	import { ArrowLeft, ShieldCheck } from 'lucide-svelte';
 	import { onMount } from 'svelte';
 	import AskMode from '$lib/components/ai/AskMode.svelte';
 	import DeckMode from '$lib/components/ai/DeckMode.svelte';
@@ -11,7 +11,12 @@
 	import { portfolioData } from '$lib/services/portfolio.services';
 	import type { AiMode } from '$lib/types/ai.types';
 	import type { Locale } from '$lib/types/portfolio.types';
-	import { askCopy } from '$lib/utils/ask-copy.utils';
+	import {
+		CHALLENGE_GOALS,
+		HALL_OF_FAME,
+		PROTECTION_POINTS,
+		askCopy
+	} from '$lib/utils/ask-copy.utils';
 	import { cvPath } from '$lib/utils/locale.utils';
 
 	const { person } = portfolioData;
@@ -41,6 +46,13 @@
 		const lang = params.get('lang');
 		if (lang === 'en' || lang === 'it' || lang === 'pt') {
 			locale = lang;
+		}
+		if (window.location.hash === '#protection') {
+			const rules = document.getElementById('protection');
+			if (rules instanceof HTMLDetailsElement) {
+				rules.open = true;
+				rules.scrollIntoView();
+			}
 		}
 		const m = params.get('mode');
 		if (m === 'ask' || m === 'fit' || m === 'deck') {
@@ -164,7 +176,71 @@
 			</div>
 		</div>
 
-		<p class="mt-12 text-sm text-fg-subtle print:hidden">
+		<!-- Opened from the guard note's link, which targets #protection. -->
+		<details
+			id="protection"
+			class="group mt-12 scroll-mt-6 rounded-2xl border border-border bg-card p-4 text-sm text-fg-muted print:hidden"
+		>
+			<summary
+				class="flex cursor-pointer list-none items-center gap-2 font-bold text-fg marker:hidden"
+			>
+				<ShieldCheck class="shrink-0 text-accent" aria-hidden="true" size={16} />
+				{t('protectionTitle')}
+				<span class="ml-auto text-fg-subtle transition group-open:rotate-90" aria-hidden="true"
+					>›</span
+				>
+			</summary>
+			<div class="mt-4 space-y-4 leading-relaxed">
+				<p>{t('protectionIntro')}</p>
+				<ul class="list-disc space-y-1 pl-5">
+					{#each PROTECTION_POINTS as point (point.en)}
+						<li>{point[locale]}</li>
+					{/each}
+				</ul>
+
+				<h2 class="pt-2 font-display font-bold text-fg">{t('challengeTitle')}</h2>
+				<p>{t('challengeIntro')}</p>
+				<ul class="list-disc space-y-1 pl-5">
+					{#each CHALLENGE_GOALS as goal (goal.en)}
+						<li>{goal[locale]}</li>
+					{/each}
+				</ul>
+				<p>{t('challengeRules')}</p>
+				<p>
+					{t('challengeReport')}
+					<a
+						class="text-link underline underline-offset-2 hover:text-link-hover"
+						href="mailto:{person.email}">{person.email}</a
+					>
+				</p>
+
+				<h2 class="pt-2 font-display font-bold text-fg">{t('hallOfFameTitle')}</h2>
+				{#if HALL_OF_FAME.length}
+					<ul class="space-y-1">
+						{#each HALL_OF_FAME as entry (entry.name)}
+							<li>
+								{#if entry.url}
+									<a
+										class="font-semibold text-link underline underline-offset-2 hover:text-link-hover"
+										href={entry.url}
+										rel="noopener noreferrer"
+										target="_blank">{entry.name}</a
+									>
+								{:else}
+									<span class="font-semibold text-fg">{entry.name}</span>
+								{/if}
+								<span class="text-fg-subtle">· {entry.date}</span>
+								· {entry.found[locale]}
+							</li>
+						{/each}
+					</ul>
+				{:else}
+					<p>{t('hallOfFameEmpty')}</p>
+				{/if}
+			</div>
+		</details>
+
+		<p class="mt-6 text-sm text-fg-subtle print:hidden">
 			{t('contact')}
 			<a
 				class="text-link underline underline-offset-2 hover:text-link-hover"

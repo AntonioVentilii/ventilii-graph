@@ -82,6 +82,17 @@ export type AiResult =
 	| { mode: 'fit'; result: FitResult }
 	| { mode: 'deck'; result: DeckResult };
 
+/**
+ * A request the model would not take on: work that has nothing to do with
+ * Antonio (a book summary, a translation, code) or an attempt to change its
+ * rules. `attempt` is the model's few-word paraphrase of what was asked, in
+ * the page's language, which the page quotes back in a note of its own.
+ */
+export interface Guard {
+	kind: 'off_topic' | 'manipulation';
+	attempt: string;
+}
+
 export type AiErrorCode =
 	| 'bad_request'
 	| 'forbidden'
@@ -90,11 +101,14 @@ export type AiErrorCode =
 	| 'daily_cap'
 	| 'busy'
 	| 'refused'
+	| 'guarded'
+	| 'guard_blocked'
 	| 'upstream';
 
 export type AiResponse =
 	| ({ ok: true } & AiResult)
-	| { ok: false; error: AiErrorCode; retryAfterSeconds?: number };
+	| { ok: false; error: 'guarded'; guard: Guard; strikesLeft: number }
+	| { ok: false; error: Exclude<AiErrorCode, 'guarded'>; retryAfterSeconds?: number };
 
 export interface AiHealth {
 	configured: boolean;

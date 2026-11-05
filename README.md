@@ -80,6 +80,16 @@ since per-IP limits can be dodged by rotating addresses), `AI_DAILY_LIMIT`
 `AI_PRICE_IN_PER_MTOK` / `AI_PRICE_OUT_PER_MTOK` (the configured model's prices; Opus 5.5, Opus 5 and Opus 4.8 are built in, so set them for another model or to correct a listed one).
 Each mode also caps its output tokens, so a prompt that talks the model into a
 long translation or essay is cut off early.
+Every output opens with a `scope` field: when the model judges a request
+off-topic (a book summary, a translation, code) or an attempt to change its
+rules, it fills only that and a few-word paraphrase, and `/ask` shows a fixed,
+localized note that quotes the paraphrase, names the attack and links the
+challenge rules and hall of fame at `/ask/#protection` (entries live in
+`HALL_OF_FAME`, `src/lib/utils/ask-copy.utils.ts`). Each such verdict is a
+strike against the visitor's address; at `AI_GUARD_STRIKES_PER_DAY` (2) the
+address gets no more generations until midnight UTC.
+`static/.well-known/security.txt` points reports at the same page; renew its
+`Expires` before 2027-11-01.
 
 ## Deployment
 
