@@ -89,7 +89,7 @@ export const parseLeaf = (itemId: string | null): Leaf | null => {
 		kind === 'language' ||
 		kind === 'about'
 	) {
-		return { kind, id } as Leaf;
+		return { kind, id };
 	}
 	return null;
 };
