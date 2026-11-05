@@ -22,12 +22,20 @@ COPY . .
 # not as a side effect of it.
 RUN npm run prepare && npm run build && npm run build:api
 
+# Only the Node binary is taken from here: Alpine's own `nodejs` package lags
+# behind (24 on Alpine 3.24), while the site builds and the API runs on 26. Both
+# images are on the same Alpine release, so the binary links against the same
+# musl; Dependabot moves the two digests.
+FROM node:26-alpine@sha256:c6ad9e9c1d80f6eb607c26b4b0a132ff7a2344fad1c78ea3baa2a7d4c8de6d94 AS node
+
 FROM nginx:alpine@sha256:a3554c0d0b48177b1413c26e01f695334428020d9df01243fbae3e11cfd17417
 # The API is one esbuild bundle with its dependencies inlined, so the runtime
-# needs only a Node binary, not node_modules. su-exec drops it to its own `api`
-# user, apart from nginx, so only the API can reach the OIDC helper's socket.
-RUN apk add --no-cache nodejs su-exec \
+# needs only a Node binary (plus the C++ runtime it links), not node_modules.
+# su-exec drops it to its own `api` user, apart from nginx, so only the API can
+# reach the OIDC helper's socket.
+RUN apk add --no-cache libstdc++ libgcc su-exec \
 	&& addgroup -S api && adduser -S -D -H -G api api
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY nginx-security-headers.conf /etc/nginx/snippets/security-headers.conf
 COPY --from=build /app/build /usr/share/nginx/html
