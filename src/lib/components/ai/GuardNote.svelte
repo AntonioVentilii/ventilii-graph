@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ShieldCheck } from 'lucide-svelte';
+	import { ShieldCheck } from '@lucide/svelte';
 	import type { Guard } from '#lib/types/ai.types.ts';
 	import type { Locale } from '#lib/types/portfolio.types.ts';
 	import { ASK_SUGGESTIONS, askCopy } from '#lib/utils/ask-copy.utils.ts';

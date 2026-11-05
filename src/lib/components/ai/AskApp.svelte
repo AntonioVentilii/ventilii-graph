@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ArrowLeft, ShieldCheck } from 'lucide-svelte';
+	import { ArrowLeft, ShieldCheck } from '@lucide/svelte';
 	import { onMount } from 'svelte';
 	import AskMode from '#lib/components/ai/AskMode.svelte';
 	import DeckMode from '#lib/components/ai/DeckMode.svelte';
