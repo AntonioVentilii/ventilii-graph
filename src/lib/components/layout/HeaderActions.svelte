@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { Github, Sparkles } from 'lucide-svelte';
-	import FlattenToggle from '$lib/components/layout/FlattenToggle.svelte';
-	import LocaleSelect from '$lib/components/layout/LocaleSelect.svelte';
-	import ThemeToggle from '$lib/components/layout/ThemeToggle.svelte';
-	import type { Locale } from '$lib/types/portfolio.types';
+	import FlattenToggle from '#lib/components/layout/FlattenToggle.svelte';
+	import LocaleSelect from '#lib/components/layout/LocaleSelect.svelte';
+	import ThemeToggle from '#lib/components/layout/ThemeToggle.svelte';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
 
 	interface Props {
 		locale: Locale;

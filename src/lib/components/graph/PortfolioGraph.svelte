@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { onMount, untrack } from 'svelte';
-	import GraphEdgesLive from '$lib/components/graph/GraphEdgesLive.svelte';
-	import GraphHub from '$lib/components/graph/GraphHub.svelte';
-	import OrbitNode from '$lib/components/graph/OrbitNode.svelte';
-	import LeafDetailCard from '$lib/components/panel/LeafDetailCard.svelte';
-	import { computeGraphLayout, LEAF_CENTER_H } from '$lib/services/graph-layout.services';
-	import { portfolioData } from '$lib/services/portfolio.services';
-	import type { Locale } from '$lib/types/portfolio.types';
-	import { leafLabel, type Leaf } from '$lib/utils/leaf.utils';
-	import { pickLocale } from '$lib/utils/locale.utils';
+	import GraphEdgesLive from '#lib/components/graph/GraphEdgesLive.svelte';
+	import GraphHub from '#lib/components/graph/GraphHub.svelte';
+	import OrbitNode from '#lib/components/graph/OrbitNode.svelte';
+	import LeafDetailCard from '#lib/components/panel/LeafDetailCard.svelte';
+	import { computeGraphLayout, LEAF_CENTER_H } from '#lib/services/graph-layout.services.ts';
+	import { portfolioData } from '#lib/services/portfolio.services.ts';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import { leafLabel, type Leaf } from '#lib/utils/leaf.utils.ts';
+	import { pickLocale } from '#lib/utils/locale.utils.ts';
 
 	interface Props {
 		locale: Locale;

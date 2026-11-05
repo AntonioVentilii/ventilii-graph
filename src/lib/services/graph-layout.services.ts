@@ -1,6 +1,6 @@
-import { portfolioData } from '$lib/services/portfolio.services';
-import { categoryAngle, leafAnglesOpenRing } from '$lib/utils/graph-geometry.utils';
-import { leafLabel, leavesForCategory, type Leaf } from '$lib/utils/leaf.utils';
+import { portfolioData } from '#lib/services/portfolio.services.ts';
+import { categoryAngle, leafAnglesOpenRing } from '#lib/utils/graph-geometry.utils.ts';
+import { leafLabel, leavesForCategory, type Leaf } from '#lib/utils/leaf.utils.ts';
 
 export type GraphView = 'root' | 'category' | 'leaf';
 
@@ -264,7 +264,8 @@ export const computeGraphLayout = (params: {
 
 		let height = size;
 		let catY = size / 2;
-		let hy = Math.max(hubHalfH + 4, catY - size * 0.3);
+		/* Set by both layouts below */
+		let hy: number;
 		const hx = cx;
 
 		const boxes: LeafBox[] = [];

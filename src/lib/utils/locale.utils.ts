@@ -1,4 +1,4 @@
-import type { Locale, Localised } from '$lib/types/portfolio.types';
+import type { Locale, Localised } from '#lib/types/portfolio.types.ts';
 
 export const LOCALES: Locale[] = ['en', 'it', 'pt'];
 

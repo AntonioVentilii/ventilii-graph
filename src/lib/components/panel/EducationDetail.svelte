@@ -1,7 +1,7 @@
 <script lang="ts">
-	import PanelEyebrow from '$lib/components/ui/PanelEyebrow.svelte';
-	import type { Locale, Education } from '$lib/types/portfolio.types';
-	import { pickLocale } from '$lib/utils/locale.utils';
+	import PanelEyebrow from '#lib/components/ui/PanelEyebrow.svelte';
+	import type { Locale, Education } from '#lib/types/portfolio.types.ts';
+	import { pickLocale } from '#lib/utils/locale.utils.ts';
 
 	interface Props {
 		entry: Education;

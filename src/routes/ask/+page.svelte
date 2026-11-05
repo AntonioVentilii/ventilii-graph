@@ -1,5 +1,5 @@
 <script lang="ts">
-	import AskApp from '$lib/components/ai/AskApp.svelte';
+	import AskApp from '#lib/components/ai/AskApp.svelte';
 	import {
 		OG_IMAGE,
 		OG_IMAGE_ALT,
@@ -7,7 +7,7 @@
 		OG_IMAGE_WIDTH,
 		SITE_AUTHOR,
 		absoluteUrl
-	} from '$lib/utils/seo.utils';
+	} from '#lib/utils/seo.utils.ts';
 
 	// Locale is a client-side choice (?lang=), so the prerendered head carries
 	// the English metadata; AskApp swaps <title> and description on the client.

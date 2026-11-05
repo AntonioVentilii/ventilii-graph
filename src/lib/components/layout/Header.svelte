@@ -1,9 +1,9 @@
 <script lang="ts">
-	import HeaderActions from '$lib/components/layout/HeaderActions.svelte';
-	import SkipToContent from '$lib/components/layout/SkipToContent.svelte';
-	import Search from '$lib/components/ui/Search.svelte';
-	import type { Locale } from '$lib/types/portfolio.types';
-	import type { Leaf } from '$lib/utils/leaf.utils';
+	import HeaderActions from '#lib/components/layout/HeaderActions.svelte';
+	import SkipToContent from '#lib/components/layout/SkipToContent.svelte';
+	import Search from '#lib/components/ui/Search.svelte';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import type { Leaf } from '#lib/utils/leaf.utils.ts';
 
 	interface Props {
 		locale: Locale;

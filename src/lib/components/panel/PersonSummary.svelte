@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { Download, Mail } from 'lucide-svelte';
-	import EntryHeader from '$lib/components/ui/EntryHeader.svelte';
-	import LinkList from '$lib/components/ui/LinkList.svelte';
-	import RelatedSection from '$lib/components/ui/RelatedSection.svelte';
-	import type { Locale, PortfolioData } from '$lib/types/portfolio.types';
-	import { pickLocale } from '$lib/utils/locale.utils';
+	import EntryHeader from '#lib/components/ui/EntryHeader.svelte';
+	import LinkList from '#lib/components/ui/LinkList.svelte';
+	import RelatedSection from '#lib/components/ui/RelatedSection.svelte';
+	import type { Locale, PortfolioData } from '#lib/types/portfolio.types.ts';
+	import { pickLocale } from '#lib/utils/locale.utils.ts';
 
 	interface Props {
 		data: PortfolioData;

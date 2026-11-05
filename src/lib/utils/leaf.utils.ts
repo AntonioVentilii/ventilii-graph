@@ -1,6 +1,6 @@
-import { portfolioData } from '$lib/services/portfolio.services';
-import type { Locale } from '$lib/types/portfolio.types';
-import { pickLocale } from '$lib/utils/locale.utils';
+import { portfolioData } from '#lib/services/portfolio.services.ts';
+import type { Locale } from '#lib/types/portfolio.types.ts';
+import { pickLocale } from '#lib/utils/locale.utils.ts';
 
 export type Leaf =
 	| { kind: 'experience'; id: string }

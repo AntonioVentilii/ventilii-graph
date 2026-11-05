@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Github, Linkedin } from 'lucide-svelte';
 	import type { ComponentType } from 'svelte';
-	import type { Locale, Localised } from '$lib/types/portfolio.types';
-	import { pickLocale } from '$lib/utils/locale.utils';
+	import type { Locale, Localised } from '#lib/types/portfolio.types.ts';
+	import { pickLocale } from '#lib/utils/locale.utils.ts';
 
 	interface Link {
 		label: Localised;
