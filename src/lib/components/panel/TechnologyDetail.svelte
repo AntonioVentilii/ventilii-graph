@@ -1,12 +1,12 @@
 <script lang="ts">
-	import EntryHeader from '$lib/components/ui/EntryHeader.svelte';
-	import InlineNavLink from '$lib/components/ui/InlineNavLink.svelte';
-	import PanelEyebrow from '$lib/components/ui/PanelEyebrow.svelte';
-	import RelatedSection from '$lib/components/ui/RelatedSection.svelte';
-	import type { Locale, Technology } from '$lib/types/portfolio.types';
-	import type { Leaf } from '$lib/utils/leaf.utils';
-	import { pickLocale } from '$lib/utils/locale.utils';
-	import { relatedProjectsForStack } from '$lib/utils/relations.utils';
+	import EntryHeader from '#lib/components/ui/EntryHeader.svelte';
+	import InlineNavLink from '#lib/components/ui/InlineNavLink.svelte';
+	import PanelEyebrow from '#lib/components/ui/PanelEyebrow.svelte';
+	import RelatedSection from '#lib/components/ui/RelatedSection.svelte';
+	import type { Locale, Technology } from '#lib/types/portfolio.types.ts';
+	import type { Leaf } from '#lib/utils/leaf.utils.ts';
+	import { pickLocale } from '#lib/utils/locale.utils.ts';
+	import { relatedProjectsForStack } from '#lib/utils/relations.utils.ts';
 
 	interface Props {
 		technology: Technology;

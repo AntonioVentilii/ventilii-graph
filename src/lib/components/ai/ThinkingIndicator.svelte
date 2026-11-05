@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { Locale } from '$lib/types/portfolio.types';
-	import { ASK_COPY, askCopy } from '$lib/utils/ask-copy.utils';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import { ASK_COPY, askCopy } from '#lib/utils/ask-copy.utils.ts';
 
 	interface Props {
 		locale: Locale;

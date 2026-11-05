@@ -1,13 +1,13 @@
 <script lang="ts">
-	import ErrorNote from '$lib/components/ai/ErrorNote.svelte';
-	import EvidenceChips from '$lib/components/ai/EvidenceChips.svelte';
-	import FieldCounter from '$lib/components/ai/FieldCounter.svelte';
-	import GuardNote from '$lib/components/ai/GuardNote.svelte';
-	import ThinkingIndicator from '$lib/components/ai/ThinkingIndicator.svelte';
-	import { AiRequestState } from '$lib/stores/ai-request.svelte';
-	import { AI_INPUT_LIMITS, type FitGap, type FitResult } from '$lib/types/ai.types';
-	import type { Locale } from '$lib/types/portfolio.types';
-	import { FIT_SAMPLES, askCopy } from '$lib/utils/ask-copy.utils';
+	import ErrorNote from '#lib/components/ai/ErrorNote.svelte';
+	import EvidenceChips from '#lib/components/ai/EvidenceChips.svelte';
+	import FieldCounter from '#lib/components/ai/FieldCounter.svelte';
+	import GuardNote from '#lib/components/ai/GuardNote.svelte';
+	import ThinkingIndicator from '#lib/components/ai/ThinkingIndicator.svelte';
+	import { AiRequestState } from '#lib/stores/ai-request.svelte.ts';
+	import { AI_INPUT_LIMITS, type FitGap, type FitResult } from '#lib/types/ai.types.ts';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import { FIT_SAMPLES, askCopy } from '#lib/utils/ask-copy.utils.ts';
 
 	interface Props {
 		locale: Locale;
@@ -104,8 +104,7 @@
 		class="shadow-leaf min-h-48 w-full resize-y rounded-2xl border border-border bg-card-solid p-4 text-sm text-fg outline-hidden placeholder:text-fg-faint focus:border-accent"
 		maxlength={AI_INPUT_LIMITS.jobDescription}
 		placeholder={t('fitPlaceholder')}
-		bind:value={posting}
-	></textarea>
+		bind:value={posting}></textarea>
 	<div class="flex flex-wrap items-center justify-between gap-3">
 		<div class="flex flex-wrap items-center gap-2">
 			<span class="text-xs text-fg-subtle">{t('fitSamples')}</span>

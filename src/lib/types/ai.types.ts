@@ -1,4 +1,4 @@
-import type { Locale } from '$lib/types/portfolio.types';
+import type { Locale } from '#lib/types/portfolio.types.ts';
 
 /**
  * Contract between the /ask page and the API in server/. Evidence ids use the

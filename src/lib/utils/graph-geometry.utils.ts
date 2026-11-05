@@ -1,4 +1,4 @@
-import { portfolioData } from '$lib/services/portfolio.services';
+import { portfolioData } from '#lib/services/portfolio.services.ts';
 
 const n = () => portfolioData.categories.length;
 

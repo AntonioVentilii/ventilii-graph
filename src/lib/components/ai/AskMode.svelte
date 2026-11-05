@@ -1,14 +1,14 @@
 <script lang="ts">
-	import ErrorNote from '$lib/components/ai/ErrorNote.svelte';
-	import EvidenceChips from '$lib/components/ai/EvidenceChips.svelte';
-	import FieldCounter from '$lib/components/ai/FieldCounter.svelte';
-	import GuardNote from '$lib/components/ai/GuardNote.svelte';
-	import RichText from '$lib/components/ai/RichText.svelte';
-	import ThinkingIndicator from '$lib/components/ai/ThinkingIndicator.svelte';
-	import { AiRequestState } from '$lib/stores/ai-request.svelte';
-	import { AI_INPUT_LIMITS, type AskResult } from '$lib/types/ai.types';
-	import type { Locale } from '$lib/types/portfolio.types';
-	import { ASK_SUGGESTIONS, askCopy } from '$lib/utils/ask-copy.utils';
+	import ErrorNote from '#lib/components/ai/ErrorNote.svelte';
+	import EvidenceChips from '#lib/components/ai/EvidenceChips.svelte';
+	import FieldCounter from '#lib/components/ai/FieldCounter.svelte';
+	import GuardNote from '#lib/components/ai/GuardNote.svelte';
+	import RichText from '#lib/components/ai/RichText.svelte';
+	import ThinkingIndicator from '#lib/components/ai/ThinkingIndicator.svelte';
+	import { AiRequestState } from '#lib/stores/ai-request.svelte.ts';
+	import { AI_INPUT_LIMITS, type AskResult } from '#lib/types/ai.types.ts';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import { ASK_SUGGESTIONS, askCopy } from '#lib/utils/ask-copy.utils.ts';
 
 	interface Props {
 		locale: Locale;
@@ -65,8 +65,7 @@
 			{onkeydown}
 			placeholder={t('askPlaceholder')}
 			rows="2"
-			bind:value={question}
-		></textarea>
+			bind:value={question}></textarea>
 		<button
 			class="h-10 shrink-0 rounded-xl bg-accent px-4 text-sm font-bold text-accent-fg transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
 			disabled={disabled || req.loading || !question.trim()}

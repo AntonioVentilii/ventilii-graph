@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { AiErrorCode } from '$lib/types/ai.types';
-	import type { Locale } from '$lib/types/portfolio.types';
-	import { askCopy } from '$lib/utils/ask-copy.utils';
+	import type { AiErrorCode } from '#lib/types/ai.types.ts';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import { askCopy } from '#lib/utils/ask-copy.utils.ts';
 
 	interface Props {
 		error: AiErrorCode;

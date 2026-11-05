@@ -1,4 +1,4 @@
-import type { Locale } from '$lib/types/portfolio.types';
+import type { Locale } from '#lib/types/portfolio.types.ts';
 
 type Copy = Record<Locale, string>;
 

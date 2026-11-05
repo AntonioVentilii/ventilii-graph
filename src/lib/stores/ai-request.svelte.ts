@@ -1,4 +1,4 @@
-import { requestAi } from '$lib/services/ai.services';
+import { requestAi } from '#lib/services/ai.services.ts';
 import type {
 	AiErrorCode,
 	AiRequest,
@@ -6,7 +6,7 @@ import type {
 	DeckResult,
 	FitResult,
 	Guard
-} from '$lib/types/ai.types';
+} from '#lib/types/ai.types.ts';
 
 type Mode = AiRequest['mode'];
 

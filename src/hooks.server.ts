@@ -1,4 +1,4 @@
-import type { Handle } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit/hooks';
 
 /**
  * Stamp the correct <html lang> into server-rendered/prerendered pages

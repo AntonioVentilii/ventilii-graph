@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { ShieldCheck } from 'lucide-svelte';
-	import type { Guard } from '$lib/types/ai.types';
-	import type { Locale } from '$lib/types/portfolio.types';
-	import { ASK_SUGGESTIONS, askCopy } from '$lib/utils/ask-copy.utils';
+	import type { Guard } from '#lib/types/ai.types.ts';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import { ASK_SUGGESTIONS, askCopy } from '#lib/utils/ask-copy.utils.ts';
 
 	interface Props {
 		guard: Guard;

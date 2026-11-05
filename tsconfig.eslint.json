@@ -8,7 +8,6 @@
 		"./src/",
 		"./eslint.config.js",
 		"./eslint-local-rules.cjs",
-		"./svelte.config.js",
 		"./vite.config.ts",
 		"./tailwind.config.ts"
 	],
