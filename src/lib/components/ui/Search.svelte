@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Command, Search as SearchIcon, X } from 'lucide-svelte';
+	import { Command, Search as SearchIcon, X } from '@lucide/svelte';
 	import { onMount } from 'svelte';
 	import { fade, slide } from 'svelte/transition';
 	import type { Locale } from '$lib/types/portfolio.types';

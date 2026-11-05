@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { Github, Linkedin } from 'lucide-svelte';
-	import type { ComponentType } from 'svelte';
+	import type { LucideIcon } from '@lucide/svelte';
+	import Github from '$lib/components/icons/GithubIcon.svelte';
+	import Linkedin from '$lib/components/icons/LinkedinIcon.svelte';
 	import type { Locale, Localised } from '$lib/types/portfolio.types';
 	import { pickLocale } from '$lib/utils/locale.utils';
 
@@ -19,7 +20,7 @@
 
 	let { links, locale, class: className = '', linkClass = '' }: Props = $props();
 
-	const iconMap: Record<string, ComponentType> = {
+	const iconMap: Record<string, LucideIcon> = {
 		Github,
 		Linkedin
 	};

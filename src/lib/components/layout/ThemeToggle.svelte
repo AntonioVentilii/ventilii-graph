@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Sun, Moon } from 'lucide-svelte';
+	import { Sun, Moon } from '@lucide/svelte';
 	import { theme, toggleTheme } from '$lib/stores/theme.store';
 
 	const label = $derived($theme.mode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
