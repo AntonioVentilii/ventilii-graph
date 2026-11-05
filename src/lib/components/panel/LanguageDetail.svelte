@@ -1,8 +1,8 @@
 <script lang="ts">
-	import EntryHeader from '$lib/components/ui/EntryHeader.svelte';
-	import PanelEyebrow from '$lib/components/ui/PanelEyebrow.svelte';
-	import type { Locale, LanguageEntry } from '$lib/types/portfolio.types';
-	import { pickLocale } from '$lib/utils/locale.utils';
+	import EntryHeader from '#lib/components/ui/EntryHeader.svelte';
+	import PanelEyebrow from '#lib/components/ui/PanelEyebrow.svelte';
+	import type { Locale, LanguageEntry } from '#lib/types/portfolio.types.ts';
+	import { pickLocale } from '#lib/utils/locale.utils.ts';
 
 	interface Props {
 		entry: LanguageEntry;

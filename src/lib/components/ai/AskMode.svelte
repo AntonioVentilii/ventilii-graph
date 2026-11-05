@@ -1,13 +1,13 @@
 <script lang="ts">
-	import ErrorNote from '$lib/components/ai/ErrorNote.svelte';
-	import EvidenceChips from '$lib/components/ai/EvidenceChips.svelte';
-	import FieldCounter from '$lib/components/ai/FieldCounter.svelte';
-	import RichText from '$lib/components/ai/RichText.svelte';
-	import ThinkingIndicator from '$lib/components/ai/ThinkingIndicator.svelte';
-	import { AiRequestState } from '$lib/stores/ai-request.svelte';
-	import { AI_INPUT_LIMITS, type AskResult } from '$lib/types/ai.types';
-	import type { Locale } from '$lib/types/portfolio.types';
-	import { ASK_SUGGESTIONS, askCopy } from '$lib/utils/ask-copy.utils';
+	import ErrorNote from '#lib/components/ai/ErrorNote.svelte';
+	import EvidenceChips from '#lib/components/ai/EvidenceChips.svelte';
+	import FieldCounter from '#lib/components/ai/FieldCounter.svelte';
+	import RichText from '#lib/components/ai/RichText.svelte';
+	import ThinkingIndicator from '#lib/components/ai/ThinkingIndicator.svelte';
+	import { AiRequestState } from '#lib/stores/ai-request.svelte.ts';
+	import { AI_INPUT_LIMITS, type AskResult } from '#lib/types/ai.types.ts';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import { ASK_SUGGESTIONS, askCopy } from '#lib/utils/ask-copy.utils.ts';
 
 	interface Props {
 		locale: Locale;

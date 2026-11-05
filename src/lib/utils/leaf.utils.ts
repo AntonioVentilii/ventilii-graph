@@ -1,6 +1,6 @@
-import { portfolioData } from '$lib/services/portfolio.services';
-import type { Locale } from '$lib/types/portfolio.types';
-import { pickLocale } from '$lib/utils/locale.utils';
+import { portfolioData } from '#lib/services/portfolio.services.ts';
+import type { Locale } from '#lib/types/portfolio.types.ts';
+import { pickLocale } from '#lib/utils/locale.utils.ts';
 
 export type Leaf =
 	| { kind: 'experience'; id: string }
@@ -89,7 +89,7 @@ export const parseLeaf = (itemId: string | null): Leaf | null => {
 		kind === 'language' ||
 		kind === 'about'
 	) {
-		return { kind, id } as Leaf;
+		return { kind, id };
 	}
 	return null;
 };

@@ -2,8 +2,8 @@
 	import { Command, Search as SearchIcon, X } from '@lucide/svelte';
 	import { onMount } from 'svelte';
 	import { fade, slide } from 'svelte/transition';
-	import type { Locale } from '$lib/types/portfolio.types';
-	import { searchLeaves, type Leaf } from '$lib/utils/leaf.utils';
+	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import { searchLeaves, type Leaf } from '#lib/utils/leaf.utils.ts';
 
 	interface Props {
 		locale: Locale;

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { LucideIcon } from '@lucide/svelte';
-	import Github from '$lib/components/icons/GithubIcon.svelte';
-	import Linkedin from '$lib/components/icons/LinkedinIcon.svelte';
-	import type { Locale, Localised } from '$lib/types/portfolio.types';
-	import { pickLocale } from '$lib/utils/locale.utils';
+	import Github from '#lib/components/icons/GithubIcon.svelte';
+	import Linkedin from '#lib/components/icons/LinkedinIcon.svelte';
+	import type { Locale, Localised } from '#lib/types/portfolio.types.ts';
+	import { pickLocale } from '#lib/utils/locale.utils.ts';
 
 	interface Link {
 		label: Localised;

@@ -1,15 +1,15 @@
 <script lang="ts">
-	import BulletList from '$lib/components/ui/BulletList.svelte';
-	import EntryHeader from '$lib/components/ui/EntryHeader.svelte';
-	import LinkList from '$lib/components/ui/LinkList.svelte';
-	import PanelEyebrow from '$lib/components/ui/PanelEyebrow.svelte';
-	import RelatedSection from '$lib/components/ui/RelatedSection.svelte';
-	import TagButton from '$lib/components/ui/TagButton.svelte';
-	import type { Project, Locale } from '$lib/types/portfolio.types';
-	import type { Leaf } from '$lib/utils/leaf.utils';
-	import { pickLocale } from '$lib/utils/locale.utils';
-	import { projectMeta } from '$lib/utils/project.utils';
-	import { relatedStackForProject } from '$lib/utils/relations.utils';
+	import BulletList from '#lib/components/ui/BulletList.svelte';
+	import EntryHeader from '#lib/components/ui/EntryHeader.svelte';
+	import LinkList from '#lib/components/ui/LinkList.svelte';
+	import PanelEyebrow from '#lib/components/ui/PanelEyebrow.svelte';
+	import RelatedSection from '#lib/components/ui/RelatedSection.svelte';
+	import TagButton from '#lib/components/ui/TagButton.svelte';
+	import type { Project, Locale } from '#lib/types/portfolio.types.ts';
+	import type { Leaf } from '#lib/utils/leaf.utils.ts';
+	import { pickLocale } from '#lib/utils/locale.utils.ts';
+	import { projectMeta } from '#lib/utils/project.utils.ts';
+	import { relatedStackForProject } from '#lib/utils/relations.utils.ts';
 
 	interface Props {
 		project: Project;

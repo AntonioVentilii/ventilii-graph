@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { type Snippet, onMount } from 'svelte';
-	import { initThemeFromStorage } from '$lib/stores/theme.store';
+	import { initThemeFromStorage } from '#lib/stores/theme.store.ts';
 	// eslint-disable-next-line import/no-relative-parent-imports
 	import '../app.css';
 

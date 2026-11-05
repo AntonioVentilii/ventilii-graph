@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import ThemeToggle from '$lib/components/layout/ThemeToggle.svelte';
-	import { portfolioData } from '$lib/services/portfolio.services';
-	import type { Locale, Localised } from '$lib/types/portfolio.types';
-	import { cvPath, pickLocale } from '$lib/utils/locale.utils';
-	import { projectMeta } from '$lib/utils/project.utils';
+	import ThemeToggle from '#lib/components/layout/ThemeToggle.svelte';
+	import { portfolioData } from '#lib/services/portfolio.services.ts';
+	import type { Locale, Localised } from '#lib/types/portfolio.types.ts';
+	import { cvPath, pickLocale } from '#lib/utils/locale.utils.ts';
+	import { projectMeta } from '#lib/utils/project.utils.ts';
 	import {
 		OG_IMAGE,
 		OG_IMAGE_ALT,
@@ -17,7 +17,7 @@
 		SITE_PUBLISHED_TIME,
 		absoluteUrl,
 		serializeSchema
-	} from '$lib/utils/seo.utils';
+	} from '#lib/utils/seo.utils.ts';
 
 	interface Props {
 		locale: Locale;

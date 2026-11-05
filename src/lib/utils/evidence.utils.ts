@@ -1,5 +1,5 @@
-import type { Locale } from '$lib/types/portfolio.types';
-import { leafLabel, parseLeaf } from '$lib/utils/leaf.utils';
+import type { Locale } from '#lib/types/portfolio.types.ts';
+import { leafLabel, parseLeaf } from '#lib/utils/leaf.utils.ts';
 
 export interface EvidenceLink {
 	id: string;
