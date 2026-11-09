@@ -4,6 +4,9 @@ Everything shared in this repository, one line each. Search here, then in the
 code, before writing a component, a helper, a constant or a type. Extend what
 exists. A PR that adds or removes a shared piece updates this page.
 
+A piece marked unused is imported nowhere today. Reuse it, or delete it in a
+PR of its own; do not write a second one beside it.
+
 ## Content and types
 
 | Path                                     | What                                                                                                                                                                                                 |
@@ -16,7 +19,7 @@ exists. A PR that adds or removes a shared piece updates this page.
 
 | Export                                                                                       | What                                                            |
 | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| `locale.utils.ts` `LOCALES`                                                                  | The three locales, in order                                     |
+| `locale.utils.ts` `LOCALES`                                                                  | The three locales, in order (exported but unused: see below)    |
 | `locale.utils.ts` `pickLocale`                                                               | `Localised` to string, English fallback                         |
 | `locale.utils.ts` `cvPath`                                                                   | `/cv/`, `/cv/it/`, `/cv/pt/` for a locale                       |
 | `leaf.utils.ts` `Leaf`                                                                       | A map item: `{ kind, id }`                                      |
@@ -45,15 +48,15 @@ exists. A PR that adds or removes a shared piece updates this page.
 
 ## Services and stores
 
-| Path                                                                                   | What                                                      |
-| -------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| `services/graph-layout.services.ts` `computeGraphLayout`                               | Positions of hub, categories, leaves and edges for a view |
-| `services/graph-layout.services.ts` `graphView`, `GraphView`                           | `root`, `category` or `leaf` from the selection           |
-| `services/graph-layout.services.ts` `CAT_W`, `CAT_H`, `LEAF_CENTER_H` and layout types | Node sizes and result types                               |
-| `services/ai.services.ts` `requestAi`                                                  | `POST /api/ai`, never throws except on abort              |
-| `services/ai.services.ts` `fetchAiHealth`                                              | `GET /api/ai/health`, `undefined` on failure              |
-| `stores/ai-request.svelte.ts` `AiRequestState`                                         | Per-mode loading, result, error and guard, with abort     |
-| `stores/theme.store.ts` `theme`, `setTheme`, `toggleTheme`, `initThemeFromStorage`     | Light and dark mode                                       |
+| Path                                                                                          | What                                                      |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| `services/graph-layout.services.ts` `computeGraphLayout`                                      | Positions of hub, categories, leaves and edges for a view |
+| `services/graph-layout.services.ts` `graphView`, `GraphView`                                  | `root`, `category` or `leaf` from the selection           |
+| `services/graph-layout.services.ts` `CAT_W`, `CAT_H`, `LEAF_CENTER_H` and layout types        | Node sizes and result types                               |
+| `services/ai.services.ts` `requestAi`                                                         | `POST /api/ai`, never throws except on abort              |
+| `services/ai.services.ts` `fetchAiHealth`                                                     | `GET /api/ai/health`, `undefined` on failure              |
+| `stores/ai-request.svelte.ts` `AiRequestState`                                                | Per-mode loading, result, error and guard, with abort     |
+| `stores/theme.store.ts` `theme`, `toggleTheme`, `initThemeFromStorage` (`setTheme` is unused) | Light and dark mode                                       |
 
 ## Components: `ui/` (no data access, reuse first)
 
@@ -61,7 +64,7 @@ exists. A PR that adds or removes a shared piece updates this page.
 | ----------------------- | ----------------------------------------------------- |
 | `BulletList.svelte`     | Muted bullet list of strings                          |
 | `EntryHeader.svelte`    | Title (h1 or h2), subtitle and meta line of an entry  |
-| `ExternalPill.svelte`   | Rounded external link opening in a new tab            |
+| `ExternalPill.svelte`   | Rounded external link in a new tab (unused today)     |
 | `InlineNavLink.svelte`  | Link-styled button for in-map navigation              |
 | `LinkList.svelte`       | Localised links with GitHub, LinkedIn or Lucide icons |
 | `PanelEyebrow.svelte`   | Small uppercase label above a panel title             |
@@ -92,7 +95,7 @@ exists. A PR that adds or removes a shared piece updates this page.
 | `graph/GraphEdgesLive.svelte`                                                 | SVG edges that follow floating nodes                  |
 | `panel/DetailPanel.svelte`                                                    | Side panel wrapping `PersonSummary`                   |
 | `panel/PersonSummary.svelte`                                                  | Avatar, title, links, org highlights                  |
-| `panel/CategoryIntro.svelte`                                                  | Category heading and its leaves                       |
+| `panel/CategoryIntro.svelte`                                                  | Category heading and its leaves (unused today)        |
 | `panel/LeafDetailCard.svelte`                                                 | Dispatches a leaf to its `*Detail.svelte`             |
 | `panel/{Experience,Project,Technology,Education,Language,About}Detail.svelte` | One detail view per leaf kind                         |
 | `cv/StaticCv.svelte`                                                          | The whole flat CV with head, JSON-LD and locale nav   |

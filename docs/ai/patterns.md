@@ -53,7 +53,7 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
   and `guard` as `$state` fields and aborts the previous run with an
   `AbortController`. One instance per mode, created in the mode component.
 - **Svelte store for global UI state.** `theme`
-  (`src/lib/stores/theme.store.ts:6`) with `setTheme`/`toggleTheme`; the first
+  (`src/lib/stores/theme.store.ts:6`) with `toggleTheme`; the first
   paint is set by the inline script in `src/app.html` to avoid a flash.
 - **Component state** uses `$state`, `$derived`, `$effect`; props are typed by
   a local `interface Props` and read with `$props()`
@@ -106,7 +106,8 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
   `EVIDENCE_IDS` in `server/knowledge.ts:115`, and a second `item` parser in
   `PortfolioApp.svelte:30` that casts with `as Leaf['kind']` instead of calling
   `parseLeaf`. A new kind must touch all of them; the fix is one list.
-- **The locale list is repeated**: `LOCALES` in `locale.utils.ts:3` and again in
+- **The locale list is repeated**: `LOCALES` in `locale.utils.ts:3` (imported by
+  nothing) and again in
   `server/index.ts:125`; the `?lang=` check in `PortfolioApp.svelte:25` and
   `AskApp.svelte:47`; `pt-BR` for `<html lang>` in `src/hooks.server.ts:10`,
   `AskApp.svelte:72` and `StaticCv.svelte:72`; the locale nav in
@@ -129,3 +130,11 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
   with a guard instead.
 - **`prefers-reduced-motion`** is queried inline in `PortfolioApp.svelte:136`,
   `PortfolioGraph.svelte:54` and `:102`, and `GraphEdgesLive.svelte:231`.
+- **Dead code**: `components/panel/CategoryIntro.svelte`,
+  `components/ui/ExternalPill.svelte` and `setTheme` in `theme.store.ts` are
+  imported nowhere.
+- **Copy-pasted markup**: the submit row of `AskMode.svelte`, `FitMode.svelte`
+  and `DeckMode.svelte`; the JSON-LD and SEO head of `StaticCv.svelte` and
+  `routes/+page.svelte` (and `routes/ask/+page.svelte`); the related-items list
+  of `ExperienceDetail.svelte` and `TechnologyDetail.svelte`; two branches of
+  `OrbitNode.svelte`. Extract a component before adding a fourth copy.
