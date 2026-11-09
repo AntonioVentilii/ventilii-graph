@@ -52,10 +52,16 @@ folder without asking.
 ## Direction of dependencies
 
 ```
-routes -> components -> stores -> services -> utils -> types
-                     \-------------------------^
+routes -> components -> stores, services, utils, types   (any of them)
+          stores     -> services, utils, types
+          services   -> utils, types   (utils may read portfolio.services.ts)
+          utils      -> types
 server/ -> src/lib/{services/portfolio,types}   (never the other way)
 ```
+
+Components import whichever layer they need directly (`PortfolioApp.svelte`
+reads utils, `DetailPanel.svelte` reads `portfolioData`, the `/ask` modes use
+`AiRequestState`); what never happens is a lower layer importing a higher one.
 
 - `types/` imports only other types.
 - `utils/` may read `portfolioData` (as `leaf.utils.ts` and `relations.utils.ts`

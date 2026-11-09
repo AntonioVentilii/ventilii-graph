@@ -5,8 +5,10 @@ Models: `af0bb1d` (the `/cv/` pages), `f074e86`'s `/ask` route.
 
 ## A new page
 
-1. `src/routes/<path>/+page.ts`: `export const prerender = true;` (the layout
-   already sets `prerender`, `ssr` and `trailingSlash = 'always'`).
+1. `src/routes/<path>/+page.ts`: `prerender = true`, `ssr = true` and
+   `trailingSlash = 'always'`, as every existing route sets them (the layout
+   sets only `prerender` and `ssr`; the trailing slash is per route, and nginx
+   and the probes expect `/<path>/`).
 2. `src/routes/<path>/+page.svelte`: the `<svelte:head>` from the constants in
    `src/lib/utils/seo.utils.ts` (canonical with `absoluteUrl`, `og:*`,
    `twitter:*`), and one app component from `src/lib/components/<feature>/`.
