@@ -42,6 +42,25 @@ npm run build
 Touching `Dockerfile`, `nginx*.conf` or `docker/`: also build and run the image
 (`README.md`, "Local image").
 
+## The quality gate
+
+`npm run lint` (the CI `lint` job) runs, after Prettier:
+
+- **ESLint** (`eslint.config.js`): the oisy config (no explicit `any`, object
+  params, `#lib/` imports) plus `complexity` 15, `max-depth` 4 and `max-lines`
+  400 (blank lines and comments not counted), and `no-restricted-imports`
+  boundaries that enforce the direction in [structure.md](./structure.md).
+  Files over a limit today are pinned at their current value in `BASELINE`.
+- **knip** (`knip.json`): unused files, exports and dependencies. The ones that
+  exist today are listed in the config.
+- **jscpd** (`.jscpd.json`): copy-paste in `src/` and `server/`, failing above
+  the duplicated-line share of today (`threshold`).
+
+The baselines only move down. A change that brings a pinned file under its pin,
+removes a listed unused piece or removes a clone lowers or drops that entry in
+the same PR. Raising a pin, listing a new unused piece or raising the threshold
+needs the owner.
+
 ## What CI runs on a PR
 
 `.github/workflows/checks.yml`: `pr-title`, `lint`, `check`, `build`, and
