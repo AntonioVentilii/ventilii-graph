@@ -51,12 +51,6 @@
 			pt: 'Escolha itens no mapa; ao abrir uma folha, os detalhes aparecem em um cartão ligado àquele nó.'
 		},
 		orgNote: { en: 'DFINITY on GitHub', it: 'DFINITY su GitHub', pt: 'DFINITY no GitHub' },
-		categoryIntroEyebrow: { en: 'Category', it: 'Categoria', pt: 'Categoria' },
-		hintPickOuter: {
-			en: 'Pick an item in the outer ring for details.',
-			it: 'Scegli un elemento nel secondo anello per i dettagli.',
-			pt: 'Escolha um item no anel externo para ver os detalhes.'
-		},
 		relatedProjects: {
 			en: 'Related projects:',
 			it: 'Progetti collegati:',
@@ -74,7 +68,6 @@
 			pt: 'Buscar no portfólio...'
 		},
 		searchShortcut: { en: 'Search (⌘K)', it: 'Cerca (⌘K)', pt: 'Buscar (⌘K)' },
-		searchLabel: { en: 'Search', it: 'Cerca', pt: 'Buscar' },
 		flatten: { en: 'flatten', it: 'appiattisci', pt: 'achatar' },
 		flattenTitle: {
 			en: 'Flatten the graph into a plain CV page',
@@ -88,14 +81,11 @@
 	const panelLabels = $derived({
 		orgNote: tr('orgNote'),
 		panelHint: tr('panelHint'),
-		categoryIntroEyebrow: tr('categoryIntroEyebrow'),
-		hintPickOuter: tr('hintPickOuter'),
 		relatedProjects: tr('relatedProjects'),
 		stack: tr('stack'),
 		relatedTechProjects: tr('relatedTechProjects'),
 		searchPlaceholder: tr('searchPlaceholder'),
-		searchShortcut: tr('searchShortcut'),
-		searchLabel: tr('searchLabel')
+		searchShortcut: tr('searchShortcut')
 	});
 
 	const toggleCategory = (id: string) => {

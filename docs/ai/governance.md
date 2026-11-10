@@ -51,19 +51,21 @@ PR, without the owner's explicit go-ahead. Merges are squash only.
 - Add AI attribution lines to commits, PRs or code.
 - Silence ESLint, `svelte-check` or `tsc` to go green. The few existing
   `eslint-disable` lines each carry a reason; a new one needs the same and the
-  owner's agreement.
+  owner's agreement. The same holds for the quality gate's baselines
+  (`BASELINE` in `eslint.config.js`, the lists in `knip.json`, the `threshold`
+  in `.jscpd.json`): lower them freely, never raise them without the owner.
 
 ## Meta-update map
 
 A PR that changes one of these updates the page next to it in the same PR.
 
-| You changed...                                               | Update                                                     |
-| ------------------------------------------------------------ | ---------------------------------------------------------- |
-| A shared component, util, store, service, constant or type   | [reusability.md](./reusability.md)                         |
-| A folder, or where a kind of code goes                       | [structure.md](./structure.md)                             |
-| How state, data, errors, copy or components are written      | [patterns.md](./patterns.md)                               |
-| A CI job, a gate, a script in `package.json`, the title rule | [pr-and-ci.md](./pr-and-ci.md), [testing.md](./testing.md) |
-| A recurring change done a new way                            | the matching [workflows/](./workflows/) recipe             |
-| A protected path or a permission                             | this page                                                  |
-| A command, the layout or a repo-specific rule                | [`AGENTS.md`](../../AGENTS.md)                             |
-| Build, deploy, the API's env vars or limits                  | [`README.md`](../../README.md)                             |
+| You changed...                                                                        | Update                                                     |
+| ------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| A shared component, util, store, service, constant or type                            | [reusability.md](./reusability.md)                         |
+| A folder, or where a kind of code goes                                                | [structure.md](./structure.md)                             |
+| How state, data, errors, copy or components are written                               | [patterns.md](./patterns.md)                               |
+| A CI job, a gate, a script in `package.json`, the title rule, a quality-gate baseline | [pr-and-ci.md](./pr-and-ci.md), [testing.md](./testing.md) |
+| A recurring change done a new way                                                     | the matching [workflows/](./workflows/) recipe             |
+| A protected path or a permission                                                      | this page                                                  |
+| A command, the layout or a repo-specific rule                                         | [`AGENTS.md`](../../AGENTS.md)                             |
+| Build, deploy, the API's env vars or limits                                           | [`README.md`](../../README.md)                             |

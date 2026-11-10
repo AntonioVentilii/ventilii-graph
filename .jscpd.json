@@ -1,0 +1,5 @@
+{
+	"path": ["src", "server"],
+	"threshold": 0.7,
+	"reporters": ["console"]
+}
