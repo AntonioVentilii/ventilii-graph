@@ -8,7 +8,6 @@
 		"src/lib/components/panel/CategoryIntro.svelte",
 		"src/lib/components/ui/ExternalPill.svelte"
 	],
-	"ignoreDependencies": ["@tailwindcss/postcss", "@types/eslint", "postcss", "tslib"],
 	"ignoreIssues": {
 		"src/lib/stores/theme.store.ts": ["exports"],
 		"src/lib/utils/locale.utils.ts": ["exports"]
