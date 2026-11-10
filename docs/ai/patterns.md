@@ -130,8 +130,7 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
   with a guard instead.
 - **`prefers-reduced-motion`** is queried inline in `PortfolioApp.svelte:136`,
   `PortfolioGraph.svelte:54` and `:102`, and `GraphEdgesLive.svelte:231`.
-- **Copy-pasted markup**: the submit row of `AskMode.svelte`, `FitMode.svelte`
-  and `DeckMode.svelte`; the JSON-LD and SEO head of `StaticCv.svelte` and
+- **Copy-pasted markup**: the JSON-LD and SEO head of `StaticCv.svelte` and
   `routes/+page.svelte` (and `routes/ask/+page.svelte`); the related-items list
   of `ExperienceDetail.svelte` and `TechnologyDetail.svelte`; two branches of
   `OrbitNode.svelte`. Extract a component before adding a fourth copy.

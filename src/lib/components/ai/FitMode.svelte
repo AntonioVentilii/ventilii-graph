@@ -1,9 +1,7 @@
 <script lang="ts">
-	import ErrorNote from '#lib/components/ai/ErrorNote.svelte';
 	import EvidenceChips from '#lib/components/ai/EvidenceChips.svelte';
 	import FieldCounter from '#lib/components/ai/FieldCounter.svelte';
-	import GuardNote from '#lib/components/ai/GuardNote.svelte';
-	import ThinkingIndicator from '#lib/components/ai/ThinkingIndicator.svelte';
+	import RequestStatus from '#lib/components/ai/RequestStatus.svelte';
 	import { AiRequestState } from '#lib/stores/ai-request.svelte.ts';
 	import { AI_INPUT_LIMITS, type FitGap, type FitResult } from '#lib/types/ai.types.ts';
 	import type { Locale } from '#lib/types/portfolio.types.ts';
@@ -139,13 +137,7 @@
 </form>
 
 <div class="mt-6 space-y-4">
-	{#if req.loading}
-		<ThinkingIndicator {locale} />
-	{:else if req.error === 'guarded' && req.guard}
-		<GuardNote guard={req.guard.guard} {locale} strikesLeft={req.guard.strikesLeft} />
-	{:else if req.error}
-		<ErrorNote {email} error={req.error} {locale} />
-	{/if}
+	<RequestStatus {email} error={req.error} guard={req.guard} loading={req.loading} {locale} />
 
 	{#if req.result && !req.loading}
 		{@const r = req.result}
