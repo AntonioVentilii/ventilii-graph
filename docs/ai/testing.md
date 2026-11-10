@@ -7,14 +7,14 @@ ask first.
 
 ## What proves a change
 
-| Layer                  | How                                                                                       |
-| ---------------------- | ----------------------------------------------------------------------------------------- |
-| Types, Svelte, the API | `npm run check` (`svelte-check` on `src/`, `tsc -p server`)                               |
-| Style and lint         | `npm run lint` (Prettier check, ESLint with the oisy config)                              |
-| Prerender              | `npm run build`: every route renders to HTML or the build fails                           |
-| The image              | The `docker` job in `.github/workflows/checks.yml`                                        |
-| A page in the browser  | `npm run dev` (launch config `dev` in `.claude/launch.json`), then look at it             |
-| The API locally        | `npm run dev:api` with `ANTHROPIC_API_KEY` in `.env`; `curl localhost:8787/api/ai/health` |
+| Layer                  | How                                                                                                 |
+| ---------------------- | --------------------------------------------------------------------------------------------------- |
+| Types, Svelte, the API | `npm run check` (`svelte-check` on `src/`, `tsc -p server`)                                         |
+| Style and quality      | `npm run lint`: Prettier, ESLint, knip, jscpd (see [pr-and-ci.md](./pr-and-ci.md#the-quality-gate)) |
+| Prerender              | `npm run build`: every route renders to HTML or the build fails                                     |
+| The image              | The `docker` job in `.github/workflows/checks.yml`                                                  |
+| A page in the browser  | `npm run dev` (launch config `dev` in `.claude/launch.json`), then look at it                       |
+| The API locally        | `npm run dev:api` with `ANTHROPIC_API_KEY` in `.env`; `curl localhost:8787/api/ai/health`           |
 
 ## The image probes
 
