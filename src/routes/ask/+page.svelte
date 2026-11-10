@@ -1,5 +1,6 @@
 <script lang="ts">
 	import AskApp from '#lib/components/ai/AskApp.svelte';
+	import { ASK_COPY } from '#lib/utils/ask-copy.utils.ts';
 	import {
 		OG_IMAGE,
 		OG_IMAGE_ALT,
@@ -11,9 +12,8 @@
 
 	// Locale is a client-side choice (?lang=), so the prerendered head carries
 	// the English metadata; AskApp swaps <title> and description on the client.
-	const title = 'Ask the AI version · Antonio Ventilii';
-	const description =
-		'An AI that has read Antonio Ventilii’s whole portfolio: ask what he has built, check how he fits a job posting, or get a short tailored presentation. Instructed to state gaps, not to sell.';
+	const title = ASK_COPY.metaTitle.en;
+	const description = ASK_COPY.metaDescription.en;
 </script>
 
 <svelte:head>

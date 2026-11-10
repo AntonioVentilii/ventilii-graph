@@ -21,6 +21,7 @@ PR of its own; do not write a second one beside it.
 | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
 | `locale.utils.ts` `LOCALES`                                                                  | The three locales, in order (exported but unused: see below)    |
 | `locale.utils.ts` `pickLocale`                                                               | `Localised` to string, English fallback                         |
+| `locale.utils.ts` `LANGUAGE_LABEL`                                                           | The language menu's label in each locale                        |
 | `locale.utils.ts` `cvPath`                                                                   | `/cv/`, `/cv/it/`, `/cv/pt/` for a locale                       |
 | `leaf.utils.ts` `Leaf`                                                                       | A map item: `{ kind, id }`                                      |
 | `leaf.utils.ts` `parseLeaf`                                                                  | `'project:officina'` to a `Leaf`, or `null`                     |
@@ -41,6 +42,8 @@ PR of its own; do not write a second one beside it.
 | `seo.utils.ts` `PERSON_KNOWS_ABOUT`                                                          | JSON-LD `knowsAbout` topics                                     |
 | `seo.utils.ts` `OG_IMAGE*`                                                                   | Social banner URL, size and alt                                 |
 | `seo.utils.ts` `SITE_AUTHOR`, `SITE_AUTHOR_URL`, `SITE_PUBLISHED_TIME`, `SITE_MODIFIED_TIME` | Author and date metadata                                        |
+| `map-copy.utils.ts` `MAP_COPY`, `mapCopy`                                                    | Every map string in three locales, and its reader               |
+| `cv-copy.utils.ts` `CV_COPY`, `cvCopy`                                                       | Every CV page string in three locales, and its reader           |
 | `ask-copy.utils.ts` `ASK_COPY`, `askCopy`                                                    | Every `/ask` string in three locales, and its reader            |
 | `ask-copy.utils.ts` `askPath`                                                                | `/ask/` URL for a locale                                        |
 | `ask-copy.utils.ts` `PROTECTION_POINTS`, `CHALLENGE_GOALS`, `HALL_OF_FAME`                   | The challenge rules and hall of fame                            |
@@ -87,7 +90,7 @@ PR of its own; do not write a second one beside it.
 
 | Component                                                                     | What                                                  |
 | ----------------------------------------------------------------------------- | ----------------------------------------------------- |
-| `PortfolioApp.svelte`                                                         | The map's shell: URL state, locale, copy, layout      |
+| `PortfolioApp.svelte`                                                         | The map's shell: URL state, locale, layout            |
 | `graph/PortfolioGraph.svelte`                                                 | The map: hub, rings, selection, leaf card placement   |
 | `graph/GraphHub.svelte`                                                       | Centre node with avatar; press and hold prints the CV |
 | `graph/OrbitNode.svelte`                                                      | Category or leaf pill on a ring                       |

@@ -9,6 +9,7 @@
 	import { askCopy, askPath } from '#lib/utils/ask-copy.utils.ts';
 	import { categoryForLeafKind, type Leaf } from '#lib/utils/leaf.utils.ts';
 	import { cvPath } from '#lib/utils/locale.utils.ts';
+	import { mapCopy } from '#lib/utils/map-copy.utils.ts';
 	import { goto } from '$app/navigation';
 
 	let locale = $state<Locale>('en');
@@ -37,46 +38,7 @@
 		}
 	});
 
-	const t = {
-		skip: { en: 'Skip to details', it: 'Salta ai dettagli', pt: 'Pular para os detalhes' },
-		cvFallback: {
-			en: 'Linear view (GitHub repos)',
-			it: 'Vista lineare (repo GitHub)',
-			pt: 'Visão linear (repos GitHub)'
-		},
-		langLabel: { en: 'Language', it: 'Lingua', pt: 'Idioma' },
-		panelHint: {
-			en: 'Pick items on the graph; when you open a leaf, detail appears in a card linked to that node.',
-			it: 'Scegli sulla mappa; aprendo una foglia, i dettagli compaiono in una scheda collegata al nodo.',
-			pt: 'Escolha itens no mapa; ao abrir uma folha, os detalhes aparecem em um cartão ligado àquele nó.'
-		},
-		orgNote: { en: 'DFINITY on GitHub', it: 'DFINITY su GitHub', pt: 'DFINITY no GitHub' },
-		relatedProjects: {
-			en: 'Related projects:',
-			it: 'Progetti collegati:',
-			pt: 'Projetos relacionados:'
-		},
-		stack: { en: 'Stack:', it: 'Stack:', pt: 'Stack:' },
-		relatedTechProjects: {
-			en: 'Projects using this:',
-			it: 'Progetti con questo elemento:',
-			pt: 'Projetos que usam isto:'
-		},
-		searchPlaceholder: {
-			en: 'Search portfolio...',
-			it: 'Cerca nel portfolio...',
-			pt: 'Buscar no portfólio...'
-		},
-		searchShortcut: { en: 'Search (⌘K)', it: 'Cerca (⌘K)', pt: 'Buscar (⌘K)' },
-		flatten: { en: 'flatten', it: 'appiattisci', pt: 'achatar' },
-		flattenTitle: {
-			en: 'Flatten the graph into a plain CV page',
-			it: 'Appiattisci la mappa in una pagina CV testuale',
-			pt: 'Achatar o mapa em uma página de CV em texto'
-		}
-	} as const;
-
-	const tr = <K extends keyof typeof t>(key: K): string => t[key][locale];
+	const tr = (key: Parameters<typeof mapCopy>[0]['key']): string => mapCopy({ key, locale });
 
 	const panelLabels = $derived({
 		orgNote: tr('orgNote'),
@@ -167,7 +129,6 @@
 			placeholder: panelLabels.searchPlaceholder,
 			shortcut: panelLabels.searchShortcut
 		}}
-		langLabel={tr('langLabel')}
 		onSelectLeaf={selectLeaf}
 		skipLabel={tr('skip')}
 		bind:locale

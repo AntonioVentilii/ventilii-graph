@@ -8,7 +8,7 @@ imports point.
 | Path                                               | Holds                                                                                                                                                                        |
 | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `src/routes/`                                      | Thin route files: `+page.ts` sets prerender, `+page.svelte` renders one app component and its `<svelte:head>`                                                                |
-| `src/lib/components/PortfolioApp.svelte`           | The map's shell: URL state, locale, the map's UI copy, layout of header, graph, panel                                                                                        |
+| `src/lib/components/PortfolioApp.svelte`           | The map's shell: URL state, locale, layout of header, graph, panel (its copy is `map-copy.utils.ts`)                                                                         |
 | `src/lib/components/graph/`                        | The interactive map: hub, orbit nodes, live edges                                                                                                                            |
 | `src/lib/components/panel/`                        | Side panel and the leaf detail card, one `*Detail.svelte` per leaf kind                                                                                                      |
 | `src/lib/components/layout/`                       | Header, footer, toggles, locale select, skip link                                                                                                                            |
@@ -34,7 +34,8 @@ imports point.
 | A fact about Antonio                      | `src/lib/services/portfolio.services.ts`, typed by `portfolio.types.ts`                       |
 | A new field on the content model          | `portfolio.types.ts`, then the renderers: panel, `StaticCv`, `server/knowledge.ts`            |
 | A pure function over content or ids       | `src/lib/utils/<concern>.utils.ts` (extend an existing file first)                            |
-| A constant table or copy for `/ask`       | `src/lib/utils/ask-copy.utils.ts`                                                             |
+| A string on a page                        | that page's copy module: `ask-copy.utils.ts`, `map-copy.utils.ts`, `cv-copy.utils.ts`         |
+| A constant table for `/ask`               | `src/lib/utils/ask-copy.utils.ts`                                                             |
 | A label table for a content enum          | next to its helper, as `STATUS_LABELS` in `project.utils.ts`                                  |
 | Geometry or layout maths for the map      | `graph-geometry.utils.ts` (small) or `graph-layout.services.ts`                               |
 | A type shared by the site and the API     | `src/lib/types/ai.types.ts`                                                                   |

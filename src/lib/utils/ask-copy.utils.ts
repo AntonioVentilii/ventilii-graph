@@ -16,7 +16,6 @@ export const ASK_COPY = {
 	},
 	backToMap: { en: 'Back to the map', it: 'Torna alla mappa', pt: 'Voltar ao mapa' },
 	map: { en: 'map', it: 'mappa', pt: 'mapa' },
-	langLabel: { en: 'Language', it: 'Lingua', pt: 'Idioma' },
 	eyebrow: { en: 'The AI version', it: 'La versione AI', pt: 'A versão IA' },
 	title: {
 		en: 'Ask about Antonio. Get a straight answer.',
