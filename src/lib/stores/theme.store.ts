@@ -1,13 +1,18 @@
 import { browser } from '$app/env';
 import { writable } from 'svelte/store';
 
-const initial = (browser && localStorage.getItem('theme')) ?? 'light';
+type ThemeMode = 'light' | 'dark';
 
-export const theme = writable<{ mode: 'light' | 'dark' }>({
-	mode: initial as 'light' | 'dark'
+const isThemeMode = (value: string | null): value is ThemeMode =>
+	value === 'light' || value === 'dark';
+
+const stored = browser ? localStorage.getItem('theme') : null;
+
+export const theme = writable<{ mode: ThemeMode }>({
+	mode: isThemeMode(stored) ? stored : 'light'
 });
 
-const syncDom = (mode: 'light' | 'dark') => {
+const syncDom = (mode: ThemeMode) => {
 	if (!browser) {
 		return;
 	}
@@ -21,7 +26,7 @@ export const initThemeFromStorage = () => {
 		return;
 	}
 	const saved = localStorage.getItem('theme');
-	if (saved === 'light' || saved === 'dark') {
+	if (isThemeMode(saved)) {
 		theme.set({ mode: saved });
 		syncDom(saved);
 	} else {

@@ -125,9 +125,6 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
 - **Hand-synced copies**: `static/llms.txt` and `static/llm.txt` are identical
   and restate portfolio content; `SITE_MODIFIED_TIME` (`seo.utils.ts:68`)
   mirrors `<lastmod>` in `static/sitemap.xml`.
-- **Casts instead of checks**: `initial as 'light' | 'dark'`
-  (`theme.store.ts:7`), `AI_EFFORT` cast unchecked (`server/index.ts:27`). Narrow
-  with a guard instead.
 - **`prefers-reduced-motion`** is queried inline in `PortfolioApp.svelte:136`,
   `PortfolioGraph.svelte:54` and `:102`, and `GraphEdgesLive.svelte:231`.
 - **Dead code**: `components/panel/CategoryIntro.svelte`,
