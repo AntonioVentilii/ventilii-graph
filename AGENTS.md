@@ -12,8 +12,8 @@ in three languages, and an AI version of the portfolio at `/ask`.
 
 - `src/`: a prerendered SvelteKit 3 site (`adapter-static`, Svelte 5 runes,
   Tailwind 4). Every route is built to its own HTML file and served by nginx.
-- `server/`: the only server code, a dependency-free `node:http` API behind
-  `/ask` that calls the Claude API. It reads the same portfolio data as the site.
+- `server/`: the only server code, a `node:http` API behind `/ask` that calls
+  the Claude API through `@anthropic-ai/sdk`, its one runtime dependency. It reads the same portfolio data as the site.
 - One image (`Dockerfile`, `nginx.conf`, `docker/start.sh`) on Fly.io, deployed
   by release-please tags.
 
@@ -32,7 +32,7 @@ How it is built and deployed, the AI API's limits and its env vars:
 | `npm run format`    | Prettier write and ESLint fix                       |
 | `npm run build`     | `tsc --noEmit` and the prerendered site in `build/` |
 | `npm run build:api` | esbuild bundle of the API in `build-api/`           |
-| `docker build .`    | The image CI probes (see `docs/ai/testing.md`)      |
+| `docker build .`    | Builds the image only; CI then runs and probes it   |
 
 ## Layout
 
