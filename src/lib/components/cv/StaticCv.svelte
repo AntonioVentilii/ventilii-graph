@@ -2,8 +2,8 @@
 	import { onMount } from 'svelte';
 	import ThemeToggle from '#lib/components/layout/ThemeToggle.svelte';
 	import { portfolioData } from '#lib/services/portfolio.services.ts';
-	import type { Locale, Localised } from '#lib/types/portfolio.types.ts';
-	import { cvPath, pickLocale } from '#lib/utils/locale.utils.ts';
+	import { LOCALES, type Locale, type Localised } from '#lib/types/portfolio.types.ts';
+	import { HTML_LANG, OG_LOCALE, cvPath, mapPath, pickLocale } from '#lib/utils/locale.utils.ts';
 	import { projectMeta } from '#lib/utils/project.utils.ts';
 	import {
 		OG_IMAGE,
@@ -69,16 +69,16 @@
 
 	const tr = (key: keyof typeof t): string => pick(t[key]);
 
-	const htmlLang = $derived(locale === 'pt' ? 'pt-BR' : locale);
-	const ogLocale = $derived(locale === 'en' ? 'en_US' : locale === 'it' ? 'it_IT' : 'pt_BR');
+	const htmlLang = $derived(HTML_LANG[locale]);
+	const ogLocale = $derived(OG_LOCALE[locale]);
 
 	const canonical = $derived(absoluteUrl(cvPath(locale)));
 
-	const localeNav: { code: Locale; label: string; href: string }[] = [
-		{ code: 'en', label: 'EN', href: cvPath('en') },
-		{ code: 'it', label: 'IT', href: cvPath('it') },
-		{ code: 'pt', label: 'PT', href: cvPath('pt') }
-	];
+	const localeNav: { code: Locale; label: string; href: string }[] = LOCALES.map((code) => ({
+		code,
+		label: code.toUpperCase(),
+		href: cvPath(code)
+	}));
 
 	const _jsonLd = $derived({
 		'@context': 'https://schema.org',
@@ -130,9 +130,9 @@
 	<title>{tr('metaTitle')}</title>
 	<meta name="description" content={tr('metaDescription')} />
 	<link href={canonical} rel="canonical" />
-	<link href={absoluteUrl(cvPath('en'))} hreflang="en" rel="alternate" />
-	<link href={absoluteUrl(cvPath('it'))} hreflang="it" rel="alternate" />
-	<link href={absoluteUrl(cvPath('pt'))} hreflang="pt-BR" rel="alternate" />
+	{#each LOCALES as alternate (alternate)}
+		<link href={absoluteUrl(cvPath(alternate))} hreflang={HTML_LANG[alternate]} rel="alternate" />
+	{/each}
 	<link href={absoluteUrl(cvPath('en'))} hreflang="x-default" rel="alternate" />
 	<meta content={tr('metaTitle')} property="og:title" />
 	<meta content={tr('metaDescription')} property="og:description" />
@@ -161,7 +161,7 @@
 		<a
 			class="flatten-toggle inline-flex h-9 items-center gap-2 rounded-full border border-border bg-popover px-3 text-xs leading-none text-fg-muted outline-hidden transition hover:border-accent hover:text-fg focus-visible:ring-2 focus-visible:ring-accent"
 			aria-label={tr('scatterTitle')}
-			href={locale === 'en' ? '/' : `/?lang=${locale}`}
+			href={mapPath(locale)}
 			title={tr('scatterTitle')}
 		>
 			<svg

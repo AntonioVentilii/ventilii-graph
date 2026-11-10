@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Locale } from '#lib/types/portfolio.types.ts';
+	import { LOCALES, type Locale } from '#lib/types/portfolio.types.ts';
 
 	interface Props {
 		locale: Locale;
@@ -15,8 +15,8 @@
 		class="h-9 min-h-9 cursor-pointer rounded-full border border-border bg-popover px-3 text-xs leading-none text-fg outline-hidden focus:border-accent focus:ring-2 focus:ring-accent"
 		bind:value={locale}
 	>
-		<option value="en">EN</option>
-		<option value="it">IT</option>
-		<option value="pt">PT</option>
+		{#each LOCALES as code (code)}
+			<option value={code}>{code.toUpperCase()}</option>
+		{/each}
 	</select>
 </label>

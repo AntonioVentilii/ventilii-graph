@@ -11,7 +11,7 @@ import {
 	type AiResult,
 	type Guard
 } from '../src/lib/types/ai.types.ts';
-import type { Locale } from '../src/lib/types/portfolio.types.ts';
+import { LOCALES } from '../src/lib/types/portfolio.types.ts';
 import { mintFlyIdentityToken } from './fly-oidc.ts';
 import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, leaksNotes, readGuard } from './modes.ts';
 
@@ -121,8 +121,6 @@ const client =
 					})
 				})
 			: undefined;
-
-const LOCALES: Locale[] = ['en', 'it', 'pt'];
 
 // --- limits -------------------------------------------------------------
 

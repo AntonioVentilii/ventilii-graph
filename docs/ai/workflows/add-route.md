@@ -24,15 +24,11 @@ Models: `af0bb1d` (the `/cv/` pages), `f074e86`'s `/ask` route.
 
 ## A new locale
 
-A locale is spelled in several places today (see the anti-patterns in
-[../patterns.md](../patterns.md)). Until they are one list, a new locale must
-touch all of them: `Locale` and `Localised` in `portfolio.types.ts`, `LOCALES`
-in `locale.utils.ts` and `server/index.ts`, `LANGUAGE_NAMES` in
-`server/modes.ts`, the `?lang=` checks in `PortfolioApp.svelte` and
-`AskApp.svelte`, `<html lang>` in `src/hooks.server.ts`, `AskApp.svelte` and
-`StaticCv.svelte`, `ogLocale` and `localeNav` in `StaticCv.svelte`, `L.en` in
-`portfolio.services.ts`, every copy table, a `/cv/<locale>/` route, the sitemap
-and the probes. Ask the owner before starting.
+Ask the owner before starting. The list is `LOCALES` and `Localised` in
+`portfolio.types.ts`; the type checker then points at every `Record<Locale, ...>`
+that needs the new entry (`HTML_LANG`, `OG_LOCALE`, `LANGUAGE_NAMES` in
+`server/modes.ts`, every copy table). Then `L.en` in `portfolio.services.ts`, a
+`/cv/<locale>/` route, the sitemap and the probes.
 
 Verify with the local gates and `npm run build`, then open the page in
 `npm run preview`.

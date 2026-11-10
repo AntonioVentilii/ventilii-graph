@@ -21,10 +21,14 @@ already in the code, named so nobody copies them.
   `askCopy({ key, locale })` (`ask-copy.utils.ts:442`); components alias it as
   `t` (`src/lib/components/ai/DeckMode.svelte:24`). Labels for a content enum
   live next to their helper: `STATUS_LABELS` in `src/lib/utils/project.utils.ts:4`.
+- **One locale list.** `LOCALES` (`src/lib/types/portfolio.types.ts`) is the
+  list the `Locale` type, the menus, the hreflang links and the API read; every
+  per-locale mapping (`HTML_LANG`, `OG_LOCALE`) is a `Record<Locale, string>` in
+  `src/lib/utils/locale.utils.ts`.
 - **Locale is client state.** Pages are prerendered in English (the CV pages
-  are prerendered per locale); `?lang=` is read in `onMount`
+  are prerendered per locale); `?lang=` is read in `onMount` with `parseLocale`
   (`src/lib/components/PortfolioApp.svelte:19`). Links carry it with
-  `cvPath`, `askPath` and `evidenceLink` (`locale.utils.ts:9`,
+  `mapPath`, `cvPath`, `askPath` and `evidenceLink` (`locale.utils.ts`,
   `ask-copy.utils.ts:451`, `src/lib/utils/evidence.utils.ts:11`).
 
 ## Leaf ids
@@ -106,12 +110,6 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
   `EVIDENCE_IDS` in `server/knowledge.ts:115`, and a second `item` parser in
   `PortfolioApp.svelte:30` that casts with `as Leaf['kind']` instead of calling
   `parseLeaf`. A new kind must touch all of them; the fix is one list.
-- **The locale list is repeated**: `LOCALES` in `locale.utils.ts:3` (imported by
-  nothing) and again in
-  `server/index.ts:125`; the `?lang=` check in `PortfolioApp.svelte:25` and
-  `AskApp.svelte:47`; `pt-BR` for `<html lang>` in `src/hooks.server.ts:10`,
-  `AskApp.svelte:72` and `StaticCv.svelte:72`; the locale nav in
-  `StaticCv.svelte:76`. Use `LOCALES` and add any per-locale mapping next to it.
 - **Map and CV copy live inside components** (`t` in `PortfolioApp.svelte:40`
   and `StaticCv.svelte:43`), while `/ask` keeps its copy in a utils module.
   `src/routes/ask/+page.svelte:14` repeats the English `ASK_COPY.metaTitle` and

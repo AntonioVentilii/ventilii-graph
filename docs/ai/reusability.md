@@ -12,15 +12,17 @@ PR of its own; do not write a second one beside it.
 | Path                                     | What                                                                                                                                                                                                 |
 | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `src/lib/services/portfolio.services.ts` | `portfolioData`: every fact on the site and in the AI's knowledge                                                                                                                                    |
-| `src/lib/types/portfolio.types.ts`       | `Locale`, `Localised`, `Person`, `Category`, `Experience`, `Project`, `ProjectStatus`, `Technology`, `Education`, `EducationDegree`, `LanguageEntry`, `AboutBlock`, `PortfolioData`                  |
+| `src/lib/types/portfolio.types.ts`       | `LOCALES`, `Locale`, `Localised`, `Person`, `Category`, `Experience`, `Project`, `ProjectStatus`, `Technology`, `Education`, `EducationDegree`, `LanguageEntry`, `AboutBlock`, `PortfolioData`       |
 | `src/lib/types/ai.types.ts`              | The `/ask` contract: `AiMode`, `AiRequest` and its three modes, `AskResult`, `FitResult`, `DeckResult` and parts, `EvidenceRef`, `Guard`, `AiErrorCode`, `AiResponse`, `AiHealth`, `AI_INPUT_LIMITS` |
 
 ## Utils (`src/lib/utils/`)
 
 | Export                                                                                       | What                                                            |
 | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| `locale.utils.ts` `LOCALES`                                                                  | The three locales, in order (exported but unused: see below)    |
+| `locale.utils.ts` `HTML_LANG`, `OG_LOCALE`                                                   | `<html lang>` and hreflang, and `og:locale`, per locale         |
+| `locale.utils.ts` `parseLocale`                                                              | A `?lang=` value to a `Locale`, or undefined                    |
 | `locale.utils.ts` `pickLocale`                                                               | `Localised` to string, English fallback                         |
+| `locale.utils.ts` `mapPath`                                                                  | `/` or `/?lang=it` for a locale                                 |
 | `locale.utils.ts` `cvPath`                                                                   | `/cv/`, `/cv/it/`, `/cv/pt/` for a locale                       |
 | `leaf.utils.ts` `Leaf`                                                                       | A map item: `{ kind, id }`                                      |
 | `leaf.utils.ts` `parseLeaf`                                                                  | `'project:officina'` to a `Leaf`, or `null`                     |

@@ -60,8 +60,8 @@ It is not copied here. This repository adds only:
    `src/lib/services/portfolio.services.ts`. The map, the CV pages and the AI
    (`server/knowledge.ts`) all read it. Never write portfolio facts into a
    component, a prompt or a test fixture.
-2. **Three locales, always.** `Locale` is `'en' | 'it' | 'pt'`
-   (`src/lib/types/portfolio.types.ts`). Content is `Localised` and read with
+2. **Three locales, always.** `LOCALES` is `['en', 'it', 'pt']`
+   (`src/lib/types/portfolio.types.ts`), and `Locale` derives from it. Content is `Localised` and read with
    `pickLocale`; UI copy is a `Record<Locale, string>` table. A new string ships
    in all three languages in the same PR.
 3. **Imports in `src/` use `#lib/...`**, never `../`; ESLint enforces it.
