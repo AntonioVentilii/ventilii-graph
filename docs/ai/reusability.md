@@ -118,12 +118,13 @@ PR of its own; do not write a second one beside it.
 
 ## Server (`server/`)
 
-| Export                                              | What                                                     |
-| --------------------------------------------------- | -------------------------------------------------------- |
-| `knowledge.ts` `KNOWLEDGE`                          | The portfolio as plain text with evidence ids            |
-| `knowledge.ts` `EVIDENCE_IDS`                       | Every id the model may cite                              |
-| `knowledge.ts` `BACKGROUND_NOTES`                   | `AI_PRIVATE_NOTES` normalised to bullets                 |
-| `modes.ts` `SYSTEM_PROMPT`, `buildTurn`             | Cached system prompt and the per-request user turn       |
-| `modes.ts` `SCHEMAS`                                | JSON schema per mode, guard fields first                 |
-| `modes.ts` `cleanResult`, `readGuard`, `leaksNotes` | Output clean-up, guard verdict, private-notes leak check |
-| `fly-oidc.ts` `mintFlyIdentityToken`                | OIDC token from the root helper's socket                 |
+| Export                                                   | What                                                     |
+| -------------------------------------------------------- | -------------------------------------------------------- |
+| `knowledge.ts` `KNOWLEDGE`                               | The portfolio as plain text with evidence ids            |
+| `knowledge.ts` `EVIDENCE_IDS`                            | Every id the model may cite                              |
+| `knowledge.ts` `BACKGROUND_NOTES`                        | `AI_PRIVATE_NOTES` normalised to bullets                 |
+| `modes.ts` `SYSTEM_PROMPT`, `buildTurn`                  | Cached system prompt and the per-request user turn       |
+| `modes.ts` `SCHEMAS`                                     | JSON schema per mode, guard fields first                 |
+| `modes.ts` `cleanResult`, `readGuard`, `leaksNotes`      | Output clean-up, guard verdict, private-notes leak check |
+| `cache.ts` `cacheKey`, `cacheGet`, `cachePut`, `Outcome` | The in-memory answer cache (6 hours, 500 entries)        |
+| `fly-oidc.ts` `mintFlyIdentityToken`                     | OIDC token from the root helper's socket                 |
