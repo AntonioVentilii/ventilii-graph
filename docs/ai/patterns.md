@@ -130,9 +130,6 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
   with a guard instead.
 - **`prefers-reduced-motion`** is queried inline in `PortfolioApp.svelte:136`,
   `PortfolioGraph.svelte:54` and `:102`, and `GraphEdgesLive.svelte:231`.
-- **Dead code**: `components/panel/CategoryIntro.svelte`,
-  `components/ui/ExternalPill.svelte` and `setTheme` in `theme.store.ts` are
-  imported nowhere.
 - **Copy-pasted markup**: the submit row of `AskMode.svelte`, `FitMode.svelte`
   and `DeckMode.svelte`; the JSON-LD and SEO head of `StaticCv.svelte` and
   `routes/+page.svelte` (and `routes/ask/+page.svelte`); the related-items list
