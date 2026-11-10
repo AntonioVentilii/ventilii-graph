@@ -22,7 +22,10 @@ PR of its own; do not write a second one beside it.
 | `locale.utils.ts` `LOCALES`                                                                  | The three locales, in order (exported but unused: see below)    |
 | `locale.utils.ts` `pickLocale`                                                               | `Localised` to string, English fallback                         |
 | `locale.utils.ts` `cvPath`                                                                   | `/cv/`, `/cv/it/`, `/cv/pt/` for a locale                       |
+| `leaf.utils.ts` `LEAF_KINDS`, `LeafKind`                                                     | Every kind of map item, the one list                            |
 | `leaf.utils.ts` `Leaf`                                                                       | A map item: `{ kind, id }`                                      |
+| `leaf.utils.ts` `leafKey`                                                                    | A `Leaf` to `'project:officina'`                                |
+| `leaf.utils.ts` `allLeafKeys`                                                                | Every leaf on the map as `kind:id`                              |
 | `leaf.utils.ts` `parseLeaf`                                                                  | `'project:officina'` to a `Leaf`, or `null`                     |
 | `leaf.utils.ts` `leafLabel`                                                                  | Localised label of a leaf                                       |
 | `leaf.utils.ts` `leavesForCategory`                                                          | All leaves of a category id                                     |
