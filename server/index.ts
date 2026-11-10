@@ -24,11 +24,7 @@ import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, leaksNotes, readGuard }
 
 const PORT = Number(process.env.AI_PORT ?? 8787);
 const MODEL = process.env.AI_MODEL ?? 'claude-opus-5';
-const EFFORTS = ['low', 'medium', 'high'] as const;
-const EFFORT = EFFORTS.find((effort) => effort === (process.env.AI_EFFORT ?? 'medium'));
-if (!EFFORT) {
-	throw new Error(`AI_EFFORT must be one of ${EFFORTS.join(', ')}`);
-}
+const EFFORT = (process.env.AI_EFFORT ?? 'medium') as 'low' | 'medium' | 'high';
 
 // Cost guards. A visitor gets a handful of generations; the whole site gets a
 // daily request count AND a daily dollar budget, measured from real token
