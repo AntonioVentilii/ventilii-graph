@@ -36,11 +36,6 @@ export const initThemeFromStorage = () => {
 	}
 };
 
-export const setTheme = (next: 'light' | 'dark') => {
-	theme.set({ mode: next });
-	syncDom(next);
-};
-
 export const toggleTheme = () => {
 	theme.update((curr) => {
 		const next = curr.mode === 'dark' ? 'light' : 'dark';
