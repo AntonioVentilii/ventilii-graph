@@ -103,9 +103,10 @@ const BOUNDARIES = [
 			'no-restricted-imports': restrict([
 				'^\\$app/',
 				'^svelte(/|$)',
-				'/src/lib/components/',
-				'/src/lib/stores/',
-				'/src/lib/services/ai\\.services'
+				// Both spellings reach src/: `../src/lib/...` and the `#lib/...` import map.
+				'(^#lib|/src/lib)/components/',
+				'(^#lib|/src/lib)/stores/',
+				'(^#lib|/src/lib)/services/ai\\.services'
 			])
 		}
 	}
