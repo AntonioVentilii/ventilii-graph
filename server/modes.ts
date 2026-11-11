@@ -8,6 +8,7 @@ import type {
 	Guard
 } from '../src/lib/types/ai.types.ts';
 import type { Locale } from '../src/lib/types/portfolio.types.ts';
+import { LEAF_KINDS } from '../src/lib/utils/leaf.utils.ts';
 import { BACKGROUND_NOTES, EVIDENCE_IDS, KNOWLEDGE } from './knowledge.ts';
 
 /**
@@ -205,7 +206,7 @@ export const SCHEMAS = { ask: ASK_SCHEMA, fit: FIT_SCHEMA, deck: DECK_SCHEMA } a
 // text they would show as raw "[education:polimi]", so any ids the model
 // writes there anyway (one or several, comma-separated) are cut with their
 // spacing.
-const ID_TYPES = 'experience|project|technology|education|language|about';
+const ID_TYPES = LEAF_KINDS.join('|');
 const INLINE_IDS = new RegExp(
 	`(?:\\s*,?\\s*\\[(?:(?:${ID_TYPES}):[a-z0-9_-]+(?:\\s*,\\s*)?)+\\])+`,
 	'g'
