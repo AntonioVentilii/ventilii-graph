@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { GraphLayoutResult } from '#lib/services/graph-layout.services.ts';
 	import { portfolioData } from '#lib/services/portfolio.services.ts';
+	import { leafKey } from '#lib/utils/leaf.utils.ts';
 
 	interface Props {
 		container: HTMLElement | undefined;
@@ -136,7 +137,7 @@
 
 				leaves.forEach((L) => {
 					if (L.opacity >= 0.01) {
-						const key = `${L.leaf.kind}:${L.leaf.id}`;
+						const key = leafKey(L.leaf);
 						const le = cont.querySelector(`[data-graph-leaf="${CSS.escape(key)}"]`);
 						if (le instanceof HTMLElement) {
 							const leafC = centerOf({ el: le, cr });

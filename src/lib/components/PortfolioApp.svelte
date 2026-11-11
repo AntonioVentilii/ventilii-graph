@@ -7,7 +7,7 @@
 	import DetailPanel from '#lib/components/panel/DetailPanel.svelte';
 	import type { Locale } from '#lib/types/portfolio.types.ts';
 	import { askCopy, askPath } from '#lib/utils/ask-copy.utils.ts';
-	import { categoryForLeafKind, type Leaf } from '#lib/utils/leaf.utils.ts';
+	import { categoryForLeafKind, leafKey, parseLeaf, type Leaf } from '#lib/utils/leaf.utils.ts';
 	import { cvPath } from '#lib/utils/locale.utils.ts';
 	import { mapCopy } from '#lib/utils/map-copy.utils.ts';
 	import { goto } from '$app/navigation';
@@ -28,9 +28,9 @@
 		}
 
 		if (itemParam) {
-			const [kind, id] = itemParam.split(':');
-			if (kind && id) {
-				categoryId = categoryForLeafKind(kind as Leaf['kind']);
+			const leaf = parseLeaf(itemParam);
+			if (leaf?.id) {
+				categoryId = categoryForLeafKind(leaf.kind);
 				itemId = itemParam;
 			}
 		} else if (catParam) {
@@ -61,7 +61,7 @@
 	};
 
 	const selectLeaf = (l: Leaf) => {
-		const id = `${l.kind}:${l.id}`;
+		const id = leafKey(l);
 		if (itemId === id) {
 			itemId = null;
 			return;
