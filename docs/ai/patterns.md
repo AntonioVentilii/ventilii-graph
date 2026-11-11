@@ -29,11 +29,14 @@ already in the code, named so nobody copies them.
 
 ## Leaf ids
 
-A map item is a `Leaf` (`src/lib/utils/leaf.utils.ts:5`), written as
-`kind:id` (`project:officina`). The same string is the URL's `?item=`, the
-evidence id the AI cites, and the key of `EVIDENCE_IDS`
-(`server/knowledge.ts:115`). Parse it with `parseLeaf` (`leaf.utils.ts:78`),
-label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
+Every kind of map item is in `LEAF_KINDS` (`src/lib/utils/leaf.utils.ts:10`),
+with its category and its items next to it. A leaf is written `kind:id`
+(`project:officina`) by `leafKey` (`leaf.utils.ts:46`): the same string is the
+URL's `?item=`, the graph's node keys, the ids in the AI's portfolio text and
+`EVIDENCE_IDS` (`server/knowledge.ts:122`). Parse it with `parseLeaf`
+(`leaf.utils.ts:64`), label it with `leafLabel` (`leaf.utils.ts:59`), link it
+with `evidenceLink`. A new kind is one entry in `LEAF_KINDS` and its two records,
+then its detail component.
 
 ## Functions
 
@@ -101,11 +104,6 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
 
 ## Anti-patterns in the code today (do not copy)
 
-- **The leaf kinds are spelled in many places**: the `Leaf` union and four
-  switches in `leaf.utils.ts`, `ID_TYPES` in `server/modes.ts:208`,
-  `EVIDENCE_IDS` in `server/knowledge.ts:115`, and a second `item` parser in
-  `PortfolioApp.svelte:30` that casts with `as Leaf['kind']` instead of calling
-  `parseLeaf`. A new kind must touch all of them; the fix is one list.
 - **The locale list is repeated**: `LOCALES` in `locale.utils.ts:3` (imported by
   nothing) and again in
   `server/index.ts:125`; the `?lang=` check in `PortfolioApp.svelte:25` and

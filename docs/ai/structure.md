@@ -56,7 +56,7 @@ routes -> components -> stores, services, utils, types   (any of them)
           stores     -> services, utils, types
           services   -> utils, types   (utils may read portfolio.services.ts)
           utils      -> types
-server/ -> src/lib/{services/portfolio,types}   (never the other way)
+server/ -> src/lib/{services/portfolio,utils,types}   (never the other way)
 ```
 
 Components import whichever layer they need directly (`PortfolioApp.svelte`
@@ -67,7 +67,7 @@ reads utils, `DetailPanel.svelte` reads `portfolioData`, the `/ask` modes use
 - `utils/` may read `portfolioData` (as `leaf.utils.ts` and `relations.utils.ts`
   do) but never a component, a store or `ai.services.ts`.
 - `ui/` components take props and render; they do not import `portfolioData`.
-- `server/` may import `portfolio.services.ts`, `portfolio.types.ts` and
-  `ai.types.ts`, and nothing that touches the DOM or `$app/*`. `src/` never
+- `server/` may import `portfolio.services.ts`, `portfolio.types.ts`,
+  `ai.types.ts` and pure utils such as `leaf.utils.ts`, and nothing that touches the DOM or `$app/*`. `src/` never
   imports from `server/`.
 - The site reaches the API only over HTTP, through `ai.services.ts`.

@@ -1,6 +1,6 @@
 import { portfolioData } from '#lib/services/portfolio.services.ts';
 import { categoryAngle, leafAnglesOpenRing } from '#lib/utils/graph-geometry.utils.ts';
-import { leafLabel, leavesForCategory, type Leaf } from '#lib/utils/leaf.utils.ts';
+import { leafKey, leafLabel, leavesForCategory, type Leaf } from '#lib/utils/leaf.utils.ts';
 
 export type GraphView = 'root' | 'category' | 'leaf';
 
@@ -400,7 +400,7 @@ export const computeGraphLayout = (params: {
 
 	// leaf view: vertical hub → category → leaf; leaf anchored at center, parents stacked above
 	if (view === 'leaf' && categoryId && itemId && parentIndex >= 0) {
-		const currentLeaf = leaves.find((l) => `${l.kind}:${l.id}` === itemId);
+		const currentLeaf = leaves.find((l) => leafKey(l) === itemId);
 		if (!currentLeaf) {
 			return computeGraphLayout({ size, categoryId, itemId: null });
 		}
@@ -437,7 +437,7 @@ export const computeGraphLayout = (params: {
 		}
 
 		const leafLayouts: LeafNodeLayout[] = leaves.map((leaf, ki) => {
-			const isSel = `${leaf.kind}:${leaf.id}` === itemId;
+			const isSel = leafKey(leaf) === itemId;
 			if (isSel) {
 				return {
 					leaf,
