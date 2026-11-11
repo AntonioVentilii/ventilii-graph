@@ -6,16 +6,17 @@ only), `27d9837` (a new response kind end to end).
 
 ## Decide which layer owns the change
 
-| Change                                         | Owner                                                                                                  |
-| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| What the model is told, its rules              | `SYSTEM_PROMPT`, the `*_TASK` texts in `server/modes.ts`                                               |
-| The shape of an answer                         | the mode's schema in `server/modes.ts`, the result type in `src/lib/types/ai.types.ts`                 |
-| Trimming or dropping parts of an answer        | the `clean*` functions in `server/modes.ts`                                                            |
-| What the model knows                           | the content ([update-content.md](./update-content.md)) or `server/knowledge.ts` for how it is rendered |
-| Limits, budget, cache, transport, status codes | `server/index.ts`                                                                                      |
-| An input limit                                 | `AI_INPUT_LIMITS` in `ai.types.ts` (server and form both read it)                                      |
-| Any string on the page                         | `ASK_COPY` and friends in `src/lib/utils/ask-copy.utils.ts`                                            |
-| How a result is shown                          | `src/lib/components/ai/`                                                                               |
+| Change                                  | Owner                                                                                                  |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| What the model is told, its rules       | `SYSTEM_PROMPT`, the `*_TASK` texts in `server/modes.ts`                                               |
+| The shape of an answer                  | the mode's schema in `server/modes.ts`, the result type in `src/lib/types/ai.types.ts`                 |
+| Trimming or dropping parts of an answer | the `clean*` functions in `server/modes.ts`                                                            |
+| What the model knows                    | the content ([update-content.md](./update-content.md)) or `server/knowledge.ts` for how it is rendered |
+| Limits, budget, transport, status codes | `server/index.ts`                                                                                      |
+| The answer cache (lifetime, size, key)  | `server/cache.ts`                                                                                      |
+| An input limit                          | `AI_INPUT_LIMITS` in `ai.types.ts` (server and form both read it)                                      |
+| Any string on the page                  | `ASK_COPY` and friends in `src/lib/utils/ask-copy.utils.ts`                                            |
+| How a result is shown                   | `src/lib/components/ai/`                                                                               |
 
 ## Steps
 

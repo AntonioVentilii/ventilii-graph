@@ -43,7 +43,7 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
   enforces it; single-primitive helpers such as `cvPath(locale)` are allowed.
 - **Arrow function constants**, exported by name; no default exports outside
   `.svelte` files.
-- **Comments say why.** See the cost-guard block in `server/index.ts:29` or
+- **Comments say why.** See the cost-guard block in `server/index.ts:27` or
   `vite.config.ts` around `__BUILD_YEAR__`.
 
 ## State
@@ -70,11 +70,11 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
   (`src/lib/services/ai.services.ts:14`) returns `{ ok: false, error: 'upstream' }`
   and rethrows only an abort; `fetchAiHealth` returns `undefined`.
 - **The server validates by hand, then answers a typed body.** `parseRequest`
-  (`server/index.ts:326`) turns unknown JSON into an `AiRequest` or `undefined`;
-  every reply goes through `send` (`server/index.ts:517`) with a status and an
+  (`server/index.ts:284`) turns unknown JSON into an `AiRequest` or `undefined`;
+  every reply goes through `send` (`server/index.ts:475`) with a status and an
   `AiResponse`. Internal failures are small `Error` subclasses
-  (`RefusedError`, `UncountedError`, `server/index.ts:425`) mapped to codes in
-  `handleGenerate` (`server/index.ts:565`).
+  (`RefusedError`, `UncountedError`, `server/index.ts:383`) mapped to codes in
+  `handleGenerate` (`server/index.ts:523`).
 - **Model output is never trusted.** Structured outputs fix the shape
   (`SCHEMAS`, `server/modes.ts:199`); `cleanResult` (`server/modes.ts:391`)
   trims lengths, drops unknown evidence ids and inline ids; `leaksNotes`
@@ -82,7 +82,7 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
   On the page, model text renders only through `RichText.svelte`, never
   `{@html}`.
 - **Configuration is read once, at the top of the module,** from env with a
-  default (`server/index.ts:25`). Constants stay in the module that owns them.
+  default (`server/index.ts:23`). Constants stay in the module that owns them.
 
 ## Components
 
@@ -118,8 +118,8 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
   description as literals.
 - **`searchLeaves`** (`leaf.utils.ts:97`) repeats one loop per kind, matches
   only English and Italian, and skips languages and about.
-- **Long files**: `server/index.ts` (about 690 lines: config, pricing, limits,
-  cache, parsing, IP keys, generation, HTTP), `graph-layout.services.ts`,
+- **Long files**: `server/index.ts` (about 640 lines: config, pricing, limits,
+  parsing, IP keys, generation, HTTP), `graph-layout.services.ts`,
   `StaticCv.svelte`, `ask-copy.utils.ts`. Add to them only what belongs to their
   concern; split along the section comments when a change allows it.
 - **Hand-synced copies**: `static/llms.txt` and `static/llm.txt` are identical
