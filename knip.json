@@ -4,12 +4,7 @@
 	"project": ["src/**/*.{ts,svelte}", "server/**/*.ts"],
 	"vite": false,
 	"ignoreExportsUsedInFile": true,
-	"ignore": [
-		"src/lib/components/panel/CategoryIntro.svelte",
-		"src/lib/components/ui/ExternalPill.svelte"
-	],
 	"ignoreIssues": {
-		"src/lib/stores/theme.store.ts": ["exports"],
 		"src/lib/utils/locale.utils.ts": ["exports"]
 	}
 }

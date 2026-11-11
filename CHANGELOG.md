@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.6.2](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.6.1...v1.6.2) (2026-11-11)
+
+
+### Documentation
+
+* **ai:** add AGENTS.md and docs/ai agent docs ([#79](https://github.com/AntonioVentilii/ventilii-graph/issues/79)) ([5eafba9](https://github.com/AntonioVentilii/ventilii-graph/commit/5eafba9ce7468424ba12cc3fcac02f7c1b5f4b85))
+
+
+### Code Refactoring
+
+* **ask:** move the answer cache out of server/index.ts ([#86](https://github.com/AntonioVentilii/ventilii-graph/issues/86)) ([152e979](https://github.com/AntonioVentilii/ventilii-graph/commit/152e979a3f84aa8fa12ca50636ebc0c010b9303a))
+* **ask:** one status component for the three modes ([#88](https://github.com/AntonioVentilii/ventilii-graph/issues/88)) ([d486b69](https://github.com/AntonioVentilii/ventilii-graph/commit/d486b69cafbce254ece3c6cff1a464dc983d1d47))
+* check the stored theme instead of casting it ([#84](https://github.com/AntonioVentilii/ventilii-graph/issues/84)) ([204baa8](https://github.com/AntonioVentilii/ventilii-graph/commit/204baa83cabf2abe395297d694a7d0c3c2fcf297))
+* keep the leaf kinds and the kind:id format in one place ([#83](https://github.com/AntonioVentilii/ventilii-graph/issues/83)) ([2c1d105](https://github.com/AntonioVentilii/ventilii-graph/commit/2c1d105d3ee602be842b8c8c820832aa5391d968))
+* remove code nothing uses ([#82](https://github.com/AntonioVentilii/ventilii-graph/issues/82)) ([5095ba0](https://github.com/AntonioVentilii/ventilii-graph/commit/5095ba077a797378e7255e723ee3f291cc23b52e))
+
+
+### Build System
+
+* add a quality gate at today's baseline ([#80](https://github.com/AntonioVentilii/ventilii-graph/issues/80)) ([daa6cf7](https://github.com/AntonioVentilii/ventilii-graph/commit/daa6cf72c6dd27047181e35f7b8b5a8c2c2b34c7))
+* drop the knip baseline entries the dead code removal cleared ([#85](https://github.com/AntonioVentilii/ventilii-graph/issues/85)) ([27b46c5](https://github.com/AntonioVentilii/ventilii-graph/commit/27b46c56e77b748ee1eb3be78a9a71a3800dc5f0))
+
 ## [1.6.1](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.6.0...v1.6.1) (2026-11-05)
 
 
