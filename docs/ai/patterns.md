@@ -29,11 +29,14 @@ already in the code, named so nobody copies them.
 
 ## Leaf ids
 
-A map item is a `Leaf` (`src/lib/utils/leaf.utils.ts:5`), written as
-`kind:id` (`project:officina`). The same string is the URL's `?item=`, the
-evidence id the AI cites, and the key of `EVIDENCE_IDS`
-(`server/knowledge.ts:115`). Parse it with `parseLeaf` (`leaf.utils.ts:78`),
-label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
+Every kind of map item is in `LEAF_KINDS` (`src/lib/utils/leaf.utils.ts:10`),
+with its category and its items next to it. A leaf is written `kind:id`
+(`project:officina`) by `leafKey` (`leaf.utils.ts:46`): the same string is the
+URL's `?item=`, the graph's node keys, the ids in the AI's portfolio text and
+`EVIDENCE_IDS` (`server/knowledge.ts:122`). Parse it with `parseLeaf`
+(`leaf.utils.ts:64`), label it with `leafLabel` (`leaf.utils.ts:59`), link it
+with `evidenceLink`. A new kind is one entry in `LEAF_KINDS` and its two records,
+then its detail component.
 
 ## Functions
 
@@ -43,7 +46,7 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
   enforces it; single-primitive helpers such as `cvPath(locale)` are allowed.
 - **Arrow function constants**, exported by name; no default exports outside
   `.svelte` files.
-- **Comments say why.** See the cost-guard block in `server/index.ts:29` or
+- **Comments say why.** See the cost-guard block in `server/index.ts:27` or
   `vite.config.ts` around `__BUILD_YEAR__`.
 
 ## State
@@ -70,11 +73,11 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
   (`src/lib/services/ai.services.ts:14`) returns `{ ok: false, error: 'upstream' }`
   and rethrows only an abort; `fetchAiHealth` returns `undefined`.
 - **The server validates by hand, then answers a typed body.** `parseRequest`
-  (`server/index.ts:326`) turns unknown JSON into an `AiRequest` or `undefined`;
-  every reply goes through `send` (`server/index.ts:517`) with a status and an
+  (`server/index.ts:284`) turns unknown JSON into an `AiRequest` or `undefined`;
+  every reply goes through `send` (`server/index.ts:475`) with a status and an
   `AiResponse`. Internal failures are small `Error` subclasses
-  (`RefusedError`, `UncountedError`, `server/index.ts:425`) mapped to codes in
-  `handleGenerate` (`server/index.ts:565`).
+  (`RefusedError`, `UncountedError`, `server/index.ts:383`) mapped to codes in
+  `handleGenerate` (`server/index.ts:523`).
 - **Model output is never trusted.** Structured outputs fix the shape
   (`SCHEMAS`, `server/modes.ts:199`); `cleanResult` (`server/modes.ts:391`)
   trims lengths, drops unknown evidence ids and inline ids; `leaksNotes`
@@ -82,7 +85,7 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
   On the page, model text renders only through `RichText.svelte`, never
   `{@html}`.
 - **Configuration is read once, at the top of the module,** from env with a
-  default (`server/index.ts:25`). Constants stay in the module that owns them.
+  default (`server/index.ts:23`). Constants stay in the module that owns them.
 
 ## Components
 
@@ -101,11 +104,6 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
 
 ## Anti-patterns in the code today (do not copy)
 
-- **The leaf kinds are spelled in many places**: the `Leaf` union and four
-  switches in `leaf.utils.ts`, `ID_TYPES` in `server/modes.ts:208`,
-  `EVIDENCE_IDS` in `server/knowledge.ts:115`, and a second `item` parser in
-  `PortfolioApp.svelte:30` that casts with `as Leaf['kind']` instead of calling
-  `parseLeaf`. A new kind must touch all of them; the fix is one list.
 - **The locale list is repeated**: `LOCALES` in `locale.utils.ts:3` (imported by
   nothing) and again in
   `server/index.ts:125`; the `?lang=` check in `PortfolioApp.svelte:25` and
@@ -118,16 +116,15 @@ label it with `leafLabel` (`leaf.utils.ts:49`), link it with `evidenceLink`.
   description as literals.
 - **`searchLeaves`** (`leaf.utils.ts:97`) repeats one loop per kind, matches
   only English and Italian, and skips languages and about.
-- **Long files**: `server/index.ts` (about 690 lines: config, pricing, limits,
-  cache, parsing, IP keys, generation, HTTP), `graph-layout.services.ts`,
+- **Long files**: `server/index.ts` (about 640 lines: config, pricing, limits,
+  parsing, IP keys, generation, HTTP), `graph-layout.services.ts`,
   `StaticCv.svelte`, `ask-copy.utils.ts`. Add to them only what belongs to their
   concern; split along the section comments when a change allows it.
 - **Hand-synced copies**: `static/llms.txt` and `static/llm.txt` are identical
   and restate portfolio content; `SITE_MODIFIED_TIME` (`seo.utils.ts:68`)
   mirrors `<lastmod>` in `static/sitemap.xml`.
-- **Casts instead of checks**: `initial as 'light' | 'dark'`
-  (`theme.store.ts:7`), `AI_EFFORT` cast unchecked (`server/index.ts:27`). Narrow
-  with a guard instead.
+- **`AI_EFFORT` is cast unchecked** in `server/index.ts`. Narrow it with a
+  guard instead, as `isThemeMode` does in `theme.store.ts`.
 - **`prefers-reduced-motion`** is queried inline in `PortfolioApp.svelte:136`,
   `PortfolioGraph.svelte:54` and `:102`, and `GraphEdgesLive.svelte:231`.
 - **Copy-pasted markup**: the submit row of `AskMode.svelte`, `FitMode.svelte`
