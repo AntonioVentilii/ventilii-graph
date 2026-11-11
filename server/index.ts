@@ -1,17 +1,15 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { oidcFederationProvider } from '@anthropic-ai/sdk/lib/credentials/oidc-federation';
-import { createHash } from 'node:crypto';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { isIPv6 } from 'node:net';
 import {
 	AI_INPUT_LIMITS,
 	type AiHealth,
 	type AiRequest,
-	type AiResponse,
-	type AiResult,
-	type Guard
+	type AiResponse
 } from '../src/lib/types/ai.types.ts';
 import type { Locale } from '../src/lib/types/portfolio.types.ts';
+import { cacheGet, cacheKey, cachePut, type Outcome } from './cache.ts';
 import { mintFlyIdentityToken } from './fly-oidc.ts';
 import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, leaksNotes, readGuard } from './modes.ts';
 
@@ -81,8 +79,6 @@ const priceOf = (model: string): Price => PRICES[model] ?? WORST_PRICE;
 // A fallback can cost a second attempt, on whichever model is dearest.
 const MAX_ATTEMPTS = 2;
 const MAX_BODY_BYTES = 64 * 1024;
-const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
-const CACHE_MAX_ENTRIES = 500;
 
 // Credentials: ANTHROPIC_API_KEY locally (it always wins), and on Fly workload
 // identity federation, as the other Fly apps use: the machine's OIDC token is
@@ -254,48 +250,10 @@ const recordStrike = (ip: string): number => {
 	return Math.max(0, STRIKES_PER_DAY - count);
 };
 
-// --- answer cache (suggested questions get asked again and again) --------
-
-// What a generation produced: an answer, or the guard verdict on a request
-// the model would not take on. Both are cached, so sending the same
-// off-topic prompt again costs nothing.
-type Outcome = { result: AiResult } | { guard: Guard };
-
-const cache = new Map<string, { at: number; value: Outcome }>();
-
-const cacheKey = (request: AiRequest): string =>
-	createHash('sha256').update(JSON.stringify(request)).digest('hex');
-
-const cacheGet = (key: string): Outcome | undefined => {
-	const hit = cache.get(key);
-	if (!hit || Date.now() - hit.at > CACHE_TTL_MS) {
-		cache.delete(key);
-		return undefined;
-	}
-	return hit.value;
-};
-
-const cachePut = ({ key, value }: { key: string; value: Outcome }) => {
-	if (cache.size >= CACHE_MAX_ENTRIES) {
-		const oldest = cache.keys().next().value;
-		if (oldest !== undefined) {
-			cache.delete(oldest);
-		}
-	}
-	cache.set(key, { at: Date.now(), value });
-};
-
-// The /ask privacy note promises answers are gone after 6 hours and IPs at
-// midnight UTC; both are otherwise only cleared when a later request arrives.
-setInterval(() => {
-	rollDay();
-	const now = Date.now();
-	cache.forEach(({ at }, key) => {
-		if (now - at > CACHE_TTL_MS) {
-			cache.delete(key);
-		}
-	});
-}, 60 * 1000).unref();
+// The /ask privacy note promises IPs are gone at midnight UTC; otherwise they
+// are only cleared when a later request arrives. cache.ts does the same for
+// answers.
+setInterval(rollDay, 60 * 1000).unref();
 
 // --- request parsing ------------------------------------------------------
 

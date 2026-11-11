@@ -7,7 +7,7 @@
 	import { computeGraphLayout, LEAF_CENTER_H } from '#lib/services/graph-layout.services.ts';
 	import { portfolioData } from '#lib/services/portfolio.services.ts';
 	import type { Locale } from '#lib/types/portfolio.types.ts';
-	import { leafLabel, type Leaf } from '#lib/utils/leaf.utils.ts';
+	import { leafKey, leafLabel, type Leaf } from '#lib/utils/leaf.utils.ts';
 	import { pickLocale } from '#lib/utils/locale.utils.ts';
 
 	interface Props {
@@ -174,17 +174,17 @@
 		</OrbitNode>
 	{/each}
 
-	{#each layout.leaves as L, ki (`${L.leaf.kind}:${L.leaf.id}`)}
+	{#each layout.leaves as L, ki (leafKey(L.leaf))}
 		<OrbitNode
 			emphasis={L.isCenter ? 'center' : 'default'}
 			floatVariant={((ki + 2) % 3) as 0 | 1 | 2}
-			graphLeafKey={`${L.leaf.kind}:${L.leaf.id}`}
+			graphLeafKey={leafKey(L.leaf)}
 			left={L.left}
 			noFloat={frozen || L.isCenter}
 			onclick={() => onSelectLeaf(L.leaf)}
 			opacity={L.opacity}
 			seed={ki + 11}
-			selected={itemId === `${L.leaf.kind}:${L.leaf.id}`}
+			selected={itemId === leafKey(L.leaf)}
 			top={L.top}
 			variant="leaf"
 		>
