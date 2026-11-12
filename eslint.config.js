@@ -38,10 +38,6 @@ const BASELINE = [
 		rules: { complexity: ['error', 27] }
 	},
 	{
-		files: ['src/lib/components/cv/StaticCv.svelte'],
-		rules: { 'max-lines': ['error', { max: 402, skipBlankLines: true, skipComments: true }] }
-	},
-	{
 		files: ['src/lib/utils/ask-copy.utils.ts'],
 		rules: { 'max-lines': ['error', { max: 425, skipBlankLines: true, skipComments: true }] }
 	}
