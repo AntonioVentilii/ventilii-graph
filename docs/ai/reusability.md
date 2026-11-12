@@ -42,6 +42,7 @@ PR of its own; do not write a second one beside it.
 | `graph-geometry.utils.ts` `categoryAngle`                                                    | Angle of a category on the ring                                 |
 | `graph-geometry.utils.ts` `leafAnglesOpenRing`                                               | Leaf angles on the 240 degree open ring                         |
 | `graph-geometry.utils.ts` `ringFloatStyle`                                                   | Staggered float animation style for a seed                      |
+| `motion.utils.ts` `prefersReducedMotion`                                                     | Whether the visitor asked for less motion                       |
 | `seo.utils.ts` `SITE_ORIGIN`, `absoluteUrl`                                                  | Canonical origin and absolute URLs                              |
 | `seo.utils.ts` `serializeSchema`                                                             | Safe JSON-LD for `{@html}` in a `<script>`                      |
 | `seo.utils.ts` `PERSON_KNOWS_ABOUT`                                                          | JSON-LD `knowsAbout` topics                                     |
