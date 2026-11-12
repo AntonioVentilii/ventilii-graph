@@ -9,7 +9,6 @@
 		locale: Locale;
 		skipLabel: string;
 		cvFallbackLabel: string;
-		langLabel: string;
 		flatten: { href: string; label: string; title: string; onFlatten: () => void };
 		ask: { href: string; label: string };
 		onSelectLeaf: (leaf: Leaf) => void;
@@ -23,7 +22,6 @@
 		locale = $bindable(),
 		skipLabel,
 		cvFallbackLabel,
-		langLabel,
 		flatten,
 		ask,
 		onSelectLeaf,
@@ -50,6 +48,6 @@
 	</div>
 
 	<div class="flex items-center justify-end">
-		<HeaderActions {ask} {cvFallbackLabel} {flatten} {langLabel} bind:locale />
+		<HeaderActions {ask} {cvFallbackLabel} {flatten} bind:locale />
 	</div>
 </header>

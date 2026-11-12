@@ -47,11 +47,11 @@ const BASELINE = [
 	},
 	{
 		files: ['src/lib/components/cv/StaticCv.svelte'],
-		rules: { 'max-lines': ['error', { max: 434, skipBlankLines: true, skipComments: true }] }
+		rules: { 'max-lines': ['error', { max: 403, skipBlankLines: true, skipComments: true }] }
 	},
 	{
 		files: ['src/lib/utils/ask-copy.utils.ts'],
-		rules: { 'max-lines': ['error', { max: 426, skipBlankLines: true, skipComments: true }] }
+		rules: { 'max-lines': ['error', { max: 425, skipBlankLines: true, skipComments: true }] }
 	}
 ];
 
