@@ -52,8 +52,9 @@ Touching `Dockerfile`, `nginx*.conf` or `docker/`: also build and run the image
   400 (blank lines and comments not counted), and `no-restricted-imports`
   boundaries that enforce the direction in [structure.md](./structure.md).
   Files over a limit today are pinned at their current value in `BASELINE`.
-- **knip** (`knip.json`): unused files, exports and dependencies. The ones that
-  exist today are listed in the config.
+- **knip** (`knip.json`): unused files, exports and dependencies. The config
+  has no allowlist of unused pieces, so any new one fails; an export used only
+  inside its own file is not reported (`ignoreExportsUsedInFile`).
 - **jscpd** (`.jscpd.json`): copy-paste in `src/` and `server/`. The code has
   no clones today, so `threshold` is 0 and any new one fails.
 

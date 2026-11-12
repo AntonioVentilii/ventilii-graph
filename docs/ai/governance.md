@@ -53,8 +53,9 @@ PR, without the owner's explicit go-ahead. Merges are squash only.
 - Silence ESLint, `svelte-check` or `tsc` to go green. The few existing
   `eslint-disable` lines each carry a reason; a new one needs the same and the
   owner's agreement. The same holds for the quality gate's baselines
-  (`BASELINE` in `eslint.config.js`, the lists in `knip.json`, the `threshold`
-  in `.jscpd.json`): lower them freely, never raise them without the owner.
+  (`BASELINE` in `eslint.config.js`, the `threshold` in `.jscpd.json`, and
+  `knip.json`, which lists no unused pieces today): lower them freely, never
+  raise them without the owner.
 
 ## Meta-update map
 
