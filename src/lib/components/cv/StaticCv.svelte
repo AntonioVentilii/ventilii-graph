@@ -46,11 +46,10 @@
 
 	const canonical = $derived(absoluteUrl(cvPath(locale)));
 
-	const localeNav: { code: Locale; label: string; href: string }[] = LOCALES.map((code) => ({
-		code,
-		label: code.toUpperCase(),
-		href: cvPath(code)
-	}));
+	const localeNav = LOCALES.map((code) => ({ code, href: cvPath(code) }));
+
+	// An {#each} drops the leading whitespace of its body, so the space goes in the text.
+	const FOOTER_SEPARATOR = ' · ';
 
 	const _jsonLd = $derived({
 		'@context': 'https://schema.org',
@@ -159,7 +158,7 @@
 						aria-current={l.code === locale ? 'page' : undefined}
 						href={l.href}
 					>
-						{l.label}
+						{l.code.toUpperCase()}
 					</a>
 				{/each}
 			</nav>
@@ -417,7 +416,9 @@
 	<footer class="cv-chrome border-t border-border px-4 py-6 text-center text-xs text-fg-faint">
 		<a class="text-link underline-offset-2 hover:underline" href="/">ventilii.dev</a>
 		{#each localeNav as l (l.code)}
-			· <a class="text-link underline-offset-2 hover:underline" href={l.href}>{l.label}</a>
+			{FOOTER_SEPARATOR}<a class="text-link underline-offset-2 hover:underline" href={l.href}
+				>{l.code.toUpperCase()}</a
+			>
 		{/each}
 	</footer>
 </div>
