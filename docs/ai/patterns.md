@@ -92,7 +92,10 @@ then its detail component.
   On the page, model text renders only through `RichText.svelte`, never
   `{@html}`.
 - **Configuration is read once, at the top of the module,** from env with a
-  default (`server/index.ts:23`). Constants stay in the module that owns them.
+  default (`server/claude.ts:12`). Constants stay in the module that owns them.
+  A count, an amount or a price goes through `positiveNumberEnv`
+  (`server/env.ts`), which keeps the default unless the value is a finite
+  number above zero; the port goes through `portEnv` (1 to 65535).
 
 ## Components
 
@@ -112,13 +115,13 @@ then its detail component.
 
 ## Anti-patterns in the code today (do not copy)
 
-- **Long files**: `server/index.ts` (about 640 lines: config, pricing, limits,
+- **Long files**: `server/index.ts` (about 600 lines: pricing, limits,
   parsing, IP keys, generation, HTTP), `graph-layout.services.ts`,
   `StaticCv.svelte`, `ask-copy.utils.ts`. Add to them only what belongs to their
   concern; split along the section comments when a change allows it.
 - **Hand-synced copies**: `static/llms.txt` restates portfolio content; `SITE_MODIFIED_TIME` (`seo.utils.ts:68`)
   mirrors `<lastmod>` in `static/sitemap.xml`.
-- **`AI_EFFORT` is cast unchecked** in `server/index.ts`. Narrow it with a
+- **`AI_EFFORT` is cast unchecked** in `server/claude.ts`. Narrow it with a
   guard instead, as `isThemeMode` does in `theme.store.ts`.
 - **Copy-pasted markup**: the author, article and JSON-LD
   lines of `StaticCv.svelte` and `routes/+page.svelte`; two branches of

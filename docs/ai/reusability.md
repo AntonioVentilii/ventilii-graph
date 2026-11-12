@@ -143,3 +143,5 @@ PR of its own; do not write a second one beside it.
 | `modes.ts` `cleanResult`, `readGuard`, `leaksNotes`      | Output clean-up, guard verdict, private-notes leak check |
 | `cache.ts` `cacheKey`, `cacheGet`, `cachePut`, `Outcome` | The in-memory answer cache (6 hours, 500 entries)        |
 | `fly-oidc.ts` `mintFlyIdentityToken`                     | OIDC token from the root helper's socket                 |
+| `claude.ts` `client`, `MODEL`, `EFFORT`, `auth`          | The Claude client, its model, effort and credentials     |
+| `env.ts` `optionalEnv`, `positiveNumberEnv`, `portEnv`   | Empty env read as absent; a positive number or default   |
