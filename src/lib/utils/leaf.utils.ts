@@ -70,15 +70,9 @@ export const parseLeaf = (itemId: string | null): Leaf | null => {
 	return kind ? { kind, id: rest.join(':') } : null;
 };
 
-// What the search box covers today. Languages and about are not searched, and
-// only English and Italian text is matched: widening either changes what a
-// visitor finds, so it is a product choice, not a refactor.
-const SEARCHED_KINDS = [
-	'experience',
-	'project',
-	'technology',
-	'education'
-] as const satisfies readonly LeafKind[];
+// The search box covers every kind of leaf, the languages spoken and the about
+// items included. Only English and Italian text is matched: widening that
+// changes what a visitor finds, so it is a product choice, not a refactor.
 const SEARCHED_LOCALES = ['en', 'it'] as const satisfies readonly Locale[];
 
 // An education item is also found by its degrees and their notes.
@@ -102,7 +96,7 @@ export const searchLeaves = ({
 	const matches = (text: Localised): boolean =>
 		SEARCHED_LOCALES.some((l) => (text[l]?.toLowerCase() ?? '').includes(q));
 
-	return SEARCHED_KINDS.flatMap((kind) =>
+	return LEAF_KINDS.flatMap((kind) =>
 		LEAF_ITEMS[kind]()
 			.filter(({ id, label }) =>
 				[label, ...(kind === 'education' ? degreeTexts(id) : [])].some(matches)

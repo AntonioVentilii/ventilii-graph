@@ -29,7 +29,7 @@ How it is built and deployed, the AI API's limits and its env vars:
 | `npm run dev:api`   | The AI API on 8787 (reads `.env`)                   |
 | `npm run check`     | `svelte-check` on the site and `tsc` on `server/`   |
 | `npm run lint`      | Prettier, ESLint, knip (dead code), jscpd (clones)  |
-| `npm test`          | Vitest on the API's money code (`server/*.spec.ts`) |
+| `npm test`          | Vitest on `server/` and `src/lib/` specs            |
 | `npm run format`    | Prettier write and ESLint fix                       |
 | `npm run build`     | `tsc --noEmit` and the prerendered site in `build/` |
 | `npm run build:api` | esbuild bundle of the API in `build-api/`           |

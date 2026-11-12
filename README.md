@@ -17,7 +17,7 @@ small API behind `/ask`, in `server/`.
 | `npm run build:api` | Bundle the AI API to `build-api/`         |
 | `npm run preview`   | Preview the production build              |
 | `npm run check`     | Type-check the site and the API           |
-| `npm test`          | Unit tests of the API's cost guards       |
+| `npm test`          | Unit tests of the cost guards and search  |
 | `npm run quality`   | Format, then lint                         |
 
 Content lives in `src/lib/services/portfolio.services.ts`. Projects carry their
