@@ -10,6 +10,7 @@ import {
 } from '../src/lib/types/ai.types.ts';
 import { LOCALES } from '../src/lib/types/portfolio.types.ts';
 import { cacheGet, cacheKey, cachePut, type Outcome } from './cache.ts';
+import { optionalEnv, positiveNumberEnv } from './env.ts';
 import { mintFlyIdentityToken } from './fly-oidc.ts';
 import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, leaksNotes, readGuard } from './modes.ts';
 
@@ -20,7 +21,7 @@ import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, leaksNotes, readGuard }
  * reset on restart, which is fine for a portfolio.
  */
 
-const PORT = Number(process.env.AI_PORT ?? 8787);
+const PORT = positiveNumberEnv({ name: 'AI_PORT', fallback: 8787 });
 const MODEL = process.env.AI_MODEL ?? 'claude-opus-5';
 const EFFORT = (process.env.AI_EFFORT ?? 'medium') as 'low' | 'medium' | 'high';
 
@@ -30,16 +31,16 @@ const EFFORT = (process.env.AI_EFFORT ?? 'medium') as 'low' | 'medium' | 'high';
 // cannot, so it is the hard ceiling on what an abusive visitor can spend.
 // Cached answers are free and don't count.
 const PER_IP_WINDOW_MS = 10 * 60 * 1000;
-const PER_IP_PER_WINDOW = Number(process.env.AI_PER_IP_PER_10_MIN ?? 6);
-const PER_IP_PER_DAY = Number(process.env.AI_PER_IP_PER_DAY ?? 25);
-const DAILY_LIMIT = Number(process.env.AI_DAILY_LIMIT ?? 300);
-const DAILY_BUDGET_USD = Number(process.env.AI_DAILY_BUDGET_USD ?? 5);
+const PER_IP_PER_WINDOW = positiveNumberEnv({ name: 'AI_PER_IP_PER_10_MIN', fallback: 6 });
+const PER_IP_PER_DAY = positiveNumberEnv({ name: 'AI_PER_IP_PER_DAY', fallback: 25 });
+const DAILY_LIMIT = positiveNumberEnv({ name: 'AI_DAILY_LIMIT', fallback: 300 });
+const DAILY_BUDGET_USD = positiveNumberEnv({ name: 'AI_DAILY_BUDGET_USD', fallback: 5 });
 const MAX_IN_FLIGHT = 4;
 // Off-topic or manipulative requests (see Guard) count as strikes against the
 // visitor's address. At this many in a day the address gets no more
 // generations until midnight UTC, so whoever keeps trying to use the chat as
 // a free model stops spending the budget real visitors need.
-const STRIKES_PER_DAY = Number(process.env.AI_GUARD_STRIKES_PER_DAY ?? 2);
+const STRIKES_PER_DAY = positiveNumberEnv({ name: 'AI_GUARD_STRIKES_PER_DAY', fallback: 2 });
 
 // Output ceiling per mode, thinking included. The JSON each mode asks for fits
 // well inside these; a prompt that talks the model into a long translation or
@@ -68,8 +69,8 @@ const PRICES: Record<string, Price> = {
 	'claude-opus-4-8': { in: 5, out: 25 }
 };
 PRICES[MODEL] = {
-	in: Number(process.env.AI_PRICE_IN_PER_MTOK ?? PRICES[MODEL]?.in ?? 5),
-	out: Number(process.env.AI_PRICE_OUT_PER_MTOK ?? PRICES[MODEL]?.out ?? 25)
+	in: positiveNumberEnv({ name: 'AI_PRICE_IN_PER_MTOK', fallback: PRICES[MODEL]?.in ?? 5 }),
+	out: positiveNumberEnv({ name: 'AI_PRICE_OUT_PER_MTOK', fallback: PRICES[MODEL]?.out ?? 25 })
 };
 const WORST_PRICE: Price = Object.values(PRICES).reduce((a, b) => ({
 	in: Math.max(a.in, b.in),
@@ -84,10 +85,6 @@ const MAX_BODY_BYTES = 64 * 1024;
 // identity federation, as the other Fly apps use: the machine's OIDC token is
 // exchanged for a Claude access token, which the SDK renews before it expires.
 // The four ids are public identifiers, not secrets.
-const optionalEnv = (name: string): string | undefined => {
-	const value = process.env[name];
-	return value === undefined || value === '' ? undefined : value;
-};
 const federation = {
 	federationRuleId: optionalEnv('ANTHROPIC_FEDERATION_RULE_ID') ?? '',
 	organizationId: optionalEnv('ANTHROPIC_ORGANIZATION_ID') ?? '',

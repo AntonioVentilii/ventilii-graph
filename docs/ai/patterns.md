@@ -93,6 +93,9 @@ then its detail component.
   `{@html}`.
 - **Configuration is read once, at the top of the module,** from env with a
   default (`server/index.ts:23`). Constants stay in the module that owns them.
+  A count, an amount or a price goes through `positiveNumberEnv`
+  (`server/env.ts`), which keeps the default unless the value is a finite
+  number above zero.
 
 ## Components
 
