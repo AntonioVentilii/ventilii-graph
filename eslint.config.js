@@ -2,11 +2,6 @@ import { default as svelteConfig } from '@dfinity/eslint-config-oisy-wallet/svel
 import { default as vitestConfig } from '@dfinity/eslint-config-oisy-wallet/vitest';
 import ts from 'typescript-eslint';
 
-const ZERO_LITERAL = {
-	selector: "Literal[raw='0n']",
-	message: 'Use the shared constant `ZERO` instead of `0n`.'
-};
-
 // import-x's `import/no-relative-parent-imports` resolves `#lib/…` subpath
 // imports to their file and then reports them as parent imports. This checks
 // the specifier as written instead, so `#lib/…` passes and `../…` does not.
@@ -36,10 +31,7 @@ const BASELINE = [
 	},
 	{
 		files: ['server/index.ts'],
-		rules: {
-			complexity: ['error', 18],
-			'max-lines': ['error', { max: 502, skipBlankLines: true, skipComments: true }]
-		}
+		rules: { complexity: ['error', 17] }
 	},
 	{
 		files: ['src/lib/components/graph/GraphEdgesLive.svelte'],
@@ -134,7 +126,7 @@ export default ts.config(
 		rules: {
 			'svelte/no-navigation-without-resolve': 'off',
 			'import/no-relative-parent-imports': 'off',
-			'no-restricted-syntax': ['error', ZERO_LITERAL, PARENT_IMPORT],
+			'no-restricted-syntax': ['error', PARENT_IMPORT],
 			...LIMITS
 		}
 	},
@@ -151,7 +143,7 @@ export default ts.config(
 		// portfolio data from src/ (one source of truth), and logs to stdout.
 		files: ['server/**/*'],
 		rules: {
-			'no-restricted-syntax': ['error', ZERO_LITERAL],
+			'no-restricted-syntax': 'off',
 			'no-console': 'off'
 		}
 	},

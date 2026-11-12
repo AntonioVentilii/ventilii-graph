@@ -1,5 +1,35 @@
 # Changelog
 
+## [1.6.5](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.6.4...v1.6.5) (2026-11-12)
+
+
+### Bug Fixes
+
+* **ask:** accept only finite positive numbers for the numeric API settings ([#104](https://github.com/AntonioVentilii/ventilii-graph/issues/104)) ([7bd53cd](https://github.com/AntonioVentilii/ventilii-graph/commit/7bd53cdf94b5f7198e810c0e8f4150486defb8f6))
+
+
+### Documentation
+
+* **ai:** point the PR rules to rules 2 and 3 of the standard ([#97](https://github.com/AntonioVentilii/ventilii-graph/issues/97)) ([79dd8dd](https://github.com/AntonioVentilii/ventilii-graph/commit/79dd8ddfbef9f302abcc7628c3fc9d05e7825002))
+
+
+### Miscellaneous Chores
+
+* drop the ZERO_LITERAL lint rule ([#103](https://github.com/AntonioVentilii/ventilii-graph/issues/103)) ([d127ea9](https://github.com/AntonioVentilii/ventilii-graph/commit/d127ea97141d5b42a686aacbe9cd7a03a9dee018))
+
+
+### Code Refactoring
+
+* **ask:** move the Claude client and its credentials out of server/index.ts ([#99](https://github.com/AntonioVentilii/ventilii-graph/issues/99)) ([5b6e6ba](https://github.com/AntonioVentilii/ventilii-graph/commit/5b6e6bafb8b1b080f2b01e090abae21096ab6402))
+* one component for the related-projects list of the detail panels ([#101](https://github.com/AntonioVentilii/ventilii-graph/issues/101)) ([8de610c](https://github.com/AntonioVentilii/ventilii-graph/commit/8de610c65aa738c488cf513414126733f1d5157e))
+* one helper for the prefers-reduced-motion query ([#100](https://github.com/AntonioVentilii/ventilii-graph/issues/100)) ([ae1ab4b](https://github.com/AntonioVentilii/ventilii-graph/commit/ae1ab4b16c98eaa3c836004076f2be7c9a303635))
+* search the leaves through LEAF_ITEMS instead of one loop per kind ([#98](https://github.com/AntonioVentilii/ventilii-graph/issues/98)) ([b0ca5ef](https://github.com/AntonioVentilii/ventilii-graph/commit/b0ca5efca24b08798d1921d4ac67ef8079aa022c))
+
+
+### Tests
+
+* **ask:** cover the spend and limit code with Vitest in CI ([#105](https://github.com/AntonioVentilii/ventilii-graph/issues/105)) ([d3dd40c](https://github.com/AntonioVentilii/ventilii-graph/commit/d3dd40c91b993aacd3b80e38cb744487bb0a2104))
+
 ## [1.6.4](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.6.3...v1.6.4) (2026-11-12)
 
 
