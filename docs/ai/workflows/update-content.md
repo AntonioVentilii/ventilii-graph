@@ -20,8 +20,9 @@ Title: `feat(content): ...` (or `fix(content): ...` for a correction). Model:
    `components/cv/StaticCv.svelte`, and `server/knowledge.ts` for the AI. A label
    table for a new enum goes next to its helper (see `project.utils.ts`).
 5. **Sync the hand-written copies** (until they are generated):
-   `static/llms.txt` (nginx serves it as `/llm.txt` too), `<lastmod>` in
-   `static/sitemap.xml`, and `SITE_MODIFIED_TIME` in `src/lib/utils/seo.utils.ts`.
+   `static/llms.txt` (nginx serves it as `/llm.txt` too), and
+   `SITE_MODIFIED_TIME` in `src/lib/utils/seo.utils.ts` (the sitemap's `<lastmod>`
+   is built from it).
    If the headline skills changed, `PERSON_KNOWS_ABOUT` in the same file.
 6. **Never** put private facts here: they go in the `AI_PRIVATE_NOTES` secret.
    The CV PDF is supplied by the owner (`chore: update CV PDF`).

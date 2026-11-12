@@ -112,15 +112,16 @@ then its detail component.
   `components/icons/`.
 - **SEO head per route**, built from the constants in `src/lib/utils/seo.utils.ts`,
   with `OgImageMeta` and `TwitterMeta` for the banner tags every page shares
-  (`src/routes/ask/+page.svelte`); JSON-LD goes through `serializeSchema`.
+  (`src/routes/ask/+page.svelte`); JSON-LD goes through `serializeSchema`. The
+  sitemap is a prerendered endpoint built from the same constants
+  (`src/routes/sitemap.xml/+server.ts`), never a file in `static/`.
 
 ## Anti-patterns in the code today (do not copy)
 
 - **Long files**: `graph-layout.services.ts`, `StaticCv.svelte`,
   `ask-copy.utils.ts`. Add to them only what belongs to their
   concern; split along the section comments when a change allows it.
-- **Hand-synced copies**: `static/llms.txt` restates portfolio content; `SITE_MODIFIED_TIME` (`seo.utils.ts:68`)
-  mirrors `<lastmod>` in `static/sitemap.xml`.
+- **Hand-synced copies**: `static/llms.txt` restates portfolio content.
 - **Copy-pasted markup**: the author, article and JSON-LD
   lines of `StaticCv.svelte` and `routes/+page.svelte`; two branches of
   `OrbitNode.svelte`. Extract a component before adding a fourth copy.
