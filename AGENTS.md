@@ -43,9 +43,9 @@ src/lib/utils/                           pure helpers, copy tables, SEO constant
 src/lib/services/                        content, graph layout, the /ask client
 src/lib/stores/                          theme store, per-mode AI request state
 src/lib/components/{graph,panel,layout,ui,icons,cv,ai}/
-src/routes/                              /, /cv/, /cv/it/, /cv/pt/, /ask/
+src/routes/                              /, /cv/, /cv/it/, /cv/pt/, /ask/, /sitemap.xml
 server/                                  the /ask API (index, modes, knowledge, OIDC)
-static/                                  shipped as is (llms.txt, sitemap, CV PDF)
+static/                                  shipped as is (llms.txt, robots.txt, CV PDF)
 ```
 
 Full taxonomy and where new code goes: [`docs/ai/structure.md`](./docs/ai/structure.md).
