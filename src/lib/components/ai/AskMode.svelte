@@ -3,6 +3,7 @@
 	import FieldCounter from '#lib/components/ai/FieldCounter.svelte';
 	import RequestStatus from '#lib/components/ai/RequestStatus.svelte';
 	import RichText from '#lib/components/ai/RichText.svelte';
+	import SubmitButton from '#lib/components/ai/SubmitButton.svelte';
 	import { AiRequestState } from '#lib/stores/ai-request.svelte.ts';
 	import { AI_INPUT_LIMITS, type AskResult } from '#lib/types/ai.types.ts';
 	import type { Locale } from '#lib/types/portfolio.types.ts';
@@ -64,13 +65,7 @@
 			placeholder={t('askPlaceholder')}
 			rows="2"
 			bind:value={question}></textarea>
-		<button
-			class="h-10 shrink-0 rounded-xl bg-accent px-4 text-sm font-bold text-accent-fg transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
-			disabled={disabled || req.loading || !question.trim()}
-			type="submit"
-		>
-			{t('askSubmit')}
-		</button>
+		<SubmitButton disabled={disabled || req.loading || !question.trim()} label={t('askSubmit')} />
 	</div>
 	<div class="flex justify-end">
 		<FieldCounter label={t('charsLeft')} length={question.length} max={AI_INPUT_LIMITS.question} />
