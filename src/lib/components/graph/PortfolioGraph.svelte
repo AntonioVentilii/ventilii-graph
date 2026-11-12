@@ -9,6 +9,7 @@
 	import type { Locale } from '#lib/types/portfolio.types.ts';
 	import { leafKey, leafLabel, type Leaf } from '#lib/utils/leaf.utils.ts';
 	import { pickLocale } from '#lib/utils/locale.utils.ts';
+	import { prefersReducedMotion } from '#lib/utils/motion.utils.ts';
 
 	interface Props {
 		locale: Locale;
@@ -49,10 +50,7 @@
 		const enable = () => {
 			layoutReady = true;
 		};
-		if (
-			typeof window !== 'undefined' &&
-			window.matchMedia('(prefers-reduced-motion: reduce)').matches
-		) {
+		if (prefersReducedMotion()) {
 			enable();
 			return;
 		}
@@ -97,11 +95,7 @@
 			return;
 		}
 
-		const reduceMotion =
-			typeof window !== 'undefined' &&
-			window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-		if (reduceMotion) {
+		if (prefersReducedMotion()) {
 			leafCardRevealReady = true;
 			return;
 		}

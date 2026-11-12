@@ -2,6 +2,7 @@
 	import type { GraphLayoutResult } from '#lib/services/graph-layout.services.ts';
 	import { portfolioData } from '#lib/services/portfolio.services.ts';
 	import { leafKey } from '#lib/utils/leaf.utils.ts';
+	import { prefersReducedMotion } from '#lib/utils/motion.utils.ts';
 
 	interface Props {
 		container: HTMLElement | undefined;
@@ -227,10 +228,6 @@
 		}
 
 		if (isFrozen) {
-			const reduceMotion =
-				typeof window !== 'undefined' &&
-				window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
 			const run = () => {
 				const cr = cont.getBoundingClientRect();
 				segments = buildSegments({ cont, cr, lay, catId: cId, itId: iId });
@@ -238,7 +235,7 @@
 
 			run();
 
-			if (reduceMotion) {
+			if (prefersReducedMotion()) {
 				return;
 			}
 
