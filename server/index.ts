@@ -10,7 +10,7 @@ import {
 } from '../src/lib/types/ai.types.ts';
 import { LOCALES } from '../src/lib/types/portfolio.types.ts';
 import { cacheGet, cacheKey, cachePut, type Outcome } from './cache.ts';
-import { optionalEnv, positiveNumberEnv } from './env.ts';
+import { optionalEnv, portEnv, positiveNumberEnv } from './env.ts';
 import { mintFlyIdentityToken } from './fly-oidc.ts';
 import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, leaksNotes, readGuard } from './modes.ts';
 
@@ -21,7 +21,7 @@ import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, leaksNotes, readGuard }
  * reset on restart, which is fine for a portfolio.
  */
 
-const PORT = positiveNumberEnv({ name: 'AI_PORT', fallback: 8787 });
+const PORT = portEnv({ name: 'AI_PORT', fallback: 8787 });
 const MODEL = process.env.AI_MODEL ?? 'claude-opus-5';
 const EFFORT = (process.env.AI_EFFORT ?? 'medium') as 'low' | 'medium' | 'high';
 
