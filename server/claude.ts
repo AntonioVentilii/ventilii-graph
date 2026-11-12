@@ -1,6 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { oidcFederationProvider } from '@anthropic-ai/sdk/lib/credentials/oidc-federation';
 import type { AiHealth } from '../src/lib/types/ai.types.ts';
+import { optionalEnv } from './env.ts';
 import { mintFlyIdentityToken } from './fly-oidc.ts';
 
 /**
@@ -15,10 +16,6 @@ export const EFFORT = (process.env.AI_EFFORT ?? 'medium') as 'low' | 'medium' | 
 // identity federation, as the other Fly apps use: the machine's OIDC token is
 // exchanged for a Claude access token, which the SDK renews before it expires.
 // The four ids are public identifiers, not secrets.
-const optionalEnv = (name: string): string | undefined => {
-	const value = process.env[name];
-	return value === undefined || value === '' ? undefined : value;
-};
 const federation = {
 	federationRuleId: optionalEnv('ANTHROPIC_FEDERATION_RULE_ID') ?? '',
 	organizationId: optionalEnv('ANTHROPIC_ORGANIZATION_ID') ?? '',

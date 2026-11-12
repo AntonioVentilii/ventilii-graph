@@ -53,7 +53,7 @@ then its detail component.
   enforces it; single-primitive helpers such as `cvPath(locale)` are allowed.
 - **Arrow function constants**, exported by name; no default exports outside
   `.svelte` files.
-- **Comments say why.** See the cost-guard block in `server/index.ts:25` or
+- **Comments say why.** See the cost-guard block in `server/index.ts:27` or
   `vite.config.ts` around `__BUILD_YEAR__`.
 
 ## State
@@ -80,11 +80,11 @@ then its detail component.
   (`src/lib/services/ai.services.ts:14`) returns `{ ok: false, error: 'upstream' }`
   and rethrows only an abort; `fetchAiHealth` returns `undefined`.
 - **The server validates by hand, then answers a typed body.** `parseRequest`
-  (`server/index.ts:113`) turns unknown JSON into an `AiRequest` or `undefined`;
-  every reply goes through `send` (`server/index.ts:270`) with a status and an
+  (`server/index.ts:111`) turns unknown JSON into an `AiRequest` or `undefined`;
+  every reply goes through `send` (`server/index.ts:268`) with a status and an
   `AiResponse`. Internal failures are small `Error` subclasses
-  (`RefusedError`, `UncountedError`, `server/index.ts:178`) mapped to codes in
-  `handleGenerate` (`server/index.ts:316`).
+  (`RefusedError`, `UncountedError`, `server/index.ts:176`) mapped to codes in
+  `handleGenerate` (`server/index.ts:314`).
 - **Model output is never trusted.** Structured outputs fix the shape
   (`SCHEMAS`, `server/modes.ts:199`); `cleanResult` (`server/modes.ts:391`)
   trims lengths, drops unknown evidence ids and inline ids; `leaksNotes`
@@ -92,7 +92,10 @@ then its detail component.
   On the page, model text renders only through `RichText.svelte`, never
   `{@html}`.
 - **Configuration is read once, at the top of the module,** from env with a
-  default (`server/claude.ts:11`). Constants stay in the module that owns them.
+  default (`server/claude.ts:12`). Constants stay in the module that owns them.
+  A count, an amount or a price goes through `positiveNumberEnv`
+  (`server/env.ts`), which keeps the default unless the value is a finite
+  number above zero; the port goes through `portEnv` (1 to 65535).
 
 ## Components
 

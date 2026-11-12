@@ -144,3 +144,4 @@ PR of its own; do not write a second one beside it.
 | `claude.ts` `client`, `MODEL`, `EFFORT`, `auth`          | The Claude client, its model, effort and credentials     |
 | `cost-guard.ts` `createCostGuard`                        | Limits, daily budget, worst-case reserve, strikes        |
 | `limit-key.ts` `limitKey`                                | Per-IP limit key: IPv4, or the IPv6 /64                  |
+| `env.ts` `optionalEnv`, `positiveNumberEnv`, `portEnv`   | Empty env read as absent; a positive number or default   |
