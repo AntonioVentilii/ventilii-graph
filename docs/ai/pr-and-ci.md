@@ -36,6 +36,7 @@ Never start a line with `Test:` or `Fix:`. No AI attribution lines.
 npm run format
 npm run lint
 npm run check
+npm test
 npm run build
 ```
 
@@ -63,7 +64,7 @@ needs the owner.
 
 ## What CI runs on a PR
 
-`.github/workflows/checks.yml`: `pr-title`, `lint`, `check`, `build`, and
+`.github/workflows/checks.yml`: `pr-title`, `lint`, `check`, `test`, `build`, and
 `docker` (build, `nginx -t`, route and API probes, security headers). All must
 pass. `release-please.yml` opens the release PR on `main`; `deploy.yml` runs
 only on a `v*` tag.
