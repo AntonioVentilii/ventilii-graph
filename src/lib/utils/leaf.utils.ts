@@ -70,6 +70,23 @@ export const parseLeaf = (itemId: string | null): Leaf | null => {
 	return kind ? { kind, id: rest.join(':') } : null;
 };
 
+// What the search box covers today. Languages and about are not searched, and
+// only English and Italian text is matched: widening either changes what a
+// visitor finds, so it is a product choice, not a refactor.
+const SEARCHED_KINDS = [
+	'experience',
+	'project',
+	'technology',
+	'education'
+] as const satisfies readonly LeafKind[];
+const SEARCHED_LOCALES = ['en', 'it'] as const satisfies readonly Locale[];
+
+// An education item is also found by its degrees and their notes.
+const degreeTexts = (id: string): Localised[] =>
+	(portfolioData.education.find((e) => e.id === id)?.degrees ?? []).flatMap((d) =>
+		d.note ? [d.label, d.note] : [d.label]
+	);
+
 export const searchLeaves = ({
 	query,
 	locale
@@ -82,61 +99,14 @@ export const searchLeaves = ({
 		return [];
 	}
 
-	const results: (Leaf & { label: string })[] = [];
+	const matches = (text: Localised): boolean =>
+		SEARCHED_LOCALES.some((l) => (text[l]?.toLowerCase() ?? '').includes(q));
 
-	const matches = (text: string | { en: string; it?: string }): boolean => {
-		if (typeof text === 'string') {
-			return text.toLowerCase().includes(q);
-		}
-		return text.en.toLowerCase().includes(q) || (text.it?.toLowerCase() ?? '').includes(q);
-	};
-
-	// Search experiences
-	portfolioData.experiences.forEach((e) => {
-		if (matches(e.company)) {
-			results.push({
-				kind: 'experience',
-				id: e.id,
-				label: pickLocale({ text: e.company, locale })
-			});
-		}
-	});
-
-	// Search projects
-	portfolioData.projects.forEach((p) => {
-		if (matches(p.title)) {
-			results.push({
-				kind: 'project',
-				id: p.id,
-				label: pickLocale({ text: p.title, locale })
-			});
-		}
-	});
-
-	// Search technologies
-	portfolioData.technologies.forEach((s) => {
-		if (matches(s.label)) {
-			results.push({
-				kind: 'technology',
-				id: s.id,
-				label: pickLocale({ text: s.label, locale })
-			});
-		}
-	});
-
-	// Search education
-	portfolioData.education.forEach((ed) => {
-		const institutionMatch = matches(ed.institution);
-		const degreeMatch = ed.degrees.some((d) => matches(d.label) || (d.note && matches(d.note)));
-
-		if (institutionMatch || degreeMatch) {
-			results.push({
-				kind: 'education',
-				id: ed.id,
-				label: pickLocale({ text: ed.institution, locale })
-			});
-		}
-	});
-
-	return results;
+	return SEARCHED_KINDS.flatMap((kind) =>
+		LEAF_ITEMS[kind]()
+			.filter(({ id, label }) =>
+				[label, ...(kind === 'education' ? degreeTexts(id) : [])].some(matches)
+			)
+			.map(({ id, label }) => ({ kind, id, label: pickLocale({ text: label, locale }) }))
+	);
 };

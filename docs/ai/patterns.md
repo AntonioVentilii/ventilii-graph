@@ -112,8 +112,6 @@ then its detail component.
 
 ## Anti-patterns in the code today (do not copy)
 
-- **`searchLeaves`** (`leaf.utils.ts:97`) repeats one loop per kind, matches
-  only English and Italian, and skips languages and about.
 - **Long files**: `server/index.ts` (about 640 lines: config, pricing, limits,
   parsing, IP keys, generation, HTTP), `graph-layout.services.ts`,
   `StaticCv.svelte`, `ask-copy.utils.ts`. Add to them only what belongs to their
