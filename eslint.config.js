@@ -47,7 +47,7 @@ const BASELINE = [
 	},
 	{
 		files: ['src/lib/components/cv/StaticCv.svelte'],
-		rules: { 'max-lines': ['error', { max: 409, skipBlankLines: true, skipComments: true }] }
+		rules: { 'max-lines': ['error', { max: 403, skipBlankLines: true, skipComments: true }] }
 	},
 	{
 		files: ['src/lib/utils/ask-copy.utils.ts'],

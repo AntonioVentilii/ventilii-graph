@@ -87,6 +87,8 @@ PR of its own; do not write a second one beside it.
 | `FlattenToggle.svelte` | Map to CV toggle (the CV page has the scatter one)      |
 | `LocaleSelect.svelte`  | Locale `<select>` bound to the page locale              |
 | `ThemeToggle.svelte`   | Light and dark switch                                   |
+| `OgImageMeta.svelte`   | `og:image` and its size, for any page's head            |
+| `TwitterMeta.svelte`   | The Twitter card with the banner, for any head          |
 | `SkipToContent.svelte` | Skip link, visible on focus                             |
 
 ## Components: features

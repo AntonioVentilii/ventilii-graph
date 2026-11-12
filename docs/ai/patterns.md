@@ -102,7 +102,8 @@ then its detail component.
   no raw colours in components.
 - **Icons** from `@lucide/svelte`; the two brand marks it lacks are in
   `components/icons/`.
-- **SEO head per route**, built from the constants in `src/lib/utils/seo.utils.ts`
+- **SEO head per route**, built from the constants in `src/lib/utils/seo.utils.ts`,
+  with `OgImageMeta` and `TwitterMeta` for the banner tags every page shares
   (`src/routes/ask/+page.svelte`); JSON-LD goes through `serializeSchema`.
 
 ## Anti-patterns in the code today (do not copy)
@@ -127,8 +128,7 @@ then its detail component.
 - **`prefers-reduced-motion`** is queried inline in `PortfolioApp.svelte:136`,
   `PortfolioGraph.svelte:54` and `:102`, and `GraphEdgesLive.svelte:231`.
 - **Copy-pasted markup**: the submit buttons of `AskMode.svelte`, `FitMode.svelte`
-  and `DeckMode.svelte` repeat one class list; the JSON-LD and SEO head of
-  `StaticCv.svelte` and
-  `routes/+page.svelte` (and `routes/ask/+page.svelte`); the related-items list
+  and `DeckMode.svelte` repeat one class list; the author, article and JSON-LD
+  lines of `StaticCv.svelte` and `routes/+page.svelte`; the related-items list
   of `ExperienceDetail.svelte` and `TechnologyDetail.svelte`; two branches of
   `OrbitNode.svelte`. Extract a component before adding a fourth copy.

@@ -1,14 +1,9 @@
 <script lang="ts">
 	import AskApp from '#lib/components/ai/AskApp.svelte';
+	import OgImageMeta from '#lib/components/layout/OgImageMeta.svelte';
+	import TwitterMeta from '#lib/components/layout/TwitterMeta.svelte';
 	import { ASK_COPY } from '#lib/utils/ask-copy.utils.ts';
-	import {
-		OG_IMAGE,
-		OG_IMAGE_ALT,
-		OG_IMAGE_HEIGHT,
-		OG_IMAGE_WIDTH,
-		SITE_AUTHOR,
-		absoluteUrl
-	} from '#lib/utils/seo.utils.ts';
+	import { SITE_AUTHOR, absoluteUrl } from '#lib/utils/seo.utils.ts';
 
 	// Locale is a client-side choice (?lang=), so the prerendered head carries
 	// the English metadata; AskApp swaps <title> and description on the client.
@@ -22,13 +17,9 @@
 	<meta content={description} property="og:description" />
 	<meta content="website" property="og:type" />
 	<meta content={absoluteUrl('/ask/')} property="og:url" />
-	<meta content={OG_IMAGE} property="og:image" />
-	<meta content={OG_IMAGE_WIDTH} property="og:image:width" />
-	<meta content={OG_IMAGE_HEIGHT} property="og:image:height" />
+	<OgImageMeta />
 	<meta name="author" content={SITE_AUTHOR} />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:image" content={OG_IMAGE} />
-	<meta name="twitter:image:alt" content={OG_IMAGE_ALT} />
+	<TwitterMeta />
 </svelte:head>
 
 <AskApp />

@@ -4,7 +4,6 @@
 	"project": ["src/**/*.{ts,svelte}", "server/**/*.ts"],
 	"vite": false,
 	"ignoreExportsUsedInFile": true,
-	"ignoreDependencies": ["@tailwindcss/postcss", "@types/eslint", "postcss", "tslib"],
 	"ignoreIssues": {
 		"src/lib/utils/locale.utils.ts": ["exports"]
 	}
