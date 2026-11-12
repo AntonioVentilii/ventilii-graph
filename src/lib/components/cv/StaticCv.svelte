@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import OgImageMeta from '#lib/components/layout/OgImageMeta.svelte';
+	import ProfileMeta from '#lib/components/layout/ProfileMeta.svelte';
 	import ThemeToggle from '#lib/components/layout/ThemeToggle.svelte';
-	import TwitterMeta from '#lib/components/layout/TwitterMeta.svelte';
 	import { portfolioData } from '#lib/services/portfolio.services.ts';
 	import { LOCALES, type Locale, type Localised } from '#lib/types/portfolio.types.ts';
 	import { cvCopy } from '#lib/utils/cv-copy.utils.ts';
@@ -11,10 +10,6 @@
 	import {
 		CV_ALTERNATES,
 		PERSON_KNOWS_ABOUT,
-		SITE_AUTHOR,
-		SITE_AUTHOR_URL,
-		SITE_MODIFIED_TIME,
-		SITE_PUBLISHED_TIME,
 		absoluteUrl,
 		serializeSchema
 	} from '#lib/utils/seo.utils.ts';
@@ -110,15 +105,7 @@
 	<meta content="profile" property="og:type" />
 	<meta content={canonical} property="og:url" />
 	<meta content={ogLocale} property="og:locale" />
-	<OgImageMeta />
-	<meta name="author" content={SITE_AUTHOR} />
-	<meta content={SITE_AUTHOR_URL} property="article:author" />
-	<meta content={SITE_PUBLISHED_TIME} property="article:published_time" />
-	<meta content={SITE_MODIFIED_TIME} property="article:modified_time" />
-	<TwitterMeta />
-
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -- serializeSchema escapes <, >, & -->
-	{@html _jsonLdScript}
+	<ProfileMeta jsonLdScript={_jsonLdScript} />
 </svelte:head>
 
 <div class="flex min-h-dvh flex-col bg-page text-fg">

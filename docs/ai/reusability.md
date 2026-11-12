@@ -94,6 +94,7 @@ PR of its own; do not write a second one beside it.
 | `ThemeToggle.svelte`   | Light and dark switch                                   |
 | `OgImageMeta.svelte`   | `og:image` and its size, for any page's head            |
 | `TwitterMeta.svelte`   | The Twitter card with the banner, for any head          |
+| `ProfileMeta.svelte`   | Banner, author, dates, card and JSON-LD of map and CV   |
 | `SkipToContent.svelte` | Skip link, visible on focus                             |
 
 ## Components: features
