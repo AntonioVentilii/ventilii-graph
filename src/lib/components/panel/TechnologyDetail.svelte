@@ -1,8 +1,7 @@
 <script lang="ts">
+	import RelatedProjects from '#lib/components/panel/RelatedProjects.svelte';
 	import EntryHeader from '#lib/components/ui/EntryHeader.svelte';
-	import InlineNavLink from '#lib/components/ui/InlineNavLink.svelte';
 	import PanelEyebrow from '#lib/components/ui/PanelEyebrow.svelte';
-	import RelatedSection from '#lib/components/ui/RelatedSection.svelte';
 	import type { Locale, Technology } from '#lib/types/portfolio.types.ts';
 	import type { Leaf } from '#lib/utils/leaf.utils.ts';
 	import { pickLocale } from '#lib/utils/locale.utils.ts';
@@ -35,17 +34,11 @@
 		{pickLocale({ text: technology.blurb, locale })}
 	</p>
 
-	{#if projects.length}
-		<RelatedSection label={relatedHeading}>
-			<ul class="mt-2 space-y-1 text-sm">
-				{#each projects as p (p.id)}
-					<li>
-						<InlineNavLink onclick={() => onSelectLeaf({ kind: 'project', id: p.id })}>
-							{pickLocale({ text: p.title, locale })}
-						</InlineNavLink>
-					</li>
-				{/each}
-			</ul>
-		</RelatedSection>
-	{/if}
+	<RelatedProjects
+		label={relatedHeading}
+		listClass="mt-2 space-y-1 text-sm"
+		{locale}
+		{onSelectLeaf}
+		{projects}
+	/>
 </div>

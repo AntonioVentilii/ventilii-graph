@@ -17,6 +17,7 @@ small API behind `/ask`, in `server/`.
 | `npm run build:api` | Bundle the AI API to `build-api/`         |
 | `npm run preview`   | Preview the production build              |
 | `npm run check`     | Type-check the site and the API           |
+| `npm test`          | Unit tests of the API's cost guards       |
 | `npm run quality`   | Format, then lint                         |
 
 Content lives in `src/lib/services/portfolio.services.ts`. Projects carry their
@@ -78,6 +79,8 @@ Tuning via env: `AI_MODEL` (default `claude-opus-5`), `AI_EFFORT` (`medium`),
 since per-IP limits can be dodged by rotating addresses), `AI_DAILY_LIMIT`
 (300 requests), `AI_PER_IP_PER_10_MIN` (6), `AI_PER_IP_PER_DAY` (25), and
 `AI_PRICE_IN_PER_MTOK` / `AI_PRICE_OUT_PER_MTOK` (the configured model's prices; Opus 5.5, Opus 5 and Opus 4.8 are built in, so set them for another model or to correct a listed one).
+Each of these numbers must be a finite number above zero; any other value is
+logged as `config_invalid` and the default is used instead.
 Each mode also caps its output tokens, so a prompt that talks the model into a
 long translation or essay is cut off early.
 Every output opens with a `scope` field: when the model judges a request

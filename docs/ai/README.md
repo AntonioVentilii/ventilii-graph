@@ -11,7 +11,7 @@ These pages only say what is true of this repository.
 | [structure.md](./structure.md)     | Folder taxonomy, where new code goes, dependency direction    |
 | [patterns.md](./patterns.md)       | Patterns in use with examples, and the anti-patterns to avoid |
 | [reusability.md](./reusability.md) | Catalog of every shared component, util, service, type        |
-| [testing.md](./testing.md)         | How a change is verified (there is no unit test runner)       |
+| [testing.md](./testing.md)         | How a change is verified, and the API's unit tests            |
 | [pr-and-ci.md](./pr-and-ci.md)     | Title convention, body, local gates, what CI runs             |
 
 Workflows, read off the git history:

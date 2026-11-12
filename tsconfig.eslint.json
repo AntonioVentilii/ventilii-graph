@@ -9,6 +9,7 @@
 		"./eslint.config.js",
 		"./eslint-local-rules.cjs",
 		"./vite.config.ts",
+		"./vitest.config.ts",
 		"./tailwind.config.ts"
 	],
 	"exclude": ["./node_modules/**"]
