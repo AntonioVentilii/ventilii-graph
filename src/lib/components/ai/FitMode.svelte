@@ -1,7 +1,7 @@
 <script lang="ts">
 	import EvidenceChips from '#lib/components/ai/EvidenceChips.svelte';
 	import FieldCounter from '#lib/components/ai/FieldCounter.svelte';
-	import RequestStatus from '#lib/components/ai/RequestStatus.svelte';
+	import ModeOutput from '#lib/components/ai/ModeOutput.svelte';
 	import SubmitButton from '#lib/components/ai/SubmitButton.svelte';
 	import { AiRequestState } from '#lib/stores/ai-request.svelte.ts';
 	import { AI_INPUT_LIMITS, type FitGap, type FitResult } from '#lib/types/ai.types.ts';
@@ -135,11 +135,8 @@
 	</div>
 </form>
 
-<div class="mt-6 space-y-4">
-	<RequestStatus {email} error={req.error} guard={req.guard} loading={req.loading} {locale} />
-
-	{#if req.result && !req.loading}
-		{@const r = req.result}
+<ModeOutput {email} {locale} {req}>
+	{#snippet result(r)}
 		<article
 			class="animate-fade shadow-leaf space-y-6 rounded-2xl border border-border bg-card p-5"
 		>
@@ -239,5 +236,5 @@
 
 			<p class="text-xs text-fg-faint">{t('generatedBy')}</p>
 		</article>
-	{/if}
-</div>
+	{/snippet}
+</ModeOutput>

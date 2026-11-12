@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DeckViewer from '#lib/components/ai/DeckViewer.svelte';
 	import FieldCounter from '#lib/components/ai/FieldCounter.svelte';
-	import RequestStatus from '#lib/components/ai/RequestStatus.svelte';
+	import ModeOutput from '#lib/components/ai/ModeOutput.svelte';
 	import SubmitButton from '#lib/components/ai/SubmitButton.svelte';
 	import { AiRequestState } from '#lib/stores/ai-request.svelte.ts';
 	import { AI_INPUT_LIMITS } from '#lib/types/ai.types.ts';
@@ -72,12 +72,10 @@
 	</div>
 </form>
 
-<div class="mt-6 space-y-4">
-	<RequestStatus {email} error={req.error} guard={req.guard} loading={req.loading} {locale} />
-
-	{#if req.result && !req.loading}
-		{#key req.result}
-			<DeckViewer {name} deck={req.result} {locale} />
+<ModeOutput {email} {locale} {req}>
+	{#snippet result(deck)}
+		{#key deck}
+			<DeckViewer {name} {deck} {locale} />
 		{/key}
-	{/if}
-</div>
+	{/snippet}
+</ModeOutput>
