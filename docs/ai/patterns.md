@@ -8,13 +8,13 @@ already in the code, named so nobody copies them.
 
 - **One content object.** `portfolioData` in
   `src/lib/services/portfolio.services.ts:12` is the whole portfolio, typed by
-  `PortfolioData` (`src/lib/types/portfolio.types.ts:94`). Every renderer reads
+  `PortfolioData` (`src/lib/types/portfolio.types.ts:97`). Every renderer reads
   it: the panel, `StaticCv.svelte`, the search, and the AI through
   `server/knowledge.ts:45`. Strings in it are built with `L.en(en, it, pt)`
   (`portfolio.services.ts:3`).
 - **`Localised` plus `pickLocale`.** Content strings are `Localised`
-  (`portfolio.types.ts:3`, English required, others optional) and are read with
-  `pickLocale({ text, locale })` (`src/lib/utils/locale.utils.ts:5`), which
+  (`portfolio.types.ts:6`, English required, others optional) and are read with
+  `pickLocale({ text, locale })` (`src/lib/utils/locale.utils.ts:20`), which
   falls back to English.
 - **UI copy as `Record<Locale, string>` tables, one module per page.** Every
   string is in `ASK_COPY` (`src/lib/utils/ask-copy.utils.ts:6`), `MAP_COPY`
@@ -24,10 +24,14 @@ already in the code, named so nobody copies them.
   A string two pages share goes next to its concept: the language menu's label
   is `LANGUAGE_LABEL` in `locale.utils.ts`, read by `LocaleSelect` itself. Labels for a content enum
   live next to their helper: `STATUS_LABELS` in `src/lib/utils/project.utils.ts:4`.
+- **One locale list.** `LOCALES` (`src/lib/types/portfolio.types.ts`) is the
+  list the `Locale` type, the menus, the hreflang links and the API read; every
+  per-locale mapping (`HTML_LANG`, `OG_LOCALE`) is a `Record<Locale, string>` in
+  `src/lib/utils/locale.utils.ts`.
 - **Locale is client state.** Pages are prerendered in English (the CV pages
-  are prerendered per locale); `?lang=` is read in `onMount`
+  are prerendered per locale); `?lang=` is read in `onMount` with `parseLocale`
   (`src/lib/components/PortfolioApp.svelte:19`). Links carry it with
-  `cvPath`, `askPath` and `evidenceLink` (`locale.utils.ts:9`,
+  `mapPath`, `cvPath`, `askPath` and `evidenceLink` (`locale.utils.ts`,
   `ask-copy.utils.ts:451`, `src/lib/utils/evidence.utils.ts:11`).
 
 ## Leaf ids
@@ -108,12 +112,6 @@ then its detail component.
 
 ## Anti-patterns in the code today (do not copy)
 
-- **The locale list is repeated**: `LOCALES` in `locale.utils.ts:3` (imported by
-  nothing) and again in
-  `server/index.ts:125`; the `?lang=` check in `PortfolioApp.svelte:25` and
-  `AskApp.svelte:47`; `pt-BR` for `<html lang>` in `src/hooks.server.ts:10`,
-  `AskApp.svelte:72` and `StaticCv.svelte:72`; the locale nav in
-  `StaticCv.svelte:76`. Use `LOCALES` and add any per-locale mapping next to it.
 - **`searchLeaves`** (`leaf.utils.ts:97`) repeats one loop per kind, matches
   only English and Italian, and skips languages and about.
 - **Long files**: `server/index.ts` (about 640 lines: config, pricing, limits,
@@ -126,8 +124,7 @@ then its detail component.
   guard instead, as `isThemeMode` does in `theme.store.ts`.
 - **`prefers-reduced-motion`** is queried inline in `PortfolioApp.svelte:136`,
   `PortfolioGraph.svelte:54` and `:102`, and `GraphEdgesLive.svelte:231`.
-- **Copy-pasted markup**: the submit buttons of `AskMode.svelte`, `FitMode.svelte`
-  and `DeckMode.svelte` repeat one class list; the author, article and JSON-LD
+- **Copy-pasted markup**: the author, article and JSON-LD
   lines of `StaticCv.svelte` and `routes/+page.svelte`; the related-items list
   of `ExperienceDetail.svelte` and `TechnologyDetail.svelte`; two branches of
   `OrbitNode.svelte`. Extract a component before adding a fourth copy.

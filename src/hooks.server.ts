@@ -1,3 +1,5 @@
+import { LOCALES } from '#lib/types/portfolio.types.ts';
+import { HTML_LANG, cvPath } from '#lib/utils/locale.utils.ts';
 import type { Handle } from '@sveltejs/kit/hooks';
 
 /**
@@ -7,12 +9,8 @@ import type { Handle } from '@sveltejs/kit/hooks';
  */
 export const handle: Handle = ({ event, resolve }) => {
 	const { pathname } = event.url;
-	const lang = pathname.startsWith('/cv/it')
-		? 'it'
-		: pathname.startsWith('/cv/pt')
-			? 'pt-BR'
-			: 'en';
+	const locale = LOCALES.find((l) => l !== 'en' && pathname.startsWith(cvPath(l))) ?? 'en';
 	return resolve(event, {
-		transformPageChunk: ({ html }) => html.replace('%lang%', lang)
+		transformPageChunk: ({ html }) => html.replace('%lang%', HTML_LANG[locale])
 	});
 };

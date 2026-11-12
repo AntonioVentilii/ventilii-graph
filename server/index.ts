@@ -8,7 +8,7 @@ import {
 	type AiRequest,
 	type AiResponse
 } from '../src/lib/types/ai.types.ts';
-import type { Locale } from '../src/lib/types/portfolio.types.ts';
+import { LOCALES } from '../src/lib/types/portfolio.types.ts';
 import { cacheGet, cacheKey, cachePut, type Outcome } from './cache.ts';
 import { mintFlyIdentityToken } from './fly-oidc.ts';
 import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, leaksNotes, readGuard } from './modes.ts';
@@ -117,8 +117,6 @@ const client =
 					})
 				})
 			: undefined;
-
-const LOCALES: Locale[] = ['en', 'it', 'pt'];
 
 // --- limits -------------------------------------------------------------
 

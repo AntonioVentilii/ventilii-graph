@@ -2,6 +2,7 @@
 	import DeckViewer from '#lib/components/ai/DeckViewer.svelte';
 	import FieldCounter from '#lib/components/ai/FieldCounter.svelte';
 	import RequestStatus from '#lib/components/ai/RequestStatus.svelte';
+	import SubmitButton from '#lib/components/ai/SubmitButton.svelte';
 	import { AiRequestState } from '#lib/stores/ai-request.svelte.ts';
 	import { AI_INPUT_LIMITS } from '#lib/types/ai.types.ts';
 	import type { Locale } from '#lib/types/portfolio.types.ts';
@@ -51,13 +52,7 @@
 			type="text"
 			bind:value={audience}
 		/>
-		<button
-			class="h-10 shrink-0 rounded-xl bg-accent px-4 text-sm font-bold text-accent-fg transition hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
-			disabled={disabled || req.loading || !audience.trim()}
-			type="submit"
-		>
-			{t('deckSubmit')}
-		</button>
+		<SubmitButton disabled={disabled || req.loading || !audience.trim()} label={t('deckSubmit')} />
 	</div>
 	<div class="flex flex-wrap items-center justify-between gap-2">
 		<div class="flex flex-wrap items-center gap-2">
