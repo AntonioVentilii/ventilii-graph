@@ -1,7 +1,8 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { oidcFederationProvider } from '@anthropic-ai/sdk/lib/credentials/oidc-federation';
+import type { BetaOutputConfig } from '@anthropic-ai/sdk/resources/beta/messages/messages';
 import type { AiHealth } from '../src/lib/types/ai.types.ts';
-import { optionalEnv } from './env.ts';
+import { oneOfEnv, optionalEnv } from './env.ts';
 import { mintFlyIdentityToken } from './fly-oidc.ts';
 
 /**
@@ -10,7 +11,12 @@ import { mintFlyIdentityToken } from './fly-oidc.ts';
  */
 
 export const MODEL = process.env.AI_MODEL ?? 'claude-opus-5';
-export const EFFORT = (process.env.AI_EFFORT ?? 'medium') as 'low' | 'medium' | 'high';
+// The efforts AI_EFFORT may pick, out of the API's own list: the three the
+// server has always allowed. Adding xhigh or max is the owner's call.
+const EFFORTS = ['low', 'medium', 'high'] as const satisfies readonly NonNullable<
+	BetaOutputConfig['effort']
+>[];
+export const EFFORT = oneOfEnv({ name: 'AI_EFFORT', values: EFFORTS, fallback: 'medium' });
 
 // Credentials: ANTHROPIC_API_KEY locally (it always wins), and on Fly workload
 // identity federation, as the other Fly apps use: the machine's OIDC token is

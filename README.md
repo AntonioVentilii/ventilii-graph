@@ -74,7 +74,7 @@ set, always wins. Without either the site works and `/ask` says it is offline.
 Facts that sharpen the AI's answers but should not live in this public repo
 (career details, internal figures) go in the `AI_PRIVATE_NOTES` secret, one
 `- ` line each; the server appends them to the known limits.
-Tuning via env: `AI_MODEL` (default `claude-opus-5`), `AI_EFFORT` (`medium`),
+Tuning via env: `AI_MODEL` (default `claude-opus-5`), `AI_EFFORT` (`medium`; `low` or `high`),
 `AI_DAILY_BUDGET_USD` (5, measured from real token usage: the hard ceiling,
 since per-IP limits can be dodged by rotating addresses), `AI_DAILY_LIMIT`
 (300 requests), `AI_PER_IP_PER_10_MIN` (6), `AI_PER_IP_PER_DAY` (25), and

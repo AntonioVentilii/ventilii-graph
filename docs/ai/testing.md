@@ -3,11 +3,12 @@
 Vitest (`npm test`, the `test` job in CI) unit-tests the API's own logic:
 `server/*.spec.ts`, run by `vitest.config.ts` with `describe`, `it`, `expect`
 and `vi` as globals, as the shared lint config asks. Today that is the money
-code: `server/cost-guard.spec.ts` (worst-case reservation, spend, limits,
+code, `server/cost-guard.spec.ts` (worst-case reservation, spend, limits,
 strikes, the day rolling over at midnight UTC) and `server/limit-key.spec.ts`
-(the per-IP key). The site itself has no unit tests: it is proved by the type
-checkers, the build and the image probes. Another test runner (Playwright, a
-browser environment) is a new dependency: ask first.
+(the per-IP key), and the settings check, `server/env.spec.ts`. The site
+itself has no unit tests: it is proved by the type checkers, the build and the
+image probes. Another test runner (Playwright, a browser environment) is a new
+dependency: ask first.
 
 A change to the cost guards or to `limitKey` comes with the test that shows
 it. A test builds its own guard with `createCostGuard` and small limits, and

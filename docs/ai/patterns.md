@@ -95,7 +95,8 @@ then its detail component.
   default (`server/claude.ts:12`). Constants stay in the module that owns them.
   A count, an amount or a price goes through `positiveNumberEnv`
   (`server/env.ts`), which keeps the default unless the value is a finite
-  number above zero; the port goes through `portEnv` (1 to 65535).
+  number above zero; the port goes through `portEnv` (1 to 65535), and a word
+  out of a fixed list, such as `AI_EFFORT`, through `oneOfEnv`.
 
 ## Components
 
@@ -120,8 +121,6 @@ then its detail component.
   concern; split along the section comments when a change allows it.
 - **Hand-synced copies**: `static/llms.txt` restates portfolio content; `SITE_MODIFIED_TIME` (`seo.utils.ts:68`)
   mirrors `<lastmod>` in `static/sitemap.xml`.
-- **`AI_EFFORT` is cast unchecked** in `server/claude.ts`. Narrow it with a
-  guard instead, as `isThemeMode` does in `theme.store.ts`.
 - **Copy-pasted markup**: the author, article and JSON-LD
   lines of `StaticCv.svelte` and `routes/+page.svelte`; two branches of
   `OrbitNode.svelte`. Extract a component before adding a fourth copy.
