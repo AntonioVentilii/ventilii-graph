@@ -61,47 +61,25 @@
 	const driftStyle = $derived(noFloat ? '' : ringFloatStyle(seed));
 </script>
 
-{#if variant === 'leaf'}
-	<!-- left/top = ring center; centering on this node avoids anchor/box drift vs edges -->
-	<div
-		style="left: {left}px; top: {top}px; opacity: {opacity}; pointer-events: {opacity < 0.01
-			? 'none'
-			: 'auto'};"
-		class="graph-node-shift absolute z-10 -translate-x-1/2 -translate-y-1/2 hover:z-50"
-		aria-hidden={opacity < 0.01}
-	>
-		<div style={driftStyle} class="{orbitInner} relative inline-block">
-			<button
-				class="{sizeClass} {base} {stateClass}"
-				aria-pressed={ariaPressed}
-				data-graph-leaf={graphLeafKey}
-				{onclick}
-				tabindex={opacity < 0.01 ? -1 : undefined}
-				type="button"
-			>
-				{@render children()}
-			</button>
-		</div>
+<!-- left/top = ring center; centering on this node avoids anchor/box drift vs edges -->
+<div
+	style="left: {left}px; top: {top}px; opacity: {opacity}; pointer-events: {opacity < 0.01
+		? 'none'
+		: 'auto'};"
+	class="graph-node-shift absolute z-10 -translate-x-1/2 -translate-y-1/2 hover:z-50"
+	aria-hidden={opacity < 0.01}
+>
+	<div style={driftStyle} class="{orbitInner} relative inline-block">
+		<button
+			class="{sizeClass} {base} {stateClass}"
+			aria-pressed={ariaPressed}
+			data-graph-cat={variant === 'category' ? graphCatId : undefined}
+			data-graph-leaf={variant === 'leaf' ? graphLeafKey : undefined}
+			{onclick}
+			tabindex={opacity < 0.01 ? -1 : undefined}
+			type="button"
+		>
+			{@render children()}
+		</button>
 	</div>
-{:else}
-	<div
-		style="left: {left}px; top: {top}px; opacity: {opacity}; pointer-events: {opacity < 0.01
-			? 'none'
-			: 'auto'};"
-		class="graph-node-shift absolute z-10 -translate-x-1/2 -translate-y-1/2 hover:z-50"
-		aria-hidden={opacity < 0.01}
-	>
-		<div style={driftStyle} class="{orbitInner} relative inline-block">
-			<button
-				class="{sizeClass} {base} {stateClass}"
-				aria-pressed={ariaPressed}
-				data-graph-cat={graphCatId}
-				{onclick}
-				tabindex={opacity < 0.01 ? -1 : undefined}
-				type="button"
-			>
-				{@render children()}
-			</button>
-		</div>
-	</div>
-{/if}
+</div>

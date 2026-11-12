@@ -125,5 +125,3 @@ then its detail component.
 - **Hand-synced copies**: `static/llms.txt` restates portfolio content.
 - **`AI_EFFORT` is cast unchecked** in `server/claude.ts`. Narrow it with a
   guard instead, as `isThemeMode` does in `theme.store.ts`.
-- **Copy-pasted markup**: two branches of `OrbitNode.svelte`. Extract a
-  component before adding a third copy.
