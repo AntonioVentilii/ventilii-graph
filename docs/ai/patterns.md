@@ -115,8 +115,6 @@ then its detail component.
 
 ## Anti-patterns in the code today (do not copy)
 
-- **`searchLeaves`** (`leaf.utils.ts:97`) repeats one loop per kind, matches
-  only English and Italian, and skips languages and about.
 - **Long files**: `server/index.ts` (about 640 lines: config, pricing, limits,
   parsing, IP keys, generation, HTTP), `graph-layout.services.ts`,
   `StaticCv.svelte`, `ask-copy.utils.ts`. Add to them only what belongs to their
@@ -125,8 +123,6 @@ then its detail component.
   mirrors `<lastmod>` in `static/sitemap.xml`.
 - **`AI_EFFORT` is cast unchecked** in `server/index.ts`. Narrow it with a
   guard instead, as `isThemeMode` does in `theme.store.ts`.
-- **`prefers-reduced-motion`** is queried inline in `PortfolioApp.svelte:136`,
-  `PortfolioGraph.svelte:54` and `:102`, and `GraphEdgesLive.svelte:231`.
 - **Copy-pasted markup**: the author, article and JSON-LD
   lines of `StaticCv.svelte` and `routes/+page.svelte`; the related-items list
   of `ExperienceDetail.svelte` and `TechnologyDetail.svelte`; two branches of
