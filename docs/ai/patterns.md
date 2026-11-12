@@ -114,7 +114,7 @@ then its detail component.
 
 - **`searchLeaves`** (`leaf.utils.ts:97`) repeats one loop per kind, matches
   only English and Italian, and skips languages and about.
-- **Long files**: `server/index.ts` (about 640 lines: config, pricing, limits,
+- **Long files**: `server/index.ts` (about 600 lines: pricing, limits,
   parsing, IP keys, generation, HTTP), `graph-layout.services.ts`,
   `StaticCv.svelte`, `ask-copy.utils.ts`. Add to them only what belongs to their
   concern; split along the section comments when a change allows it.
