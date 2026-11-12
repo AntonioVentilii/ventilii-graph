@@ -123,5 +123,5 @@ then its detail component.
   concern; split along the section comments when a change allows it.
 - **Hand-synced copies**: `static/llms.txt` restates portfolio content.
 - **Copy-pasted markup**: the author, article and JSON-LD
-  lines of `StaticCv.svelte` and `routes/+page.svelte`; two branches of
-  `OrbitNode.svelte`. Extract a component before adding a fourth copy.
+  lines of `StaticCv.svelte` and `routes/+page.svelte`. Extract a component
+  before adding a third copy.
