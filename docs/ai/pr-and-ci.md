@@ -71,8 +71,9 @@ only on a `v*` tag.
 ## One change per PR
 
 One purpose per PR, each opened from an up to date `main` so they merge in any
-order: rules 2 (scoped) and 3 (parallel, not stacked) of the
-[standard](https://github.com/AntonioVentilii/officina/blob/main/standards/code.md#2-scoped).
+order: rules [2, scoped](https://github.com/AntonioVentilii/officina/blob/main/standards/code.md#2-scoped)
+and [3, parallel, not stacked](https://github.com/AntonioVentilii/officina/blob/main/standards/code.md#3-parallel-not-stacked)
+of the universal standard.
 
 The history is the model: a content change, an `/ask` fix and a dependency
 move are three PRs, never one. A docs-only change to `docs/ai/**` is `docs(ai): ...`.
