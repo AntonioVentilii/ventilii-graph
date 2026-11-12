@@ -2,14 +2,7 @@
 	import AskApp from '#lib/components/ai/AskApp.svelte';
 	import OgImageMeta from '#lib/components/layout/OgImageMeta.svelte';
 	import TwitterMeta from '#lib/components/layout/TwitterMeta.svelte';
-	import {
-		OG_IMAGE,
-		OG_IMAGE_ALT,
-		OG_IMAGE_HEIGHT,
-		OG_IMAGE_WIDTH,
-		SITE_AUTHOR,
-		absoluteUrl
-	} from '#lib/utils/seo.utils.ts';
+	import { SITE_AUTHOR, absoluteUrl } from '#lib/utils/seo.utils.ts';
 
 	// Locale is a client-side choice (?lang=), so the prerendered head carries
 	// the English metadata; AskApp swaps <title> and description on the client.

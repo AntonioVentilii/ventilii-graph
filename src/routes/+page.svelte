@@ -4,10 +4,6 @@
 	import TwitterMeta from '#lib/components/layout/TwitterMeta.svelte';
 	import { portfolioData } from '#lib/services/portfolio.services.ts';
 	import {
-		OG_IMAGE,
-		OG_IMAGE_ALT,
-		OG_IMAGE_HEIGHT,
-		OG_IMAGE_WIDTH,
 		PERSON_KNOWS_ABOUT,
 		SITE_AUTHOR,
 		SITE_AUTHOR_URL,

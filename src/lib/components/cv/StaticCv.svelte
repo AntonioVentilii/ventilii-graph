@@ -8,10 +8,6 @@
 	import { cvPath, pickLocale } from '#lib/utils/locale.utils.ts';
 	import { projectMeta } from '#lib/utils/project.utils.ts';
 	import {
-		OG_IMAGE,
-		OG_IMAGE_ALT,
-		OG_IMAGE_HEIGHT,
-		OG_IMAGE_WIDTH,
 		PERSON_KNOWS_ABOUT,
 		SITE_AUTHOR,
 		SITE_AUTHOR_URL,
