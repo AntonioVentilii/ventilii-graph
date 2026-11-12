@@ -4,12 +4,14 @@ import { isIPv6 } from 'node:net';
 import {
 	AI_INPUT_LIMITS,
 	type AiHealth,
+	type AiMode,
 	type AiRequest,
 	type AiResponse
 } from '../src/lib/types/ai.types.ts';
 import { LOCALES } from '../src/lib/types/portfolio.types.ts';
 import { cacheGet, cacheKey, cachePut, type Outcome } from './cache.ts';
 import { EFFORT, MODEL, auth, client, configured } from './claude.ts';
+import { portEnv, positiveNumberEnv } from './env.ts';
 import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, leaksNotes, readGuard } from './modes.ts';
 
 /**
@@ -19,7 +21,7 @@ import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, leaksNotes, readGuard }
  * reset on restart, which is fine for a portfolio.
  */
 
-const PORT = Number(process.env.AI_PORT ?? 8787);
+const PORT = portEnv({ name: 'AI_PORT', fallback: 8787 });
 
 // Cost guards. A visitor gets a handful of generations; the whole site gets a
 // daily request count AND a daily dollar budget, measured from real token
@@ -27,25 +29,21 @@ const PORT = Number(process.env.AI_PORT ?? 8787);
 // cannot, so it is the hard ceiling on what an abusive visitor can spend.
 // Cached answers are free and don't count.
 const PER_IP_WINDOW_MS = 10 * 60 * 1000;
-const PER_IP_PER_WINDOW = Number(process.env.AI_PER_IP_PER_10_MIN ?? 6);
-const PER_IP_PER_DAY = Number(process.env.AI_PER_IP_PER_DAY ?? 25);
-const DAILY_LIMIT = Number(process.env.AI_DAILY_LIMIT ?? 300);
-const DAILY_BUDGET_USD = Number(process.env.AI_DAILY_BUDGET_USD ?? 5);
+const PER_IP_PER_WINDOW = positiveNumberEnv({ name: 'AI_PER_IP_PER_10_MIN', fallback: 6 });
+const PER_IP_PER_DAY = positiveNumberEnv({ name: 'AI_PER_IP_PER_DAY', fallback: 25 });
+const DAILY_LIMIT = positiveNumberEnv({ name: 'AI_DAILY_LIMIT', fallback: 300 });
+const DAILY_BUDGET_USD = positiveNumberEnv({ name: 'AI_DAILY_BUDGET_USD', fallback: 5 });
 const MAX_IN_FLIGHT = 4;
 // Off-topic or manipulative requests (see Guard) count as strikes against the
 // visitor's address. At this many in a day the address gets no more
 // generations until midnight UTC, so whoever keeps trying to use the chat as
 // a free model stops spending the budget real visitors need.
-const STRIKES_PER_DAY = Number(process.env.AI_GUARD_STRIKES_PER_DAY ?? 2);
+const STRIKES_PER_DAY = positiveNumberEnv({ name: 'AI_GUARD_STRIKES_PER_DAY', fallback: 2 });
 
 // Output ceiling per mode, thinking included. The JSON each mode asks for fits
 // well inside these; a prompt that talks the model into a long translation or
 // essay gets cut off here instead of running to the model's maximum.
-const MAX_OUTPUT_TOKENS: Record<AiRequest['mode'], number> = {
-	ask: 5_000,
-	fit: 8_000,
-	deck: 8_000
-};
+const MAX_OUTPUT_TOKENS: Record<AiMode, number> = { ask: 5_000, fit: 8_000, deck: 8_000 };
 
 // USD per million tokens, by the model that ran an attempt: the configured
 // model, and the one `fallbacks: 'default'` retries a declined request on
@@ -65,8 +63,8 @@ const PRICES: Record<string, Price> = {
 	'claude-opus-4-8': { in: 5, out: 25 }
 };
 PRICES[MODEL] = {
-	in: Number(process.env.AI_PRICE_IN_PER_MTOK ?? PRICES[MODEL]?.in ?? 5),
-	out: Number(process.env.AI_PRICE_OUT_PER_MTOK ?? PRICES[MODEL]?.out ?? 25)
+	in: positiveNumberEnv({ name: 'AI_PRICE_IN_PER_MTOK', fallback: PRICES[MODEL]?.in ?? 5 }),
+	out: positiveNumberEnv({ name: 'AI_PRICE_OUT_PER_MTOK', fallback: PRICES[MODEL]?.out ?? 25 })
 };
 const WORST_PRICE: Price = Object.values(PRICES).reduce((a, b) => ({
 	in: Math.max(a.in, b.in),
