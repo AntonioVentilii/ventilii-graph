@@ -1,5 +1,41 @@
 # Changelog
 
+## [1.7.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.6.5...v1.7.0) (2026-11-12)
+
+
+### Features
+
+* the map's search also finds the languages spoken and the about items, a change visitors see ([#106](https://github.com/AntonioVentilii/ventilii-graph/issues/106)) ([01ce89b](https://github.com/AntonioVentilii/ventilii-graph/commit/01ce89be593b3942e24f269cf5e99a6d2b434d76))
+
+
+### Bug Fixes
+
+* **ask:** accept only low, medium or high for AI_EFFORT, else keep the default ([#109](https://github.com/AntonioVentilii/ventilii-graph/issues/109)) ([2ee5b57](https://github.com/AntonioVentilii/ventilii-graph/commit/2ee5b57fbfeba037cde6d07997eef0559e801864))
+
+
+### Documentation
+
+* point the agent docs at the current lines and list env.ts among the API files ([#112](https://github.com/AntonioVentilii/ventilii-graph/issues/112)) ([21bfdac](https://github.com/AntonioVentilii/ventilii-graph/commit/21bfdac353d7c72f4c42a5679f9317c70997b6e4))
+* point the agent docs at the current lines and say knip ignores nothing ([#116](https://github.com/AntonioVentilii/ventilii-graph/issues/116)) ([1a6dc6f](https://github.com/AntonioVentilii/ventilii-graph/commit/1a6dc6f8b75f335ced83bdc99cc8a3c499a8c870))
+
+
+### Miscellaneous Chores
+
+* drop the StaticCv line pin now the file is under the limit ([#113](https://github.com/AntonioVentilii/ventilii-graph/issues/113)) ([52cec6c](https://github.com/AntonioVentilii/ventilii-graph/commit/52cec6cb34c05d72f9ef1b87048d1fd49b6cefd3))
+
+
+### Code Refactoring
+
+* **ask:** one component for what sits under each mode's form ([#114](https://github.com/AntonioVentilii/ventilii-graph/issues/114)) ([dc1ec6b](https://github.com/AntonioVentilii/ventilii-graph/commit/dc1ec6b866fb5ebeef4300b0693f0c6c2a716163))
+* **map:** one markup for both kinds of orbit node ([#108](https://github.com/AntonioVentilii/ventilii-graph/issues/108)) ([bd6b3b5](https://github.com/AntonioVentilii/ventilii-graph/commit/bd6b3b5c2f3beeb0810d3b10813f87eb42a81063))
+* one component for the head tags the map and the CV share ([#110](https://github.com/AntonioVentilii/ventilii-graph/issues/110)) ([e9ea842](https://github.com/AntonioVentilii/ventilii-graph/commit/e9ea842a7ddf6445b9c04d06463d3364d1f6c9b5))
+
+
+### Build System
+
+* build the sitemap from the site's constants instead of a hand-kept file ([#107](https://github.com/AntonioVentilii/ventilii-graph/issues/107)) ([4103ead](https://github.com/AntonioVentilii/ventilii-graph/commit/4103ead24141edd293bbdf8cf21bfc88740aeb95))
+* fail the clone check on any clone now the code has none ([#115](https://github.com/AntonioVentilii/ventilii-graph/issues/115)) ([0ef9562](https://github.com/AntonioVentilii/ventilii-graph/commit/0ef95629356423391c201f69d4b3aece28c73899))
+
 ## [1.6.5](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.6.4...v1.6.5) (2026-11-12)
 
 
