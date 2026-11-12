@@ -1,5 +1,4 @@
 import Anthropic from '@anthropic-ai/sdk';
-import { oidcFederationProvider } from '@anthropic-ai/sdk/lib/credentials/oidc-federation';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { isIPv6 } from 'node:net';
 import {
@@ -10,7 +9,7 @@ import {
 } from '../src/lib/types/ai.types.ts';
 import { LOCALES } from '../src/lib/types/portfolio.types.ts';
 import { cacheGet, cacheKey, cachePut, type Outcome } from './cache.ts';
-import { mintFlyIdentityToken } from './fly-oidc.ts';
+import { EFFORT, MODEL, auth, client, configured } from './claude.ts';
 import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, leaksNotes, readGuard } from './modes.ts';
 
 /**
@@ -21,8 +20,6 @@ import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, leaksNotes, readGuard }
  */
 
 const PORT = Number(process.env.AI_PORT ?? 8787);
-const MODEL = process.env.AI_MODEL ?? 'claude-opus-5';
-const EFFORT = (process.env.AI_EFFORT ?? 'medium') as 'low' | 'medium' | 'high';
 
 // Cost guards. A visitor gets a handful of generations; the whole site gets a
 // daily request count AND a daily dollar budget, measured from real token
@@ -79,44 +76,6 @@ const priceOf = (model: string): Price => PRICES[model] ?? WORST_PRICE;
 // A fallback can cost a second attempt, on whichever model is dearest.
 const MAX_ATTEMPTS = 2;
 const MAX_BODY_BYTES = 64 * 1024;
-
-// Credentials: ANTHROPIC_API_KEY locally (it always wins), and on Fly workload
-// identity federation, as the other Fly apps use: the machine's OIDC token is
-// exchanged for a Claude access token, which the SDK renews before it expires.
-// The four ids are public identifiers, not secrets.
-const optionalEnv = (name: string): string | undefined => {
-	const value = process.env[name];
-	return value === undefined || value === '' ? undefined : value;
-};
-const federation = {
-	federationRuleId: optionalEnv('ANTHROPIC_FEDERATION_RULE_ID') ?? '',
-	organizationId: optionalEnv('ANTHROPIC_ORGANIZATION_ID') ?? '',
-	serviceAccountId: optionalEnv('ANTHROPIC_SERVICE_ACCOUNT_ID'),
-	workspaceId: optionalEnv('ANTHROPIC_WORKSPACE_ID')
-};
-const auth: AiHealth['auth'] = process.env.ANTHROPIC_API_KEY
-	? 'api_key'
-	: federation.federationRuleId && federation.organizationId
-		? 'federation'
-		: 'off';
-const configured = auth !== 'off';
-// No SDK retries: a retried attempt is billed twice and its usage arrives
-// once, so the budget would undercount; the page tells the visitor to retry.
-const clientOptions = { timeout: 110_000, maxRetries: 0 };
-const client =
-	auth === 'api_key'
-		? new Anthropic(clientOptions)
-		: auth === 'federation'
-			? new Anthropic({
-					...clientOptions,
-					credentials: oidcFederationProvider({
-						...federation,
-						identityTokenProvider: mintFlyIdentityToken,
-						baseURL: process.env.ANTHROPIC_BASE_URL ?? 'https://api.anthropic.com',
-						fetch
-					})
-				})
-			: undefined;
 
 // --- limits -------------------------------------------------------------
 

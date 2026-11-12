@@ -36,7 +36,7 @@ PR, without the owner's explicit go-ahead. Merges are squash only.
 
 ## Free to change (still through a PR and the gates)
 
-`src/**` and `server/{index,modes,knowledge}.ts` outside the guards above,
+`src/**` and `server/{index,claude,modes,knowledge}.ts` outside the guards above,
 `static/llms.txt` when content changes, `README.md`, and
 `docs/ai/**`.
 
