@@ -120,7 +120,7 @@ then its detail component.
 
 ## Anti-patterns in the code today (do not copy)
 
-- **Long files**: `graph-layout.services.ts`, `StaticCv.svelte`,
-  `ask-copy.utils.ts`. Add to them only what belongs to their
-  concern; split along the section comments when a change allows it.
+- **Long files**: `graph-layout.services.ts`, `ask-copy.utils.ts`. Add to them
+  only what belongs to their concern; split along the section comments when a
+  change allows it.
 - **Hand-synced copies**: `static/llms.txt` restates portfolio content.
