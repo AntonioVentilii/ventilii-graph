@@ -1,14 +1,13 @@
 <script lang="ts">
+	import RelatedProjects from '#lib/components/panel/RelatedProjects.svelte';
 	import BulletList from '#lib/components/ui/BulletList.svelte';
 	import EntryHeader from '#lib/components/ui/EntryHeader.svelte';
-	import InlineNavLink from '#lib/components/ui/InlineNavLink.svelte';
 	import LinkList from '#lib/components/ui/LinkList.svelte';
 	import PanelEyebrow from '#lib/components/ui/PanelEyebrow.svelte';
-	import RelatedSection from '#lib/components/ui/RelatedSection.svelte';
-	import { portfolioData } from '#lib/services/portfolio.services.ts';
 	import type { Locale, Experience } from '#lib/types/portfolio.types.ts';
 	import type { Leaf } from '#lib/utils/leaf.utils.ts';
 	import { pickLocale } from '#lib/utils/locale.utils.ts';
+	import { relatedProjectsForExperience } from '#lib/utils/relations.utils.ts';
 
 	interface Props {
 		experience: Experience;
@@ -45,20 +44,10 @@
 
 	<LinkList links={experience.links ?? []} {locale} />
 
-	{#if experience.projectIds?.length}
-		<RelatedSection label={relatedProjectsLabel}>
-			<ul class="space-y-1">
-				{#each experience.projectIds as pid (pid)}
-					{@const p = portfolioData.projects.find((x) => x.id === pid)}
-					{#if p}
-						<li>
-							<InlineNavLink onclick={() => onSelectLeaf({ kind: 'project', id: p.id })}>
-								{pickLocale({ text: p.title, locale })}
-							</InlineNavLink>
-						</li>
-					{/if}
-				{/each}
-			</ul>
-		</RelatedSection>
-	{/if}
+	<RelatedProjects
+		label={relatedProjectsLabel}
+		{locale}
+		{onSelectLeaf}
+		projects={relatedProjectsForExperience(experience)}
+	/>
 </div>

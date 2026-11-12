@@ -125,6 +125,5 @@ then its detail component.
 - **`prefers-reduced-motion`** is queried inline in `PortfolioApp.svelte:136`,
   `PortfolioGraph.svelte:54` and `:102`, and `GraphEdgesLive.svelte:231`.
 - **Copy-pasted markup**: the author, article and JSON-LD
-  lines of `StaticCv.svelte` and `routes/+page.svelte`; the related-items list
-  of `ExperienceDetail.svelte` and `TechnologyDetail.svelte`; two branches of
+  lines of `StaticCv.svelte` and `routes/+page.svelte`; two branches of
   `OrbitNode.svelte`. Extract a component before adding a fourth copy.
