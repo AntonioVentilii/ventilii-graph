@@ -1,17 +1,8 @@
 <script lang="ts">
 	import PortfolioApp from '#lib/components/PortfolioApp.svelte';
-	import OgImageMeta from '#lib/components/layout/OgImageMeta.svelte';
-	import TwitterMeta from '#lib/components/layout/TwitterMeta.svelte';
+	import ProfileMeta from '#lib/components/layout/ProfileMeta.svelte';
 	import { portfolioData } from '#lib/services/portfolio.services.ts';
-	import {
-		PERSON_KNOWS_ABOUT,
-		SITE_AUTHOR,
-		SITE_AUTHOR_URL,
-		SITE_MODIFIED_TIME,
-		SITE_PUBLISHED_TIME,
-		absoluteUrl,
-		serializeSchema
-	} from '#lib/utils/seo.utils.ts';
+	import { PERSON_KNOWS_ABOUT, absoluteUrl, serializeSchema } from '#lib/utils/seo.utils.ts';
 
 	const _jsonLd = {
 		'@context': 'https://schema.org',
@@ -60,15 +51,7 @@
 	/>
 	<meta content="website" property="og:type" />
 	<meta content={absoluteUrl('/')} property="og:url" />
-	<OgImageMeta />
-	<meta name="author" content={SITE_AUTHOR} />
-	<meta content={SITE_AUTHOR_URL} property="article:author" />
-	<meta content={SITE_PUBLISHED_TIME} property="article:published_time" />
-	<meta content={SITE_MODIFIED_TIME} property="article:modified_time" />
-	<TwitterMeta />
-
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -- serializeSchema escapes <, >, & -->
-	{@html _jsonLdScript}
+	<ProfileMeta jsonLdScript={_jsonLdScript} />
 </svelte:head>
 
 <PortfolioApp />

@@ -111,7 +111,9 @@ then its detail component.
   `components/icons/`.
 - **SEO head per route**, built from the constants in `src/lib/utils/seo.utils.ts`,
   with `OgImageMeta` and `TwitterMeta` for the banner tags every page shares
-  (`src/routes/ask/+page.svelte`); JSON-LD goes through `serializeSchema`.
+  (`src/routes/ask/+page.svelte`); JSON-LD goes through `serializeSchema`. The
+  map and the CV render those, their author and dates and their JSON-LD
+  through one `ProfileMeta`.
 
 ## Anti-patterns in the code today (do not copy)
 
@@ -122,6 +124,5 @@ then its detail component.
   mirrors `<lastmod>` in `static/sitemap.xml`.
 - **`AI_EFFORT` is cast unchecked** in `server/claude.ts`. Narrow it with a
   guard instead, as `isThemeMode` does in `theme.store.ts`.
-- **Copy-pasted markup**: the author, article and JSON-LD
-  lines of `StaticCv.svelte` and `routes/+page.svelte`; two branches of
-  `OrbitNode.svelte`. Extract a component before adding a fourth copy.
+- **Copy-pasted markup**: two branches of `OrbitNode.svelte`. Extract a
+  component before adding a third copy.
