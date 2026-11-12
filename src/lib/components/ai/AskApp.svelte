@@ -17,7 +17,7 @@
 		PROTECTION_POINTS,
 		askCopy
 	} from '#lib/utils/ask-copy.utils.ts';
-	import { cvPath } from '#lib/utils/locale.utils.ts';
+	import { HTML_LANG, cvPath, mapPath, parseLocale } from '#lib/utils/locale.utils.ts';
 
 	const { person } = portfolioData;
 
@@ -39,14 +39,11 @@
 		{ id: 'deck', label: 'tabDeck', hint: 'tabDeckHint' }
 	];
 
-	const mapHref = $derived(locale === 'en' ? '/' : `/?lang=${locale}`);
+	const mapHref = $derived(mapPath(locale));
 
 	onMount(() => {
 		const params = new URLSearchParams(window.location.search);
-		const lang = params.get('lang');
-		if (lang === 'en' || lang === 'it' || lang === 'pt') {
-			locale = lang;
-		}
+		locale = parseLocale(params.get('lang')) ?? locale;
 		if (window.location.hash === '#protection') {
 			const rules = document.getElementById('protection');
 			if (rules instanceof HTMLDetailsElement) {
@@ -69,7 +66,7 @@
 	});
 
 	$effect(() => {
-		document.documentElement.lang = locale === 'pt' ? 'pt-BR' : locale;
+		document.documentElement.lang = HTML_LANG[locale];
 	});
 
 	const onTabKeydown = (e: KeyboardEvent) => {

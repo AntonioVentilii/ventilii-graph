@@ -4,9 +4,9 @@
 	import ThemeToggle from '#lib/components/layout/ThemeToggle.svelte';
 	import TwitterMeta from '#lib/components/layout/TwitterMeta.svelte';
 	import { portfolioData } from '#lib/services/portfolio.services.ts';
-	import type { Locale, Localised } from '#lib/types/portfolio.types.ts';
+	import { LOCALES, type Locale, type Localised } from '#lib/types/portfolio.types.ts';
 	import { cvCopy } from '#lib/utils/cv-copy.utils.ts';
-	import { cvPath, pickLocale } from '#lib/utils/locale.utils.ts';
+	import { HTML_LANG, OG_LOCALE, cvPath, mapPath, pickLocale } from '#lib/utils/locale.utils.ts';
 	import { projectMeta } from '#lib/utils/project.utils.ts';
 	import {
 		PERSON_KNOWS_ABOUT,
@@ -41,16 +41,16 @@
 
 	const tr = (key: Parameters<typeof cvCopy>[0]['key']): string => cvCopy({ key, locale });
 
-	const htmlLang = $derived(locale === 'pt' ? 'pt-BR' : locale);
-	const ogLocale = $derived(locale === 'en' ? 'en_US' : locale === 'it' ? 'it_IT' : 'pt_BR');
+	const htmlLang = $derived(HTML_LANG[locale]);
+	const ogLocale = $derived(OG_LOCALE[locale]);
 
 	const canonical = $derived(absoluteUrl(cvPath(locale)));
 
-	const localeNav: { code: Locale; label: string; href: string }[] = [
-		{ code: 'en', label: 'EN', href: cvPath('en') },
-		{ code: 'it', label: 'IT', href: cvPath('it') },
-		{ code: 'pt', label: 'PT', href: cvPath('pt') }
-	];
+	const localeNav: { code: Locale; label: string; href: string }[] = LOCALES.map((code) => ({
+		code,
+		label: code.toUpperCase(),
+		href: cvPath(code)
+	}));
 
 	const _jsonLd = $derived({
 		'@context': 'https://schema.org',
@@ -102,9 +102,9 @@
 	<title>{tr('metaTitle')}</title>
 	<meta name="description" content={tr('metaDescription')} />
 	<link href={canonical} rel="canonical" />
-	<link href={absoluteUrl(cvPath('en'))} hreflang="en" rel="alternate" />
-	<link href={absoluteUrl(cvPath('it'))} hreflang="it" rel="alternate" />
-	<link href={absoluteUrl(cvPath('pt'))} hreflang="pt-BR" rel="alternate" />
+	{#each LOCALES as alternate (alternate)}
+		<link href={absoluteUrl(cvPath(alternate))} hreflang={HTML_LANG[alternate]} rel="alternate" />
+	{/each}
 	<link href={absoluteUrl(cvPath('en'))} hreflang="x-default" rel="alternate" />
 	<meta content={tr('metaTitle')} property="og:title" />
 	<meta content={tr('metaDescription')} property="og:description" />
@@ -129,7 +129,7 @@
 		<a
 			class="flatten-toggle inline-flex h-9 items-center gap-2 rounded-full border border-border bg-popover px-3 text-xs leading-none text-fg-muted outline-hidden transition hover:border-accent hover:text-fg focus-visible:ring-2 focus-visible:ring-accent"
 			aria-label={tr('scatterTitle')}
-			href={locale === 'en' ? '/' : `/?lang=${locale}`}
+			href={mapPath(locale)}
 			title={tr('scatterTitle')}
 		>
 			<svg
@@ -416,9 +416,9 @@
 
 	<footer class="cv-chrome border-t border-border px-4 py-6 text-center text-xs text-fg-faint">
 		<a class="text-link underline-offset-2 hover:underline" href="/">ventilii.dev</a>
-		· <a class="text-link underline-offset-2 hover:underline" href={cvPath('en')}>EN</a>
-		· <a class="text-link underline-offset-2 hover:underline" href={cvPath('it')}>IT</a>
-		· <a class="text-link underline-offset-2 hover:underline" href={cvPath('pt')}>PT</a>
+		{#each localeNav as l (l.code)}
+			· <a class="text-link underline-offset-2 hover:underline" href={l.href}>{l.label}</a>
+		{/each}
 	</footer>
 </div>
 

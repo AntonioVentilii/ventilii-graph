@@ -1,4 +1,7 @@
-export type Locale = 'en' | 'it' | 'pt';
+/** The site's locales, in order: the one list the type, the menus and the API read. */
+export const LOCALES = ['en', 'it', 'pt'] as const;
+
+export type Locale = (typeof LOCALES)[number];
 
 export interface Localised {
 	en: string;

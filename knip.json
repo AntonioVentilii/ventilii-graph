@@ -3,8 +3,5 @@
 	"entry": ["src/routes/**/+*.{ts,svelte}", "eslint-local-rules.cjs"],
 	"project": ["src/**/*.{ts,svelte}", "server/**/*.ts"],
 	"vite": false,
-	"ignoreExportsUsedInFile": true,
-	"ignoreIssues": {
-		"src/lib/utils/locale.utils.ts": ["exports"]
-	}
+	"ignoreExportsUsedInFile": true
 }

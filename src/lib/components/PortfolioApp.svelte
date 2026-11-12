@@ -8,7 +8,7 @@
 	import type { Locale } from '#lib/types/portfolio.types.ts';
 	import { askCopy, askPath } from '#lib/utils/ask-copy.utils.ts';
 	import { categoryForLeafKind, leafKey, parseLeaf, type Leaf } from '#lib/utils/leaf.utils.ts';
-	import { cvPath } from '#lib/utils/locale.utils.ts';
+	import { cvPath, parseLocale } from '#lib/utils/locale.utils.ts';
 	import { mapCopy } from '#lib/utils/map-copy.utils.ts';
 	import { goto } from '$app/navigation';
 
@@ -23,9 +23,7 @@
 		const itemParam = params.get('item');
 		const langParam = params.get('lang');
 
-		if (langParam === 'en' || langParam === 'it' || langParam === 'pt') {
-			locale = langParam;
-		}
+		locale = parseLocale(langParam) ?? locale;
 
 		if (itemParam) {
 			const leaf = parseLeaf(itemParam);
