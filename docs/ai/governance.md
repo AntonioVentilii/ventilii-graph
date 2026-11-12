@@ -26,8 +26,9 @@ PR, without the owner's explicit go-ahead. Merges are squash only.
   `release-please-config.json`: CI, deploy and release.
 - `server/fly-oidc.ts`, `server/oidc-helper.ts`: workload identity. The helper
   runs as root and must only ever mint tokens for Anthropic's audience.
-- Any cost or abuse guard in `server/index.ts` (per-IP and daily limits,
-  `DAILY_BUDGET_USD`, `MAX_OUTPUT_TOKENS`, strikes, `isSameSite`, the body size)
+- Any cost or abuse guard in `server/index.ts` or `server/cost-guard.ts`
+  (per-IP and daily limits, `DAILY_BUDGET_USD`, `MAX_OUTPUT_TOKENS`, strikes,
+  the worst-case reservation, `limitKey`, `isSameSite`, the body size)
   and the leak and guard checks in `server/modes.ts` (`leaksNotes`,
   `attemptIsSafe`). Making one stricter is fine; making one looser is not.
 - `static/.well-known/security.txt`, `static/robots.txt`, `SITE_ORIGIN`.

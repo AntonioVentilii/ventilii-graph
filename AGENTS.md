@@ -29,6 +29,7 @@ How it is built and deployed, the AI API's limits and its env vars:
 | `npm run dev:api`   | The AI API on 8787 (reads `.env`)                   |
 | `npm run check`     | `svelte-check` on the site and `tsc` on `server/`   |
 | `npm run lint`      | Prettier, ESLint, knip (dead code), jscpd (clones)  |
+| `npm test`          | Vitest on the API's money code (`server/*.spec.ts`) |
 | `npm run format`    | Prettier write and ESLint fix                       |
 | `npm run build`     | `tsc --noEmit` and the prerendered site in `build/` |
 | `npm run build:api` | esbuild bundle of the API in `build-api/`           |
@@ -44,7 +45,7 @@ src/lib/services/                        content, graph layout, the /ask client
 src/lib/stores/                          theme store, per-mode AI request state
 src/lib/components/{graph,panel,layout,ui,icons,cv,ai}/
 src/routes/                              /, /cv/, /cv/it/, /cv/pt/, /ask/
-server/                                  the /ask API (index, modes, knowledge, OIDC)
+server/                                  the /ask API (index, cost-guard, limit-key, modes, knowledge, OIDC)
 static/                                  shipped as is (llms.txt, sitemap, CV PDF)
 ```
 
@@ -75,7 +76,8 @@ It is not copied here. This repository adds only:
    `onMount`.
 6. **The `/ask` API spends real money.** Never weaken a limit, the budget, the
    same-site check, the guard or the clean-up pass in `server/` without the
-   owner saying so. See [`docs/ai/governance.md`](./docs/ai/governance.md).
+   owner saying so; a change to the cost guards keeps `npm test` green and
+   adds the test that shows it. See [`docs/ai/governance.md`](./docs/ai/governance.md).
 7. **Writing.** No em dash anywhere, the site's copy included, and no en dash
    used as a break between spaces (history: `e97b0d7`, `835b854`). Use a colon,
    a comma or a middot. An en dash in a range with no spaces (`2019–2024`)

@@ -1,7 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { oidcFederationProvider } from '@anthropic-ai/sdk/lib/credentials/oidc-federation';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
-import { isIPv6 } from 'node:net';
 import {
 	AI_INPUT_LIMITS,
 	type AiHealth,
@@ -10,7 +9,9 @@ import {
 } from '../src/lib/types/ai.types.ts';
 import { LOCALES } from '../src/lib/types/portfolio.types.ts';
 import { cacheGet, cacheKey, cachePut, type Outcome } from './cache.ts';
+import { createCostGuard, type Price } from './cost-guard.ts';
 import { mintFlyIdentityToken } from './fly-oidc.ts';
+import { limitKey } from './limit-key.ts';
 import { SCHEMAS, SYSTEM_PROMPT, buildTurn, cleanResult, leaksNotes, readGuard } from './modes.ts';
 
 /**
@@ -58,10 +59,6 @@ const MAX_OUTPUT_TOKENS: Record<AiRequest['mode'], number> = {
 // and an override when it is. A model not in the table (a fallback's dated
 // snapshot id, say) is billed at the dearest price known, so the budget errs
 // high.
-interface Price {
-	in: number;
-	out: number;
-}
 const PRICES: Record<string, Price> = {
 	'claude-opus-5-5': { in: 4, out: 20 },
 	'claude-opus-5': { in: 5, out: 25 },
@@ -71,13 +68,6 @@ PRICES[MODEL] = {
 	in: Number(process.env.AI_PRICE_IN_PER_MTOK ?? PRICES[MODEL]?.in ?? 5),
 	out: Number(process.env.AI_PRICE_OUT_PER_MTOK ?? PRICES[MODEL]?.out ?? 25)
 };
-const WORST_PRICE: Price = Object.values(PRICES).reduce((a, b) => ({
-	in: Math.max(a.in, b.in),
-	out: Math.max(a.out, b.out)
-}));
-const priceOf = (model: string): Price => PRICES[model] ?? WORST_PRICE;
-// A fallback can cost a second attempt, on whichever model is dearest.
-const MAX_ATTEMPTS = 2;
 const MAX_BODY_BYTES = 64 * 1024;
 
 // Credentials: ANTHROPIC_API_KEY locally (it always wins), and on Fly workload
@@ -118,140 +108,22 @@ const client =
 				})
 			: undefined;
 
-// --- limits -------------------------------------------------------------
-
-const hits = new Map<string, number[]>();
-const strikes = new Map<string, number>();
-let day = new Date().toISOString().slice(0, 10);
-let usedToday = 0;
-let spentTodayUsd = 0;
-let inFlight = 0;
-// Generations running per address. One at a time: strikes are only known once
-// a verdict is back, so parallel requests from one address would all pass the
-// strike check before any of them counted.
-const inFlightByIp = new Set<string>();
-
-// Spend is only known once a response is back, so each generation reserves
-// its worst case up front: the whole prompt billed as a cache write, counting
-// one token per UTF-8 byte (a token never covers less than a byte, so this
-// holds for any script or emoji a visitor sends), plus every output token
-// the mode allows, for every attempt a fallback can add.
-// Admission counts these reservations, so requests in flight together can't
-// push the day past the budget; the reservation is released when the real
-// usage is recorded.
-let reservedUsd = 0;
-
-const worstCaseUsd = (request: AiRequest): number =>
-	(MAX_ATTEMPTS *
-		((Buffer.byteLength(SYSTEM_PROMPT) + Buffer.byteLength(buildTurn(request))) *
-			WORST_PRICE.in *
-			2 +
-			MAX_OUTPUT_TOKENS[request.mode] * WORST_PRICE.out)) /
-	1_000_000;
-
-const rollDay = () => {
-	const today = new Date().toISOString().slice(0, 10);
-	if (today !== day) {
-		day = today;
-		usedToday = 0;
-		spentTodayUsd = 0;
-		hits.clear();
-		strikes.clear();
-	}
-};
-
-type LimitCheck =
-	| { ok: true }
-	| { ok: false; error: 'rate_limited' | 'daily_cap' | 'guard_blocked'; retry: number };
-
-const secondsToMidnight = (now: number): number =>
-	Math.ceil((new Date(`${day}T00:00:00Z`).getTime() + 24 * 60 * 60 * 1000 - now) / 1000);
-
-const checkLimits = ({ ip, reserve }: { ip: string; reserve: number }): LimitCheck => {
-	rollDay();
-	const now = Date.now();
-	if (usedToday >= DAILY_LIMIT || spentTodayUsd + reservedUsd + reserve > DAILY_BUDGET_USD) {
-		return { ok: false, error: 'daily_cap', retry: secondsToMidnight(now) };
-	}
-	if ((strikes.get(ip) ?? 0) >= STRIKES_PER_DAY) {
-		return { ok: false, error: 'guard_blocked', retry: secondsToMidnight(now) };
-	}
-	const mine = hits.get(ip) ?? [];
-	const recent = mine.filter((t) => now - t < PER_IP_WINDOW_MS);
-	if (mine.length >= PER_IP_PER_DAY) {
-		return { ok: false, error: 'rate_limited', retry: 60 * 60 };
-	}
-	if (recent.length >= PER_IP_PER_WINDOW) {
-		const oldest = Math.min(...recent);
-		return {
-			ok: false,
-			error: 'rate_limited',
-			retry: Math.ceil((PER_IP_WINDOW_MS - (now - oldest)) / 1000)
-		};
-	}
-	return { ok: true };
-};
-
-interface Usage {
-	input_tokens: number;
-	output_tokens: number;
-	cache_read_input_tokens?: number | null;
-	cache_creation_input_tokens?: number | null;
-}
-
-const usageUsd = ({ usage, model }: { usage: Usage; model: string }): number => {
-	const price = priceOf(model);
-	return (
-		(usage.input_tokens * price.in +
-			(usage.cache_read_input_tokens ?? 0) * price.in * 0.1 +
-			(usage.cache_creation_input_tokens ?? 0) * price.in * 2 +
-			usage.output_tokens * price.out) /
-		1_000_000
-	);
-};
-
-// Top-level usage covers only the attempt that produced the message. When a
-// fallback ran, usage.iterations lists every attempt, the declined one
-// included, each with the model that ran it; all of them are counted.
-const recordSpend = (response: {
-	model: string;
-	usage: Usage & { iterations?: (Usage & { model?: string | null })[] | null };
-}): number => {
-	const { iterations } = response.usage;
-	const usd = iterations?.length
-		? iterations.reduce(
-				(sum, usage) => sum + usageUsd({ usage, model: usage.model ?? response.model }),
-				0
-			)
-		: usageUsd({ usage: response.usage, model: response.model });
-	rollDay();
-	spentTodayUsd += usd;
-	return usd;
-};
-
-// An attempt whose usage never arrived is charged what it could have cost.
-const recordWorstCase = (usd: number) => {
-	rollDay();
-	spentTodayUsd += usd;
-};
-
-const recordHit = (ip: string) => {
-	usedToday += 1;
-	hits.set(ip, [...(hits.get(ip) ?? []), Date.now()]);
-};
-
-/** Counts a strike against the address and returns how many it has left. */
-const recordStrike = (ip: string): number => {
-	rollDay();
-	const count = (strikes.get(ip) ?? 0) + 1;
-	strikes.set(ip, count);
-	return Math.max(0, STRIKES_PER_DAY - count);
-};
+const costGuard = createCostGuard({
+	perIpWindowMs: PER_IP_WINDOW_MS,
+	perIpPerWindow: PER_IP_PER_WINDOW,
+	perIpPerDay: PER_IP_PER_DAY,
+	dailyLimit: DAILY_LIMIT,
+	dailyBudgetUsd: DAILY_BUDGET_USD,
+	strikesPerDay: STRIKES_PER_DAY,
+	maxInFlight: MAX_IN_FLIGHT,
+	maxOutputTokens: MAX_OUTPUT_TOKENS,
+	prices: PRICES
+});
 
 // The /ask privacy note promises IPs are gone at midnight UTC; otherwise they
 // are only cleared when a later request arrives. cache.ts does the same for
 // answers.
-setInterval(rollDay, 60 * 1000).unref();
+setInterval(costGuard.rollDay, 60 * 1000).unref();
 
 // --- request parsing ------------------------------------------------------
 
@@ -333,40 +205,6 @@ const readBody = (req: IncomingMessage): Promise<unknown> =>
 		req.on('error', reject);
 	});
 
-// An IPv6 visitor usually holds a whole /64 and can pick a fresh address for
-// every request, so the per-IP limits key IPv6 on its /64 prefix. IPv4, and
-// IPv4 mapped into IPv6 in any of its spellings (::ffff:203.0.113.7,
-// ::ffff:cb00:7107, 0:0:0:0:0:ffff:…), keys on the full IPv4 address.
-const limitKey = (ip: string): string => {
-	if (!isIPv6(ip)) {
-		return ip;
-	}
-	// A dotted IPv4 tail becomes its two hex groups, then '::' is expanded.
-	const parts = ip.split(':');
-	const last = parts.at(-1) ?? '';
-	if (last.includes('.')) {
-		const [a = 0, b = 0, c = 0, d = 0] = last.split('.').map(Number);
-		parts.splice(-1, 1, ((a << 8) | b).toString(16), ((c << 8) | d).toString(16));
-	}
-	const hex = parts.join(':');
-	const [head = '', tail = ''] = hex.split('::');
-	const left = head ? head.split(':') : [];
-	const right = tail ? tail.split(':') : [];
-	const groups = (
-		hex.includes('::')
-			? [...left, ...Array<string>(Math.max(0, 8 - left.length - right.length)).fill('0'), ...right]
-			: left
-	).map((g) => parseInt(g, 16));
-	if (groups.slice(0, 5).every((g) => g === 0) && groups[5] === 0xffff) {
-		const [hi = 0, lo = 0] = groups.slice(6);
-		return [hi >> 8, hi & 0xff, lo >> 8, lo & 0xff].join('.');
-	}
-	return `${groups
-		.slice(0, 4)
-		.map((g) => g.toString(16))
-		.join(':')}::/64`;
-};
-
 // nginx forwards Fly's Fly-Client-IP as X-Client-IP (falling back to its own
 // view of the peer), so the socket address is only used when run directly.
 const clientIp = (req: IncomingMessage): string => {
@@ -421,7 +259,7 @@ const generate = async (request: AiRequest): Promise<Outcome> => {
 
 	// Count the spend before anything can throw: truncated or refused
 	// responses are billed too.
-	const usd = recordSpend(response);
+	const usd = costGuard.recordSpend(response);
 
 	if (response.stop_reason === 'refusal') {
 		throw new RefusedError(response.stop_details?.category ?? 'refusal');
@@ -451,7 +289,7 @@ const generate = async (request: AiRequest): Promise<Outcome> => {
 			cacheWrite: response.usage.cache_creation_input_tokens,
 			output: response.usage.output_tokens,
 			usd: Number(usd.toFixed(4)),
-			spentTodayUsd: Number(spentTodayUsd.toFixed(4))
+			spentTodayUsd: Number(costGuard.spentTodayUsd().toFixed(4))
 		})
 	);
 
@@ -505,9 +343,7 @@ const sendOutcome = ({
 	fresh: boolean;
 }) => {
 	if ('guard' in outcome) {
-		const strikesLeft = fresh
-			? recordStrike(ip)
-			: Math.max(0, STRIKES_PER_DAY - (strikes.get(ip) ?? 0));
+		const strikesLeft = fresh ? costGuard.recordStrike(ip) : costGuard.strikesLeft(ip);
 		send({
 			res,
 			status: 422,
@@ -547,8 +383,8 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 		return;
 	}
 
-	const reserve = worstCaseUsd(request);
-	const limit = checkLimits({ ip, reserve });
+	const reserve = costGuard.worstCaseUsd(request);
+	const limit = costGuard.checkLimits({ ip, reserve });
 	if (!limit.ok) {
 		send({
 			res,
@@ -558,17 +394,14 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 		});
 		return;
 	}
-	if (inFlight >= MAX_IN_FLIGHT || inFlightByIp.has(ip)) {
+	if (costGuard.isBusy(ip)) {
 		send({ res, status: 503, body: { ok: false, error: 'busy', retryAfterSeconds: 20 } });
 		return;
 	}
 
 	// No await between the checks above and these lines, so admission and
 	// reservation happen as one step.
-	recordHit(ip);
-	inFlight += 1;
-	inFlightByIp.add(ip);
-	reservedUsd += reserve;
+	costGuard.admit({ ip, reserve });
 	try {
 		const outcome = await generate(request);
 		cachePut({ key, value: outcome });
@@ -583,7 +416,7 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 			return;
 		}
 		if (err instanceof UncountedError && err.generated) {
-			recordWorstCase(reserve);
+			costGuard.recordWorstCase(reserve);
 		}
 		console.error(
 			JSON.stringify({
@@ -598,9 +431,7 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 		);
 		send({ res, status: 502, body: { ok: false, error: 'upstream' } });
 	} finally {
-		inFlight -= 1;
-		inFlightByIp.delete(ip);
-		reservedUsd = Math.max(0, reservedUsd - reserve);
+		costGuard.release({ ip, reserve });
 	}
 };
 

@@ -53,7 +53,7 @@ then its detail component.
   enforces it; single-primitive helpers such as `cvPath(locale)` are allowed.
 - **Arrow function constants**, exported by name; no default exports outside
   `.svelte` files.
-- **Comments say why.** See the cost-guard block in `server/index.ts:27` or
+- **Comments say why.** See the cost-guard block in `server/index.ts:28` or
   `vite.config.ts` around `__BUILD_YEAR__`.
 
 ## State
@@ -80,11 +80,11 @@ then its detail component.
   (`src/lib/services/ai.services.ts:14`) returns `{ ok: false, error: 'upstream' }`
   and rethrows only an abort; `fetchAiHealth` returns `undefined`.
 - **The server validates by hand, then answers a typed body.** `parseRequest`
-  (`server/index.ts:284`) turns unknown JSON into an `AiRequest` or `undefined`;
-  every reply goes through `send` (`server/index.ts:475`) with a status and an
+  (`server/index.ts:154`) turns unknown JSON into an `AiRequest` or `undefined`;
+  every reply goes through `send` (`server/index.ts:311`) with a status and an
   `AiResponse`. Internal failures are small `Error` subclasses
-  (`RefusedError`, `UncountedError`, `server/index.ts:383`) mapped to codes in
-  `handleGenerate` (`server/index.ts:523`).
+  (`RefusedError`, `UncountedError`, `server/index.ts:219`) mapped to codes in
+  `handleGenerate` (`server/index.ts:357`).
 - **Model output is never trusted.** Structured outputs fix the shape
   (`SCHEMAS`, `server/modes.ts:199`); `cleanResult` (`server/modes.ts:391`)
   trims lengths, drops unknown evidence ids and inline ids; `leaksNotes`
@@ -114,9 +114,8 @@ then its detail component.
 
 - **`searchLeaves`** (`leaf.utils.ts:97`) repeats one loop per kind, matches
   only English and Italian, and skips languages and about.
-- **Long files**: `server/index.ts` (about 640 lines: config, pricing, limits,
-  parsing, IP keys, generation, HTTP), `graph-layout.services.ts`,
-  `StaticCv.svelte`, `ask-copy.utils.ts`. Add to them only what belongs to their
+- **Long files**: `graph-layout.services.ts`, `StaticCv.svelte`,
+  `ask-copy.utils.ts`. Add to them only what belongs to their
   concern; split along the section comments when a change allows it.
 - **Hand-synced copies**: `static/llms.txt` restates portfolio content; `SITE_MODIFIED_TIME` (`seo.utils.ts:68`)
   mirrors `<lastmod>` in `static/sitemap.xml`.

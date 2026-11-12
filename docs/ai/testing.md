@@ -1,15 +1,24 @@
 # Testing
 
-There is no unit test runner in this repository today: no Vitest, no
-Playwright, no `test` script. Behaviour is proved by the type checkers, the
-build and the image probes in CI. Adding a test runner is a new dependency:
-ask first.
+Vitest (`npm test`, the `test` job in CI) unit-tests the API's own logic:
+`server/*.spec.ts`, run by `vitest.config.ts` with `describe`, `it`, `expect`
+and `vi` as globals, as the shared lint config asks. Today that is the money
+code: `server/cost-guard.spec.ts` (worst-case reservation, spend, limits,
+strikes, the day rolling over at midnight UTC) and `server/limit-key.spec.ts`
+(the per-IP key). The site itself has no unit tests: it is proved by the type
+checkers, the build and the image probes. Another test runner (Playwright, a
+browser environment) is a new dependency: ask first.
+
+A change to the cost guards or to `limitKey` comes with the test that shows
+it. A test builds its own guard with `createCostGuard` and small limits, and
+moves the clock with `vi.useFakeTimers` and `vi.setSystemTime`.
 
 ## What proves a change
 
 | Layer                  | How                                                                                                 |
 | ---------------------- | --------------------------------------------------------------------------------------------------- |
 | Types, Svelte, the API | `npm run check` (`svelte-check` on `src/`, `tsc -p server`)                                         |
+| The API's money code   | `npm test`: Vitest on `server/*.spec.ts`                                                            |
 | Style and quality      | `npm run lint`: Prettier, ESLint, knip, jscpd (see [pr-and-ci.md](./pr-and-ci.md#the-quality-gate)) |
 | Prerender              | `npm run build`: every route renders to HTML or the build fails                                     |
 | The image              | The `docker` job in `.github/workflows/checks.yml`                                                  |

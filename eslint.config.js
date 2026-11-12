@@ -36,10 +36,7 @@ const BASELINE = [
 	},
 	{
 		files: ['server/index.ts'],
-		rules: {
-			complexity: ['error', 18],
-			'max-lines': ['error', { max: 502, skipBlankLines: true, skipComments: true }]
-		}
+		rules: { complexity: ['error', 17] }
 	},
 	{
 		files: ['src/lib/components/graph/GraphEdgesLive.svelte'],
