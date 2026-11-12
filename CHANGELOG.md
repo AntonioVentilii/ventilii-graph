@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.6.3](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.6.2...v1.6.3) (2026-11-12)
+
+
+### Documentation
+
+* **ai:** ban the em dash and the en dash used as a break, keep en dash ranges ([#92](https://github.com/AntonioVentilii/ventilii-graph/issues/92)) ([ab579f9](https://github.com/AntonioVentilii/ventilii-graph/commit/ab579f9e367212d93d1416371a54fdf741006445))
+
+
+### Code Refactoring
+
+* move the map and CV copy into copy modules ([#87](https://github.com/AntonioVentilii/ventilii-graph/issues/87)) ([b8d0467](https://github.com/AntonioVentilii/ventilii-graph/commit/b8d0467d581e5ece61ad02b58d5e27238db97f41))
+* one component each for the banner meta tags every page repeats ([#89](https://github.com/AntonioVentilii/ventilii-graph/issues/89)) ([9bce753](https://github.com/AntonioVentilii/ventilii-graph/commit/9bce753f7cccaa9e979e74b3406ce3589c7766a3))
+
+
+### Build System
+
+* **deps:** remove the devDependencies nothing uses ([#90](https://github.com/AntonioVentilii/ventilii-graph/issues/90)) ([2150e40](https://github.com/AntonioVentilii/ventilii-graph/commit/2150e40657bd5959333130ae2bcb0b1eddcc3aad))
+
 ## [1.6.2](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.6.1...v1.6.2) (2026-11-11)
 
 
