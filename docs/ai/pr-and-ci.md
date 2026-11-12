@@ -36,6 +36,7 @@ Never start a line with `Test:` or `Fix:`. No AI attribution lines.
 npm run format
 npm run lint
 npm run check
+npm test
 npm run build
 ```
 
@@ -63,12 +64,17 @@ needs the owner.
 
 ## What CI runs on a PR
 
-`.github/workflows/checks.yml`: `pr-title`, `lint`, `check`, `build`, and
+`.github/workflows/checks.yml`: `pr-title`, `lint`, `check`, `test`, `build`, and
 `docker` (build, `nginx -t`, route and API probes, security headers). All must
 pass. `release-please.yml` opens the release PR on `main`; `deploy.yml` runs
 only on a `v*` tag.
 
 ## One change per PR
+
+One purpose per PR, each opened from an up to date `main` so they merge in any
+order: rules [2, scoped](https://github.com/AntonioVentilii/officina/blob/main/standards/code.md#2-scoped)
+and [3, parallel, not stacked](https://github.com/AntonioVentilii/officina/blob/main/standards/code.md#3-parallel-not-stacked)
+of the universal standard.
 
 The history is the model: a content change, an `/ask` fix and a dependency
 move are three PRs, never one. A docs-only change to `docs/ai/**` is `docs(ai): ...`.

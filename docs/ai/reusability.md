@@ -37,11 +37,13 @@ PR of its own; do not write a second one beside it.
 | `evidence.utils.ts` `evidenceLink`                                                           | Evidence id to `{ label, href }` deep link on the map           |
 | `relations.utils.ts` `relatedProjectsForStack`                                               | Projects using a technology                                     |
 | `relations.utils.ts` `relatedStackForProject`                                                | Technologies of a project                                       |
+| `relations.utils.ts` `relatedProjectsForExperience`                                          | Projects an experience lists, in its order                      |
 | `project.utils.ts` `projectStatusLabel`                                                      | Localised label of a `ProjectStatus`                            |
 | `project.utils.ts` `projectMeta`                                                             | "Sep 2026-present · In private use" line                        |
 | `graph-geometry.utils.ts` `categoryAngle`                                                    | Angle of a category on the ring                                 |
 | `graph-geometry.utils.ts` `leafAnglesOpenRing`                                               | Leaf angles on the 240 degree open ring                         |
 | `graph-geometry.utils.ts` `ringFloatStyle`                                                   | Staggered float animation style for a seed                      |
+| `motion.utils.ts` `prefersReducedMotion`                                                     | Whether the visitor asked for less motion                       |
 | `seo.utils.ts` `SITE_ORIGIN`, `absoluteUrl`                                                  | Canonical origin and absolute URLs                              |
 | `seo.utils.ts` `serializeSchema`                                                             | Safe JSON-LD for `{@html}` in a `<script>`                      |
 | `seo.utils.ts` `PERSON_KNOWS_ABOUT`                                                          | JSON-LD `knowsAbout` topics                                     |
@@ -107,6 +109,7 @@ PR of its own; do not write a second one beside it.
 | `panel/PersonSummary.svelte`                                                  | Avatar, title, links, org highlights                  |
 | `panel/LeafDetailCard.svelte`                                                 | Dispatches a leaf to its `*Detail.svelte`             |
 | `panel/{Experience,Project,Technology,Education,Language,About}Detail.svelte` | One detail view per leaf kind                         |
+| `panel/RelatedProjects.svelte`                                                | "Related projects" block of links to each project     |
 | `cv/StaticCv.svelte`                                                          | The whole flat CV with head, JSON-LD and locale nav   |
 | `ai/AskApp.svelte`                                                            | `/ask` shell: tabs, locale, health, protection rules  |
 | `ai/AskMode.svelte`, `ai/FitMode.svelte`, `ai/DeckMode.svelte`                | One form and result per mode                          |
@@ -141,3 +144,7 @@ PR of its own; do not write a second one beside it.
 | `modes.ts` `cleanResult`, `readGuard`, `leaksNotes`      | Output clean-up, guard verdict, private-notes leak check |
 | `cache.ts` `cacheKey`, `cacheGet`, `cachePut`, `Outcome` | The in-memory answer cache (6 hours, 500 entries)        |
 | `fly-oidc.ts` `mintFlyIdentityToken`                     | OIDC token from the root helper's socket                 |
+| `claude.ts` `client`, `MODEL`, `EFFORT`, `auth`          | The Claude client, its model, effort and credentials     |
+| `cost-guard.ts` `createCostGuard`                        | Limits, daily budget, worst-case reserve, strikes        |
+| `limit-key.ts` `limitKey`                                | Per-IP limit key: IPv4, or the IPv6 /64                  |
+| `env.ts` `optionalEnv`, `positiveNumberEnv`, `portEnv`   | Empty env read as absent; a positive number or default   |
