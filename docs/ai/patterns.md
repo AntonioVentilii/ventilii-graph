@@ -92,7 +92,7 @@ then its detail component.
   On the page, model text renders only through `RichText.svelte`, never
   `{@html}`.
 - **Configuration is read once, at the top of the module,** from env with a
-  default (`server/index.ts:23`). Constants stay in the module that owns them.
+  default (`server/claude.ts:11`). Constants stay in the module that owns them.
 
 ## Components
 
@@ -120,7 +120,7 @@ then its detail component.
   concern; split along the section comments when a change allows it.
 - **Hand-synced copies**: `static/llms.txt` restates portfolio content; `SITE_MODIFIED_TIME` (`seo.utils.ts:68`)
   mirrors `<lastmod>` in `static/sitemap.xml`.
-- **`AI_EFFORT` is cast unchecked** in `server/index.ts`. Narrow it with a
+- **`AI_EFFORT` is cast unchecked** in `server/claude.ts`. Narrow it with a
   guard instead, as `isThemeMode` does in `theme.store.ts`.
 - **`prefers-reduced-motion`** is queried inline in `PortfolioApp.svelte:136`,
   `PortfolioGraph.svelte:54` and `:102`, and `GraphEdgesLive.svelte:231`.
