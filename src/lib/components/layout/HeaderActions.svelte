@@ -9,12 +9,11 @@
 	interface Props {
 		locale: Locale;
 		cvFallbackLabel: string;
-		langLabel: string;
 		flatten: { href: string; label: string; title: string; onFlatten: () => void };
 		ask: { href: string; label: string };
 	}
 
-	let { locale = $bindable(), cvFallbackLabel, langLabel, flatten, ask }: Props = $props();
+	let { locale = $bindable(), cvFallbackLabel, flatten, ask }: Props = $props();
 </script>
 
 <div class="flex flex-wrap items-center gap-2">
@@ -44,5 +43,5 @@
 	>
 		<Github size={16} strokeWidth={2} />
 	</a>
-	<LocaleSelect {langLabel} bind:locale />
+	<LocaleSelect bind:locale />
 </div>

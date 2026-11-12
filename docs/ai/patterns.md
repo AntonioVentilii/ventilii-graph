@@ -16,10 +16,13 @@ already in the code, named so nobody copies them.
   (`portfolio.types.ts:3`, English required, others optional) and are read with
   `pickLocale({ text, locale })` (`src/lib/utils/locale.utils.ts:5`), which
   falls back to English.
-- **UI copy as `Record<Locale, string>` tables.** For `/ask`, every string is in
-  `ASK_COPY` (`src/lib/utils/ask-copy.utils.ts:6`), read through
-  `askCopy({ key, locale })` (`ask-copy.utils.ts:442`); components alias it as
-  `t` (`src/lib/components/ai/DeckMode.svelte:24`). Labels for a content enum
+- **UI copy as `Record<Locale, string>` tables, one module per page.** Every
+  string is in `ASK_COPY` (`src/lib/utils/ask-copy.utils.ts:6`), `MAP_COPY`
+  (`map-copy.utils.ts`) or `CV_COPY` (`cv-copy.utils.ts`), read through
+  `askCopy`, `mapCopy` or `cvCopy` with `{ key, locale }` (`ask-copy.utils.ts:441`);
+  components alias it as `t` or `tr` (`src/lib/components/ai/DeckMode.svelte:24`).
+  A string two pages share goes next to its concept: the language menu's label
+  is `LANGUAGE_LABEL` in `locale.utils.ts`, read by `LocaleSelect` itself. Labels for a content enum
   live next to their helper: `STATUS_LABELS` in `src/lib/utils/project.utils.ts:4`.
 - **Locale is client state.** Pages are prerendered in English (the CV pages
   are prerendered per locale); `?lang=` is read in `onMount`
@@ -111,10 +114,6 @@ then its detail component.
   `AskApp.svelte:47`; `pt-BR` for `<html lang>` in `src/hooks.server.ts:10`,
   `AskApp.svelte:72` and `StaticCv.svelte:72`; the locale nav in
   `StaticCv.svelte:76`. Use `LOCALES` and add any per-locale mapping next to it.
-- **Map and CV copy live inside components** (`t` in `PortfolioApp.svelte:40`
-  and `StaticCv.svelte:43`), while `/ask` keeps its copy in a utils module.
-  `src/routes/ask/+page.svelte:14` repeats the English `ASK_COPY.metaTitle` and
-  description as literals.
 - **`searchLeaves`** (`leaf.utils.ts:97`) repeats one loop per kind, matches
   only English and Italian, and skips languages and about.
 - **Long files**: `server/index.ts` (about 640 lines: config, pricing, limits,

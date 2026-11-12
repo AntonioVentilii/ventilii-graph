@@ -104,7 +104,7 @@
 		</a>
 		<div class="flex items-center gap-2">
 			<ThemeToggle />
-			<LocaleSelect langLabel={t('langLabel')} bind:locale />
+			<LocaleSelect bind:locale />
 		</div>
 	</header>
 

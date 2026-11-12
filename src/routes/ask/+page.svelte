@@ -2,13 +2,13 @@
 	import AskApp from '#lib/components/ai/AskApp.svelte';
 	import OgImageMeta from '#lib/components/layout/OgImageMeta.svelte';
 	import TwitterMeta from '#lib/components/layout/TwitterMeta.svelte';
+	import { ASK_COPY } from '#lib/utils/ask-copy.utils.ts';
 	import { SITE_AUTHOR, absoluteUrl } from '#lib/utils/seo.utils.ts';
 
 	// Locale is a client-side choice (?lang=), so the prerendered head carries
 	// the English metadata; AskApp swaps <title> and description on the client.
-	const title = 'Ask the AI version · Antonio Ventilii';
-	const description =
-		'An AI that has read Antonio Ventilii’s whole portfolio: ask what he has built, check how he fits a job posting, or get a short tailored presentation. Instructed to state gaps, not to sell.';
+	const title = ASK_COPY.metaTitle.en;
+	const description = ASK_COPY.metaDescription.en;
 </script>
 
 <svelte:head>
