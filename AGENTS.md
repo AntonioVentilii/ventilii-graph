@@ -76,8 +76,10 @@ It is not copied here. This repository adds only:
 6. **The `/ask` API spends real money.** Never weaken a limit, the budget, the
    same-site check, the guard or the clean-up pass in `server/` without the
    owner saying so. See [`docs/ai/governance.md`](./docs/ai/governance.md).
-7. **Writing.** No em or en dashes anywhere, the site's copy included (history:
-   `e97b0d7`, `835b854`). Use a colon, a comma or a middot.
+7. **Writing.** No em dash anywhere, the site's copy included, and no en dash
+   used as a break between spaces (history: `e97b0d7`, `835b854`). Use a colon,
+   a comma or a middot. An en dash in a range with no spaces (`2019–2024`)
+   stays. Rule 14 of the universal standard.
 
 ## You are about to... read first
 
