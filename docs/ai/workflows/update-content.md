@@ -5,8 +5,8 @@ Title: `feat(content): ...` (or `fix(content): ...` for a correction). Model:
 `209ed21`.
 
 1. **Edit the data, only there.** `src/lib/services/portfolio.services.ts`.
-   Write every string with `L.en(en, it, pt)`: all three languages, no em or
-   en dashes. Ids are lower-case kebab or snake and never change once
+   Write every string with `L.en(en, it, pt)`: all three languages, no em
+   dash and no en dash used as a break (a range like `2019–2024` is fine). Ids are lower-case kebab or snake and never change once
    published: they are in URLs (`?item=project:<id>`) and in the AI's evidence.
 2. **Projects carry evidence, not guesses.** Set `dates` and `status`
    (`production`, `in-use`, `prototype`, `archived`) only where the repository
