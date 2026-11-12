@@ -127,8 +127,8 @@ fly certs add ventilii.dev
 fly certs add www.ventilii.dev
 ```
 
-The canonical origin is `SITE_ORIGIN` in `src/lib/utils/seo.utils.ts`; keep it,
-`static/sitemap.xml` and `static/robots.txt` in sync.
+The canonical origin is `SITE_ORIGIN` in `src/lib/utils/seo.utils.ts`, which the
+prerendered `/sitemap.xml` also reads; keep `static/robots.txt` in sync with it.
 
 ## Local image
 
