@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.6.4](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.6.3...v1.6.4) (2026-11-12)
+
+
+### Code Refactoring
+
+* **ask:** one submit button for the three modes ([#94](https://github.com/AntonioVentilii/ventilii-graph/issues/94)) ([aca9a43](https://github.com/AntonioVentilii/ventilii-graph/commit/aca9a431d71f118ae203dd9e797443919e507089))
+* read every locale list and mapping from LOCALES ([#93](https://github.com/AntonioVentilii/ventilii-graph/issues/93)) ([151ff6a](https://github.com/AntonioVentilii/ventilii-graph/commit/151ff6aca332b9a3b7dea2af2e3c72fa3b2964b7))
+
+
+### Build System
+
+* serve llm.txt from llms.txt instead of a hand-kept copy ([#95](https://github.com/AntonioVentilii/ventilii-graph/issues/95)) ([bbbd3bf](https://github.com/AntonioVentilii/ventilii-graph/commit/bbbd3bf188b1eebf5a9a9582bf2f83fec4848c75))
+
 ## [1.6.3](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.6.2...v1.6.3) (2026-11-12)
 
 
