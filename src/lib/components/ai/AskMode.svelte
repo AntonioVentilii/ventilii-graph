@@ -1,7 +1,7 @@
 <script lang="ts">
 	import EvidenceChips from '#lib/components/ai/EvidenceChips.svelte';
 	import FieldCounter from '#lib/components/ai/FieldCounter.svelte';
-	import RequestStatus from '#lib/components/ai/RequestStatus.svelte';
+	import ModeOutput from '#lib/components/ai/ModeOutput.svelte';
 	import RichText from '#lib/components/ai/RichText.svelte';
 	import SubmitButton from '#lib/components/ai/SubmitButton.svelte';
 	import { AiRequestState } from '#lib/stores/ai-request.svelte.ts';
@@ -86,18 +86,8 @@
 	{/each}
 </div>
 
-<div class="mt-6 space-y-4">
-	<RequestStatus
-		{email}
-		error={req.error}
-		guard={req.guard}
-		loading={req.loading}
-		{locale}
-		onAsk={ask}
-	/>
-
-	{#if req.result && !req.loading}
-		{@const r = req.result}
+<ModeOutput {email} {locale} onAsk={ask} {req}>
+	{#snippet result(r)}
 		<article
 			class="animate-fade shadow-leaf space-y-4 rounded-2xl border border-border bg-card p-5"
 		>
@@ -137,5 +127,5 @@
 				{/each}
 			</div>
 		{/if}
-	{/if}
-</div>
+	{/snippet}
+</ModeOutput>

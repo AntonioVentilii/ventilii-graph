@@ -8,9 +8,9 @@ import type {
 	Guard
 } from '#lib/types/ai.types.ts';
 
-type Mode = AiRequest['mode'];
+export type Mode = AiRequest['mode'];
 
-interface ResultByMode {
+export interface ResultByMode {
 	ask: AskResult;
 	fit: FitResult;
 	deck: DeckResult;

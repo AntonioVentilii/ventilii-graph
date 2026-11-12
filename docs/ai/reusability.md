@@ -118,6 +118,7 @@ PR of its own; do not write a second one beside it.
 | `ai/RichText.svelte`                                                          | Safe render of model text: paragraphs, bullets, bold  |
 | `ai/EvidenceChips.svelte`                                                     | Evidence ids as map links                             |
 | `ai/RequestStatus.svelte`                                                     | A mode's thinking, guard or error note                |
+| `ai/ModeOutput.svelte`                                                        | Under a mode's form: its status, then its result      |
 | `ai/SubmitButton.svelte`                                                      | A mode's submit button                                |
 | `ai/ErrorNote.svelte`                                                         | Localised message for an `AiErrorCode`                |
 | `ai/GuardNote.svelte`                                                         | The off-topic or manipulation note with strikes left  |
