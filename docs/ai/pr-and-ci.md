@@ -54,8 +54,8 @@ Touching `Dockerfile`, `nginx*.conf` or `docker/`: also build and run the image
   Files over a limit today are pinned at their current value in `BASELINE`.
 - **knip** (`knip.json`): unused files, exports and dependencies. The ones that
   exist today are listed in the config.
-- **jscpd** (`.jscpd.json`): copy-paste in `src/` and `server/`, failing above
-  the duplicated-line share of today (`threshold`).
+- **jscpd** (`.jscpd.json`): copy-paste in `src/` and `server/`. The code has
+  no clones today, so `threshold` is 0 and any new one fails.
 
 The baselines only move down. A change that brings a pinned file under its pin,
 removes a listed unused piece or removes a clone lowers or drops that entry in
