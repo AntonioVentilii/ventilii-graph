@@ -92,10 +92,11 @@ then its detail component.
   On the page, model text renders only through `RichText.svelte`, never
   `{@html}`.
 - **Configuration is read once, at the top of the module,** from env with a
-  default (`server/claude.ts:12`). Constants stay in the module that owns them.
+  default (`server/claude.ts:13`). Constants stay in the module that owns them.
   A count, an amount or a price goes through `positiveNumberEnv`
   (`server/env.ts`), which keeps the default unless the value is a finite
-  number above zero; the port goes through `portEnv` (1 to 65535).
+  number above zero; the port goes through `portEnv` (1 to 65535), and a word
+  out of a fixed list, such as `AI_EFFORT`, through `oneOfEnv`.
 
 ## Components
 
@@ -123,5 +124,3 @@ then its detail component.
   `ask-copy.utils.ts`. Add to them only what belongs to their
   concern; split along the section comments when a change allows it.
 - **Hand-synced copies**: `static/llms.txt` restates portfolio content.
-- **`AI_EFFORT` is cast unchecked** in `server/claude.ts`. Narrow it with a
-  guard instead, as `isThemeMode` does in `theme.store.ts`.

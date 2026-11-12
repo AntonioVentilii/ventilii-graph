@@ -5,11 +5,11 @@ Vitest (`npm test`, the `test` job in CI) unit-tests plain TypeScript:
 Node with `describe`, `it`, `expect` and `vi` as globals, as the shared lint
 config asks. Today that is the API's money code, `server/cost-guard.spec.ts`
 (worst-case reservation, spend, limits, strikes, the day rolling over at
-midnight UTC) and `server/limit-key.spec.ts` (the per-IP key), and the map's
-search, `src/lib/utils/leaf.utils.spec.ts`. Svelte components have no unit
-tests: they are proved by the type checkers, the build and the image probes.
-Another test runner (Playwright, a browser environment) is a new dependency:
-ask first.
+midnight UTC) and `server/limit-key.spec.ts` (the per-IP key), the settings
+check, `server/env.spec.ts`, and the map's search,
+`src/lib/utils/leaf.utils.spec.ts`. Svelte components have no unit tests: they
+are proved by the type checkers, the build and the image probes. Another test
+runner (Playwright, a browser environment) is a new dependency: ask first.
 
 A change to the cost guards, to `limitKey` or to what the map's search finds
 comes with the test that shows it. A cost-guard test builds its own guard with
