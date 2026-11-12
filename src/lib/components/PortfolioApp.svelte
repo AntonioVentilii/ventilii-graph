@@ -10,6 +10,7 @@
 	import { categoryForLeafKind, leafKey, parseLeaf, type Leaf } from '#lib/utils/leaf.utils.ts';
 	import { cvPath, parseLocale } from '#lib/utils/locale.utils.ts';
 	import { mapCopy } from '#lib/utils/map-copy.utils.ts';
+	import { prefersReducedMotion } from '#lib/utils/motion.utils.ts';
 	import { goto } from '$app/navigation';
 
 	let locale = $state<Locale>('en');
@@ -83,8 +84,7 @@
 			return;
 		}
 		flattening = true;
-		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-		setTimeout(() => goto(cvPath(locale)), reduceMotion ? 0 : 700);
+		setTimeout(() => goto(cvPath(locale)), prefersReducedMotion() ? 0 : 700);
 	};
 
 	onMount(() => {
