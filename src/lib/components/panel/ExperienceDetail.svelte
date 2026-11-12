@@ -48,6 +48,6 @@
 		label={relatedProjectsLabel}
 		{locale}
 		{onSelectLeaf}
-		projects={relatedProjectsForExperience(experience)}
+		projects={relatedProjectsForExperience({ experience })}
 	/>
 </div>

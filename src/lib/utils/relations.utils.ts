@@ -14,7 +14,11 @@ export const relatedStackForProject = (projectId: string) => {
 };
 
 /** The projects an experience lists, in its order, skipping ids that match none. */
-export const relatedProjectsForExperience = (experience: Experience): Project[] =>
+export const relatedProjectsForExperience = ({
+	experience
+}: {
+	experience: Experience;
+}): Project[] =>
 	(experience.projectIds ?? []).flatMap((id) => {
 		const project = portfolioData.projects.find((p) => p.id === id);
 		return project ? [project] : [];
