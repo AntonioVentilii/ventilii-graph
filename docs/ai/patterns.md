@@ -120,8 +120,6 @@ then its detail component.
   mirrors `<lastmod>` in `static/sitemap.xml`.
 - **`AI_EFFORT` is cast unchecked** in `server/index.ts`. Narrow it with a
   guard instead, as `isThemeMode` does in `theme.store.ts`.
-- **`prefers-reduced-motion`** is queried inline in `PortfolioApp.svelte:136`,
-  `PortfolioGraph.svelte:54` and `:102`, and `GraphEdgesLive.svelte:231`.
 - **Copy-pasted markup**: the author, article and JSON-LD
   lines of `StaticCv.svelte` and `routes/+page.svelte`; the related-items list
   of `ExperienceDetail.svelte` and `TechnologyDetail.svelte`; two branches of
