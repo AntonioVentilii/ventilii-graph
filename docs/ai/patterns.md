@@ -124,6 +124,5 @@ then its detail component.
 - **`AI_EFFORT` is cast unchecked** in `server/claude.ts`. Narrow it with a
   guard instead, as `isThemeMode` does in `theme.store.ts`.
 - **Copy-pasted markup**: the author, article and JSON-LD
-  lines of `StaticCv.svelte` and `routes/+page.svelte`; the related-items list
-  of `ExperienceDetail.svelte` and `TechnologyDetail.svelte`; two branches of
+  lines of `StaticCv.svelte` and `routes/+page.svelte`; two branches of
   `OrbitNode.svelte`. Extract a component before adding a fourth copy.
