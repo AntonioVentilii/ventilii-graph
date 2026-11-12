@@ -42,6 +42,7 @@ PR of its own; do not write a second one beside it.
 | `graph-geometry.utils.ts` `categoryAngle`                                                    | Angle of a category on the ring                                 |
 | `graph-geometry.utils.ts` `leafAnglesOpenRing`                                               | Leaf angles on the 240 degree open ring                         |
 | `graph-geometry.utils.ts` `ringFloatStyle`                                                   | Staggered float animation style for a seed                      |
+| `motion.utils.ts` `prefersReducedMotion`                                                     | Whether the visitor asked for less motion                       |
 | `seo.utils.ts` `SITE_ORIGIN`, `absoluteUrl`                                                  | Canonical origin and absolute URLs                              |
 | `seo.utils.ts` `serializeSchema`                                                             | Safe JSON-LD for `{@html}` in a `<script>`                      |
 | `seo.utils.ts` `PERSON_KNOWS_ABOUT`                                                          | JSON-LD `knowsAbout` topics                                     |
@@ -140,5 +141,6 @@ PR of its own; do not write a second one beside it.
 | `modes.ts` `cleanResult`, `readGuard`, `leaksNotes`      | Output clean-up, guard verdict, private-notes leak check |
 | `cache.ts` `cacheKey`, `cacheGet`, `cachePut`, `Outcome` | The in-memory answer cache (6 hours, 500 entries)        |
 | `fly-oidc.ts` `mintFlyIdentityToken`                     | OIDC token from the root helper's socket                 |
+| `claude.ts` `client`, `MODEL`, `EFFORT`, `auth`          | The Claude client, its model, effort and credentials     |
 | `cost-guard.ts` `createCostGuard`                        | Limits, daily budget, worst-case reserve, strikes        |
 | `limit-key.ts` `limitKey`                                | Per-IP limit key: IPv4, or the IPv6 /64                  |

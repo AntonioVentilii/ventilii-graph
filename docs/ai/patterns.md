@@ -53,7 +53,7 @@ then its detail component.
   enforces it; single-primitive helpers such as `cvPath(locale)` are allowed.
 - **Arrow function constants**, exported by name; no default exports outside
   `.svelte` files.
-- **Comments say why.** See the cost-guard block in `server/index.ts:28` or
+- **Comments say why.** See the cost-guard block in `server/index.ts:25` or
   `vite.config.ts` around `__BUILD_YEAR__`.
 
 ## State
@@ -80,11 +80,11 @@ then its detail component.
   (`src/lib/services/ai.services.ts:14`) returns `{ ok: false, error: 'upstream' }`
   and rethrows only an abort; `fetchAiHealth` returns `undefined`.
 - **The server validates by hand, then answers a typed body.** `parseRequest`
-  (`server/index.ts:154`) turns unknown JSON into an `AiRequest` or `undefined`;
-  every reply goes through `send` (`server/index.ts:311`) with a status and an
+  (`server/index.ts:113`) turns unknown JSON into an `AiRequest` or `undefined`;
+  every reply goes through `send` (`server/index.ts:270`) with a status and an
   `AiResponse`. Internal failures are small `Error` subclasses
-  (`RefusedError`, `UncountedError`, `server/index.ts:219`) mapped to codes in
-  `handleGenerate` (`server/index.ts:357`).
+  (`RefusedError`, `UncountedError`, `server/index.ts:178`) mapped to codes in
+  `handleGenerate` (`server/index.ts:316`).
 - **Model output is never trusted.** Structured outputs fix the shape
   (`SCHEMAS`, `server/modes.ts:199`); `cleanResult` (`server/modes.ts:391`)
   trims lengths, drops unknown evidence ids and inline ids; `leaksNotes`
@@ -92,7 +92,7 @@ then its detail component.
   On the page, model text renders only through `RichText.svelte`, never
   `{@html}`.
 - **Configuration is read once, at the top of the module,** from env with a
-  default (`server/index.ts:23`). Constants stay in the module that owns them.
+  default (`server/claude.ts:11`). Constants stay in the module that owns them.
 
 ## Components
 
@@ -112,17 +112,13 @@ then its detail component.
 
 ## Anti-patterns in the code today (do not copy)
 
-- **`searchLeaves`** (`leaf.utils.ts:97`) repeats one loop per kind, matches
-  only English and Italian, and skips languages and about.
 - **Long files**: `graph-layout.services.ts`, `StaticCv.svelte`,
   `ask-copy.utils.ts`. Add to them only what belongs to their
   concern; split along the section comments when a change allows it.
 - **Hand-synced copies**: `static/llms.txt` restates portfolio content; `SITE_MODIFIED_TIME` (`seo.utils.ts:68`)
   mirrors `<lastmod>` in `static/sitemap.xml`.
-- **`AI_EFFORT` is cast unchecked** in `server/index.ts`. Narrow it with a
+- **`AI_EFFORT` is cast unchecked** in `server/claude.ts`. Narrow it with a
   guard instead, as `isThemeMode` does in `theme.store.ts`.
-- **`prefers-reduced-motion`** is queried inline in `PortfolioApp.svelte:136`,
-  `PortfolioGraph.svelte:54` and `:102`, and `GraphEdgesLive.svelte:231`.
 - **Copy-pasted markup**: the author, article and JSON-LD
   lines of `StaticCv.svelte` and `routes/+page.svelte`; the related-items list
   of `ExperienceDetail.svelte` and `TechnologyDetail.svelte`; two branches of

@@ -45,7 +45,7 @@ src/lib/services/                        content, graph layout, the /ask client
 src/lib/stores/                          theme store, per-mode AI request state
 src/lib/components/{graph,panel,layout,ui,icons,cv,ai}/
 src/routes/                              /, /cv/, /cv/it/, /cv/pt/, /ask/
-server/                                  the /ask API (index, cost-guard, limit-key, modes, knowledge, OIDC)
+server/                                  the /ask API (index, claude, cost-guard, limit-key, modes, knowledge, OIDC)
 static/                                  shipped as is (llms.txt, sitemap, CV PDF)
 ```
 
