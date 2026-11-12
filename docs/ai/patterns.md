@@ -30,9 +30,9 @@ already in the code, named so nobody copies them.
   `src/lib/utils/locale.utils.ts`.
 - **Locale is client state.** Pages are prerendered in English (the CV pages
   are prerendered per locale); `?lang=` is read in `onMount` with `parseLocale`
-  (`src/lib/components/PortfolioApp.svelte:19`). Links carry it with
+  (`src/lib/components/PortfolioApp.svelte:21`). Links carry it with
   `mapPath`, `cvPath`, `askPath` and `evidenceLink` (`locale.utils.ts`,
-  `ask-copy.utils.ts:451`, `src/lib/utils/evidence.utils.ts:11`).
+  `ask-copy.utils.ts:450`, `src/lib/utils/evidence.utils.ts:11`).
 
 ## Leaf ids
 
@@ -63,7 +63,7 @@ then its detail component.
   and `guard` as `$state` fields and aborts the previous run with an
   `AbortController`. One instance per mode, created in the mode component.
 - **Svelte store for global UI state.** `theme`
-  (`src/lib/stores/theme.store.ts:6`) with `toggleTheme`; the first
+  (`src/lib/stores/theme.store.ts:11`) with `toggleTheme`; the first
   paint is set by the inline script in `src/app.html` to avoid a flash.
 - **Component state** uses `$state`, `$derived`, `$effect`; props are typed by
   a local `interface Props` and read with `$props()`
