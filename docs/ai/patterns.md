@@ -120,8 +120,7 @@ then its detail component.
   parsing, IP keys, generation, HTTP), `graph-layout.services.ts`,
   `StaticCv.svelte`, `ask-copy.utils.ts`. Add to them only what belongs to their
   concern; split along the section comments when a change allows it.
-- **Hand-synced copies**: `static/llms.txt` and `static/llm.txt` are identical
-  and restate portfolio content; `SITE_MODIFIED_TIME` (`seo.utils.ts:68`)
+- **Hand-synced copies**: `static/llms.txt` restates portfolio content; `SITE_MODIFIED_TIME` (`seo.utils.ts:68`)
   mirrors `<lastmod>` in `static/sitemap.xml`.
 - **`AI_EFFORT` is cast unchecked** in `server/index.ts`. Narrow it with a
   guard instead, as `isThemeMode` does in `theme.store.ts`.

@@ -23,7 +23,7 @@ imports point.
 | `src/lib/styles/`                                  | Theme CSS variables and the graph's keyframes, imported by `src/app.css`                                                                                                     |
 | `src/hooks.server.ts`                              | Stamps `<html lang>` at prerender time                                                                                                                                       |
 | `server/`                                          | The `/ask` API. `index.ts` HTTP, limits; `cache.ts` the cache; `modes.ts` prompt, schemas, clean-up; `knowledge.ts` portfolio text; `fly-oidc.ts`, `oidc-helper.ts` Fly OIDC |
-| `static/`                                          | Shipped verbatim: `llms.txt`/`llm.txt`, `sitemap.xml`, `robots.txt`, CV PDF, fonts, images                                                                                   |
+| `static/`                                          | Shipped verbatim: `llms.txt` (nginx also serves it as `/llm.txt`), `sitemap.xml`, `robots.txt`, CV PDF, fonts, images                                                        |
 | `design/`                                          | Banner sources; not deployed                                                                                                                                                 |
 | `docker/`, `Dockerfile`, `nginx*.conf`, `fly.toml` | The production image                                                                                                                                                         |
 

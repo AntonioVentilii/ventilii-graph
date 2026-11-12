@@ -16,7 +16,7 @@ Models: `af0bb1d` (the `/cv/` pages), `f074e86`'s `/ask` route.
 3. A path helper next to its siblings (`cvPath` in `locale.utils.ts`, `askPath`
    in `ask-copy.utils.ts`) if other pages link to it.
 4. Add the URL to `static/sitemap.xml` and, if crawlers should know it,
-   `static/llms.txt` and `static/llm.txt`.
+   `static/llms.txt` (also served as `/llm.txt`).
 5. Add `check /<path>/ 200` to the `docker` job in
    `.github/workflows/checks.yml` (a CI file: say so in the PR body).
 6. If nginx needs a rule for it (headers, caching), that is `nginx.conf`: ask
