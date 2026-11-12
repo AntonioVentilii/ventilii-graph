@@ -1,7 +1,8 @@
 import { portfolioData } from '#lib/services/portfolio.services.ts';
-import { cvPath } from '#lib/utils/locale.utils.ts';
+import { LOCALES } from '#lib/types/portfolio.types.ts';
+import { HTML_LANG, cvPath } from '#lib/utils/locale.utils.ts';
 
-/** Canonical origin of the deployed site; keep in sync with static/sitemap.xml. */
+/** Canonical origin of the deployed site; static/robots.txt names its sitemap. */
 export const SITE_ORIGIN = 'https://ventilii.dev';
 
 /** Absolute URL for a site-root-relative path, for canonical/OG metadata. */
@@ -64,5 +65,11 @@ export const SITE_AUTHOR_URL = absoluteUrl(cvPath('en'));
 /** First publication of the site (ISO 8601), for article:published_time. */
 export const SITE_PUBLISHED_TIME = '2026-03-27T00:00:00+00:00';
 
-/** Last content update (ISO 8601); keep in sync with static/sitemap.xml lastmod. */
+/** Last content update (ISO 8601), also the sitemap's lastmod. */
 export const SITE_MODIFIED_TIME = '2026-09-28T00:00:00+00:00';
+
+/** The CV page in every locale, and the English one as x-default: its hreflang links and the sitemap's. */
+export const CV_ALTERNATES: { hreflang: string; href: string }[] = [
+	...LOCALES.map((locale) => ({ hreflang: HTML_LANG[locale], href: absoluteUrl(cvPath(locale)) })),
+	{ hreflang: 'x-default', href: absoluteUrl(cvPath('en')) }
+];

@@ -7,7 +7,12 @@
 	import { cvCopy } from '#lib/utils/cv-copy.utils.ts';
 	import { HTML_LANG, OG_LOCALE, cvPath, mapPath, pickLocale } from '#lib/utils/locale.utils.ts';
 	import { projectMeta } from '#lib/utils/project.utils.ts';
-	import { PERSON_KNOWS_ABOUT, absoluteUrl, serializeSchema } from '#lib/utils/seo.utils.ts';
+	import {
+		CV_ALTERNATES,
+		PERSON_KNOWS_ABOUT,
+		absoluteUrl,
+		serializeSchema
+	} from '#lib/utils/seo.utils.ts';
 
 	interface Props {
 		locale: Locale;
@@ -92,10 +97,9 @@
 	<title>{tr('metaTitle')}</title>
 	<meta name="description" content={tr('metaDescription')} />
 	<link href={canonical} rel="canonical" />
-	{#each LOCALES as alternate (alternate)}
-		<link href={absoluteUrl(cvPath(alternate))} hreflang={HTML_LANG[alternate]} rel="alternate" />
+	{#each CV_ALTERNATES as { hreflang, href } (hreflang)}
+		<link {href} {hreflang} rel="alternate" />
 	{/each}
-	<link href={absoluteUrl(cvPath('en'))} hreflang="x-default" rel="alternate" />
 	<meta content={tr('metaTitle')} property="og:title" />
 	<meta content={tr('metaDescription')} property="og:description" />
 	<meta content="profile" property="og:type" />
