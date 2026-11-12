@@ -92,7 +92,7 @@ then its detail component.
   On the page, model text renders only through `RichText.svelte`, never
   `{@html}`.
 - **Configuration is read once, at the top of the module,** from env with a
-  default (`server/claude.ts:12`). Constants stay in the module that owns them.
+  default (`server/claude.ts:13`). Constants stay in the module that owns them.
   A count, an amount or a price goes through `positiveNumberEnv`
   (`server/env.ts`), which keeps the default unless the value is a finite
   number above zero; the port goes through `portEnv` (1 to 65535), and a word
