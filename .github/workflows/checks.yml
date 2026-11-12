@@ -143,6 +143,12 @@ jobs:
           check /ask/ 200
           check /robots.txt 200
           check /sitemap.xml 200
+          check /llms.txt 200
+          check /llm.txt 200
+          if ! cmp -s <(curl -s http://localhost:8080/llm.txt) <(curl -s http://localhost:8080/llms.txt); then
+            echo "::error::/llm.txt must serve the same file as /llms.txt"
+            status=1
+          fi
           check /Antonio_Ventilii_CV.pdf 200
           check /no-such-page 404
 
