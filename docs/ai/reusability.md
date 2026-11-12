@@ -33,7 +33,7 @@ PR of its own; do not write a second one beside it.
 | `leaf.utils.ts` `leafLabel`                                                                  | Localised label of a leaf                                       |
 | `leaf.utils.ts` `leavesForCategory`                                                          | All leaves of a category id                                     |
 | `leaf.utils.ts` `categoryForLeafKind`                                                        | Category id of a leaf kind                                      |
-| `leaf.utils.ts` `searchLeaves`                                                               | Search box matches over experiences, projects, stack, education |
+| `leaf.utils.ts` `searchLeaves`                                                               | Search box matches over every map item, in English and Italian. |
 | `evidence.utils.ts` `evidenceLink`                                                           | Evidence id to `{ label, href }` deep link on the map           |
 | `relations.utils.ts` `relatedProjectsForStack`                                               | Projects using a technology                                     |
 | `relations.utils.ts` `relatedStackForProject`                                                | Technologies of a project                                       |
