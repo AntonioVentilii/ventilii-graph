@@ -54,8 +54,8 @@ PR, without the owner's explicit go-ahead. Merges are squash only.
   `eslint-disable` lines each carry a reason; a new one needs the same and the
   owner's agreement. The same holds for the quality gate's baselines
   (`BASELINE` in `eslint.config.js`, the `threshold` in `.jscpd.json`, and
-  `knip.json`, which ignores nothing today): lower them freely, never raise
-  them without the owner.
+  `knip.json`, which lists no unused pieces today): lower them freely, never
+  raise them without the owner.
 
 ## Meta-update map
 
