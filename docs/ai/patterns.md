@@ -10,7 +10,7 @@ already in the code, named so nobody copies them.
   `src/lib/services/portfolio.services.ts:12` is the whole portfolio, typed by
   `PortfolioData` (`src/lib/types/portfolio.types.ts:97`). Every renderer reads
   it: the panel, `StaticCv.svelte`, the search, and the AI through
-  `server/knowledge.ts:45`. Strings in it are built with `L.en(en, it, pt)`
+  `server/knowledge.ts:46`. Strings in it are built with `L.en(en, it, pt)`
   (`portfolio.services.ts:3`).
 - **`Localised` plus `pickLocale`.** Content strings are `Localised`
   (`portfolio.types.ts:6`, English required, others optional) and are read with
@@ -20,7 +20,7 @@ already in the code, named so nobody copies them.
   string is in `ASK_COPY` (`src/lib/utils/ask-copy.utils.ts:6`), `MAP_COPY`
   (`map-copy.utils.ts`) or `CV_COPY` (`cv-copy.utils.ts`), read through
   `askCopy`, `mapCopy` or `cvCopy` with `{ key, locale }` (`ask-copy.utils.ts:441`);
-  components alias it as `t` or `tr` (`src/lib/components/ai/DeckMode.svelte:24`).
+  components alias it as `t` or `tr` (`src/lib/components/ai/DeckMode.svelte:23`).
   A string two pages share goes next to its concept: the language menu's label
   is `LANGUAGE_LABEL` in `locale.utils.ts`, read by `LocaleSelect` itself. Labels for a content enum
   live next to their helper: `STATUS_LABELS` in `src/lib/utils/project.utils.ts:4`.
@@ -86,9 +86,9 @@ then its detail component.
   (`RefusedError`, `UncountedError`, `server/index.ts:176`) mapped to codes in
   `handleGenerate` (`server/index.ts:314`).
 - **Model output is never trusted.** Structured outputs fix the shape
-  (`SCHEMAS`, `server/modes.ts:199`); `cleanResult` (`server/modes.ts:391`)
+  (`SCHEMAS`, `server/modes.ts:200`); `cleanResult` (`server/modes.ts:392`)
   trims lengths, drops unknown evidence ids and inline ids; `leaksNotes`
-  (`server/modes.ts:324`) withholds an answer that repeats private notes.
+  (`server/modes.ts:325`) withholds an answer that repeats private notes.
   On the page, model text renders only through `RichText.svelte`, never
   `{@html}`.
 - **Configuration is read once, at the top of the module,** from env with a
