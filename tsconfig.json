@@ -2,7 +2,10 @@
 	"extends": "$app/tsconfig",
 	"compilerOptions": {
 		"sourceMap": true,
-		"strict": true
+		"strict": true,
+		// SvelteKit asks for $app/types once types is set; Node for the build
+		// scripts, Vitest globals for the src/lib specs.
+		"types": ["$app/types", "node", "vitest/globals"]
 	},
 	"include": ["src", "vite.config.ts"]
 }

@@ -33,7 +33,7 @@ PR of its own; do not write a second one beside it.
 | `leaf.utils.ts` `leafLabel`                                                                  | Localised label of a leaf                                       |
 | `leaf.utils.ts` `leavesForCategory`                                                          | All leaves of a category id                                     |
 | `leaf.utils.ts` `categoryForLeafKind`                                                        | Category id of a leaf kind                                      |
-| `leaf.utils.ts` `searchLeaves`                                                               | Search box matches over experiences, projects, stack, education |
+| `leaf.utils.ts` `searchLeaves`                                                               | Search box matches over every map item, in English and Italian. |
 | `evidence.utils.ts` `evidenceLink`                                                           | Evidence id to `{ label, href }` deep link on the map           |
 | `relations.utils.ts` `relatedProjectsForStack`                                               | Projects using a technology                                     |
 | `relations.utils.ts` `relatedStackForProject`                                                | Technologies of a project                                       |
@@ -49,6 +49,7 @@ PR of its own; do not write a second one beside it.
 | `seo.utils.ts` `PERSON_KNOWS_ABOUT`                                                          | JSON-LD `knowsAbout` topics                                     |
 | `seo.utils.ts` `OG_IMAGE*`                                                                   | Social banner URL, size and alt                                 |
 | `seo.utils.ts` `SITE_AUTHOR`, `SITE_AUTHOR_URL`, `SITE_PUBLISHED_TIME`, `SITE_MODIFIED_TIME` | Author and date metadata                                        |
+| `seo.utils.ts` `CV_ALTERNATES`                                                               | CV hreflang links, for the head and the sitemap                 |
 | `map-copy.utils.ts` `MAP_COPY`, `mapCopy`                                                    | Every map string in three locales, and its reader               |
 | `cv-copy.utils.ts` `CV_COPY`, `cvCopy`                                                       | Every CV page string in three locales, and its reader           |
 | `ask-copy.utils.ts` `ASK_COPY`, `askCopy`                                                    | Every `/ask` string in three locales, and its reader            |
