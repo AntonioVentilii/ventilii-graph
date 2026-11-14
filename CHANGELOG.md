@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.1](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.7.0...v1.7.1) (2026-11-14)
+
+
+### Build System
+
+* **deps:** bump nginx from `a3554c0` to `713fc2e` ([#117](https://github.com/AntonioVentilii/ventilii-graph/issues/117)) ([d0551ff](https://github.com/AntonioVentilii/ventilii-graph/commit/d0551ff7bb2c6171984c8d657c1699e2618af3ee))
+
 ## [1.7.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.6.5...v1.7.0) (2026-11-12)
 
 
