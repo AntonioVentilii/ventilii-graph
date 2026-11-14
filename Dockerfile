@@ -28,7 +28,7 @@ RUN npm run prepare && npm run build && npm run build:api
 # musl; Dependabot moves the two digests.
 FROM node:26-alpine@sha256:c6ad9e9c1d80f6eb607c26b4b0a132ff7a2344fad1c78ea3baa2a7d4c8de6d94 AS node
 
-FROM nginx:alpine@sha256:a3554c0d0b48177b1413c26e01f695334428020d9df01243fbae3e11cfd17417
+FROM nginx:alpine@sha256:713fc2ebfd92e8217db451477182ee91944b123d2b1ee9fd5a8c6e91ca6c3a11
 # The API is one esbuild bundle with its dependencies inlined, so the runtime
 # needs only a Node binary (plus the libraries it links: the C++ runtime and,
 # on x86_64, libatomic), not node_modules.
