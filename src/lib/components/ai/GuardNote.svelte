@@ -62,7 +62,7 @@
 		<a
 			class="text-link underline underline-offset-2 hover:text-link-hover"
 			href="#protection"
-			onclick={openRules}>{t('guardRulesLink')}</a
+			onclick={openRules}>{t('challengeCta')}</a
 		>
 	</p>
 
