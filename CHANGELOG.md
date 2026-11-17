@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.7.1...v1.8.0) (2026-11-17)
+
+
+### Features
+
+* **ask:** shorter protection copy and a challenge link in the header ([#120](https://github.com/AntonioVentilii/ventilii-graph/issues/120)) ([088d908](https://github.com/AntonioVentilii/ventilii-graph/commit/088d90812822255a8f58d82c2a1fe6a72046607b))
+
+
+### Miscellaneous Chores
+
+* update CV PDF ([#119](https://github.com/AntonioVentilii/ventilii-graph/issues/119)) ([73671f8](https://github.com/AntonioVentilii/ventilii-graph/commit/73671f8ad875c2b2ea8c170cfcb266d513ce27a5))
+
 ## [1.7.1](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.7.0...v1.7.1) (2026-11-14)
 
 
