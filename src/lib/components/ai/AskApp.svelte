@@ -26,6 +26,7 @@
 	// Unknown until the health check answers; the forms stay usable meanwhile
 	// and only lock once the API says it is down.
 	let online = $state<boolean | undefined>(undefined);
+	let protectionOpen = $state(false);
 
 	const t = (key: Parameters<typeof askCopy>[0]['key']) => askCopy({ key, locale });
 
@@ -100,6 +101,16 @@
 			<span>{t('map')}</span>
 		</a>
 		<div class="flex items-center gap-2">
+			<a
+				class="inline-flex h-9 w-9 items-center justify-center gap-2 rounded-full border border-accent/50 bg-accent-soft text-xs leading-none font-bold text-fg outline-hidden transition hover:border-accent focus-visible:ring-2 focus-visible:ring-accent sm:w-auto sm:px-3"
+				aria-label={t('challengeCta')}
+				href="#protection"
+				onclick={() => (protectionOpen = true)}
+				title={t('challengeCta')}
+			>
+				<ShieldCheck class="text-accent" aria-hidden="true" size={14} strokeWidth={2} />
+				<span class="hidden sm:inline">{t('challengeCta')}</span>
+			</a>
 			<ThemeToggle />
 			<LocaleSelect bind:locale />
 		</div>
@@ -173,10 +184,11 @@
 			</div>
 		</div>
 
-		<!-- Opened from the guard note's link, which targets #protection. -->
+		<!-- Opened from the header's and the guard note's links, which target #protection. -->
 		<details
 			id="protection"
 			class="group mt-12 scroll-mt-6 rounded-2xl border border-border bg-card p-4 text-sm text-fg-muted print:hidden"
+			bind:open={protectionOpen}
 		>
 			<summary
 				class="flex cursor-pointer list-none items-center gap-2 font-bold text-fg marker:hidden"

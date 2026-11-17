@@ -259,14 +259,14 @@ export const ASK_COPY = {
 		pt: 'Truques assim têm nome: prompt injection, dar novas ordens a uma IA pelo texto que ela lê. O Antonio previu isso: o modelo trata o que você escreve como material, fica no portfólio público e responde num formato fixo.'
 	},
 	guardChallenge: {
-		en: 'Fancy a challenge? If you get me to do something I shouldn’t, write to Antonio and tell him how. Whoever manages it goes into the hall of fame, and the coffee is on him.',
-		it: 'Ti va una sfida? Se riesci a farmi fare qualcosa che non dovrei, scrivi ad Antonio e raccontagli come. Chi ci riesce entra nell’hall of fame, e il caffè lo offre lui.',
-		pt: 'Topa um desafio? Se conseguir me fazer algo que eu não deveria, escreva para o Antonio e conte como. Quem conseguir entra no hall da fama, e o café é por conta dele.'
+		en: 'Think you can get past me?',
+		it: 'Pensi di riuscire a fregarmi?',
+		pt: 'Acha que consegue me passar a perna?'
 	},
-	guardRulesLink: {
-		en: 'Rules and hall of fame',
-		it: 'Regole e hall of fame',
-		pt: 'Regras e hall da fama'
+	challengeCta: {
+		en: 'Take the challenge',
+		it: 'Accetta la sfida',
+		pt: 'Aceite o desafio'
 	},
 	guardOneLeft: {
 		en: 'One more request like this and the chat closes for you until midnight UTC.',
@@ -290,28 +290,28 @@ export const ASK_COPY = {
 		pt: 'Como este chat é protegido'
 	},
 	protectionIntro: {
-		en: 'An AI on a public page can be used as a free model: someone asks it for book summaries, translations or code, and the site owner pays for every word. It is called denial of wallet. Here:',
-		it: 'Un’AI su una pagina pubblica può essere usata come modello gratis: qualcuno le chiede riassunti di libri, traduzioni o codice, e ogni parola la paga il proprietario del sito. Si chiama denial of wallet. Qui:',
-		pt: 'Uma IA numa página pública pode ser usada como modelo de graça: alguém pede resumos de livros, traduções ou código, e o dono do site paga cada palavra. Isso se chama denial of wallet. Aqui:'
+		en: 'A public AI can be used as a free model, with the site paying for every word: denial of wallet. Here:',
+		it: 'Un’AI pubblica può essere usata come modello gratis, con il sito che paga ogni parola: denial of wallet. Qui:',
+		pt: 'Uma IA pública pode ser usada como modelo de graça, com o site pagando cada palavra: denial of wallet. Aqui:'
 	},
 	challengeTitle: { en: 'The challenge', it: 'La sfida', pt: 'O desafio' },
 	challengeIntro: {
-		en: 'Find a way through and write to Antonio with what you typed and what came back. It counts if you get the chat to:',
-		it: 'Trova un varco e scrivi ad Antonio cosa hai digitato e cosa ti è tornato. Vale se riesci a far sì che la chat:',
-		pt: 'Encontre uma brecha e escreva para o Antonio com o que você digitou e o que voltou. Vale se você conseguir que o chat:'
+		en: 'It counts if the chat:',
+		it: 'Vale se la chat:',
+		pt: 'Vale se o chat:'
 	},
 	challengeRules: {
-		en: 'Only through the chat on this page, a few tries at a time: the limits are part of the game. No load tests and no attacks on the server or the hosting.',
-		it: 'Solo dalla chat di questa pagina, pochi tentativi alla volta: i limiti fanno parte del gioco. Niente test di carico né attacchi al server o all’hosting.',
-		pt: 'Só pelo chat desta página, poucas tentativas por vez: os limites fazem parte do jogo. Nada de testes de carga nem ataques ao servidor ou à hospedagem.'
+		en: 'Only through this chat: no load tests, no attacks on the server.',
+		it: 'Solo da questa chat: niente test di carico né attacchi al server.',
+		pt: 'Só por este chat: nada de testes de carga nem ataques ao servidor.'
 	},
-	challengeReport: { en: 'Write to', it: 'Scrivi a', pt: 'Escreva para' },
+	challengeReport: {
+		en: 'There’s a coffee in it. Send what you typed and what came back to',
+		it: 'In palio c’è un caffè. Manda cosa hai scritto e cosa ti è tornato ad',
+		pt: 'Vale um café. Mande o que você digitou e o que voltou para'
+	},
 	hallOfFameTitle: { en: 'Hall of fame', it: 'Hall of fame', pt: 'Hall da fama' },
-	hallOfFameEmpty: {
-		en: 'Nobody yet. The first name here gets a coffee on Antonio.',
-		it: 'Ancora nessuno. Il primo nome qui si prende un caffè offerto da Antonio.',
-		pt: 'Ninguém ainda. O primeiro nome aqui ganha um café por conta do Antonio.'
-	},
+	hallOfFameEmpty: { en: 'Nobody yet.', it: 'Ancora nessuno.', pt: 'Ninguém ainda.' },
 	contact: {
 		en: 'Prefer the human version?',
 		it: 'Preferisci la versione umana?',
@@ -322,42 +322,42 @@ export const ASK_COPY = {
 
 export const PROTECTION_POINTS: Copy[] = [
 	{
-		en: 'A daily spending cap, measured on what each answer really costs: whatever happens, the bill cannot go past it.',
-		it: 'Un tetto di spesa giornaliero, misurato su quanto costa davvero ogni risposta: qualunque cosa succeda, il conto non lo supera.',
-		pt: 'Um teto de gasto diário, medido pelo custo real de cada resposta: aconteça o que acontecer, a conta não passa dele.'
+		en: 'A daily spending cap the bill can’t pass.',
+		it: 'Un tetto di spesa giornaliero che il conto non può superare.',
+		pt: 'Um teto de gasto diário que a conta não pode passar.'
 	},
 	{
-		en: 'Limits per visitor, and two off-topic or rule-bending requests close the chat for that visitor until midnight UTC.',
-		it: 'Limiti per visitatore, e due richieste fuori tema o che provano ad aggirare le regole chiudono la chat per quel visitatore fino a mezzanotte UTC.',
-		pt: 'Limites por visitante, e dois pedidos fora do tema ou que tentam burlar as regras fecham o chat para esse visitante até a meia-noite UTC.'
+		en: 'Limits per visitor; two off-topic or rule-bending requests close the chat until midnight UTC.',
+		it: 'Limiti per visitatore; due richieste fuori tema o che aggirano le regole chiudono la chat fino a mezzanotte UTC.',
+		pt: 'Limites por visitante; dois pedidos fora do tema ou que burlam as regras fecham o chat até a meia-noite UTC.'
 	},
 	{
-		en: 'Answers come in a fixed format with a length cap: there is no room for a novel.',
-		it: 'Le risposte hanno un formato fisso e una lunghezza massima: non c’è spazio per un romanzo.',
-		pt: 'As respostas têm formato fixo e tamanho máximo: não cabe um romance.'
+		en: 'Short answers in a fixed format.',
+		it: 'Risposte brevi in un formato fisso.',
+		pt: 'Respostas curtas num formato fixo.'
 	},
 	{
-		en: 'The model reads what you write as material, not as orders, and keeps to the public portfolio.',
-		it: 'Il modello legge ciò che scrivi come materiale, non come ordini, e resta sul portfolio pubblico.',
-		pt: 'O modelo lê o que você escreve como material, não como ordens, e fica no portfólio público.'
+		en: 'What you write is read as material, not orders.',
+		it: 'Ciò che scrivi è letto come materiale, non come ordini.',
+		pt: 'O que você escreve é lido como material, não como ordens.'
 	}
 ];
 
 export const CHALLENGE_GOALS: Copy[] = [
 	{
-		en: 'do work that has nothing to do with Antonio (a translation, code, a summary)',
-		it: 'faccia un lavoro che non c’entra con Antonio (una traduzione, del codice, un riassunto)',
-		pt: 'faça um trabalho que não tem nada a ver com o Antonio (uma tradução, código, um resumo)'
+		en: 'does work unrelated to Antonio',
+		it: 'fa un lavoro che non c’entra con Antonio',
+		pt: 'faz um trabalho que não tem a ver com o Antonio'
 	},
 	{
-		en: 'state something false about his work',
-		it: 'affermi qualcosa di falso sul suo lavoro',
-		pt: 'afirme algo falso sobre o trabalho dele'
+		en: 'says something false about him',
+		it: 'dice qualcosa di falso su di lui',
+		pt: 'diz algo falso sobre ele'
 	},
 	{
-		en: 'spend past the limits above',
-		it: 'spenda oltre i limiti qui sopra',
-		pt: 'gaste além dos limites acima'
+		en: 'spends past the cap',
+		it: 'spende oltre il tetto',
+		pt: 'gasta além do teto'
 	}
 ];
 
