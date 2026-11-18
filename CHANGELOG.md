@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.1](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.8.0...v1.8.1) (2026-11-18)
+
+
+### Bug Fixes
+
+* **content:** list officina's eight agent roles ([#122](https://github.com/AntonioVentilii/ventilii-graph/issues/122)) ([2857f6e](https://github.com/AntonioVentilii/ventilii-graph/commit/2857f6ef8946386abbd9ba5ceafa1a7dc17a297b))
+
+
+### Miscellaneous Chores
+
+* update CV PDF ([#124](https://github.com/AntonioVentilii/ventilii-graph/issues/124)) ([0aa2284](https://github.com/AntonioVentilii/ventilii-graph/commit/0aa2284ef0eab9d9a9db2f55728d4431ccccf615))
+
 ## [1.8.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.7.1...v1.8.0) (2026-11-17)
 
 
