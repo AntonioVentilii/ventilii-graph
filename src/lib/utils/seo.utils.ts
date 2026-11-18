@@ -66,7 +66,7 @@ export const SITE_AUTHOR_URL = absoluteUrl(cvPath('en'));
 export const SITE_PUBLISHED_TIME = '2026-03-27T00:00:00+00:00';
 
 /** Last content update (ISO 8601), also the sitemap's lastmod. */
-export const SITE_MODIFIED_TIME = '2026-09-28T00:00:00+00:00';
+export const SITE_MODIFIED_TIME = '2026-11-18T00:00:00+00:00';
 
 /** The CV page in every locale, and the English one as x-default: its hreflang links and the sitemap's. */
 export const CV_ALTERNATES: { hreflang: string; href: string }[] = [

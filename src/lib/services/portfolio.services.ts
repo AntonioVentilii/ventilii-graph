@@ -305,9 +305,9 @@ export const portfolioData: PortfolioData = {
 			status: 'in-use',
 			highlights: [
 				L.en(
-					'Bun + Elysia API, SvelteKit board (Svelte 5), Postgres with an append-only audit log and pg_notify feeding realtime updates over SSE. Seven agent roles (interviewer, spec, builder, two reviewers, chooser, learner) run on Anthropic Managed Agents; each returns a typed result that code validates, with retries.',
-					'API Bun + Elysia, board SvelteKit (Svelte 5), Postgres con audit log append-only e pg_notify per gli aggiornamenti realtime via SSE. Sette ruoli agente (interviewer, spec, builder, due reviewer, chooser, learner) girano su Anthropic Managed Agents; ognuno restituisce un risultato tipizzato che il codice valida, con retry.',
-					'API Bun + Elysia, board SvelteKit (Svelte 5), Postgres com audit log append-only e pg_notify alimentando atualizações em tempo real via SSE. Sete papéis de agente (interviewer, spec, builder, dois reviewers, chooser, learner) rodam no Anthropic Managed Agents; cada um devolve um resultado tipado que o código valida, com retries.'
+					'Bun + Elysia API, SvelteKit board (Svelte 5), Postgres with an append-only audit log and pg_notify feeding realtime updates over SSE. Eight agent roles (interviewer, spec, builder, two reviewers, chooser, learner, onboarder) run on Anthropic Managed Agents; each returns a typed result that code validates, with retries.',
+					'API Bun + Elysia, board SvelteKit (Svelte 5), Postgres con audit log append-only e pg_notify per gli aggiornamenti realtime via SSE. Otto ruoli agente (interviewer, spec, builder, due reviewer, chooser, learner, onboarder) girano su Anthropic Managed Agents; ognuno restituisce un risultato tipizzato che il codice valida, con retry.',
+					'API Bun + Elysia, board SvelteKit (Svelte 5), Postgres com audit log append-only e pg_notify alimentando atualizações em tempo real via SSE. Oito papéis de agente (interviewer, spec, builder, dois reviewers, chooser, learner, onboarder) rodam no Anthropic Managed Agents; cada um devolve um resultado tipado que o código valida, com retries.'
 				),
 				L.en(
 					'Deterministic engine: one tested state machine decides every transition. Risk lanes are recomputed from the real diff (the stricter lane wins) instead of trusting the model; GitHub App tokens are least-privilege, and the builder may only push its own task branch.',
