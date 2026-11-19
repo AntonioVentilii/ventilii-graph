@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.9.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.8.1...v1.9.0) (2026-11-19)
+
+
+### Features
+
+* **ask:** call the header button "Break my AI!" ([#125](https://github.com/AntonioVentilii/ventilii-graph/issues/125)) ([03b52b3](https://github.com/AntonioVentilii/ventilii-graph/commit/03b52b39e532b9a09ac395a447bf61b98c0b3357))
+* **ask:** label the header button "Ask/Break my AI!" ([#127](https://github.com/AntonioVentilii/ventilii-graph/issues/127)) ([3a70c0a](https://github.com/AntonioVentilii/ventilii-graph/commit/3a70c0a0fcc5f18d3173fcb8e9245940f66b0a6b))
+
 ## [1.8.1](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.8.0...v1.8.1) (2026-11-18)
 
 
