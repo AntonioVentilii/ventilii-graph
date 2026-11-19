@@ -316,8 +316,7 @@ export const ASK_COPY = {
 		en: 'Prefer the human version?',
 		it: 'Preferisci la versione umana?',
 		pt: 'Prefere a versão humana?'
-	},
-	askCta: { en: 'Break my AI!', it: 'Rompi la mia AI!', pt: 'Quebre minha IA!' }
+	}
 } as const;
 
 export const PROTECTION_POINTS: Copy[] = [

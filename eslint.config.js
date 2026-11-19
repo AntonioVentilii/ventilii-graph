@@ -39,7 +39,7 @@ const BASELINE = [
 	},
 	{
 		files: ['src/lib/utils/ask-copy.utils.ts'],
-		rules: { 'max-lines': ['error', { max: 425, skipBlankLines: true, skipComments: true }] }
+		rules: { 'max-lines': ['error', { max: 424, skipBlankLines: true, skipComments: true }] }
 	}
 ];
 

@@ -10,7 +10,7 @@
 		skipLabel: string;
 		cvFallbackLabel: string;
 		flatten: { href: string; label: string; title: string; onFlatten: () => void };
-		ask: { href: string; label: string };
+		ask: { href: string; label: string; title: string };
 		onSelectLeaf: (leaf: Leaf) => void;
 		labels: {
 			placeholder: string;

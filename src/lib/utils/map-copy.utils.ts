@@ -36,6 +36,13 @@ export const MAP_COPY = {
 		en: 'Flatten the graph into a plain CV page',
 		it: 'Appiattisci la mappa in una pagina CV testuale',
 		pt: 'Achatar o mapa em uma página de CV em texto'
+	},
+	ask: { en: 'Ask/Break my AI!', it: 'Chiedi/Rompi la mia AI!', pt: 'Pergunte/Quebre minha IA!' },
+	// What a screen reader and the tooltip say for `ask`: the slash reads badly aloud.
+	askTitle: {
+		en: 'Ask the AI version, or try to break it',
+		it: 'Chiedi alla versione AI, o prova a romperla',
+		pt: 'Pergunte à versão IA, ou tente quebrá-la'
 	}
 } as const satisfies Record<string, Record<Locale, string>>;
 
