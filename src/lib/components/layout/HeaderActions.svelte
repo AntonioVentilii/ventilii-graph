@@ -10,7 +10,7 @@
 		locale: Locale;
 		cvFallbackLabel: string;
 		flatten: { href: string; label: string; title: string; onFlatten: () => void };
-		ask: { href: string; label: string };
+		ask: { href: string; label: string; title: string };
 	}
 
 	let { locale = $bindable(), cvFallbackLabel, flatten, ask }: Props = $props();
@@ -19,9 +19,9 @@
 <div class="flex flex-wrap items-center gap-2">
 	<a
 		class="inline-flex h-9 w-9 items-center justify-center gap-2 rounded-full border border-accent/50 bg-accent-soft text-xs leading-none font-bold text-fg outline-hidden transition hover:border-accent focus-visible:ring-2 focus-visible:ring-accent sm:w-auto sm:px-3"
-		aria-label={ask.label}
+		aria-label={ask.title}
 		href={ask.href}
-		title={ask.label}
+		title={ask.title}
 	>
 		<Sparkles class="text-accent" aria-hidden="true" size={14} strokeWidth={2} />
 		<span class="hidden sm:inline">{ask.label}</span>
