@@ -6,7 +6,7 @@
 #
 # No build ARGs: the site is prerendered HTML, and the API reads its
 # credentials (workload identity ids, or a key) from Fly secrets at runtime.
-FROM node:26-slim@sha256:36793bcbb160a6a16cede1e62b93f84e26b78a972a8a4c0b879c1c12f22761ec AS build
+FROM node:26-slim@sha256:e6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc AS build
 WORKDIR /app
 
 # Manifests first, so the dependency layer is cached across content-only edits.
@@ -26,7 +26,7 @@ RUN npm run prepare && npm run build && npm run build:api
 # behind (24 on Alpine 3.24), while the site builds and the API runs on 26. Both
 # images are on the same Alpine release, so the binary links against the same
 # musl; Dependabot moves the two digests.
-FROM node:26-alpine@sha256:c6ad9e9c1d80f6eb607c26b4b0a132ff7a2344fad1c78ea3baa2a7d4c8de6d94 AS node
+FROM node:26-alpine@sha256:6bd9ab43c0ec0190ca7b2d193906cb8b7edf6e7f4afa43ddeccd6452710bffb5 AS node
 
 FROM nginx:alpine@sha256:713fc2ebfd92e8217db451477182ee91944b123d2b1ee9fd5a8c6e91ca6c3a11
 # The API is one esbuild bundle with its dependencies inlined, so the runtime
