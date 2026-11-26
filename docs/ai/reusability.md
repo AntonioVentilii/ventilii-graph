@@ -56,6 +56,11 @@ PR of its own; do not write a second one beside it.
 | `ask-copy.utils.ts` `askPath`                                                                | `/ask/` URL for a locale                                        |
 | `ask-copy.utils.ts` `PROTECTION_POINTS`, `CHALLENGE_GOALS`, `HALL_OF_FAME`                   | The challenge rules and hall of fame                            |
 | `ask-copy.utils.ts` `ASK_SUGGESTIONS`, `DECK_PRESETS`, `FIT_SAMPLES`                         | Starter prompts per mode                                        |
+| `visit.utils.ts` `VISIT_QUESTIONS`, `VisitQuestionId`                                        | Visit page questions; each answer names portfolio items         |
+| `visit.utils.ts` `visitEvidence`                                                             | An item or limit reference to its own text and map link         |
+| `visit.utils.ts` `visitMatches`, `toggleAnswer`                                              | Answers to the matching work; one press on an answer            |
+| `visit-recipients.utils.ts` `VISIT_RECIPIENTS`, `findRecipient`                              | Who has a visit page: slug, reader, role, questions             |
+| `visit-copy.utils.ts` `VISIT_COPY`                                                           | Every visit page string, English only                           |
 
 ## Services and stores
 
@@ -124,6 +129,8 @@ PR of its own; do not write a second one beside it.
 | `ai/GuardNote.svelte`                                                         | The off-topic or manipulation note with strikes left  |
 | `ai/FieldCounter.svelte`                                                      | Characters left in a field                            |
 | `ai/ThinkingIndicator.svelte`                                                 | Rotating "thinking" status                            |
+| `visit/VisitApp.svelte`                                                       | `/for/<slug>/` shell: step index, progress, arrows    |
+| `visit/Visit{Cover,Role,QuestionStep,Result,Next}.svelte`                     | One component per kind of visit step                  |
 | `icons/GithubIcon.svelte`, `icons/LinkedinIcon.svelte`                        | Brand marks Lucide does not ship                      |
 
 ## Styles
