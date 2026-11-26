@@ -4,6 +4,7 @@
 	import AskMode from '#lib/components/ai/AskMode.svelte';
 	import DeckMode from '#lib/components/ai/DeckMode.svelte';
 	import FitMode from '#lib/components/ai/FitMode.svelte';
+	import AccentPillLink from '#lib/components/layout/AccentPillLink.svelte';
 	import Footer from '#lib/components/layout/Footer.svelte';
 	import LocaleSelect from '#lib/components/layout/LocaleSelect.svelte';
 	import ThemeToggle from '#lib/components/layout/ThemeToggle.svelte';
@@ -101,16 +102,13 @@
 			<span>{t('map')}</span>
 		</a>
 		<div class="flex items-center gap-2">
-			<a
-				class="inline-flex h-9 w-9 items-center justify-center gap-2 rounded-full border border-accent/50 bg-accent-soft text-xs leading-none font-bold text-fg outline-hidden transition hover:border-accent focus-visible:ring-2 focus-visible:ring-accent sm:w-auto sm:px-3"
-				aria-label={t('challengeCta')}
+			<AccentPillLink
 				href="#protection"
+				icon={ShieldCheck}
+				label={t('challengeCta')}
 				onclick={() => (protectionOpen = true)}
 				title={t('challengeCta')}
-			>
-				<ShieldCheck class="text-accent" aria-hidden="true" size={14} strokeWidth={2} />
-				<span class="hidden sm:inline">{t('challengeCta')}</span>
-			</a>
+			/>
 			<ThemeToggle />
 			<LocaleSelect bind:locale />
 		</div>

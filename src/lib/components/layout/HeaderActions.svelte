@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Sparkles } from '@lucide/svelte';
 	import Github from '#lib/components/icons/GithubIcon.svelte';
+	import AccentPillLink from '#lib/components/layout/AccentPillLink.svelte';
 	import FlattenToggle from '#lib/components/layout/FlattenToggle.svelte';
 	import LocaleSelect from '#lib/components/layout/LocaleSelect.svelte';
 	import ThemeToggle from '#lib/components/layout/ThemeToggle.svelte';
@@ -17,15 +18,7 @@
 </script>
 
 <div class="flex flex-wrap items-center gap-2">
-	<a
-		class="inline-flex h-9 w-9 items-center justify-center gap-2 rounded-full border border-accent/50 bg-accent-soft text-xs leading-none font-bold text-fg outline-hidden transition hover:border-accent focus-visible:ring-2 focus-visible:ring-accent sm:w-auto sm:px-3"
-		aria-label={ask.title}
-		href={ask.href}
-		title={ask.title}
-	>
-		<Sparkles class="text-accent" aria-hidden="true" size={14} strokeWidth={2} />
-		<span class="hidden sm:inline">{ask.label}</span>
-	</a>
+	<AccentPillLink href={ask.href} icon={Sparkles} label={ask.label} title={ask.title} />
 	<FlattenToggle
 		href={flatten.href}
 		label={flatten.label}
