@@ -140,7 +140,7 @@ jobs:
           status=0
 
           # Every prerendered route must be a real 200, and an unknown path must
-          # be a real 404 — not the home page with a 200, which is what a
+          # be a real 404, not the home page with a 200, which is what a
           # mistakenly SPA-style fallback would produce.
           check() {
             got="$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8080$1")"
