@@ -5,8 +5,9 @@ Vitest (`npm test`, the `test` job in CI) unit-tests plain TypeScript:
 Node with `describe`, `it`, `expect` and `vi` as globals, as the shared lint
 config asks. Today that is the API's money code, `server/cost-guard.spec.ts`
 (worst-case reservation, spend, limits, strikes, the day rolling over at
-midnight UTC) and `server/limit-key.spec.ts` (the per-IP key), the settings
-check, `server/env.spec.ts`, and the map's search,
+midnight UTC) and `server/limit-key.spec.ts` (the per-IP key), the HTTP API
+end to end, `server/index.spec.ts`, the settings check, `server/env.spec.ts`,
+and the map's search,
 `src/lib/utils/leaf.utils.spec.ts`. Svelte components have no unit tests: they
 are proved by the type checkers, the build and the image probes. Another test
 runner (Playwright, a browser environment) is a new dependency: ask first.
@@ -14,7 +15,11 @@ runner (Playwright, a browser environment) is a new dependency: ask first.
 A change to the cost guards, to `limitKey` or to what the map's search finds
 comes with the test that shows it. A cost-guard test builds its own guard with
 `createCostGuard` and small limits, and moves the clock with
-`vi.useFakeTimers` and `vi.setSystemTime`.
+`vi.useFakeTimers` and `vi.setSystemTime`. A change to how `server/index.ts`
+validates a request or maps an outcome to a status comes with its case in
+`server/index.spec.ts`: it mocks `./claude.ts`, starts the real server on a
+random port, and gives each test its own address and wording, because the
+limits and the answer cache are shared by the whole file.
 
 ## What proves a change
 
