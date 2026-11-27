@@ -24,6 +24,13 @@ already in the code, named so nobody copies them.
   A string two pages share goes next to its concept: the language menu's label
   is `LANGUAGE_LABEL` in `locale.utils.ts`, read by `LocaleSelect` itself. Labels for a content enum
   live next to their helper: `STATUS_LABELS` in `src/lib/utils/project.utils.ts:4`.
+  The visit pages are the one English-only table, `VISIT_COPY`
+  (`src/lib/utils/visit-copy.utils.ts`): each page is written for one reader.
+- **A page quotes the portfolio, it does not restate it.** Each answer on a
+  visit page names an item of `portfolioData` (a project, an experience, a
+  technology, one of their highlights by how it starts, or a limit) in
+  `VISIT_QUESTIONS`, and `visitEvidence` shows that item's own text; a spec
+  checks every reference resolves (`src/lib/utils/visit.utils.spec.ts`).
 - **One locale list.** `LOCALES` (`src/lib/types/portfolio.types.ts`) is the
   list the `Locale` type, the menus, the hreflang links and the API read; every
   per-locale mapping (`HTML_LANG`, `OG_LOCALE`) is a `Record<Locale, string>` in

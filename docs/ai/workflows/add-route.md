@@ -22,6 +22,27 @@ Models: `af0bb1d` (the `/cv/` pages), `f074e86`'s `/ask` route.
 6. If nginx needs a rule for it (headers, caching), that is `nginx.conf`: ask
    first.
 
+## A page for one reader
+
+`/for/<slug>/` (`src/routes/for/[slug]/`) is a visit page written for one
+reader, in the shape of the Sfrido prospect pages: a few questions, then the
+work that matches the answers. Model: the first entry in `VISIT_RECIPIENTS`.
+
+1. Add an entry to `VISIT_RECIPIENTS` in `src/lib/utils/visit-recipients.utils.ts`:
+   a random slug (`openssl rand -hex 4`), the role (reuse an existing
+   `VisitRole` when the post is the same) and which `VISIT_QUESTIONS` to ask. `entries` in `+page.ts` prerenders it; any other
+   slug is a 404.
+2. A new question or answer goes in `VISIT_QUESTIONS` (`visit.utils.ts`) and
+   points at portfolio items, never at text of its own; a fact missing from
+   the portfolio goes into `portfolio.services.ts` first
+   ([update-content.md](./update-content.md)).
+3. The page is `noindex`, not in the sitemap, not in `static/llms.txt`, and
+   not linked from the map. Do not add it to any of them.
+4. The repository is public: an entry never names the reader, their company
+   or the company hiring, in the code, the tests, the CI probe, the commit or
+   the PR. The slug says nothing about them and the role stays general. Ask
+   the owner before adding one.
+
 ## A new locale
 
 Ask the owner before starting. The list is `LOCALES` and `Localised` in

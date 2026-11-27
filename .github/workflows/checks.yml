@@ -157,6 +157,9 @@ jobs:
           check /cv/it/ 200
           check /cv/pt/ 200
           check /ask/ 200
+          # A visit page exists only for a reader listed in visit-recipients.utils.ts.
+          check /for/b62986ac/ 200
+          check /for/not-a-reader/ 404
           check /robots.txt 200
           check /sitemap.xml 200
           check /llms.txt 200
