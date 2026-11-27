@@ -13,7 +13,11 @@ import type {
 */
 
 /** The verdicts in the order the tally reads them. */
-export const VISIT_VERDICTS = ['direct', 'adjacent', 'missing'] as const satisfies VisitVerdict[];
+export const VISIT_VERDICTS = [
+	'direct',
+	'adjacent',
+	'missing'
+] as const satisfies readonly VisitVerdict[];
 
 export interface VisitLink {
 	label: string;
