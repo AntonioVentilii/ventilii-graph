@@ -392,8 +392,9 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 	}
 };
 
+// Exported so the end-to-end spec can close it when it is done.
 // eslint-disable-next-line local-rules/prefer-object-params -- node:http's handler signature
-const server = createServer((req, res) => {
+export const server = createServer((req, res) => {
 	const [path] = (req.url ?? '/').split('?');
 
 	if (req.method === 'GET' && path === '/api/ai/health') {

@@ -1,4 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
+import type { Server } from 'node:http';
 import type { AiResponse } from '../src/lib/types/ai.types.ts';
 
 /**
@@ -83,10 +84,12 @@ const lastTurn = (): string => {
 };
 
 describe('the API server', () => {
+	let server: Server | undefined;
+
 	beforeAll(async () => {
 		vi.spyOn(console, 'log').mockImplementation(() => undefined);
 		vi.spyOn(console, 'error').mockImplementation(() => undefined);
-		await import('./index.ts');
+		({ server } = await import('./index.ts'));
 		// listen() is asynchronous: wait until the port answers.
 		for (let i = 0; i < 50; i++) {
 			try {
@@ -101,6 +104,16 @@ describe('the API server', () => {
 
 	beforeEach(() => {
 		create.mockReset();
+	});
+
+	afterAll(async () => {
+		const open = server;
+		if (open === undefined) {
+			return;
+		}
+		// Drop fetch's kept-alive sockets, or close() waits for them to time out.
+		open.closeAllConnections();
+		await new Promise<void>((resolve) => open.close(() => resolve()));
 	});
 
 	describe('routes', () => {
