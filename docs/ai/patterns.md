@@ -26,11 +26,12 @@ already in the code, named so nobody copies them.
   live next to their helper: `STATUS_LABELS` in `src/lib/utils/project.utils.ts:4`.
   The visit pages are the one English-only table, `VISIT_COPY`
   (`src/lib/utils/visit-copy.utils.ts`): each page is written for one reader.
-- **A page quotes the portfolio, it does not restate it.** Each answer on a
-  visit page names an item of `portfolioData` (a project, an experience, a
-  technology, one of their highlights by how it starts, or a limit) in
-  `VISIT_QUESTIONS`, and `visitEvidence` shows that item's own text; a spec
-  checks every reference resolves (`src/lib/utils/visit.utils.spec.ts`).
+- **A visit page points at the portfolio, it does not restate it.** Each
+  requirement of a visit page's posting (`VISIT_RECIPIENTS`) carries a verdict
+  (direct, adjacent, missing), at most one short clause, and evidence as map
+  ids (`project:oisy`); `visitRows` resolves them to links, and a spec checks
+  every id resolves (`src/lib/utils/visit.utils.spec.ts`). A fact the portfolio
+  already holds is read from `portfolioData`, as the location is.
 - **One locale list.** `LOCALES` (`src/lib/types/portfolio.types.ts`) is the
   list the `Locale` type, the menus, the hreflang links and the API read; every
   per-locale mapping (`HTML_LANG`, `OG_LOCALE`) is a `Record<Locale, string>` in
@@ -114,7 +115,11 @@ then its detail component.
   ...), dispatched by `LeafDetailCard.svelte`. A new leaf kind gets its own.
 - **Tailwind classes with theme tokens** (`bg-card`, `border-border`,
   `text-accent`) from `src/app.css` and `src/lib/styles/theme-variables.css`;
-  no raw colours in components.
+  no raw colours in components. The diff colours (`text-diff-add`,
+  `bg-diff-del-bg`, `text-diff-mid`) are tokens too, used by the visit pages.
+- **One typeface, one exception.** The site is set in JetBrains Mono
+  (`--font-display`). The visit pages set the system sans (`font-sans`) on
+  their root and keep the mono only inside the diff block (`VisitDiff.svelte`).
 - **Icons** from `@lucide/svelte`; the two brand marks it lacks are in
   `components/icons/`.
 - **SEO head per route**, built from the constants in `src/lib/utils/seo.utils.ts`,

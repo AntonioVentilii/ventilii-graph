@@ -1,34 +1,79 @@
-import { VISIT_RECIPIENTS, findRecipient } from '#lib/utils/visit-recipients.utils.ts';
 import {
-	VISIT_QUESTIONS,
-	type VisitEvidenceRef,
-	type VisitQuestion,
-	type VisitQuestionId,
-	toggleAnswer,
-	visitEvidence,
-	visitMatches
-} from '#lib/utils/visit.utils.ts';
+	VISIT_RECIPIENTS,
+	type VisitPosting,
+	findRecipient
+} from '#lib/utils/visit-recipients.utils.ts';
+import { visitLink, visitRows, visitTally } from '#lib/utils/visit.utils.ts';
 
-const QUESTION_IDS: string[] = Object.keys(VISIT_QUESTIONS);
+const postings: VisitPosting[] = VISIT_RECIPIENTS.map((r) => r.posting);
 
-describe('visit questions', () => {
-	it('point every answer at an item or limit that exists in the portfolio', () => {
-		const questions: VisitQuestion[] = Object.values(VISIT_QUESTIONS);
-		const refs: VisitEvidenceRef[] = questions.flatMap((q) => q.options.flatMap((o) => o.evidence));
-		const missing = refs.filter((ref) => visitEvidence(ref) === undefined);
+describe('visit postings', () => {
+	it('point every piece of evidence at an item that exists on the map', () => {
+		const refs = postings.flatMap((p) => p.requirements.flatMap((r) => r.evidence));
+		const missing = refs.filter((ref) => visitLink(ref) === undefined);
 
 		expect(missing).toEqual([]);
 	});
 
-	it('show the highlight a reference names, not the summary', () => {
-		const text = visitEvidence({ experience: 'dfinity', highlight: 'Solana' })?.text;
+	it('back every direct requirement with evidence or a note', () => {
+		const bare = postings
+			.flatMap((p) => p.requirements)
+			.filter((r) => r.verdict === 'direct' && r.evidence.length === 0 && !r.note);
 
-		expect(text?.startsWith('Solana')).toBeTruthy();
+		expect(bare).toEqual([]);
 	});
 
-	it('link portfolio items to the map and leave limits unlinked', () => {
-		expect(visitEvidence({ project: 'oisy' })?.href).toBe('/?item=project%3Aoisy');
-		expect(visitEvidence({ limit: 'Management:' })?.href).toBeUndefined();
+	it('say how for every requirement that is not direct', () => {
+		const silent = postings
+			.flatMap((p) => p.requirements)
+			.filter((r) => r.verdict !== 'direct' && !r.note);
+
+		expect(silent).toEqual([]);
+	});
+});
+
+describe('visitLink', () => {
+	it('links an item to the map with its own name', () => {
+		expect(visitLink({ id: 'project:icdc-core' })).toEqual({
+			label: 'icdc-core',
+			href: '/?item=project%3Aicdc-core'
+		});
+	});
+
+	it('keeps a shorter label when the reference gives one', () => {
+		expect(visitLink({ id: 'project:oisy', label: 'OISY' })?.label).toBe('OISY');
+	});
+
+	it('finds nothing for an id the portfolio does not have', () => {
+		expect(visitLink({ id: 'project:no-such-project' })).toBeUndefined();
+	});
+});
+
+describe('visitRows and visitTally', () => {
+	const posting: VisitPosting = {
+		from: 'A',
+		to: 'B',
+		line: '',
+		requirements: [
+			{ text: 'one', verdict: 'direct', evidence: [{ id: 'project:oisy' }, { id: 'project:x' }] },
+			{ text: 'two', verdict: 'direct', evidence: [] },
+			{ text: 'three', verdict: 'missing', note: 'not there', evidence: [] }
+		]
+	};
+
+	it('drop a reference that names nothing and keep the rest in order', () => {
+		const rows = visitRows(posting);
+
+		expect(rows.map((r) => r.text)).toEqual(['one', 'two', 'three']);
+		expect(rows[0].evidence.map((e) => e.href)).toEqual(['/?item=project%3Aoisy']);
+	});
+
+	it('count each verdict, zero included', () => {
+		expect(visitTally(posting)).toEqual([
+			{ verdict: 'direct', count: 2 },
+			{ verdict: 'adjacent', count: 0 },
+			{ verdict: 'missing', count: 1 }
+		]);
 	});
 });
 
@@ -43,59 +88,7 @@ describe('visit recipients', () => {
 		}
 	});
 
-	it('ask only questions that exist', () => {
-		for (const r of VISIT_RECIPIENTS) {
-			expect(r.questions.every((id) => QUESTION_IDS.includes(id))).toBeTruthy();
-		}
-	});
-
 	it('find no page for an unknown slug', () => {
 		expect(findRecipient('not-a-reader')).toBeUndefined();
-	});
-});
-
-describe('toggleAnswer', () => {
-	it('adds and removes answers when several are allowed', () => {
-		expect(toggleAnswer({ multi: true, chosen: ['a'], option: 'b' })).toEqual(['a', 'b']);
-		expect(toggleAnswer({ multi: true, chosen: ['a', 'b'], option: 'a' })).toEqual(['b']);
-	});
-
-	it('keeps one answer when only one is allowed', () => {
-		expect(toggleAnswer({ multi: false, chosen: ['a'], option: 'b' })).toEqual(['b']);
-		expect(toggleAnswer({ multi: false, chosen: ['b'], option: 'b' })).toEqual([]);
-	});
-});
-
-describe('visitMatches', () => {
-	const questions: VisitQuestionId[] = ['chains', 'hours'];
-
-	it('matches nothing before any answer', () => {
-		const { matches, items } = visitMatches({ questions, answers: {} });
-
-		expect(items).toBe(0);
-		expect(matches.map((m) => m.picks.length)).toEqual([0, 0]);
-	});
-
-	it('counts an item once even when two answers point at it', () => {
-		const { items } = visitMatches({
-			questions,
-			answers: { chains: ['evm', 'solana'] }
-		});
-
-		// Both answers cite the DFINITY experience; EVM also cites the escrow project.
-		expect(items).toBe(2);
-	});
-
-	it('ignores an answer id the question does not have', () => {
-		const { matches } = visitMatches({ questions, answers: { hours: ['mars'] } });
-
-		expect(matches[1].picks).toEqual([]);
-	});
-
-	it('keeps the note of an answer that no item proves', () => {
-		const { matches, items } = visitMatches({ questions, answers: { hours: ['eu'] } });
-
-		expect(matches[1].picks[0].option.note).toBeTruthy();
-		expect(items).toBe(0);
 	});
 });

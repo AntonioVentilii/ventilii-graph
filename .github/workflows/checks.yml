@@ -160,6 +160,11 @@ jobs:
           # A visit page exists only for a reader listed in visit-recipients.utils.ts.
           check /for/b62986ac/ 200
           check /for/not-a-reader/ 404
+          # It is the posting as a diff, prerendered: the rows are in the HTML.
+          if ! curl -s http://localhost:8080/for/b62986ac/ | grep -q 'Suggested change'; then
+            echo "::error::/for/b62986ac/ does not carry the prerendered diff"
+            status=1
+          fi
           check /robots.txt 200
           check /sitemap.xml 200
           check /llms.txt 200
