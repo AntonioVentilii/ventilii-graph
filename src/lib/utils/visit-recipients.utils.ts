@@ -32,7 +32,7 @@ const DIRECTOR_OF_ENGINEERING: VisitRole = {
 	facts: ['Remote, in the EU or the US', 'Hands-on, not only management'],
 	gap: 'This is a Director role that asks for years of people management. I do not have them, so I am not your candidate for the Director seat itself.',
 	pitch:
-		'I am a candidate for the hands-on work just under it: a staff, principal or lead engineer in crypto infrastructure, on-chain finance or agentic finance, at this company or at another one you work with.'
+		'I am a candidate for the hands-on work just under it: a staff, principal or lead engineer in crypto infrastructure, on-chain finance or agentic finance, on this team or one like it.'
 };
 
 export const VISIT_RECIPIENTS: readonly VisitRecipient[] = [
