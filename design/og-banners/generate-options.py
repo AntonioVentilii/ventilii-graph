@@ -50,7 +50,7 @@ def text_stack(d, tx, name_y, fg=FG, acc=ACCENT, sub=SUBTLE, faint=FAINT, rule=F
     d.text((tx, y+147), 'TypeScript · Rust · AI Agents · Web3', font=F(34), fill=sub)
     d.text((tx, y+197), 'ventilii.dev', font=F(34), fill=faint)
 
-# 1 — minimal + glow + rule
+# 1: minimal + glow + rule
 img, d = base()
 glow = Image.new('L', (W, H), 0); gd = ImageDraw.Draw(glow)
 for r in range(520, 0, -4):
@@ -61,13 +61,13 @@ put_avatar(img, d, 150, 219, 400)
 text_stack(d, 660, 280, rule=True)
 img.save(f'{OUT}/og-opt-01.jpg', quality=90)
 
-# 2 — flat minimal, nothing but type + avatar
+# 2: flat minimal, nothing but type + avatar
 img, d = base()
 put_avatar(img, d, 150, 219, 400)
 text_stack(d, 660, 280)
 img.save(f'{OUT}/og-opt-02.jpg', quality=90)
 
-# 3 — terminal session
+# 3: terminal session
 img, d = base()
 d.rounded_rectangle([90, 100, W-90, H-100], radius=24, fill=CARD+(255,), outline=(63,63,70,255), width=2)
 for i, c in enumerate([(255,95,87),(254,188,46),(40,200,64)]):
@@ -87,7 +87,7 @@ d.rectangle([x+mono.getlength('~ ❯ open https://ventilii.dev ')+2, y+315, x+mo
 put_avatar(img, d, W-330, 520, 170, ring_w=3, pad=6)
 img.save(f'{OUT}/og-opt-03.jpg', quality=90)
 
-# 4 — TS object literal
+# 4: TS object literal
 img, d = base()
 mono = F(40); y = 200; x = 130
 def cline(parts, yy):
@@ -104,27 +104,27 @@ cline([('};', SUBTLE)], y+340)
 put_avatar(img, d, 1290, 140, 230, ring_w=4)
 img.save(f'{OUT}/og-opt-04.jpg', quality=90)
 
-# 5 — light theme
+# 5: light theme
 img, d = base(L_BG)
 put_avatar(img, d, 150, 219, 400, ring=ACCENT_D)
 text_stack(d, 660, 280, fg=L_FG, acc=ACCENT_D, sub=L_SUB, faint=(113,113,122), rule=True)
 img.save(f'{OUT}/og-opt-05.jpg', quality=90)
 
-# 6 — accent split panel
+# 6: accent split panel
 img, d = base()
 d.rectangle([0, 0, 500, H], fill=ACCENT_D+(255,))
 put_avatar(img, d, 300, 219, 400, ring=(255,255,255), ring_w=5)
 text_stack(d, 810, 280)
 img.save(f'{OUT}/og-opt-06.jpg', quality=90)
 
-# 7 — giant monogram
+# 7: giant monogram
 img, d = base()
 d.text((900, 40), 'AV', font=F(760, True), fill=(30, 30, 36))
 put_avatar(img, d, 150, 219, 400)
 text_stack(d, 660, 280, rule=True)
 img.save(f'{OUT}/og-opt-07.jpg', quality=90)
 
-# 8 — blueprint grid
+# 8: blueprint grid
 img, d = base()
 for gx in range(0, W, 64):
     d.line([(gx, 0), (gx, H)], fill=ACCENT+(14,), width=1)
@@ -134,7 +134,7 @@ put_avatar(img, d, 150, 219, 400)
 text_stack(d, 660, 280, rule=True)
 img.save(f'{OUT}/og-opt-08.jpg', quality=90)
 
-# 9 — duotone photo full-height right
+# 9: duotone photo full-height right
 img, d = base()
 av = Image.open('static/images/antonio-ventilii.jpg')
 s = min(av.size)
@@ -149,7 +149,7 @@ d = ImageDraw.Draw(img, 'RGBA')
 text_stack(d, 130, 280, rule=True)
 img.save(f'{OUT}/og-opt-09.jpg', quality=90)
 
-# 10 — curly braces, centered
+# 10: curly braces, centered
 img, d = base()
 d.text((110, 120), '{', font=F(560), fill=ACCENT+(90,))
 d.text((W-330, 120), '}', font=F(560), fill=ACCENT+(90,))

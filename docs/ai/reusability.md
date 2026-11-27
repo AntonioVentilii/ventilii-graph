@@ -56,6 +56,10 @@ PR of its own; do not write a second one beside it.
 | `ask-copy.utils.ts` `askPath`                                                                | `/ask/` URL for a locale                                        |
 | `ask-copy.utils.ts` `PROTECTION_POINTS`, `CHALLENGE_GOALS`, `HALL_OF_FAME`                   | The challenge rules and hall of fame                            |
 | `ask-copy.utils.ts` `ASK_SUGGESTIONS`, `DECK_PRESETS`, `FIT_SAMPLES`                         | Starter prompts per mode                                        |
+| `visit.utils.ts` `visitRows`, `visitLink`                                                    | A posting's rows with their evidence resolved to map links      |
+| `visit.utils.ts` `visitTally`, `VISIT_VERDICTS`                                              | How many requirements got each verdict, in the tally's order    |
+| `visit-recipients.utils.ts` `VISIT_RECIPIENTS`, `findRecipient`                              | Who has a visit page: slug, posting, requirements, verdicts     |
+| `visit-copy.utils.ts` `VISIT_COPY`, `VISIT_VERDICT_COPY`                                     | Every fixed visit page string, verdict marks, English only      |
 
 ## Services and stores
 
@@ -124,6 +128,8 @@ PR of its own; do not write a second one beside it.
 | `ai/GuardNote.svelte`                                                         | The off-topic or manipulation note with strikes left  |
 | `ai/FieldCounter.svelte`                                                      | Characters left in a field                            |
 | `ai/ThinkingIndicator.svelte`                                                 | Rotating "thinking" status                            |
+| `visit/VisitApp.svelte`                                                       | `/for/<slug>/` page: title, diff, one line, links     |
+| `visit/VisitDiff.svelte`                                                      | The posting as a code-review diff, rows loading in    |
 | `icons/GithubIcon.svelte`, `icons/LinkedinIcon.svelte`                        | Brand marks Lucide does not ship                      |
 
 ## Styles

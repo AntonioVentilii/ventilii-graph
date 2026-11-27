@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.10.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.9.0...v1.10.0) (2026-11-27)
+
+
+### Features
+
+* **visit:** add per-reader visit pages at /for/&lt;slug&gt;/ ([#132](https://github.com/AntonioVentilii/ventilii-graph/issues/132)) ([7cfbd65](https://github.com/AntonioVentilii/ventilii-graph/commit/7cfbd65d073cca77399a1727d689eed8ce52b17f))
+* **visit:** show the posting as a review diff on one screen ([#137](https://github.com/AntonioVentilii/ventilii-graph/issues/137)) ([dbffa74](https://github.com/AntonioVentilii/ventilii-graph/commit/dbffa74ce546e4adf31cc5f222b5ed770f3ae7e8))
+
 ## [1.9.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.8.1...v1.9.0) (2026-11-19)
 
 
