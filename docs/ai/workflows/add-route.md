@@ -25,17 +25,22 @@ Models: `af0bb1d` (the `/cv/` pages), `f074e86`'s `/ask` route.
 ## A page for one reader
 
 `/for/<slug>/` (`src/routes/for/[slug]/`) is a visit page written for one
-reader, in the shape of the Sfrido prospect pages: a few questions, then the
-work that matches the answers. Model: the first entry in `VISIT_RECIPIENTS`.
+reader: one screen, a job posting read as a code review. The diff swaps the
+seat asked for (`from`) for the seat offered (`to`), then one row per
+requirement marked direct, adjacent or missing, then one line of plain text
+and the links (Fit check, Break my AI, CV, email). Model: the first entry in
+`VISIT_RECIPIENTS`.
 
 1. Add an entry to `VISIT_RECIPIENTS` in `src/lib/utils/visit-recipients.utils.ts`:
-   a random slug (`openssl rand -hex 4`), the role (reuse an existing
-   `VisitRole` when the post is the same) and which `VISIT_QUESTIONS` to ask. `entries` in `+page.ts` prerenders it; any other
-   slug is a 404.
-2. A new question or answer goes in `VISIT_QUESTIONS` (`visit.utils.ts`) and
-   points at portfolio items, never at text of its own; a fact missing from
-   the portfolio goes into `portfolio.services.ts` first
-   ([update-content.md](./update-content.md)).
+   a random slug (`openssl rand -hex 4`) and its posting (reuse an existing
+   `VisitPosting` when the post is the same). `entries` in `+page.ts`
+   prerenders it; any other slug is a 404.
+2. Each requirement points at map ids (`project:...`, `experience:...`) as its
+   evidence, with at most one short clause; an adjacent or missing one always
+   says how. Every claim must already be in the portfolio: a fact missing from
+   it goes into `portfolio.services.ts` first
+   ([update-content.md](./update-content.md)). Run the site's own Fit check on
+   the posting and keep the rows in line with it.
 3. The page is `noindex`, not in the sitemap, not in `static/llms.txt`, and
    not linked from the map. Do not add it to any of them.
 4. The repository is public: an entry never names the reader, their company

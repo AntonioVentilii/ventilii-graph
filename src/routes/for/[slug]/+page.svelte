@@ -13,7 +13,7 @@
 
 <!-- A page for one reader: kept out of search engines and the sitemap. -->
 <svelte:head>
-	<title>{VISIT_COPY.coverTitle} · {SITE_AUTHOR}</title>
+	<title>{VISIT_COPY.title} · {SITE_AUTHOR}</title>
 	<meta name="description" content={VISIT_COPY.metaDescription} />
 	<meta name="robots" content="noindex, nofollow" />
 	<meta name="author" content={SITE_AUTHOR} />
