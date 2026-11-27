@@ -104,7 +104,13 @@ const normalise = ({ value, max }: { value: unknown; max: number }): string | un
 	if (typeof value !== 'string') {
 		return undefined;
 	}
-	const trimmed = value.replace(/\s+\n/g, '\n').trim();
+	// Line by line: trailing spaces go and blank lines collapse into one break.
+	const trimmed = value
+		.split('\n')
+		.map((line) => line.trimEnd())
+		.filter((line) => line.length > 0)
+		.join('\n')
+		.trim();
 	return trimmed.length > 0 && trimmed.length <= max ? trimmed : undefined;
 };
 
