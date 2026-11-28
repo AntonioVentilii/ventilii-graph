@@ -43,8 +43,8 @@ src/lib/types/                           portfolio and /ask contract types
 src/lib/utils/                           pure helpers, copy tables, SEO constants
 src/lib/services/                        content, graph layout, the /ask client
 src/lib/stores/                          theme store, per-mode AI request state
-src/lib/components/{graph,panel,layout,ui,icons,cv,ai}/
-src/routes/                              /, /cv/, /cv/it/, /cv/pt/, /ask/, /sitemap.xml
+src/lib/components/{graph,panel,layout,ui,icons,cv,ai,visit}/
+src/routes/                              /, /cv/, /cv/it/, /cv/pt/, /ask/, /for/<slug>/, /sitemap.xml
 server/                                  the /ask API (index, env, claude, cost-guard, limit-key, cache, modes, knowledge, OIDC)
 static/                                  shipped as is (llms.txt, robots.txt, CV PDF)
 ```
@@ -64,7 +64,8 @@ It is not copied here. This repository adds only:
 2. **Three locales, always.** `LOCALES` is `['en', 'it', 'pt']`
    (`src/lib/types/portfolio.types.ts`) and `Locale` derives from it. Content is `Localised` and read with
    `pickLocale`; UI copy is a `Record<Locale, string>` table. A new string ships
-   in all three languages in the same PR.
+   in all three languages in the same PR. The one exception is the visit pages
+   (`/for/<slug>/`): each is written for one reader, in English.
 3. **Imports in `src/` use `#lib/...`**, never `../`; ESLint enforces it.
    `server/` imports `../src/lib/...` with the `.ts` extension, because Node runs
    it from source.

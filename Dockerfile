@@ -18,7 +18,7 @@ RUN npm ci --no-audit --no-fund --ignore-scripts
 COPY . .
 
 # `npm run build` is `tsc --noEmit && vite build`, and tsconfig.json extends
-# ./.svelte-kit/tsconfig.json — so the sync has to happen before the build,
+# ./.svelte-kit/tsconfig.json, so the sync has to happen before the build,
 # not as a side effect of it.
 RUN npm run prepare && npm run build && npm run build:api
 

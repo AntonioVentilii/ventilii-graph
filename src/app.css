@@ -64,6 +64,26 @@
 	--color-graph: var(--graph);
 	--color-graph-strong: var(--graph-strong);
 	--color-selection: var(--selection);
+	--color-diff-add: var(--diff-add);
+	--color-diff-add-bg: var(--diff-add-bg);
+	--color-diff-del: var(--diff-del);
+	--color-diff-del-bg: var(--diff-del-bg);
+	--color-diff-mid: var(--diff-mid);
+
+	/* A row arriving, as in a review that loads (the visit pages' diff) */
+	--animate-row-in: row-in 0.36s ease-out both;
+
+	@keyframes row-in {
+		from {
+			opacity: 0;
+			transform: translateY(4px);
+			background-color: var(--accent-soft);
+		}
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
 }
 
 html {
