@@ -56,6 +56,10 @@ PR of its own; do not write a second one beside it.
 | `ask-copy.utils.ts` `askPath`                                                                | `/ask/` URL for a locale                                        |
 | `ask-copy.utils.ts` `PROTECTION_POINTS`, `CHALLENGE_GOALS`, `HALL_OF_FAME`                   | The challenge rules and hall of fame                            |
 | `ask-copy.utils.ts` `ASK_SUGGESTIONS`, `DECK_PRESETS`, `FIT_SAMPLES`                         | Starter prompts per mode                                        |
+| `visit.utils.ts` `visitRows`, `visitLink`                                                    | A posting's rows with their evidence resolved to map links      |
+| `visit.utils.ts` `visitTally`, `VISIT_VERDICTS`                                              | How many requirements got each verdict, in the tally's order    |
+| `visit-recipients.utils.ts` `VISIT_RECIPIENTS`, `findRecipient`                              | Who has a visit page: slug, posting, requirements, verdicts     |
+| `visit-copy.utils.ts` `VISIT_COPY`, `VISIT_VERDICT_COPY`                                     | Every fixed visit page string, verdict marks, English only      |
 
 ## Services and stores
 
@@ -84,18 +88,19 @@ PR of its own; do not write a second one beside it.
 
 ## Components: `layout/`
 
-| Component              | What                                                    |
-| ---------------------- | ------------------------------------------------------- |
-| `Header.svelte`        | Skip link, search and `HeaderActions`                   |
-| `HeaderActions.svelte` | `/ask` link, flatten, theme, GitHub link, locale select |
-| `Footer.svelte`        | Copyright with `__BUILD_YEAR__`                         |
-| `FlattenToggle.svelte` | Map to CV toggle (the CV page has the scatter one)      |
-| `LocaleSelect.svelte`  | Locale `<select>` bound to the page locale              |
-| `ThemeToggle.svelte`   | Light and dark switch                                   |
-| `OgImageMeta.svelte`   | `og:image` and its size, for any page's head            |
-| `TwitterMeta.svelte`   | The Twitter card with the banner, for any head          |
-| `ProfileMeta.svelte`   | Banner, author, dates, card and JSON-LD of map and CV   |
-| `SkipToContent.svelte` | Skip link, visible on focus                             |
+| Component               | What                                                           |
+| ----------------------- | -------------------------------------------------------------- |
+| `Header.svelte`         | Skip link, search and `HeaderActions`                          |
+| `HeaderActions.svelte`  | `/ask` link, flatten, theme, GitHub link, locale select        |
+| `AccentPillLink.svelte` | Accent pill link with an icon, as `/ask`'s and the challenge's |
+| `Footer.svelte`         | Copyright with `__BUILD_YEAR__`                                |
+| `FlattenToggle.svelte`  | Map to CV toggle (the CV page has the scatter one)             |
+| `LocaleSelect.svelte`   | Locale `<select>` bound to the page locale                     |
+| `ThemeToggle.svelte`    | Light and dark switch                                          |
+| `OgImageMeta.svelte`    | `og:image` and its size, for any page's head                   |
+| `TwitterMeta.svelte`    | The Twitter card with the banner, for any head                 |
+| `ProfileMeta.svelte`    | Banner, author, dates, card and JSON-LD of map and CV          |
+| `SkipToContent.svelte`  | Skip link, visible on focus                                    |
 
 ## Components: features
 
@@ -124,6 +129,8 @@ PR of its own; do not write a second one beside it.
 | `ai/GuardNote.svelte`                                                         | The off-topic or manipulation note with strikes left  |
 | `ai/FieldCounter.svelte`                                                      | Characters left in a field                            |
 | `ai/ThinkingIndicator.svelte`                                                 | Rotating "thinking" status                            |
+| `visit/VisitApp.svelte`                                                       | `/for/<slug>/` page: title, diff, one line, links     |
+| `visit/VisitDiff.svelte`                                                      | The posting as a code-review diff, rows loading in    |
 | `icons/GithubIcon.svelte`, `icons/LinkedinIcon.svelte`                        | Brand marks Lucide does not ship                      |
 
 ## Styles

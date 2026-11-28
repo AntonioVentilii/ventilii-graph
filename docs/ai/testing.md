@@ -6,8 +6,10 @@ Node with `describe`, `it`, `expect` and `vi` as globals, as the shared lint
 config asks. Today that is the API's money code, `server/cost-guard.spec.ts`
 (worst-case reservation, spend, limits, strikes, the day rolling over at
 midnight UTC) and `server/limit-key.spec.ts` (the per-IP key), the settings
-check, `server/env.spec.ts`, and the map's search,
-`src/lib/utils/leaf.utils.spec.ts`. Svelte components have no unit tests: they
+check, `server/env.spec.ts`, the map's search,
+`src/lib/utils/leaf.utils.spec.ts`, and the visit pages' postings and
+recipients, `src/lib/utils/visit.utils.spec.ts` (every evidence id resolves to
+a map item, every verdict that is not direct says how). Svelte components have no unit tests: they
 are proved by the type checkers, the build and the image probes. Another test
 runner (Playwright, a browser environment) is a new dependency: ask first.
 
