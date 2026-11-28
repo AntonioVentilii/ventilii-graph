@@ -1,7 +1,7 @@
 # OG banner archive
 
 Design options for the social-share banner (`static/images/og-banner.jpg`), kept for
-future reuse. Nothing in this folder is deployed — only `static/` ships to the site.
+future reuse. Nothing in this folder is deployed: only `static/` ships to the site.
 
 | File            | Design                                        |
 | --------------- | --------------------------------------------- |

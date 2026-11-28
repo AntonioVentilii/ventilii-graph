@@ -6,7 +6,7 @@ name: Deploy
 # REQUIRES one repo secret, `FLY_API_TOKEN`, scoped to this app alone:
 #   fly tokens create deploy
 # The site is fully prerendered and has no runtime configuration, so CI only
-# builds and ships the image — there are no secrets to inject at run time.
+# builds and ships the image: there are no secrets to inject at run time.
 
 on:
   push:
