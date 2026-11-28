@@ -36,9 +36,11 @@ const DAILY_LIMIT = positiveNumberEnv({ name: 'AI_DAILY_LIMIT', fallback: 300 })
 const DAILY_BUDGET_USD = positiveNumberEnv({ name: 'AI_DAILY_BUDGET_USD', fallback: 5 });
 const MAX_IN_FLIGHT = 4;
 // Off-topic or manipulative requests (see Guard) count as strikes against the
-// visitor's address. At this many in a day the address gets no more
-// generations until midnight UTC, so whoever keeps trying to use the chat as
-// a free model stops spending the budget real visitors need.
+// visitor's address, and so do refused and truncated generations: they are
+// billed like any other but leave nothing to cache or show. At this many in a
+// day the address gets no more generations until midnight UTC, so whoever
+// keeps trying to use the chat as a free model stops spending the budget real
+// visitors need.
 const STRIKES_PER_DAY = positiveNumberEnv({ name: 'AI_GUARD_STRIKES_PER_DAY', fallback: 2 });
 
 // Output ceiling per mode, thinking included. The JSON each mode asks for fits
@@ -189,7 +191,7 @@ class UncountedError extends Error {
 	}
 }
 
-const generate = async (request: AiRequest): Promise<Outcome> => {
+const generate = async ({ request, ip }: { request: AiRequest; ip: string }): Promise<Outcome> => {
 	if (!client) {
 		throw new Error('unconfigured');
 	}
@@ -215,13 +217,15 @@ const generate = async (request: AiRequest): Promise<Outcome> => {
 	}
 
 	// Count the spend before anything can throw: truncated or refused
-	// responses are billed too.
+	// responses are billed too, and are a strike against the address.
 	const usd = costGuard.recordSpend(response);
 
 	if (response.stop_reason === 'refusal') {
+		costGuard.recordStrike(ip);
 		throw new RefusedError(response.stop_details?.category ?? 'refusal');
 	}
 	if (response.stop_reason === 'max_tokens') {
+		costGuard.recordStrike(ip);
 		throw new Error('output truncated');
 	}
 
@@ -360,7 +364,7 @@ const handleGenerate = async ({ req, res }: { req: IncomingMessage; res: ServerR
 	// reservation happen as one step.
 	costGuard.admit({ ip, reserve });
 	try {
-		const outcome = await generate(request);
+		const outcome = await generate({ request, ip });
 		cachePut({ key, value: outcome });
 		sendOutcome({ res, ip, outcome, fresh: true });
 	} catch (err: unknown) {

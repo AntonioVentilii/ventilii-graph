@@ -90,7 +90,8 @@ localized note that quotes the paraphrase, names the attack and links the
 challenge rules and hall of fame at `/ask/#protection` (entries live in
 `HALL_OF_FAME`, `src/lib/utils/ask-copy.utils.ts`). Each freshly generated
 verdict is a strike against the visitor's address (cached ones are free and
-not counted); at `AI_GUARD_STRIKES_PER_DAY` (2) the address gets no more
+not counted), and so is a refused or truncated generation, which is billed
+like any other; at `AI_GUARD_STRIKES_PER_DAY` (2) the address gets no more
 generations until midnight UTC, and an address runs one generation at a time
 so parallel requests cannot outrun the count. As a second line for
 `AI_PRIVATE_NOTES`, an answer that repeats eight consecutive words of a note
