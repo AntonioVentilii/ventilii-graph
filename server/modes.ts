@@ -205,10 +205,11 @@ export const SCHEMAS = { ask: ASK_SCHEMA, fit: FIT_SCHEMA, deck: DECK_SCHEMA } a
 // Ids belong in the evidence fields, which the page turns into links. In the
 // text they would show as raw "[education:polimi]", so any ids the model
 // writes there anyway (one or several, comma-separated) are cut with their
-// spacing.
+// spacing. A match starts where its spacing starts, so a run of spaces is
+// scanned once.
 const ID_TYPES = LEAF_KINDS.join('|');
 const INLINE_IDS = new RegExp(
-	`(?:\\s*,?\\s*\\[(?:(?:${ID_TYPES}):[a-z0-9_-]+(?:\\s*,\\s*)?)+\\])+`,
+	`(?<!\\s)(?:\\s*(?:,\\s*)?\\[(?:(?:${ID_TYPES}):[a-z0-9_-]+(?:\\s*,\\s*)?)+\\])+`,
 	'g'
 );
 
