@@ -19,7 +19,7 @@ already in the code, named so nobody copies them.
 - **UI copy as `Record<Locale, string>` tables, one module per page.** Every
   string is in `ASK_COPY` (`src/lib/utils/ask-copy.utils.ts:6`), `MAP_COPY`
   (`map-copy.utils.ts`) or `CV_COPY` (`cv-copy.utils.ts`), read through
-  `askCopy`, `mapCopy` or `cvCopy` with `{ key, locale }` (`ask-copy.utils.ts:441`);
+  `askCopy`, `mapCopy` or `cvCopy` with `{ key, locale }` (`ask-copy.utils.ts:440`);
   components alias it as `t` or `tr` (`src/lib/components/ai/DeckMode.svelte:23`).
   A string two pages share goes next to its concept: the language menu's label
   is `LANGUAGE_LABEL` in `locale.utils.ts`, read by `LocaleSelect` itself. Labels for a content enum
@@ -40,7 +40,7 @@ already in the code, named so nobody copies them.
   are prerendered per locale); `?lang=` is read in `onMount` with `parseLocale`
   (`src/lib/components/PortfolioApp.svelte:21`). Links carry it with
   `mapPath`, `cvPath`, `askPath` and `evidenceLink` (`locale.utils.ts`,
-  `ask-copy.utils.ts:450`, `src/lib/utils/evidence.utils.ts:11`).
+  `ask-copy.utils.ts:449`, `src/lib/utils/evidence.utils.ts:11`).
 
 ## Leaf ids
 
