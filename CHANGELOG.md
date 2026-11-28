@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.10.1](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.10.0...v1.10.1) (2026-11-28)
+
+
+### Miscellaneous Chores
+
+* drop the em dashes left in comments ([#139](https://github.com/AntonioVentilii/ventilii-graph/issues/139)) ([d33f376](https://github.com/AntonioVentilii/ventilii-graph/commit/d33f376200a735e159e214a991af3fe7ac01c5ec))
+
+
+### Code Refactoring
+
+* **ask:** one AccentPillLink for the header's /ask and challenge links ([#130](https://github.com/AntonioVentilii/ventilii-graph/issues/130)) ([7f295bc](https://github.com/AntonioVentilii/ventilii-graph/commit/7f295bc9c02688337d86a0463b60a1040a2ef71e))
+
+
+### Build System
+
+* **deps:** move the lint tooling to minimatch 11 ([#129](https://github.com/AntonioVentilii/ventilii-graph/issues/129)) ([a50d371](https://github.com/AntonioVentilii/ventilii-graph/commit/a50d3710112dc8f74f32958b77b8e9e538658efc))
+
 ## [1.10.0](https://github.com/AntonioVentilii/ventilii-graph/compare/v1.9.0...v1.10.0) (2026-11-27)
 
 
